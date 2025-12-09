@@ -1,0 +1,48 @@
+{
+  "feedback": {
+    "error": {
+      "padding": {
+        "$value": "{space.md}",
+        "$type": "dimension",
+        "$description": "Error message padding"
+      },
+      "radius": {
+        "$value": "{radius.md}",
+        "$type": "dimension",
+        "$description": "Error message border radius"
+      },
+      "gap": {
+        "$value": "{space.sm}",
+        "$type": "dimension",
+        "$description": "Gap between error icon and text"
+      },
+      "icon-size": {
+        "$value": "1rem",
+        "$type": "dimension",
+        "$description": "Error icon size"
+      }
+    },
+    "notice": {
+      "padding": {
+        "$value": "{space.md}",
+        "$type": "dimension",
+        "$description": "Notice box padding"
+      },
+      "radius": {
+        "$value": "{radius.md}",
+        "$type": "dimension",
+        "$description": "Notice box border radius"
+      },
+      "gap": {
+        "$value": "{space.sm}",
+        "$type": "dimension",
+        "$description": "Gap between notice icon and text"
+      },
+      "icon-size": {
+        "$value": "1.25rem",
+        "$type": "dimension",
+        "$description": "Notice icon size"
+      }
+    }
+  }
+}

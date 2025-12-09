@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+storybook-static/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime
+*.local
+
+# Editor - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Editor - Neovim
+.nvim/
+*.swp
+*.swo
+*~
+
+# OS - macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# OS - Linux
+.Trash-*
+
+# Bun
+bun.lockb.old
+
+# TypeScript
+*.tsbuildinfo

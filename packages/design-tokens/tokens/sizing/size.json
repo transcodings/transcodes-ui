@@ -1,0 +1,92 @@
+{
+  "size": {
+    "icon": {
+      "sm": {
+        "$value": "1rem",
+        "$type": "dimension",
+        "$description": "Small icon size (16px)"
+      },
+      "md": {
+        "$value": "1.5rem",
+        "$type": "dimension",
+        "$description": "Medium icon size (24px)"
+      },
+      "lg": {
+        "$value": "2rem",
+        "$type": "dimension",
+        "$description": "Large icon size (32px)"
+      },
+      "xl": {
+        "$value": "2.5rem",
+        "$type": "dimension",
+        "$description": "Extra large icon size (40px)"
+      }
+    },
+    "spinner": {
+      "sm": {
+        "$value": "1rem",
+        "$type": "dimension",
+        "$description": "Small spinner (16px)"
+      },
+      "md": {
+        "$value": "2rem",
+        "$type": "dimension",
+        "$description": "Medium spinner (32px)"
+      },
+      "lg": {
+        "$value": "4rem",
+        "$type": "dimension",
+        "$description": "Large spinner (64px)"
+      },
+      "button": {
+        "$value": "1.125rem",
+        "$type": "dimension",
+        "$description": "Spinner size inside buttons (18px)"
+      }
+    },
+    "border-width": {
+      "thin": {
+        "$value": "0.0625rem",
+        "$type": "dimension",
+        "$description": "Thin border (1px)"
+      },
+      "base": {
+        "$value": "0.09375rem",
+        "$type": "dimension",
+        "$description": "Base border (1.5px)"
+      },
+      "thick": {
+        "$value": "0.125rem",
+        "$type": "dimension",
+        "$description": "Thick border (2px)"
+      },
+      "heavy": {
+        "$value": "0.1875rem",
+        "$type": "dimension",
+        "$description": "Heavy border (3px)"
+      },
+      "bold": {
+        "$value": "0.25rem",
+        "$type": "dimension",
+        "$description": "Bold border (4px)"
+      }
+    },
+    "chip": {
+      "padding-sm": {
+        "$value": "0.125rem 0.5rem",
+        "$type": "dimension",
+        "$description": "Small chip padding"
+      },
+      "padding-md": {
+        "$value": "0.25rem 0.75rem",
+        "$type": "dimension",
+        "$description": "Medium chip padding"
+      }
+    },
+    "close-button": {
+      "$value": "2rem",
+      "$type": "dimension",
+      "$description": "Close button size (32px)"
+    }
+  }
+}

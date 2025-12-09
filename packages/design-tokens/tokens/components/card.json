@@ -1,0 +1,6 @@
+{
+  "card": {
+    "padding": { "$value": "{space.lg}", "$type": "dimension" },
+    "radius": { "$value": "{radius.card}", "$type": "dimension" }
+  }
+}

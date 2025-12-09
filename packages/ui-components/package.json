@@ -1,0 +1,36 @@
+{
+  "name": "@transcodes/ui-components",
+  "version": "0.1.0",
+  "description": "Lit 3.x component library with Reactive Controllers",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./primitives": "./src/primitives/index.ts",
+    "./screens": "./src/screens/index.ts",
+    "./widgets": "./src/widgets/index.ts",
+    "./controllers": "./src/controllers/index.ts",
+    "./styles/*": "./src/styles/*"
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "build-storybook": "storybook build",
+    "dev": "storybook dev -p 6006",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@transcodes/design-tokens": "workspace:*",
+    "lit": "^3.3.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.1.5",
+    "@storybook/addon-docs": "^10.1.5",
+    "@storybook/addon-links": "^10.1.5",
+    "@storybook/web-components": "^10.1.5",
+    "@storybook/web-components-vite": "^10.1.5",
+    "storybook": "^10.1.5",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7"
+  }
+}

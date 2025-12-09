@@ -1,0 +1,33 @@
+{
+  "page": {
+    "container": {
+      "max-width": {
+        "$value": "25rem",
+        "$type": "dimension",
+        "$description": "Default page container max width (400px)"
+      },
+      "max-width-wide": {
+        "$value": "26.25rem",
+        "$type": "dimension",
+        "$description": "Wide page container max width (420px)"
+      },
+      "padding": {
+        "$value": "{space.lg}",
+        "$type": "dimension",
+        "$description": "Page container horizontal padding"
+      }
+    },
+    "card": {
+      "padding": {
+        "$value": "{space.xl}",
+        "$type": "dimension",
+        "$description": "Page card internal padding"
+      },
+      "radius": {
+        "$value": "{radius.lg}",
+        "$type": "dimension",
+        "$description": "Page card border radius"
+      }
+    }
+  }
+}

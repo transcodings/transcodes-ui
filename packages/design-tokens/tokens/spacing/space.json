@@ -1,0 +1,28 @@
+{
+  "space": {
+    "xs": {
+      "$value": "clamp(0.25rem, 0.23rem + 0.11vw, 0.3125rem)",
+      "$type": "dimension"
+    },
+    "sm": {
+      "$value": "clamp(0.5rem, 0.46rem + 0.22vw, 0.625rem)",
+      "$type": "dimension"
+    },
+    "md": {
+      "$value": "clamp(0.875rem, 0.77rem + 0.54vw, 1.25rem)",
+      "$type": "dimension"
+    },
+    "lg": {
+      "$value": "clamp(1.25rem, 1.03rem + 1.09vw, 2rem)",
+      "$type": "dimension"
+    },
+    "xl": {
+      "$value": "clamp(1.5rem, 1.15rem + 1.74vw, 2.75rem)",
+      "$type": "dimension"
+    },
+    "2xl": {
+      "$value": "clamp(2rem, 1.35rem + 3.26vw, 4.5rem)",
+      "$type": "dimension"
+    }
+  }
+}

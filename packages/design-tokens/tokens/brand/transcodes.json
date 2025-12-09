@@ -1,0 +1,11 @@
+{
+  "brand": {
+    "primary": {
+      "$value": "#7c5cff",
+      "$type": "color",
+      "$description": "Transcodes primary brand color"
+    },
+    "primary-hover": { "$value": "#6a4ae8", "$type": "color" },
+    "logo-text": { "$value": "#1a1a1a", "$type": "color" }
+  }
+}

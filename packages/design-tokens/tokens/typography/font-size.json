@@ -1,0 +1,24 @@
+{
+  "font-size": {
+    "sm": {
+      "$value": "clamp(0.8125rem, 0.78rem + 0.16vw, 0.9375rem)",
+      "$type": "dimension"
+    },
+    "base": {
+      "$value": "clamp(0.875rem, 0.83rem + 0.22vw, 1rem)",
+      "$type": "dimension"
+    },
+    "lg": {
+      "$value": "clamp(1rem, 0.93rem + 0.33vw, 1.25rem)",
+      "$type": "dimension"
+    },
+    "xl": {
+      "$value": "clamp(1.25rem, 1.14rem + 0.54vw, 1.5rem)",
+      "$type": "dimension"
+    },
+    "2xl": {
+      "$value": "clamp(1.5rem, 1.35rem + 0.76vw, 1.875rem)",
+      "$type": "dimension"
+    }
+  }
+}

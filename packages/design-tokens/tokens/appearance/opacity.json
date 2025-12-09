@@ -1,0 +1,29 @@
+{
+  "opacity": {
+    "disabled": {
+      "$value": "0.6",
+      "$type": "number",
+      "$description": "Disabled state opacity - WCAG 1.4.3 minimum"
+    },
+    "hover": {
+      "$value": "0.7",
+      "$type": "number",
+      "$description": "Hover state for interactive elements"
+    },
+    "loading": {
+      "$value": "0.6",
+      "$type": "number",
+      "$description": "Loading pulse animation minimum opacity"
+    },
+    "hidden": {
+      "$value": "0",
+      "$type": "number",
+      "$description": "Fully transparent/hidden state"
+    },
+    "visible": {
+      "$value": "1",
+      "$type": "number",
+      "$description": "Fully visible state"
+    }
+  }
+}

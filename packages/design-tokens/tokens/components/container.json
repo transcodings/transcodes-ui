@@ -1,0 +1,6 @@
+{
+  "container": {
+    "max-width": { "$value": "25rem", "$type": "dimension" },
+    "max-width-wide": { "$value": "26.25rem", "$type": "dimension" }
+  }
+}

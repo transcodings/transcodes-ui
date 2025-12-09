@@ -1,0 +1,60 @@
+{
+  "input": {
+    "padding-y": { "$value": "0.875rem", "$type": "dimension" },
+    "padding-x": { "$value": "1rem", "$type": "dimension" },
+    "radius": { "$value": "0.625rem", "$type": "dimension" },
+    "font-size": { "$value": "1rem", "$type": "dimension" }
+  },
+  "label": {
+    "font-size": { "$value": "0.75rem", "$type": "dimension" },
+    "font-weight": { "$value": "500", "$type": "fontWeight" },
+    "letter-spacing": { "$value": "0.08em", "$type": "dimension" }
+  },
+  "title": {
+    "font-size": {
+      "$value": "clamp(1.375rem, 1.27rem + 0.54vw, 1.75rem)",
+      "$type": "dimension"
+    },
+    "font-weight": { "$value": "600", "$type": "fontWeight" },
+    "letter-spacing": { "$value": "-0.02em", "$type": "dimension" }
+  },
+  "form": {
+    "header": {
+      "margin-bottom": {
+        "$value": "{space.xl}",
+        "$type": "dimension",
+        "$description": "Space below form header"
+      }
+    },
+    "subtitle": {
+      "font-size": {
+        "$value": "0.9375rem",
+        "$type": "dimension",
+        "$description": "Form subtitle font size"
+      }
+    },
+    "fields": {
+      "gap": {
+        "$value": "{space.lg}",
+        "$type": "dimension",
+        "$description": "Gap between form fields"
+      }
+    },
+    "footer": {
+      "margin-top": {
+        "$value": "{space.lg}",
+        "$type": "dimension",
+        "$description": "Space above form footer"
+      }
+    }
+  },
+  "field": {
+    "group": {
+      "gap": {
+        "$value": "{space.sm}",
+        "$type": "dimension",
+        "$description": "Gap between label and input in field group"
+      }
+    }
+  }
+}

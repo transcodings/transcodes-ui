@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+dist/
+*.tsbuildinfo
+
+# Turbo
+.turbo/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Storybook
+storybook-static/

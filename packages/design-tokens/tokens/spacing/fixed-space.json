@@ -1,0 +1,24 @@
+{
+  "space-fixed": {
+    "2xs": {
+      "$value": "0.0625rem",
+      "$type": "dimension",
+      "$description": "1px - border, hairline"
+    },
+    "xs": {
+      "$value": "0.125rem",
+      "$type": "dimension",
+      "$description": "2px - focus ring"
+    },
+    "sm": {
+      "$value": "0.25rem",
+      "$type": "dimension",
+      "$description": "4px - small gap"
+    },
+    "md": {
+      "$value": "0.5rem",
+      "$type": "dimension",
+      "$description": "8px - standard gap"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "semantic": {
+    "warning": {
+      "$value": "#b45309",
+      "$type": "color",
+      "$description": "Warning state. WCAG AA: 4.6:1 on paper-white"
+    },
+    "warning-hover": {
+      "$value": "#92400e",
+      "$type": "color",
+      "$description": "Warning hover. WCAG AA: 5.8:1 on paper-white"
+    },
+    "info": {
+      "$value": "#0369a1",
+      "$type": "color",
+      "$description": "Info state. WCAG AA: 4.8:1 on paper-white"
+    },
+    "info-hover": {
+      "$value": "#075985",
+      "$type": "color",
+      "$description": "Info hover. WCAG AA: 5.8:1 on paper-white"
+    }
+  }
+}

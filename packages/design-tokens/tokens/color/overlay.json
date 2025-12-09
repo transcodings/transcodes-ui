@@ -1,0 +1,49 @@
+{
+  "overlay": {
+    "dim": {
+      "$value": "rgba(0, 0, 0, 0.5)",
+      "$type": "color",
+      "$description": "Modal/dialog overlay background"
+    },
+    "dark": {
+      "$value": "rgba(0, 0, 0, 0.7)",
+      "$type": "color",
+      "$description": "Darker overlay for critical modals (offline, error states)"
+    },
+    "shadow-light": {
+      "$value": "rgba(0, 0, 0, 0.1)",
+      "$type": "color",
+      "$description": "Light shadow for subtle elevation"
+    },
+    "shadow-subtle": {
+      "$value": "rgba(0, 0, 0, 0.15)",
+      "$type": "color",
+      "$description": "Subtle shadow for toasts and banners"
+    },
+    "shadow-medium": {
+      "$value": "rgba(0, 0, 0, 0.2)",
+      "$type": "color",
+      "$description": "Medium shadow for cards and dropdowns"
+    },
+    "shadow-strong": {
+      "$value": "rgba(0, 0, 0, 0.3)",
+      "$type": "color",
+      "$description": "Strong shadow for modals and floating elements"
+    },
+    "shadow-heavy": {
+      "$value": "rgba(0, 0, 0, 0.4)",
+      "$type": "color",
+      "$description": "Heavy shadow for prominent floating elements"
+    },
+    "glow-white": {
+      "$value": "rgba(255, 255, 255, 0.15)",
+      "$type": "color",
+      "$description": "Button radial glow overlay effect"
+    },
+    "spinner-track": {
+      "$value": "rgba(255, 255, 255, 0.3)",
+      "$type": "color",
+      "$description": "Spinner base track color on dark backgrounds"
+    }
+  }
+}

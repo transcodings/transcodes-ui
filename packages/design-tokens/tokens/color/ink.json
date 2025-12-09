@@ -1,0 +1,29 @@
+{
+  "ink": {
+    "black": {
+      "$value": "#1a1a1a",
+      "$type": "color",
+      "$description": "Primary text. WCAG AA: 15.8:1 on paper-white"
+    },
+    "dark": {
+      "$value": "#2d2d2d",
+      "$type": "color",
+      "$description": "Secondary text. WCAG AA: 12.5:1 on paper-white"
+    },
+    "medium": {
+      "$value": "#5c5c5c",
+      "$type": "color",
+      "$description": "Tertiary text. WCAG AA: 6.0:1 on paper-white"
+    },
+    "light": {
+      "$value": "#8a8a8a",
+      "$type": "color",
+      "$description": "Placeholder, disabled text. Contrast: 3.5:1 (meets 3:1 minimum)"
+    },
+    "faint": {
+      "$value": "#c4c4c4",
+      "$type": "color",
+      "$description": "Decorative only. NOT for readable text. Contrast: 1.7:1"
+    }
+  }
+}

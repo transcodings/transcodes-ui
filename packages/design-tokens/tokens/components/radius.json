@@ -1,0 +1,12 @@
+{
+  "radius": {
+    "sm": { "$value": "0.5rem", "$type": "dimension" },
+    "md": { "$value": "0.625rem", "$type": "dimension" },
+    "lg": { "$value": "0.75rem", "$type": "dimension" },
+    "full": { "$value": "9999px", "$type": "dimension" },
+    "card": {
+      "$value": "clamp(0.75rem, 0.59rem + 0.78vw, 1rem)",
+      "$type": "dimension"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ink-effect": {
+    "ripple-duration": { "$value": "600ms", "$type": "duration" },
+    "ripple-easing": {
+      "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "$type": "cubicBezier"
+    },
+    "spread-scale": { "$value": "2.5", "$type": "number" },
+    "fade-duration": { "$value": "300ms", "$type": "duration" }
+  }
+}

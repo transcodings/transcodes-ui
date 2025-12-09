@@ -1,0 +1,7 @@
+{
+  "line-height": {
+    "tight": { "$value": "1.25", "$type": "number" },
+    "normal": { "$value": "1.5", "$type": "number" },
+    "relaxed": { "$value": "1.75", "$type": "number" }
+  }
+}

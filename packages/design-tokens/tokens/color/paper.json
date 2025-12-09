@@ -1,0 +1,7 @@
+{
+  "paper": {
+    "white": { "$value": "#faf9fc", "$type": "color" },
+    "cream": { "$value": "#f5f4f8", "$type": "color" },
+    "warm": { "$value": "#ebe9f0", "$type": "color" }
+  }
+}

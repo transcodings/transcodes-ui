@@ -1,0 +1,19 @@
+{
+  "error": {
+    "base": {
+      "$value": "#c0392b",
+      "$type": "color",
+      "$description": "Error state. WCAG AA: 4.8:1 on paper-white"
+    },
+    "bg": {
+      "$value": "rgba(231, 76, 60, 0.08)",
+      "$type": "color",
+      "$description": "Error background. Decorative, not for text"
+    },
+    "border": {
+      "$value": "rgba(231, 76, 60, 0.2)",
+      "$type": "color",
+      "$description": "Error border. Decorative, not for text"
+    }
+  }
+}

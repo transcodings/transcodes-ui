@@ -1,0 +1,44 @@
+{
+  "name": "@transcodes/design-tokens",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Style Dictionary based design tokens with dark mode support for consistent, beautiful interfaces",
+  "keywords": [
+    "design-tokens",
+    "css-variables",
+    "style-dictionary",
+    "dark-mode",
+    "wcag",
+    "accessibility"
+  ],
+  "author": "Transcodes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transcodes/tc-ui.git",
+    "directory": "packages/design-tokens"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./build/tokens.css",
+    "./tokens.css": "./build/tokens.css",
+    "./tokens-dark.css": "./build/tokens-dark.css",
+    "./components.css": "./build/components.css",
+    "./types": "./build/tokens.d.ts",
+    "./json": "./build/tokens.json"
+  },
+  "files": [
+    "build/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts",
+    "clean": "rm -rf build"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.2.0"
+  }
+}

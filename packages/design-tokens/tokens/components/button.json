@@ -1,0 +1,51 @@
+{
+  "button": {
+    "height": { "$value": "3.25rem", "$type": "dimension" },
+    "height-secondary": { "$value": "3rem", "$type": "dimension" },
+    "radius": { "$value": "0.625rem", "$type": "dimension" },
+    "font-size": { "$value": "0.9375rem", "$type": "dimension" },
+    "font-weight": { "$value": "500", "$type": "fontWeight" },
+    "letter-spacing": { "$value": "0.02em", "$type": "dimension" },
+    "text": {
+      "height": {
+        "$value": "2.5rem",
+        "$type": "dimension",
+        "$description": "Text button height"
+      },
+      "font-size": {
+        "$value": "0.875rem",
+        "$type": "dimension",
+        "$description": "Text button font size"
+      },
+      "padding-sm": {
+        "$value": "{space.xs} {space.sm}",
+        "$type": "dimension",
+        "$description": "Small text button padding"
+      },
+      "padding-md": {
+        "$value": "{space.sm} {space.md}",
+        "$type": "dimension",
+        "$description": "Medium text button padding"
+      }
+    },
+    "content": {
+      "gap": {
+        "$value": "{space.sm}",
+        "$type": "dimension",
+        "$description": "Gap between button icon and text"
+      }
+    },
+    "spinner": {
+      "size": {
+        "$value": "1rem",
+        "$type": "dimension",
+        "$description": "Loading spinner size"
+      },
+      "border-width": {
+        "$value": "2px",
+        "$type": "dimension",
+        "$description": "Spinner border width"
+      }
+    }
+  }
+}

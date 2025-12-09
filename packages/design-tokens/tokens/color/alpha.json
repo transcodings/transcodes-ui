@@ -1,0 +1,29 @@
+{
+  "alpha": {
+    "primary04": { "$value": "rgba(124, 92, 255, 0.04)", "$type": "color" },
+    "primary08": { "$value": "rgba(124, 92, 255, 0.08)", "$type": "color" },
+    "primary10": { "$value": "rgba(124, 92, 255, 0.1)", "$type": "color" },
+    "primary12": { "$value": "rgba(124, 92, 255, 0.12)", "$type": "color" },
+    "primary15": { "$value": "rgba(124, 92, 255, 0.15)", "$type": "color" },
+    "primary20": { "$value": "rgba(124, 92, 255, 0.2)", "$type": "color" },
+    "primary30": { "$value": "rgba(124, 92, 255, 0.3)", "$type": "color" },
+    "primary40": { "$value": "rgba(124, 92, 255, 0.4)", "$type": "color" },
+    "primary50": { "$value": "rgba(124, 92, 255, 0.5)", "$type": "color" },
+    "success10": { "$value": "rgba(61, 138, 80, 0.1)", "$type": "color" },
+    "success15": { "$value": "rgba(61, 138, 80, 0.15)", "$type": "color" },
+    "success20": { "$value": "rgba(61, 138, 80, 0.2)", "$type": "color" },
+    "success30": { "$value": "rgba(61, 138, 80, 0.3)", "$type": "color" },
+    "warning08": { "$value": "rgba(180, 83, 9, 0.08)", "$type": "color" },
+    "warning15": { "$value": "rgba(180, 83, 9, 0.15)", "$type": "color" },
+    "warning20": { "$value": "rgba(180, 83, 9, 0.2)", "$type": "color" },
+    "info08": { "$value": "rgba(3, 105, 161, 0.08)", "$type": "color" },
+    "info15": { "$value": "rgba(3, 105, 161, 0.15)", "$type": "color" },
+    "info20": { "$value": "rgba(3, 105, 161, 0.2)", "$type": "color" },
+    "ink04": { "$value": "rgba(26, 26, 26, 0.04)", "$type": "color" },
+    "ink06": { "$value": "rgba(26, 26, 26, 0.06)", "$type": "color" },
+    "ink10": { "$value": "rgba(26, 26, 26, 0.1)", "$type": "color" },
+    "white15": { "$value": "rgba(255, 255, 255, 0.15)", "$type": "color" },
+    "white30": { "$value": "rgba(255, 255, 255, 0.3)", "$type": "color" },
+    "white90": { "$value": "rgba(255, 255, 255, 0.9)", "$type": "color" }
+  }
+}

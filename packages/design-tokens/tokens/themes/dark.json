@@ -1,0 +1,117 @@
+{
+  "ink": {
+    "black": {
+      "$value": "#ffffff",
+      "$type": "color",
+      "$description": "Primary text (dark). WCAG AAA: 16.1:1 on paper-white"
+    },
+    "dark": {
+      "$value": "#e5e5e5",
+      "$type": "color",
+      "$description": "Secondary text (dark). WCAG AAA: 12.7:1 on paper-white"
+    },
+    "medium": {
+      "$value": "#a3a3a3",
+      "$type": "color",
+      "$description": "Tertiary text (dark). WCAG AAA: 7.0:1 on paper-white"
+    },
+    "light": {
+      "$value": "#737373",
+      "$type": "color",
+      "$description": "Placeholder, disabled text (dark). Contrast: 4.2:1 (meets 3:1 minimum)"
+    },
+    "faint": {
+      "$value": "#525252",
+      "$type": "color",
+      "$description": "Decorative only (dark). NOT for readable text. Contrast: 2.6:1"
+    }
+  },
+  "paper": {
+    "white": {
+      "$value": "#1a1a1a",
+      "$type": "color",
+      "$description": "Primary background (dark)"
+    },
+    "cream": {
+      "$value": "#2d2d2d",
+      "$type": "color",
+      "$description": "Secondary background (dark)"
+    },
+    "warm": {
+      "$value": "#404040",
+      "$type": "color",
+      "$description": "Tertiary background (dark)"
+    }
+  },
+  "accent": {
+    "primary": {
+      "$value": "#a78bfa",
+      "$type": "color",
+      "$description": "Primary accent (dark). WCAG AA: 7.5:1 on paper-white"
+    },
+    "primary-hover": {
+      "$value": "#c4b5fd",
+      "$type": "color",
+      "$description": "Primary accent hover (dark). WCAG AA: 10.2:1 on paper-white"
+    },
+    "primary-pressed": {
+      "$value": "#8b5cf6",
+      "$type": "color",
+      "$description": "Primary accent pressed (dark). WCAG AA: 5.5:1 on paper-white"
+    },
+    "success": {
+      "$value": "#4ade80",
+      "$type": "color",
+      "$description": "Success accent (dark). WCAG AA: 9.8:1 on paper-white"
+    },
+    "success-hover": {
+      "$value": "#86efac",
+      "$type": "color",
+      "$description": "Success accent hover (dark). WCAG AA: 12.5:1 on paper-white"
+    },
+    "success-pressed": {
+      "$value": "#22c55e",
+      "$type": "color",
+      "$description": "Success accent pressed (dark). WCAG AA: 7.2:1 on paper-white"
+    }
+  },
+  "semantic": {
+    "warning": {
+      "$value": "#fbbf24",
+      "$type": "color",
+      "$description": "Warning state (dark). WCAG AA: 11.3:1 on paper-white"
+    },
+    "warning-hover": {
+      "$value": "#fcd34d",
+      "$type": "color",
+      "$description": "Warning hover (dark). WCAG AA: 12.8:1 on paper-white"
+    },
+    "info": {
+      "$value": "#38bdf8",
+      "$type": "color",
+      "$description": "Info state (dark). WCAG AA: 9.4:1 on paper-white"
+    },
+    "info-hover": {
+      "$value": "#7dd3fc",
+      "$type": "color",
+      "$description": "Info hover (dark). WCAG AA: 11.6:1 on paper-white"
+    }
+  },
+  "error": {
+    "base": {
+      "$value": "#f87171",
+      "$type": "color",
+      "$description": "Error state (dark). WCAG AA: 6.5:1 on paper-white"
+    },
+    "bg": {
+      "$value": "rgba(248, 113, 113, 0.12)",
+      "$type": "color",
+      "$description": "Error background (dark). Decorative, not for text"
+    },
+    "border": {
+      "$value": "rgba(248, 113, 113, 0.3)",
+      "$type": "color",
+      "$description": "Error border (dark). Decorative, not for text"
+    }
+  }
+}
