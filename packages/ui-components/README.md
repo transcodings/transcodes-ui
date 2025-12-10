@@ -1,102 +1,235 @@
 # @transcodes/ui-components
 
-Lit 3.x 기반 웹 컴포넌트 라이브러리
+A modern web component library built with [Lit 3.x](https://lit.dev/). Features a comprehensive set of UI primitives, complex widgets, and reusable Reactive Controllers for building beautiful, accessible interfaces.
 
-## 설치
+[![npm version](https://img.shields.io/npm/v/@transcodes/ui-components.svg)](https://www.npmjs.com/package/@transcodes/ui-components)
+[![license](https://img.shields.io/npm/l/@transcodes/ui-components.svg)](https://github.com/transcodings/transcodes-ui/blob/main/packages/ui-components/LICENSE)
+
+## Features
+
+- **Web Components** - Framework-agnostic, works with React, Vue, Angular, or vanilla JS
+- **Lit 3.x Powered** - Fast, lightweight, and reactive
+- **Design Token Integration** - Built on [@transcodes/design-tokens](https://www.npmjs.com/package/@transcodes/design-tokens)
+- **Reactive Controllers** - Reusable logic for loading states, forms, animations, and more
+- **TypeScript First** - Full type definitions included
+- **Storybook Documentation** - Interactive component explorer
+
+## Installation
 
 ```bash
-npm install @transcodes/ui-components
+npm install @transcodes/ui-components lit
 # or
-bun add @transcodes/ui-components
+yarn add @transcodes/ui-components lit
+# or
+pnpm add @transcodes/ui-components lit
+# or
+bun add @transcodes/ui-components lit
 ```
 
-## 사용법
+> **Note:** `lit` is a peer dependency and must be installed separately.
+
+## Quick Start
+
+### 1. Import and register components
 
 ```typescript
-// 전체 import (모든 컴포넌트 등록)
+// Import all components (registers custom elements automatically)
 import '@transcodes/ui-components';
 
-// 개별 import
-import { TcButton } from '@transcodes/ui-components/primitives';
-import { LoadingController } from '@transcodes/ui-components/controllers';
+// Import styles
+import '@transcodes/ui-components/styles.css';
 ```
 
+### 2. Use in your HTML
+
 ```html
-<tc-button variant="primary" @tc-click=${handleClick}>
-  Click me
-</tc-button>
+<tc-button variant="primary">Click me</tc-button>
 
 <tc-input
   type="email"
-  placeholder="이메일 입력"
-  @tc-change=${handleChange}
+  placeholder="Enter your email"
+  required
 ></tc-input>
+
+<tc-callout variant="info">
+  This is an informational message.
+</tc-callout>
 ```
 
-## 컴포넌트
+### 3. Handle events
 
-### Primitives (기본 UI)
+```javascript
+const button = document.querySelector('tc-button');
+button.addEventListener('tc-click', (e) => {
+  console.log('Button clicked!', e.detail);
+});
 
-| 컴포넌트 | 설명 |
-|---------|------|
-| `tc-button` | 버튼 (primary, outline, ghost 등) |
-| `tc-input` | 텍스트 입력 |
-| `tc-otp-input` | OTP 입력 (6자리) |
-| `tc-text` | 텍스트 표시 |
-| `tc-container` | 레이아웃 컨테이너 |
-| `tc-box` | 범용 박스 |
-| `tc-section` | 섹션 |
-| `tc-divider` | 구분선 |
-| `tc-callout` | 정보 박스 |
-| `tc-chip` | 칩/태그 |
-| `tc-icon` | 아이콘 |
-| `tc-spinner` | 로딩 스피너 |
-| `tc-toast` | 토스트 알림 |
+const input = document.querySelector('tc-input');
+input.addEventListener('tc-change', (e) => {
+  console.log('Input value:', e.detail.value);
+});
+```
 
-### Widgets (복합 컴포넌트)
+## Components
 
-| 컴포넌트 | 설명 |
-|---------|------|
-| `tc-notification-modal` | 알림 모달 |
-| `tc-offline-modal` | 오프라인 상태 모달 |
-| `tc-floating-action-button` | 플로팅 액션 버튼 |
+### Primitives
+
+Core UI building blocks with consistent styling and behavior.
+
+| Component | Description | Key Props |
+|-----------|-------------|-----------|
+| `<tc-button>` | Interactive button | `variant`, `size`, `disabled`, `loading` |
+| `<tc-input>` | Text input field | `type`, `placeholder`, `required`, `error` |
+| `<tc-otp-input>` | OTP/PIN code input | `length`, `masked` |
+| `<tc-text>` | Typography component | `variant`, `weight`, `color` |
+| `<tc-container>` | Layout container | `maxWidth`, `padding` |
+| `<tc-box>` | Flexible box wrapper | `padding`, `gap` |
+| `<tc-section>` | Page section | `padding` |
+| `<tc-divider>` | Visual separator | `orientation` |
+| `<tc-callout>` | Alert/info box | `variant` (info, warning, error, success) |
+| `<tc-chip>` | Tag/badge | `variant`, `removable` |
+| `<tc-icon>` | Icon display | `name`, `size` |
+| `<tc-spinner>` | Loading indicator | `size` |
+| `<tc-toast>` | Toast notification | `variant`, `duration` |
+
+### Widgets
+
+Complex components composed of primitives.
+
+| Component | Description |
+|-----------|-------------|
+| `<tc-notification-modal>` | Modal dialog for notifications |
+| `<tc-offline-modal>` | Offline state indicator modal |
+| `<tc-floating-action-button>` | FAB with optional menu |
 
 ### Controllers
 
-| 컨트롤러 | 설명 |
-|---------|------|
-| `LoadingController` | 로딩 상태 관리 |
-| `FormController` | 폼 검증 |
-| `AnimationController` | 애니메이션 제어 |
-| `MatchMediaController` | 미디어 쿼리 반응 |
-| `StorageController` | localStorage/sessionStorage |
-| `MessageBusController` | 컴포넌트 간 통신 |
+Reusable logic that can be attached to any Lit component.
 
-## 개발
+```typescript
+import { LoadingController, FormController } from '@transcodes/ui-components';
+
+class MyComponent extends LitElement {
+  private loading = new LoadingController(this);
+  private form = new FormController(this);
+
+  async handleSubmit() {
+    this.loading.start();
+    try {
+      await submitData();
+    } finally {
+      this.loading.stop();
+    }
+  }
+}
+```
+
+| Controller | Purpose |
+|------------|---------|
+| `LoadingController` | Manage loading states |
+| `FormController` | Form validation and submission |
+| `AnimationController` | Coordinate animations |
+| `MatchMediaController` | Respond to media queries |
+| `StorageController` | Persist data to localStorage/sessionStorage |
+| `MessageBusController` | Cross-component communication |
+
+## Styling
+
+Components use CSS custom properties from `@transcodes/design-tokens`. You can customize the look by overriding these variables:
+
+```css
+:root {
+  /* Override brand colors */
+  --accent-primary: #your-brand-color;
+
+  /* Override spacing */
+  --space-md: 16px;
+}
+```
+
+### Custom styles per component
+
+All components accept an `sx` prop for inline style overrides:
+
+```html
+<tc-button
+  variant="primary"
+  .sx=${{ padding: '1rem 2rem', fontSize: '1.25rem' }}
+>
+  Large Button
+</tc-button>
+```
+
+## Framework Integration
+
+### React
+
+```tsx
+import '@transcodes/ui-components';
+
+function App() {
+  const handleClick = (e: CustomEvent) => {
+    console.log('Clicked!');
+  };
+
+  return (
+    <tc-button
+      variant="primary"
+      onTc-click={handleClick}
+    >
+      Click me
+    </tc-button>
+  );
+}
+```
+
+### Vue
+
+```vue
+<template>
+  <tc-button variant="primary" @tc-click="handleClick">
+    Click me
+  </tc-button>
+</template>
+
+<script setup>
+import '@transcodes/ui-components';
+
+const handleClick = () => {
+  console.log('Clicked!');
+};
+</script>
+```
+
+## Browser Support
+
+Supports all modern browsers with native Custom Elements v1 support:
+
+- Chrome 67+
+- Firefox 63+
+- Safari 10.1+
+- Edge 79+
+
+## Development
 
 ```bash
-bun install           # 의존성 설치
-bun run dev           # Storybook 개발 서버 (http://localhost:6006)
-bun run build         # TypeScript + Vite 빌드
-bun run type-check    # 타입 검사
+# Install dependencies
+bun install
+
+# Start Storybook dev server
+bun run dev
+
+# Build for production
+bun run build
+
+# Type check
+bun run type-check
 ```
 
-## 아키텍처
+## Related Packages
 
-```
-src/
-├── controllers/    # Lit Reactive Controllers
-├── primitives/     # 기본 UI 요소 (tc-button, tc-input 등)
-├── widgets/        # 복합 컴포넌트 (모달, FAB 등)
-├── screens/        # 전체 화면 컴포넌트
-├── styles/         # CSS 디자인 토큰
-└── stories/        # Storybook 스토리
-```
+- [@transcodes/design-tokens](https://www.npmjs.com/package/@transcodes/design-tokens) - Design tokens used by this library
 
-## 의존성
+## License
 
-- **@transcodes/design-tokens**: CSS 변수 및 디자인 토큰
-
-## 라이선스
-
-MIT
+[MIT](./LICENSE)

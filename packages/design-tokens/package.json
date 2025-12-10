@@ -2,7 +2,6 @@
   "name": "@transcodes/design-tokens",
   "version": "0.1.0",
   "private": false,
-  "type": "module",
   "description": "Style Dictionary based design tokens with dark mode support for consistent, beautiful interfaces",
   "keywords": [
     "design-tokens",
@@ -12,16 +11,24 @@
     "wcag",
     "accessibility"
   ],
-  "author": "Transcodes",
+  "author": {
+    "name": "Transcodes",
+    "url": "https://github.com/transcodings"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/transcodings/transcodes-ui/tree/main/packages/design-tokens#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/transcodings/transcodes-ui.git",
     "directory": "packages/design-tokens"
   },
+  "bugs": {
+    "url": "https://github.com/transcodings/transcodes-ui/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "exports": {
     ".": "./build/tokens.css",
     "./tokens.css": "./build/tokens.css",
