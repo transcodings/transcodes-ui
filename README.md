@@ -4,10 +4,10 @@ Turborepo monorepo for Transcodes UI packages.
 
 ## Packages
 
-| Package | Description | Version |
-|---------|-------------|---------|
-| [@transcodes/design-tokens](./packages/design-tokens) | Design tokens with dark mode support | 0.1.0 |
-| [@transcodes/ui-components](./packages/ui-components) | Lit 3.x component library | 0.1.0 |
+| Package | Description | Status |
+|---------|-------------|--------|
+| [@transcodes/design-tokens](./packages/design-tokens) | Style Dictionary 기반 디자인 토큰 (다크 모드 지원) | npm publish 준비 완료 |
+| [@transcodes/ui-components](./packages/ui-components) | Lit 3.x 웹 컴포넌트 라이브러리 | 개발 중 |
 
 ## Getting Started
 
@@ -27,41 +27,54 @@ bun run dev
 | Command | Description |
 |---------|-------------|
 | `bun run build` | Build all packages (design-tokens → ui-components) |
-| `bun run dev` | Start Storybook dev server |
+| `bun run dev` | Start Storybook dev server (port 6006) |
 | `bun run clean` | Clean all build outputs |
 | `bun run lint` | Lint all packages |
 | `bun run format` | Format all files with Biome |
 | `bun run check` | Check linting and formatting |
 
-## Package Dependencies
+## Architecture
 
 ```
-ui-components
-    └── design-tokens
+transcodes-ui/
+├── packages/
+│   ├── design-tokens/     # CSS 변수, 컴포넌트 CSS 클래스
+│   └── ui-components/     # tc-button, tc-input 등 웹 컴포넌트
+├── MIGRATION_ANALYSIS.md  # toolkit 마이그레이션 분석
+└── IMPLEMENTATION_PLAN.md # 구현 계획
 ```
 
-`ui-components` depends on `design-tokens`, so Turborepo automatically builds `design-tokens` first.
+**의존 관계**:
+```
+ui-components → design-tokens
+```
+
+Turborepo가 자동으로 design-tokens를 먼저 빌드합니다.
 
 ## Development
 
-Each package can be developed independently:
+개별 패키지 빌드:
 
 ```bash
-# Build only design-tokens
 turbo run build --filter=@transcodes/design-tokens
-
-# Build only ui-components
 turbo run build --filter=@transcodes/ui-components
 ```
 
 ## Publishing
 
-Each package is published independently to npm:
+각 패키지는 npm에 독립적으로 배포됩니다:
 
 ```bash
-cd packages/design-tokens && npm publish
-cd packages/ui-components && npm publish
+# design-tokens 먼저 배포
+cd packages/design-tokens && npm publish --access public
+
+# 그 다음 ui-components 배포
+cd packages/ui-components && npm publish --access public
 ```
+
+## Related
+
+- [transcode-backend-nestjs-v1](../transcode-backend-nestjs-v1) - toolkit 모듈에서 이 패키지들을 사용 예정
 
 ## License
 

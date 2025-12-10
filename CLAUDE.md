@@ -25,20 +25,25 @@ turbo run build --filter=@transcodes/ui-components
 Turborepo 기반 모노레포. Bun을 패키지 매니저로 사용.
 
 ```
-packages/
-├── design-tokens/     # Style Dictionary v4 디자인 토큰
-└── ui-components/     # Lit 3.x 웹 컴포넌트 라이브러리
+transcodes-ui/
+├── packages/
+│   ├── design-tokens/     # Style Dictionary v4 디자인 토큰
+│   └── ui-components/     # Lit 3.x 웹 컴포넌트 라이브러리
+├── MIGRATION_ANALYSIS.md  # toolkit 마이그레이션 분석
+└── IMPLEMENTATION_PLAN.md # 구현 계획
 ```
 
 **의존 관계**: `ui-components` → `design-tokens`
 
-### design-tokens
+### design-tokens (@transcodes/design-tokens)
 
 Style Dictionary로 JSON 토큰을 CSS 변수와 TypeScript 타입으로 변환:
 - 토큰 정의: `tokens/` 디렉터리 (DTCG 형식 `$value` 사용)
-- 빌드 결과: `build/tokens.css`, `build/tokens-dark.css`, `build/tokens.d.ts`
+- 빌드 결과: `build/tokens.css`, `build/tokens-dark.css`, `build/components.css`
+- 다크 모드: `[data-theme="dark"]` 선택자 지원
+- npm publish 준비 완료 (수동 실행 대기)
 
-### ui-components
+### ui-components (@transcodes/ui-components)
 
 Lit 3.x 웹 컴포넌트 라이브러리. 4계층 구조:
 - **Controllers** (`src/controllers/`): Reactive Controllers. `BaseController` 상속
@@ -53,3 +58,8 @@ Lit 3.x 웹 컴포넌트 라이브러리. 4계층 구조:
 - **TypeScript**: strict 모드, Lit 데코레이터용 `experimentalDecorators: true`
 - **컴포넌트**: `@customElement('tc-xxx')` 데코레이터, 이벤트는 `bubbles: true, composed: true`
 - **ESM**: import 시 `.js` 확장자 필수
+
+## 관련 프로젝트
+
+- **transcode-backend-nestjs-v1**: toolkit 모듈에서 이 패키지들을 사용할 예정
+- 마이그레이션 계획: `MIGRATION_ANALYSIS.md` 참조

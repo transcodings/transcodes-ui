@@ -9,48 +9,70 @@ Style Dictionary v4 기반의 디자인 토큰 빌드 시스템입니다. JSON�
 ## 명령어
 
 ```bash
-# 의존성 설치
-bun install
-
-# 토큰 빌드 (CSS 변수 + TypeScript 타입 생성)
-bun run build
-
-# 빌드 결과물 삭제
-bun run clean
+bun install        # 의존성 설치
+bun run build      # 토큰 빌드 (CSS + TypeScript 타입 생성)
+bun run clean      # 빌드 결과물 삭제
 ```
 
 ## 프로젝트 구조
 
 ```
-tokens/           # 소스 디자인 토큰 (JSON)
-├── color/        # 색상 토큰 (ink, paper, accent, alpha, error)
-├── typography/   # 폰트 관련 토큰
-├── spacing/      # 간격 토큰
-├── animation/    # 트랜지션 토큰
-└── components/   # 컴포넌트별 토큰 (button, card, input 등)
+tokens/              # 소스 디자인 토큰 (JSON, DTCG 형식)
+├── color/           # 색상 토큰 (ink, paper, accent, alpha, error)
+├── typography/      # 폰트 관련 토큰
+├── spacing/         # 간격 토큰
+├── animation/       # 트랜지션, ink-effect 토큰
+├── components/      # 컴포넌트별 토큰 (button, card, input 등)
+├── themes/          # 다크 테마 오버라이드
+└── brand/           # 브랜드 토큰
 
-build/            # 빌드 결과물
-├── tokens.css    # CSS 변수 (:root)
-├── tokens.d.ts   # TypeScript 타입 선언
-└── components.css # 컴포넌트 CSS 클래스
+config/              # Style Dictionary 설정 모듈
+├── transforms/      # 커스텀 이름 변환
+└── formats/         # 커스텀 출력 포맷
+
+build/               # 빌드 결과물 (gitignore)
+├── tokens.css       # CSS 변수 (:root, [data-theme="light"])
+├── tokens-dark.css  # 다크 테마 CSS ([data-theme="dark"])
+├── components.css   # 컴포넌트 CSS 클래스
+├── components.js    # 컴포넌트 스타일 JS export
+├── tokens.d.ts      # TypeScript 타입 선언
+└── tokens.json      # JSON 형식 토큰
 ```
 
-## Style Dictionary 설정 (sd.config.ts)
+## Style Dictionary 설정
 
-커스텀 트랜스폼 및 포맷이 등록되어 있습니다:
+- **sd.config.ts**: 라이트 테마 빌드 설정
+- **sd.config.dark.ts**: 다크 테마 빌드 설정
 
-- **name/kebab-flat**: 토큰 경로를 kebab-case CSS 변수명으로 변환 (`ink.black` → `ink-black`)
-- **name/camel-flat**: 토큰 경로를 camelCase로 변환 (`ink.black` → `inkBlack`)
-- **css/components**: 컴포넌트 토큰을 CSS 클래스로 변환하는 커스텀 포맷
+커스텀 트랜스폼:
+- `name/kebab-flat`: 토큰 경로 → kebab-case (`ink.black` → `ink-black`)
+- `name/camel-flat`: 토큰 경로 → camelCase (`ink.black` → `inkBlack`)
+
+커스텀 포맷:
+- `css/components`: 컴포넌트 토큰 → CSS 클래스
 
 ## 토큰 정의 형식
 
-토큰은 DTCG(Design Token Community Group) 형식의 `$value` 속성을 사용합니다:
+DTCG(Design Token Community Group) 형식 사용:
 
 ```json
 {
   "ink": {
-    "black": { "$value": "#1a1a1a" }
+    "black": {
+      "$value": "#1a1a1a",
+      "$type": "color",
+      "$description": "Primary text. WCAG AA: 15.8:1 on paper-white"
+    }
   }
 }
 ```
+
+## 다크 모드
+
+`[data-theme="dark"]` 선택자로 다크 테마 적용:
+
+```html
+<html data-theme="dark">
+```
+
+다크 테마 오버라이드는 `tokens/themes/dark.json`에 정의.

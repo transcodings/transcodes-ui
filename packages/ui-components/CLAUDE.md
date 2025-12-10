@@ -24,23 +24,32 @@ Lit 3.x 기반 웹 컴포넌트 라이브러리. 4가지 계층 구조:
 ```
 @transcodes/ui-components           → src/index.ts
 @transcodes/ui-components/primitives → src/primitives/index.ts
-...
+@transcodes/ui-components/widgets   → src/widgets/index.ts
+@transcodes/ui-components/screens   → src/screens/index.ts
+@transcodes/ui-components/controllers → src/controllers/index.ts
 ```
 
 ## Component Conventions
 
 - 모든 컴포넌트는 `@customElement('tc-xxx')` 데코레이터로 등록
-- `tc-click` 등 커스텀 이벤트는 `bubbles: true, composed: true` 옵션 사용
-- `sx` prop으로 인라인 스타일 오버라이드 지원 (styleMap 디렉티브 사용)
-- CSS 변수는 `src/styles/tokens.css`의 디자인 토큰 참조
+- 커스텀 이벤트: `tc-click`, `tc-change` 등 `tc-` 접두사 사용
+- 이벤트 옵션: `{ bubbles: true, composed: true }`
+- `sx` prop으로 인라인 스타일 오버라이드 지원 (styleMap 디렉티브)
+- CSS 변수는 `@transcodes/design-tokens` 참조
 
 ## TypeScript
 
 - `experimentalDecorators: true`, `useDefineForClassFields: false` 필수 (Lit 데코레이터 호환)
-- strict 모드 활성화 (`noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`)
+- strict 모드 활성화
+- import 시 `.js` 확장자 사용 (ESM 호환)
 - Stories 파일은 타입 검사에서 제외됨
+
+## 마이그레이션 계획
+
+toolkit(nestjs-v1)의 styled-* 컴포넌트를 이 패키지로 대체할 예정:
+- 자세한 내용: 루트의 `MIGRATION_ANALYSIS.md`, `IMPLEMENTATION_PLAN.md` 참조
 
 ## Storybook
 
-- `src/stories/` 디렉터리에 스토리 파일 위치
-- 컴포넌트 import 시 `.js` 확장자 사용 (ESM 호환)
+- 스토리 파일: `src/stories/` 디렉터리
+- 개발 서버: http://localhost:6006
