@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transcodes/tc-ui.git",
+    "url": "https://github.com/transcodings/transcodes-ui.git",
     "directory": "packages/design-tokens"
   },
   "publishConfig": {

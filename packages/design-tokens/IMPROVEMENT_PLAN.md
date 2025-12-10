@@ -12,7 +12,7 @@ universal-callback (영감)
 tc-design-tokens (현재 프로젝트)
     └── Style Dictionary 기반 디자인 토큰
          ↓ npm 패키지
-tc-ui-components (소비자)
+transcodes-ui-components (소비자)
     └── Lit 3 웹 컴포넌트 라이브러리
 ```
 
@@ -88,11 +88,11 @@ tc-ui-components (소비자)
 - [x] **config/formats/css-components.ts** 모듈화
 - [x] var() 참조 사용 (하드코딩 제거)
 
-### 3.2 tc-ui-components 호환성 ⏳ 대기
+### 3.2 transcodes-ui-components 호환성 ⏳ 대기
 
-tc-ui-components의 하드코딩된 `tokens.css`를 npm 패키지로 대체:
+transcodes-ui-components의 하드코딩된 `tokens.css`를 npm 패키지로 대체:
 ```typescript
-// tc-ui-components/src/styles/tokens.ts
+// transcodes-ui-components/src/styles/tokens.ts
 import '@transcodes/design-tokens';
 import '@transcodes/design-tokens/components.css';
 ```

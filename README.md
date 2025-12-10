@@ -1,4 +1,4 @@
-# tc-ui
+# transcodes-ui
 
 Turborepo monorepo for Transcodes UI packages.
 

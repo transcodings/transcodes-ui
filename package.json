@@ -1,5 +1,5 @@
 {
-  "name": "tc-ui",
+  "name": "transcodes-ui",
   "private": true,
   "workspaces": [
     "packages/*"

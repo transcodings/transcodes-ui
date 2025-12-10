@@ -1,4 +1,4 @@
-# tc-ui-components 개선 로드맵
+# transcodes-ui-components 개선 로드맵
 
 > 작성일: 2025-12-10
 > 상태: tc-design-tokens npm publish 대기 중
@@ -26,7 +26,7 @@
 │              transcode-backend-nestjs-v1/src/toolkit                │
 │                   (비즈니스 로직 + 모달 시스템)                        │
 │  - BaseModal, Router, GenericStore, TranscodesContextMixin          │
-│  - 현재: styled-* 컴포넌트 (→ tc-ui-components로 교체 필요)           │
+│  - 현재: styled-* 컴포넌트 (→ transcodes-ui-components로 교체 필요)   │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -113,7 +113,7 @@
 
 ### 작업 항목
 
-1. tc-ui-components에 의존성 추가
+1. transcodes-ui-components에 의존성 추가
    ```bash
    bun add @transcodes/design-tokens
    ```
@@ -246,7 +246,7 @@ export class Responsive {
 │  ─────────────────────────────                                  │
 │  BaseModal, Router, Store는 toolkit에 유지                       │
 │  → 비즈니스 로직과 강하게 결합되어 있음                            │
-│  → tc-ui-components의 primitives만 import해서 사용               │
+│  → transcodes-ui-components의 primitives만 import해서 사용       │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -322,13 +322,13 @@ html`<tc-button .sx=${{...}}>Click</tc-button>`
 
 - [ ] FormAssociated 구현 (`tc-input`, `tc-otp-input`)
 - [ ] i18n 지원 (lit-localize)
-- [ ] BaseModal을 tc-ui-components로 추출 (선택사항)
+- [ ] BaseModal을 transcodes-ui-components로 추출 (선택사항)
 
 ---
 
-## 컴포넌트 매핑 테이블 (toolkit → tc-ui-components)
+## 컴포넌트 매핑 테이블 (toolkit → transcodes-ui-components)
 
-| toolkit (styled-*) | tc-ui-components (tc-*) | 상태 |
+| toolkit (styled-*) | transcodes-ui-components (tc-*) | 상태 |
 |--------------------|-------------------------|------|
 | styled-button | tc-button | ✅ 호환 |
 | styled-input | tc-input | ✅ 호환 |
