@@ -40,8 +40,6 @@ transcodes-ui/
 ├── packages/
 │   ├── design-tokens/     # CSS 변수, 컴포넌트 CSS 클래스
 │   └── ui-components/     # tc-button, tc-input 등 웹 컴포넌트
-├── MIGRATION_ANALYSIS.md  # toolkit 마이그레이션 분석
-└── IMPLEMENTATION_PLAN.md # 구현 계획
 ```
 
 **의존 관계**:
@@ -71,10 +69,6 @@ cd packages/design-tokens && npm publish --access public
 # 그 다음 ui-components 배포
 cd packages/ui-components && npm publish --access public
 ```
-
-## Related
-
-- [transcode-backend-nestjs-v1](../transcode-backend-nestjs-v1) - toolkit 모듈에서 이 패키지들을 사용 예정
 
 ## License
 

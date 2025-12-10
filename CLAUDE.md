@@ -29,8 +29,6 @@ transcodes-ui/
 ├── packages/
 │   ├── design-tokens/     # Style Dictionary v4 디자인 토큰
 │   └── ui-components/     # Lit 3.x 웹 컴포넌트 라이브러리
-├── MIGRATION_ANALYSIS.md  # toolkit 마이그레이션 분석
-└── IMPLEMENTATION_PLAN.md # 구현 계획
 ```
 
 **의존 관계**: `ui-components` → `design-tokens`
@@ -58,8 +56,3 @@ Lit 3.x 웹 컴포넌트 라이브러리. 4계층 구조:
 - **TypeScript**: strict 모드, Lit 데코레이터용 `experimentalDecorators: true`
 - **컴포넌트**: `@customElement('tc-xxx')` 데코레이터, 이벤트는 `bubbles: true, composed: true`
 - **ESM**: import 시 `.js` 확장자 필수
-
-## 관련 프로젝트
-
-- **transcode-backend-nestjs-v1**: toolkit 모듈에서 이 패키지들을 사용할 예정
-- 마이그레이션 계획: `MIGRATION_ANALYSIS.md` 참조

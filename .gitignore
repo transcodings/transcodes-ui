@@ -27,3 +27,6 @@ npm-debug.log*
 
 # Storybook
 storybook-static/
+
+# Internal docs (private project references)
+docs/

@@ -44,11 +44,6 @@ Lit 3.x 기반 웹 컴포넌트 라이브러리. 4가지 계층 구조:
 - import 시 `.js` 확장자 사용 (ESM 호환)
 - Stories 파일은 타입 검사에서 제외됨
 
-## 마이그레이션 계획
-
-toolkit(nestjs-v1)의 styled-* 컴포넌트를 이 패키지로 대체할 예정:
-- 자세한 내용: 루트의 `MIGRATION_ANALYSIS.md`, `IMPLEMENTATION_PLAN.md` 참조
-
 ## Storybook
 
 - 스토리 파일: `src/stories/` 디렉터리
