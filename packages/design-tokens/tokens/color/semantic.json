@@ -10,6 +10,21 @@
       "$type": "color",
       "$description": "Warning hover. WCAG AA: 5.8:1 on paper-white"
     },
+    "warning-bg": {
+      "$value": "#fff8e1",
+      "$type": "color",
+      "$description": "Warning background tint for callouts/notifications"
+    },
+    "warning-light": {
+      "$value": "#fef3c7",
+      "$type": "color",
+      "$description": "Warning light background"
+    },
+    "success-bg": {
+      "$value": "#d1fae5",
+      "$type": "color",
+      "$description": "Success background tint for status indicators"
+    },
     "info": {
       "$value": "#0369a1",
       "$type": "color",
@@ -19,6 +34,11 @@
       "$value": "#075985",
       "$type": "color",
       "$description": "Info hover. WCAG AA: 5.8:1 on paper-white"
+    },
+    "info-bg": {
+      "$value": "#e0f2fe",
+      "$type": "color",
+      "$description": "Info background tint"
     }
   }
 }

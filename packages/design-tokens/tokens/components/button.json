@@ -6,6 +6,26 @@
     "font-size": { "$value": "0.9375rem", "$type": "dimension" },
     "font-weight": { "$value": "500", "$type": "fontWeight" },
     "letter-spacing": { "$value": "0.02em", "$type": "dimension" },
+    "dark": {
+      "$value": "{ink.black}",
+      "$type": "color",
+      "$description": "Dark button background (console, signin)"
+    },
+    "dark-hover": {
+      "$value": "#2a2a2a",
+      "$type": "color",
+      "$description": "Dark button hover state"
+    },
+    "light": {
+      "$value": "{paper.cream}",
+      "$type": "color",
+      "$description": "Light gray secondary button background"
+    },
+    "light-hover": {
+      "$value": "{paper.warm}",
+      "$type": "color",
+      "$description": "Light button hover state"
+    },
     "text": {
       "height": {
         "$value": "2.5rem",

@@ -30,7 +30,11 @@
   },
   "type": "module",
   "exports": {
-    ".": "./build/tokens.css",
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    },
+    "./css": "./build/tokens.css",
     "./tokens.css": "./build/tokens.css",
     "./tokens-dark.css": "./build/tokens-dark.css",
     "./components.css": "./build/components.css",
@@ -46,7 +50,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts && bun run scripts/build-components-js.ts",
+    "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts && bun run scripts/build-components-js.ts && bun run scripts/build-index.ts",
     "clean": "rm -rf build"
   },
   "devDependencies": {

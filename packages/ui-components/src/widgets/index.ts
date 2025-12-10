@@ -1,3 +1,4 @@
+export { TcAuthenticatorCard } from './tc-authenticator-card.js';
 export { TcFloatingButton } from './tc-floating-button.js';
 export { TcIframeModal } from './tc-iframe-modal.js';
 export { TcInstallationBanner } from './tc-installation-banner.js';

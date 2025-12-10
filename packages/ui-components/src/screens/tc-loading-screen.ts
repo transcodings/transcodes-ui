@@ -22,10 +22,11 @@ export class TcLoadingScreen extends LitElement {
 
   static override styles = css`
     :host {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
+      min-height: inherit;
     }
 
     .screen {
@@ -33,8 +34,7 @@ export class TcLoadingScreen extends LitElement {
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
+      min-height: inherit;
       padding: var(--space-lg);
       box-sizing: border-box;
       background: var(--paper-white);
