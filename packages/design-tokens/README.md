@@ -11,36 +11,30 @@ A comprehensive design token system built with [Style Dictionary](https://amzn.g
 - **WCAG AA Compliant** - All color combinations meet accessibility contrast requirements
 - **Responsive Values** - Fluid typography and spacing using CSS `clamp()`
 - **TypeScript Support** - Full type definitions included
-- **Zero Runtime** - Pure CSS variables with no JavaScript required
+- **JS & CSS Exports** - Use as CSS variables or JavaScript objects
 
 ## Installation
 
 ```bash
 npm install @transcodes/design-tokens
 # or
-yarn add @transcodes/design-tokens
-# or
-pnpm add @transcodes/design-tokens
-# or
 bun add @transcodes/design-tokens
 ```
 
 ## Quick Start
 
-### 1. Import the tokens
+### Option 1: CSS Variables (Recommended)
 
 ```typescript
-// Import base tokens (light theme by default)
-import '@transcodes/design-tokens';
+// Import CSS variables
+import '@transcodes/design-tokens/css';
 
-// Optional: Import dark theme support
+// Optional: Dark theme support
 import '@transcodes/design-tokens/tokens-dark.css';
 
-// Optional: Import component utility classes
+// Optional: Component utility classes
 import '@transcodes/design-tokens/components.css';
 ```
-
-### 2. Use CSS variables in your styles
 
 ```css
 .card {
@@ -49,15 +43,24 @@ import '@transcodes/design-tokens/components.css';
   padding: var(--space-md);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  transition: box-shadow var(--transition-smooth);
-}
-
-.card:hover {
-  box-shadow: var(--shadow-md);
 }
 ```
 
-### 3. Enable dark mode
+### Option 2: JavaScript Objects
+
+```typescript
+import { tokens, cssVars } from '@transcodes/design-tokens';
+
+// camelCase keys
+console.log(tokens.accentPrimary); // "#6b4fd9"
+console.log(tokens.spaceMd);       // "clamp(14px, 2.5vw, 20px)"
+
+// CSS variable names as keys
+console.log(cssVars['--accent-primary']); // "#6b4fd9"
+console.log(cssVars['--space-md']);       // "clamp(14px, 2.5vw, 20px)"
+```
+
+### Dark Mode
 
 ```html
 <!-- Light theme (default) -->
@@ -68,7 +71,7 @@ import '@transcodes/design-tokens/components.css';
 ```
 
 ```javascript
-// Toggle theme with JavaScript
+// Toggle theme
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
@@ -86,7 +89,6 @@ function toggleTheme() {
 | `--ink-dark` | #2d2d2d | #e5e5e5 | Secondary text |
 | `--ink-medium` | #5c5c5c | #a3a3a3 | Tertiary text |
 | `--ink-light` | #8a8a8a | #737373 | Placeholder text |
-| `--ink-faint` | #c4c4c4 | #525252 | Decorative elements |
 | `--paper-white` | #faf9fc | #1a1a1a | Primary background |
 | `--paper-cream` | #f5f4f8 | #2d2d2d | Secondary background |
 | `--paper-warm` | #ebe9f0 | #404040 | Tertiary background |
@@ -94,9 +96,21 @@ function toggleTheme() {
 | `--accent-success` | #357a46 | #4ade80 | Success state |
 | `--error-base` | #c0392b | #f87171 | Error state |
 
+### Semantic Tokens (v0.3.0+)
+
+| Token | Description |
+|-------|-------------|
+| `--button-dark` | Dark button background |
+| `--button-dark-hover` | Dark button hover state |
+| `--button-light` | Light button background |
+| `--button-light-hover` | Light button hover state |
+| `--semantic-warning-bg` | Warning callout background |
+| `--semantic-success-bg` | Success callout background |
+| `--semantic-info-bg` | Info callout background |
+
 ### Spacing
 
-All spacing values are responsive and scale with viewport width.
+Responsive values that scale with viewport width.
 
 | Token | Value Range |
 |-------|-------------|
@@ -130,12 +144,6 @@ All spacing values are responsive and scale with viewport width.
 ### Layout
 
 ```css
-/* Breakpoints */
---breakpoint-sm: 640px;
---breakpoint-md: 768px;
---breakpoint-lg: 1024px;
---breakpoint-xl: 1280px;
-
 /* Border radius */
 --radius-sm: 4px;
 --radius-md: 8px;
@@ -157,19 +165,15 @@ All spacing values are responsive and scale with viewport width.
 --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 ```
 
-## TypeScript Support
-
-```typescript
-import type { DesignTokens } from '@transcodes/design-tokens/types';
-```
-
 ## Exports
 
 | Path | Description |
 |------|-------------|
-| `@transcodes/design-tokens` | Base CSS variables (light theme) |
+| `@transcodes/design-tokens` | JS objects (`tokens`, `cssVars`) |
+| `@transcodes/design-tokens/css` | CSS variables (light theme) |
 | `@transcodes/design-tokens/tokens-dark.css` | Dark theme overrides |
 | `@transcodes/design-tokens/components.css` | Component utility classes |
+| `@transcodes/design-tokens/components` | Component styles as JS |
 | `@transcodes/design-tokens/types` | TypeScript type definitions |
 | `@transcodes/design-tokens/json` | Raw token values as JSON |
 
@@ -186,7 +190,7 @@ All primary color combinations meet WCAG AA standards (4.5:1 minimum contrast ra
 
 ## Browser Support
 
-This package uses CSS custom properties (CSS variables) and `clamp()` for responsive values. Supported in all modern browsers:
+Supports all modern browsers with CSS custom properties and `clamp()`:
 
 - Chrome 79+
 - Firefox 75+
