@@ -1,16 +1,33 @@
 {
   "name": "@transcodes/ui-components",
   "version": "0.1.0",
+  "private": false,
   "description": "Lit 3.x component library with Reactive Controllers",
   "type": "module",
-  "exports": {
-    ".": "./src/index.ts",
-    "./primitives": "./src/primitives/index.ts",
-    "./screens": "./src/screens/index.ts",
-    "./widgets": "./src/widgets/index.ts",
-    "./controllers": "./src/controllers/index.ts",
-    "./styles/*": "./src/styles/*"
+  "author": "Transcodes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transcodings/transcodes-ui.git",
+    "directory": "packages/ui-components"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/ui-components.js",
+  "module": "./dist/ui-components.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ui-components.js"
+    },
+    "./styles.css": "./dist/ui-components.css"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc && vite build",
     "build-storybook": "storybook build",
@@ -19,9 +36,11 @@
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  },
   "dependencies": {
-    "@transcodes/design-tokens": "workspace:*",
-    "lit": "^3.3.1"
+    "@transcodes/design-tokens": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.1.5",
@@ -29,8 +48,10 @@
     "@storybook/addon-links": "^10.1.5",
     "@storybook/web-components": "^10.1.5",
     "@storybook/web-components-vite": "^10.1.5",
+    "lit": "^3.3.1",
     "storybook": "^10.1.5",
     "typescript": "^5.9.3",
-    "vite": "^7.2.7"
+    "vite": "^7.2.7",
+    "vite-plugin-dts": "^4.5.4"
   }
 }
