@@ -17,10 +17,31 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts',
       formats: ['es'],
-      fileName: 'ui-components',
     },
     rollupOptions: {
-      external: ['lit', /^lit\//, '@transcodes/design-tokens'],
+      output: {
+        preserveModules: true, // 모듈 구조 유지
+        preserveModulesRoot: 'src', // src/ 구조 보존
+        entryFileNames: '[name].js', // 파일명 패턴
+        // 추가 최적화
+        generatedCode: {
+          constBindings: true, // const 바인딩 사용
+        },
+        compact: true, // 불필요한 공백 제거
+      },
+      external: ['lit', /^lit\//, /@transcodes\/design-tokens/],
+      treeshake: {
+        moduleSideEffects: false, // 더 적극적인 tree-shaking
+        propertyReadSideEffects: false,
+        unknownGlobalSideEffects: false,
+      },
+    },
+    minify: 'esbuild',
+    target: 'es2020', // 최신 브라우저 타겟
+    // esbuild 추가 옵션
+    esbuild: {
+      legalComments: 'none', // 라이선스 주석 제거
+      treeShaking: true,
     },
   },
 });

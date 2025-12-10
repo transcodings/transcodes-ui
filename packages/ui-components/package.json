@@ -28,15 +28,31 @@
     "access": "public"
   },
   "type": "module",
-  "main": "./dist/ui-components.js",
-  "module": "./dist/ui-components.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/ui-components.js"
+      "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/ui-components.css"
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.js"
+    },
+    "./widgets": {
+      "types": "./dist/widgets/index.d.ts",
+      "import": "./dist/widgets/index.js"
+    },
+    "./screens": {
+      "types": "./dist/screens/index.d.ts",
+      "import": "./dist/screens/index.js"
+    },
+    "./controllers": {
+      "types": "./dist/controllers/index.d.ts",
+      "import": "./dist/controllers/index.js"
+    }
   },
   "files": [
     "dist",

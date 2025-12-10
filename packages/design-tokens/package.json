@@ -29,6 +29,10 @@
     "access": "public"
   },
   "type": "module",
+  "sideEffects": [
+    "./build/*.css",
+    "./build/index.js"
+  ],
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
@@ -51,11 +55,12 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts && bun run scripts/build-components-js.ts && bun run scripts/build-index.ts",
+    "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts && bun run scripts/build-dark-css.ts && bun run scripts/build-components-js.ts && bun run scripts/build-index.ts && bun run scripts/minify-css.ts",
     "clean": "rm -rf build"
   },
   "devDependencies": {
     "@types/bun": "^1.3.4",
+    "lightningcss": "^1.30.2",
     "style-dictionary": "^5.1.1"
   }
 }

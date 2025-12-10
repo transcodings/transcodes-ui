@@ -24,6 +24,10 @@ const jsContent = `/**
  * Design tokens as JavaScript object for use in JS/TS environments
  */
 
+// CSS side-effect imports (auto-loaded when package is imported)
+import './tokens.css';
+import './tokens-dark.css';
+
 /**
  * All design tokens as a JavaScript object
  * Keys are camelCase versions of CSS variable names
