@@ -1,8 +1,10 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { sharedStyles } from '../styles/shared.js';
 
 /**
  * OTP (One-Time Password) input component with individual cells and progress indicator.
+ * Uses shake animation from design-tokens.
  *
  * @fires tc-complete - Fired when all cells are filled
  * @fires tc-change - Fired when the OTP value changes
@@ -20,108 +22,96 @@ export class TcOtpInput extends LitElement {
 
   @state() private values: string[] = [];
 
-  static override styles = css`
-    :host {
-      display: block;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-md);
-    }
-
-    .cells {
-      display: flex;
-      gap: var(--space-sm);
-      justify-content: center;
-    }
-
-    .cell {
-      width: clamp(2.625rem, 2.35rem + 1.36vw, 3rem);
-      height: clamp(3.125rem, 2.78rem + 1.74vw, 3.5rem);
-      border: 0.125rem solid transparent;
-      border-radius: 0.625rem;
-      background: var(--paper-cream);
-      font-family: var(--font-body);
-      font-size: clamp(1.25rem, 1.14rem + 0.54vw, 1.5rem);
-      font-weight: 600;
-      text-align: center;
-      color: var(--ink-black);
-      transition: all 200ms ease;
-      caret-color: var(--accent-primary);
-    }
-
-    .cell:focus {
-      outline: none;
-      background: var(--paper-white);
-      border-color: var(--accent-primary);
-      box-shadow: var(--shadow-otp-cell-focus);
-    }
-
-    .cell--filled {
-      background: var(--paper-white);
-      border-color: var(--ink-faint);
-    }
-
-    .cell--error {
-      border-color: var(--error-base) !important;
-      animation: shake 400ms ease;
-    }
-
-    .cell:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    @keyframes shake {
-      0%,
-      100% {
-        transform: translateX(0);
+  static override styles = [
+    sharedStyles,
+    css`
+      :host {
+        display: block;
       }
-      20%,
-      60% {
-        transform: translateX(-10px);
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
       }
-      40%,
-      80% {
-        transform: translateX(10px);
+
+      .cells {
+        display: flex;
+        gap: var(--space-sm);
+        justify-content: center;
       }
-    }
 
-    /* Progress bar */
-    .progress {
-      width: 100%;
-      max-width: 12rem;
-      height: 0.1875rem;
-      background: var(--paper-warm);
-      border-radius: 9999px;
-      overflow: hidden;
-    }
+      .cell {
+        width: clamp(2.625rem, 2.35rem + 1.36vw, 3rem);
+        height: clamp(3.125rem, 2.78rem + 1.74vw, 3.5rem);
+        border: var(--size-border-width-thick) solid transparent;
+        border-radius: var(--radius-md);
+        background: var(--paper-cream);
+        font-family: var(--font-body);
+        font-size: clamp(1.25rem, 1.14rem + 0.54vw, 1.5rem);
+        font-weight: 600;
+        text-align: center;
+        color: var(--ink-black);
+        transition: all var(--duration-instant) ease;
+        caret-color: var(--accent-primary);
+      }
 
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        var(--accent-primary) 0%,
-        var(--accent-primary-hover) 100%
-      );
-      transition: width 200ms ease;
-    }
+      .cell:focus {
+        outline: none;
+        background: var(--paper-white);
+        border-color: var(--accent-primary);
+        box-shadow: var(--shadow-otp-cell-focus);
+      }
 
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .cell,
-      .progress-bar {
-        transition-duration: 0.01ms !important;
+      .cell--filled {
+        background: var(--paper-white);
+        border-color: var(--ink-faint);
       }
 
       .cell--error {
-        animation: none;
+        border-color: var(--error-base) !important;
+        animation: shake var(--duration-smooth) ease;
       }
-    }
-  `;
+
+      .cell:disabled {
+        opacity: var(--opacity-disabled);
+        cursor: not-allowed;
+      }
+
+      /* Progress bar */
+      .progress {
+        width: 100%;
+        max-width: 12rem;
+        height: var(--size-border-width-heavy);
+        background: var(--paper-warm);
+        border-radius: var(--radius-full);
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--accent-primary) 0%,
+          var(--accent-primary-hover) 100%
+        );
+        transition: width var(--duration-instant) ease;
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .cell,
+        .progress-bar {
+          transition-duration: 0.01ms !important;
+        }
+
+        .cell--error {
+          animation: none;
+        }
+      }
+    `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();

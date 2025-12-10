@@ -1,9 +1,10 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { sharedStyles } from '../styles/shared.js';
 
 /**
  * Decorative floating blob background for pages.
- * Uses CSS custom properties for color variants.
+ * Uses CSS custom properties for color variants and inkFloat/inkDrift animations from design-tokens.
  *
  * @csspart decoration - The decoration container
  * @csspart blob - Individual blob element
@@ -13,7 +14,9 @@ export class TcPageDecoration extends LitElement {
   @property({ type: String }) variant: 'primary' | 'success' | 'error' =
     'primary';
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       position: fixed;
       inset: 0;
@@ -104,7 +107,8 @@ export class TcPageDecoration extends LitElement {
         animation: none;
       }
     }
-  `;
+  `,
+  ];
 
   override render() {
     return html`

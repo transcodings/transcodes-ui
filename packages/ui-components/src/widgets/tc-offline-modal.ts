@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { AnimationController } from '../controllers/animation.controller.js';
+import { sharedStyles } from '../styles/shared.js';
 import '../primitives/tc-icon.js';
 import '../primitives/tc-text.js';
 import '../primitives/tc-button.js';
@@ -36,7 +37,9 @@ export class TcOfflineModal extends LitElement {
     hideDuration: 200,
   });
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       display: contents;
     }
@@ -116,7 +119,8 @@ export class TcOfflineModal extends LitElement {
     .action {
       width: 100%;
     }
-  `;
+  `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();
@@ -220,7 +224,7 @@ export class TcOfflineModal extends LitElement {
               id="offline-description"
               part="description"
               size="base"
-              color="var(--ink-medium)"
+              color="tertiary"
             >
               ${this.description}
             </tc-text>

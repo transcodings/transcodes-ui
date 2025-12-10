@@ -68,7 +68,7 @@ export class TcLoadingScreen extends LitElement {
             ${
               this.message
                 ? html`
-                  <tc-text part="message" class="message" size="base" color="var(--ink-medium)">
+                  <tc-text part="message" class="message" size="base" color="tertiary">
                     ${this.message}
                   </tc-text>
                 `

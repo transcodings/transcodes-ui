@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { AnimationController } from '../controllers/animation.controller.js';
 import { StorageController } from '../controllers/storage.controller.js';
+import { sharedStyles } from '../styles/shared.js';
 import '../primitives/tc-icon.js';
 import '../primitives/tc-text.js';
 import '../primitives/tc-button.js';
@@ -40,7 +41,9 @@ export class TcNotificationModal extends LitElement {
     permission: 'granted' | 'denied' | null;
   }>(this, this.storageKey);
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       display: contents;
     }
@@ -138,7 +141,8 @@ export class TcNotificationModal extends LitElement {
     .deny-button:hover {
       color: var(--ink-dark);
     }
-  `;
+  `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();
@@ -236,7 +240,7 @@ export class TcNotificationModal extends LitElement {
               id="notification-description"
               part="description"
               size="base"
-              color="var(--ink-medium)"
+              color="tertiary"
             >
               ${this.description}
             </tc-text>

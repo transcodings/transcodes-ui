@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { AnimationController } from '../controllers/animation.controller.js';
+import { sharedStyles } from '../styles/shared.js';
 
 /**
  * A toast notification component with auto-dismiss and animation.
@@ -29,7 +30,9 @@ export class TcToast extends LitElement {
 
   private dismissTimer?: ReturnType<typeof setTimeout>;
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       display: block;
       position: fixed;
@@ -119,7 +122,8 @@ export class TcToast extends LitElement {
       width: var(--size-icon-sm);
       height: var(--size-icon-sm);
     }
-  `;
+  `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();

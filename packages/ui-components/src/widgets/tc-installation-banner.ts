@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { AnimationController } from '../controllers/animation.controller.js';
 import { StorageController } from '../controllers/storage.controller.js';
+import { sharedStyles } from '../styles/shared.js';
 import '../primitives/tc-icon.js';
 import '../primitives/tc-button.js';
 import '../primitives/tc-text.js';
@@ -45,7 +46,9 @@ export class TcInstallationBanner extends LitElement {
     this.storageKey,
   );
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       display: block;
       position: fixed;
@@ -158,7 +161,8 @@ export class TcInstallationBanner extends LitElement {
         justify-content: flex-end;
       }
     }
-  `;
+  `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();
@@ -225,7 +229,7 @@ export class TcInstallationBanner extends LitElement {
           <tc-text part="title" class="title" size="base" weight="600">
             ${this.title}
           </tc-text>
-          <tc-text part="description" class="description" size="sm" color="var(--ink-medium)">
+          <tc-text part="description" class="description" size="sm" color="tertiary">
             ${this.description}
           </tc-text>
         </div>

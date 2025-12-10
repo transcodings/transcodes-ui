@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { AnimationController } from '../controllers/animation.controller.js';
+import { sharedStyles } from '../styles/shared.js';
 import '../primitives/tc-icon.js';
 import '../primitives/tc-text.js';
 import '../primitives/tc-button.js';
@@ -33,7 +34,9 @@ export class TcIosInstallationGuide extends LitElement {
     hideDuration: 200,
   });
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       display: contents;
     }
@@ -171,7 +174,8 @@ export class TcIosInstallationGuide extends LitElement {
     .action {
       margin-top: var(--space-xl);
     }
-  `;
+  `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();

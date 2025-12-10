@@ -1,8 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { sharedStyles } from '../styles/shared.js';
 
 /**
  * A callout/alert component for messages and notices.
+ * Uses design-tokens notice classes (.notice, .notice-info, .notice-success, etc.)
  *
  * @slot - Callout content
  * @csspart callout - The callout container
@@ -15,48 +18,40 @@ export class TcCallout extends LitElement {
     | 'warning'
     | 'error' = 'info';
 
-  static override styles = css`
-    :host {
-      display: block;
-      width: 100%;
-    }
+  static override styles = [
+    sharedStyles,
+    css`
+      :host {
+        display: block;
+        width: 100%;
+      }
 
-    .callout {
-      padding: var(--space-md);
-      border-radius: var(--radius-md);
-      font-family: var(--font-body);
-      font-size: var(--font-size-sm);
-      line-height: 1.5;
-    }
+      /* Override animation from design-tokens for immediate display */
+      .notice {
+        animation: none;
+      }
 
-    .callout--info {
-      background: var(--alpha-primary08);
-      color: var(--accent-primary);
-      border: 1px solid var(--alpha-primary20);
-    }
-
-    .callout--success {
-      background: var(--alpha-success10);
-      color: var(--accent-success);
-      border: 1px solid var(--alpha-success20);
-    }
-
-    .callout--warning {
-      background: var(--alpha-warning15);
-      color: var(--semantic-warning);
-      border: 1px solid var(--alpha-warning20);
-    }
-
-    .callout--error {
-      background: var(--error-bg);
-      color: var(--error-base);
-      border: 1px solid var(--error-border);
-    }
-  `;
+      /* Error variant uses error-message class from design-tokens */
+      .error-message {
+        animation: none;
+      }
+    `,
+  ];
 
   override render() {
+    // Map callout variants to design-tokens notice classes
+    // Error uses error-message class, others use notice-* classes
+    const isError = this.variant === 'error';
+    const classes = {
+      notice: !isError,
+      'notice-info': this.variant === 'info',
+      'notice-success': this.variant === 'success',
+      'notice-warning': this.variant === 'warning',
+      'error-message': isError,
+    };
+
     return html`
-      <div part="callout" class="callout callout--${this.variant}" role="alert">
+      <div part="callout" class=${classMap(classes)} role="alert">
         <slot></slot>
       </div>
     `;

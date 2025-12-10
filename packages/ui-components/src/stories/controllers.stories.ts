@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { css, html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { AnimationController } from '../controllers/animation.controller.js';
 import {
   FormValidationController,
@@ -129,8 +129,8 @@ export class DemoAnimationController extends LitElement {
 export class DemoFormValidation extends LitElement {
   private validation = new FormValidationController(this);
 
-  @state() private email = '';
-  @state() private password = '';
+  private _email = '';
+  private _password = '';
 
   private emailRules: ValidationRule[] = [
     { type: 'required', message: 'Email is required' },
@@ -160,38 +160,41 @@ export class DemoFormValidation extends LitElement {
   `;
 
   private handleEmailInput(e: CustomEvent) {
-    this.email = e.detail.value;
+    this._email = e.detail.value;
+    this.requestUpdate();
   }
 
   private handlePasswordInput(e: CustomEvent) {
-    this.password = e.detail.value;
+    this._password = e.detail.value;
+    this.requestUpdate();
   }
 
   private handleEmailBlur() {
-    this.validation.validate('email', this.email, this.emailRules);
+    this.validation.validate('email', this._email, this.emailRules);
   }
 
   private handlePasswordBlur() {
-    this.validation.validate('password', this.password, this.passwordRules);
+    this.validation.validate('password', this._password, this.passwordRules);
   }
 
   private handleSubmit() {
     const emailValid = this.validation.validate(
       'email',
-      this.email,
+      this._email,
       this.emailRules,
     );
     const passwordValid = this.validation.validate(
       'password',
-      this.password,
+      this._password,
       this.passwordRules,
     );
 
     if (emailValid && passwordValid) {
       console.log('Form submitted!');
       this.validation.reset();
-      this.email = '';
-      this.password = '';
+      this._email = '';
+      this._password = '';
+      this.requestUpdate();
     }
   }
 
@@ -202,7 +205,7 @@ export class DemoFormValidation extends LitElement {
           label="Email"
           type="email"
           placeholder="you@example.com"
-          .value=${this.email}
+          .value=${this._email}
           error=${this.validation.getError('email') || ''}
           @tc-input=${this.handleEmailInput}
           @tc-blur=${this.handleEmailBlur}
@@ -211,7 +214,7 @@ export class DemoFormValidation extends LitElement {
           label="Password"
           type="password"
           placeholder="Enter password"
-          .value=${this.password}
+          .value=${this._password}
           error=${this.validation.getError('password') || ''}
           @tc-input=${this.handlePasswordInput}
           @tc-blur=${this.handlePasswordBlur}
@@ -294,20 +297,36 @@ export default meta;
 
 export const LoadingControllerDemo: StoryObj = {
   name: 'LoadingController',
-  render: () => html`<demo-loading-controller></demo-loading-controller>`,
+  render: () => html`
+    <div style="padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
+      <demo-loading-controller></demo-loading-controller>
+    </div>
+  `,
 };
 
 export const AnimationControllerDemo: StoryObj = {
   name: 'AnimationController',
-  render: () => html`<demo-animation-controller></demo-animation-controller>`,
+  render: () => html`
+    <div style="padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
+      <demo-animation-controller></demo-animation-controller>
+    </div>
+  `,
 };
 
 export const FormValidationControllerDemo: StoryObj = {
   name: 'FormValidationController',
-  render: () => html`<demo-form-validation></demo-form-validation>`,
+  render: () => html`
+    <div style="padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg); max-width: 400px;">
+      <demo-form-validation></demo-form-validation>
+    </div>
+  `,
 };
 
 export const MatchMediaControllerDemo: StoryObj = {
   name: 'MatchMediaController',
-  render: () => html`<demo-match-media></demo-match-media>`,
+  render: () => html`
+    <div style="padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
+      <demo-match-media></demo-match-media>
+    </div>
+  `,
 };

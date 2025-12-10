@@ -27,6 +27,10 @@
     "./tokens.css": "./build/tokens.css",
     "./tokens-dark.css": "./build/tokens-dark.css",
     "./components.css": "./build/components.css",
+    "./components": {
+      "types": "./build/components.d.ts",
+      "import": "./build/components.js"
+    },
     "./types": "./build/tokens.d.ts",
     "./json": "./build/tokens.json"
   },
@@ -35,7 +39,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts",
+    "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts && bun run scripts/build-components-js.ts",
     "clean": "rm -rf build"
   },
   "devDependencies": {

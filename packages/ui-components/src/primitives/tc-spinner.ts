@@ -1,9 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { MatchMediaController } from '../controllers/match-media.controller.js';
+import { sharedStyles } from '../styles/shared.js';
 
 /**
  * A loading spinner with responsive sizing.
+ * Uses spin animation from design-tokens.
  *
  * @csspart spinner - The spinner element
  */
@@ -14,58 +16,55 @@ export class TcSpinner extends LitElement {
   @property({ type: String }) size: 'sm' | 'md' | 'lg' | 'auto' = 'auto';
   @property({ type: String }) color = 'var(--accent-primary)';
 
-  static override styles = css`
-    :host {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .spinner {
-      display: block;
-      border-radius: 50%;
-      border-style: solid;
-      border-color: var(--paper-cream);
-      border-top-color: var(--spinner-color);
-      animation: spin 0.8s linear infinite;
-    }
-
-    .spinner--sm {
-      width: var(--size-spinner-sm);
-      height: var(--size-spinner-sm);
-      border-width: var(--size-border-width-thick);
-    }
-
-    .spinner--md {
-      width: var(--size-spinner-md);
-      height: var(--size-spinner-md);
-      border-width: var(--size-border-width-heavy);
-    }
-
-    .spinner--lg {
-      width: var(--size-spinner-lg);
-      height: var(--size-spinner-lg);
-      border-width: var(--size-border-width-bold);
-    }
-
-    .spinner--auto-mobile {
-      width: 3.75rem;
-      height: 3.75rem;
-      border-width: var(--size-border-width-heavy);
-    }
-
-    .spinner--auto-desktop {
-      width: 5rem;
-      height: 5rem;
-      border-width: var(--size-border-width-bold);
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
+  static override styles = [
+    sharedStyles,
+    css`
+      :host {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
-    }
-  `;
+
+      .spinner {
+        display: block;
+        border-radius: 50%;
+        border-style: solid;
+        border-color: var(--paper-cream);
+        border-top-color: var(--spinner-color);
+        animation: spin var(--duration-slow) linear infinite;
+      }
+
+      .spinner--sm {
+        width: var(--size-spinner-sm);
+        height: var(--size-spinner-sm);
+        border-width: var(--size-border-width-thick);
+      }
+
+      .spinner--md {
+        width: var(--size-spinner-md);
+        height: var(--size-spinner-md);
+        border-width: var(--size-border-width-heavy);
+      }
+
+      .spinner--lg {
+        width: var(--size-spinner-lg);
+        height: var(--size-spinner-lg);
+        border-width: var(--size-border-width-bold);
+      }
+
+      .spinner--auto-mobile {
+        width: var(--size-spinner-lg);
+        height: var(--size-spinner-lg);
+        border-width: var(--size-border-width-heavy);
+      }
+
+      .spinner--auto-desktop {
+        width: 5rem;
+        height: 5rem;
+        border-width: var(--size-border-width-bold);
+      }
+    `,
+  ];
 
   override render() {
     let sizeClass: string;

@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { AnimationController } from '../controllers/animation.controller.js';
 import { HistoryController } from '../controllers/history.controller.js';
 import { MessageBusController } from '../controllers/message-bus.controller.js';
+import { sharedStyles } from '../styles/shared.js';
 import '../primitives/tc-spinner.js';
 
 /**
@@ -39,7 +40,9 @@ export class TcIframeModal extends LitElement {
   private history = new HistoryController(this);
   private messageBus = new MessageBusController(this);
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       display: contents;
     }
@@ -165,7 +168,8 @@ export class TcIframeModal extends LitElement {
       opacity: 0;
       pointer-events: none;
     }
-  `;
+  `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();

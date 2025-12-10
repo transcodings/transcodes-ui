@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { sharedStyles } from '../styles/shared.js';
 
 /**
  * A floating action button positioned fixed on the screen.
@@ -20,7 +21,9 @@ export class TcFloatingButton extends LitElement {
   @property({ type: Boolean }) disabled = false;
   @property({ type: Object }) sx: Record<string, string | number> = {};
 
-  static override styles = css`
+  static override styles = [
+    sharedStyles,
+    css`
     :host {
       display: block;
       position: fixed;
@@ -84,7 +87,8 @@ export class TcFloatingButton extends LitElement {
       cursor: not-allowed;
       box-shadow: none;
     }
-  `;
+  `,
+  ];
 
   override connectedCallback() {
     super.connectedCallback();

@@ -181,7 +181,7 @@ export class TcSuccessScreen extends LitElement {
               <tc-text part="title" tag="h1" size="xl" weight="600" class="title">
                 ${this.title}
               </tc-text>
-              <tc-text part="message" size="base" color="var(--ink-medium)" class="message">
+              <tc-text part="message" size="base" color="tertiary" class="message">
                 ${this.message}
               </tc-text>
             </tc-section>
