@@ -10,6 +10,8 @@ import { sharedStyles } from '../styles/shared.js';
  *
  * @fires tc-input - Fired when input value changes
  * @fires tc-blur - Fired when input loses focus
+ * @fires tc-keydown - Fired when a key is pressed
+ * @fires tc-paste - Fired when content is pasted
  * @csspart wrapper - The input wrapper element
  * @csspart input - The input element
  * @csspart label - The label element
@@ -190,6 +192,8 @@ export class TcInput extends LitElement {
             @input=${this.handleInput}
             @focus=${this.handleFocus}
             @blur=${this.handleBlur}
+            @keydown=${this.handleKeydown}
+            @paste=${this.handlePaste}
           />
           <div part="ink-line" class="ink-line"></div>
         </div>
@@ -230,6 +234,26 @@ export class TcInput extends LitElement {
         bubbles: true,
         composed: true,
         detail: { value: input.value },
+      }),
+    );
+  }
+
+  private handleKeydown(e: KeyboardEvent) {
+    this.dispatchEvent(
+      new CustomEvent('tc-keydown', {
+        bubbles: true,
+        composed: true,
+        detail: { key: e.key, value: this.value, originalEvent: e },
+      }),
+    );
+  }
+
+  private handlePaste(e: ClipboardEvent) {
+    this.dispatchEvent(
+      new CustomEvent('tc-paste', {
+        bubbles: true,
+        composed: true,
+        detail: { data: e.clipboardData?.getData('text'), originalEvent: e },
       }),
     );
   }

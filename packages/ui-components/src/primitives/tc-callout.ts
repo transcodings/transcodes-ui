@@ -8,7 +8,10 @@ import { sharedStyles } from '../styles/shared.js';
  * Uses design-tokens notice classes (.notice, .notice-info, .notice-success, etc.)
  *
  * @slot - Callout content
+ * @slot icon - Optional icon slot
  * @csspart callout - The callout container
+ * @csspart icon - The icon container
+ * @csspart content - The content container
  */
 @customElement('tc-callout')
 export class TcCallout extends LitElement {
@@ -35,6 +38,29 @@ export class TcCallout extends LitElement {
       .error-message {
         animation: none;
       }
+
+      /* Icon + content layout */
+      .callout-inner {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-sm);
+      }
+
+      .callout-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      /* Hide icon container when empty */
+      .callout-icon:empty {
+        display: none;
+      }
+
+      .callout-content {
+        flex: 1;
+        min-width: 0;
+      }
     `,
   ];
 
@@ -52,7 +78,14 @@ export class TcCallout extends LitElement {
 
     return html`
       <div part="callout" class=${classMap(classes)} role="alert">
-        <slot></slot>
+        <div class="callout-inner">
+          <div part="icon" class="callout-icon">
+            <slot name="icon"></slot>
+          </div>
+          <div part="content" class="callout-content">
+            <slot></slot>
+          </div>
+        </div>
       </div>
     `;
   }
