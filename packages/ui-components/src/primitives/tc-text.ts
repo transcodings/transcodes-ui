@@ -18,7 +18,16 @@ type TextTag =
 
 type TextSize = 'sm' | 'base' | 'lg' | 'xl' | '2xl';
 type TextWeight = '400' | '500' | '600' | '700';
-type TextColor = 'primary' | 'secondary' | 'tertiary' | 'muted' | 'accent' | 'success' | 'error' | 'warning' | 'info';
+type TextColor =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'muted'
+  | 'accent'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'info';
 
 /**
  * A text component with dynamic tag rendering.
@@ -136,7 +145,11 @@ export class TcText extends LitElement {
     if (!this.color) return undefined;
 
     // If it's a CSS variable or raw color value, use inline style
-    if (this.color.startsWith('var(') || this.color.startsWith('#') || this.color.startsWith('rgb')) {
+    if (
+      this.color.startsWith('var(') ||
+      this.color.startsWith('#') ||
+      this.color.startsWith('rgb')
+    ) {
       return this.color;
     }
 

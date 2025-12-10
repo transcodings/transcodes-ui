@@ -9,7 +9,19 @@ const meta: Meta = {
   argTypes: {
     name: {
       control: 'select',
-      options: ['check', 'x', 'chevron-right', 'chevron-left', 'alert-circle', 'info', 'loader', 'bell', 'download', 'wifi-off', 'passkey'],
+      options: [
+        'check',
+        'x',
+        'chevron-right',
+        'chevron-left',
+        'alert-circle',
+        'info',
+        'loader',
+        'bell',
+        'download',
+        'wifi-off',
+        'passkey',
+      ],
     },
     size: {
       control: 'text',

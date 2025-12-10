@@ -8,7 +8,18 @@ const meta: Meta = {
   argTypes: {
     tag: {
       control: 'select',
-      options: ['p', 'span', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'label'],
+      options: [
+        'p',
+        'span',
+        'div',
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'label',
+      ],
     },
     size: {
       control: 'select',
@@ -20,7 +31,17 @@ const meta: Meta = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'muted', 'accent', 'success', 'error', 'warning', 'info'],
+      options: [
+        'primary',
+        'secondary',
+        'tertiary',
+        'muted',
+        'accent',
+        'success',
+        'error',
+        'warning',
+        'info',
+      ],
     },
   },
 };

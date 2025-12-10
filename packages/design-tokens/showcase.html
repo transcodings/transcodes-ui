@@ -1668,7 +1668,7 @@
       getLuminance(rgb) {
         const [r, g, b] = [rgb.r, rgb.g, rgb.b].map(v => {
           v /= 255;
-          return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+          return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
         });
         return 0.2126 * r + 0.7152 * g + 0.0722 * b;
       },
@@ -1805,7 +1805,7 @@
     }
 
     // Load saved theme on page load
-    (function() {
+    (() => {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         document.documentElement.setAttribute('data-theme', savedTheme);
