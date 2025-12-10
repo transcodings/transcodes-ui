@@ -69,3 +69,20 @@ export const AccountCreated: StoryObj = {
     </div>
   `,
 };
+
+export const FlexibleHeight: StoryObj = {
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <p style="color: var(--ink-medium); font-size: var(--font-size-sm);">
+        Screens now use <code>min-height: inherit</code> for flexible sizing.
+      </p>
+      <div style="height: 350px; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); overflow: hidden;">
+        <tc-success-screen
+          title="Done!"
+          message="Task completed in 350px container."
+          action-label="Continue"
+        ></tc-success-screen>
+      </div>
+    </div>
+  `,
+};

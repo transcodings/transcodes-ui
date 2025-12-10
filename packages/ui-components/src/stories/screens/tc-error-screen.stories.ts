@@ -71,3 +71,20 @@ export const NetworkError: StoryObj = {
     </div>
   `,
 };
+
+export const FlexibleHeight: StoryObj = {
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <p style="color: var(--ink-medium); font-size: var(--font-size-sm);">
+        Screens now use <code>min-height: inherit</code> for flexible sizing.
+      </p>
+      <div style="height: 350px; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); overflow: hidden;">
+        <tc-error-screen
+          title="Error"
+          message="Something went wrong in this 350px container."
+          retry-label="Retry"
+        ></tc-error-screen>
+      </div>
+    </div>
+  `,
+};
