@@ -1,6 +1,6 @@
 {
-  "buildCommand": "bun run build-storybook",
+  "buildCommand": "cd ../.. && bun run build:storybook",
   "outputDirectory": "storybook-static",
-  "installCommand": "bun install",
+  "installCommand": "cd ../.. && bun install",
   "framework": null
 }

@@ -1,7 +1,7 @@
 {
-  "buildCommand": "bun run build",
+  "buildCommand": "cd ../.. && bun run build:showcase",
   "outputDirectory": ".",
-  "installCommand": "bun install",
+  "installCommand": "cd ../.. && bun install",
   "framework": null,
   "rewrites": [{ "source": "/", "destination": "/showcase.html" }]
 }

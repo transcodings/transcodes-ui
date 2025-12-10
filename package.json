@@ -10,6 +10,8 @@
     "format": "biome format --write --files-ignore-unknown=true --no-errors-on-unmatched",
     "check": "biome check --write --files-ignore-unknown=true --no-errors-on-unmatched",
     "build": "turbo run build",
+    "build:storybook": "turbo run build --filter=@transcodes/design-tokens && cd packages/ui-components && bun run build-storybook",
+    "build:showcase": "turbo run build --filter=@transcodes/design-tokens",
     "dev": "turbo run dev",
     "clean": "turbo run clean",
     "lint": "turbo run lint"
