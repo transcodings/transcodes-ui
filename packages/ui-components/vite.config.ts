@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
+const isStorybook = process.argv[1]?.includes('storybook');
+
 export default defineConfig({
   plugins: [
-    dts({
-      include: ['src'],
-      exclude: ['src/stories'],
-      rollupTypes: true,
-    }),
-  ],
+    // Storybook 빌드 시에는 dts 플러그인 비활성화
+    !isStorybook &&
+      dts({
+        include: ['src'],
+        exclude: ['src/stories'],
+        rollupTypes: true,
+      }),
+  ].filter(Boolean),
   build: {
     lib: {
       entry: 'src/index.ts',
