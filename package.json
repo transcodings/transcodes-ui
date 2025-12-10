@@ -11,7 +11,7 @@
     "check": "biome check --write --files-ignore-unknown=true --no-errors-on-unmatched",
     "build": "turbo run build",
     "build:storybook": "turbo run build --filter=@transcodes/design-tokens && cd packages/ui-components && bun run build-storybook",
-    "build:showcase": "turbo run build --filter=@transcodes/design-tokens",
+    "build:showcase": "turbo run build --filter=@transcodes/design-tokens && cp packages/design-tokens/build/*.css packages/design-tokens/package.json packages/design-tokens/public/",
     "dev": "turbo run dev",
     "clean": "turbo run clean",
     "lint": "turbo run lint"
