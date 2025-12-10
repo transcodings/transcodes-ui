@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../primitives/tc-box.js';
-import '../primitives/tc-container.js';
-import '../primitives/tc-section.js';
-import '../primitives/tc-divider.js';
-import '../primitives/tc-symbol.js';
-import '../primitives/tc-item.js';
-import '../primitives/tc-item-button.js';
-import '../primitives/tc-text.js';
-import '../primitives/tc-button.js';
-import '../primitives/tc-icon.js';
+import '../../primitives/tc-box.js';
+import '../../primitives/tc-container.js';
+import '../../primitives/tc-section.js';
+import '../../primitives/tc-divider.js';
+import '../../primitives/tc-symbol.js';
+import '../../primitives/tc-item.js';
+import '../../primitives/tc-item-button.js';
+import '../../primitives/tc-text.js';
+import '../../primitives/tc-button.js';
+import '../../primitives/tc-icon.js';
 
 const meta: Meta = {
-  title: 'Primitives/Layout',
+  title: 'Primitives/tc-layout',
 };
 
 export default meta;

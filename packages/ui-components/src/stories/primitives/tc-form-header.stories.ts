@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../primitives/tc-form-header.js';
+import '../../primitives/tc-form-header.js';
 
 const meta: Meta = {
   title: 'Primitives/tc-form-header',

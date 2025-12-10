@@ -56,3 +56,27 @@ Lit 3.x 웹 컴포넌트 라이브러리. 4계층 구조:
 - **TypeScript**: strict 모드, Lit 데코레이터용 `experimentalDecorators: true`
 - **컴포넌트**: `@customElement('tc-xxx')` 데코레이터, 이벤트는 `bubbles: true, composed: true`
 - **ESM**: import 시 `.js` 확장자 필수
+
+## 설계 원칙
+
+**KISS, DRY, YAGNI** 원칙을 준수할 것:
+
+- **KISS** (Keep It Simple, Stupid): 단순하게 유지. 불필요한 복잡성 배제
+- **DRY** (Don't Repeat Yourself): 중복 코드 금지. 공통 로직은 추상화
+- **YAGNI** (You Aren't Gonna Need It): 현재 필요한 것만 구현. 미래 요구사항 예측 금지
+
+## Serena MCP 사용 권장
+
+코드 탐색 및 수정 시 **Serena MCP 도구를 우선 사용**할 것:
+
+- `mcp__serena__find_symbol`: 클래스, 메서드, 함수 등 심볼 검색 (name_path 패턴 지원)
+- `mcp__serena__get_symbols_overview`: 파일 내 심볼 구조 파악
+- `mcp__serena__find_referencing_symbols`: 심볼 참조 위치 추적
+- `mcp__serena__replace_symbol_body`: 심볼 본문 교체
+- `mcp__serena__insert_after_symbol` / `insert_before_symbol`: 심볼 전후에 코드 삽입
+- `mcp__serena__search_for_pattern`: 정규식 기반 코드 검색
+
+**장점**:
+- Read/Edit 대비 토큰 사용량 절약
+- 심볼 단위로 정확한 코드 추적 가능
+- 전체 파일 읽기 없이 필요한 부분만 조회/수정

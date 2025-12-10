@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../primitives/tc-card.js';
-import '../primitives/tc-section.js';
-import '../primitives/tc-text.js';
-import '../primitives/tc-button.js';
+import '../../primitives/tc-card.js';
+import '../../primitives/tc-section.js';
+import '../../primitives/tc-text.js';
+import '../../primitives/tc-button.js';
 
 const meta: Meta = {
   title: 'Primitives/tc-card',

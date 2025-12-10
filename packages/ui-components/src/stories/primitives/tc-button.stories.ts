@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../primitives/tc-button.js';
+import '../../primitives/tc-button.js';
 
 const meta: Meta = {
   title: 'Primitives/tc-button',

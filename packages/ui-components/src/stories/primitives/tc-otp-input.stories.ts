@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../primitives/tc-otp-input.js';
+import '../../primitives/tc-otp-input.js';
 
 const meta: Meta = {
   title: 'Primitives/tc-otp-input',

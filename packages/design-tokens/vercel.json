@@ -3,5 +3,5 @@
   "outputDirectory": ".",
   "installCommand": "cd ../.. && bun install",
   "framework": null,
-  "rewrites": [{ "source": "/", "destination": "/showcase.html" }]
+  "rewrites": [{ "source": "/", "destination": "/showcase/index.html" }]
 }

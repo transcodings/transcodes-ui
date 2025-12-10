@@ -7,894 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./build/tokens.css">
-  <link rel="stylesheet" href="./build/tokens-dark.css">
-  <link rel="stylesheet" href="./build/components.css">
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--paper-cream);
-      color: var(--ink-black);
-      line-height: var(--line-height-normal);
-      min-height: 100vh;
-    }
-
-    /* Navigation */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: var(--z-index-sticky);
-      background: var(--paper-white);
-      border-bottom: var(--space-fixed-2xs) solid var(--paper-warm);
-      padding: var(--space-sm) var(--space-lg);
-      box-shadow: var(--shadow-overlay);
-    }
-
-    .nav-inner {
-      max-width: 72rem;
-      margin: 0 auto;
-      display: flex;
-      gap: var(--space-md);
-      overflow-x: auto;
-      align-items: center;
-    }
-
-    .nav-link {
-      font-size: var(--font-size-sm);
-      color: var(--ink-medium);
-      text-decoration: none;
-      padding: var(--space-xs) var(--space-sm);
-      border-radius: var(--radius-sm);
-      white-space: nowrap;
-      transition: all var(--transition-fast);
-    }
-
-    .nav-link:hover {
-      color: var(--accent-primary);
-      background: var(--alpha-primary04);
-    }
-
-    /* Theme Toggle */
-    .theme-toggle {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-
-    .theme-toggle-label {
-      font-size: var(--font-size-sm);
-      color: var(--ink-medium);
-    }
-
-    .theme-toggle-btn {
-      width: 3rem;
-      height: 1.75rem;
-      background: var(--ink-faint);
-      border: none;
-      border-radius: var(--radius-full);
-      cursor: pointer;
-      position: relative;
-      transition: background var(--transition-smooth);
-    }
-
-    .theme-toggle-btn::after {
-      content: '';
-      position: absolute;
-      width: 1.25rem;
-      height: 1.25rem;
-      background: var(--paper-white);
-      border-radius: 50%;
-      top: 0.25rem;
-      left: 0.25rem;
-      transition: transform var(--transition-smooth);
-      box-shadow: var(--shadow-overlay);
-    }
-
-    [data-theme="dark"] .theme-toggle-btn {
-      background: var(--accent-primary);
-    }
-
-    [data-theme="dark"] .theme-toggle-btn::after {
-      transform: translateX(1.25rem);
-    }
-
-    .showcase {
-      max-width: 72rem;
-      margin: 0 auto;
-      padding: var(--space-xl);
-    }
-
-    .showcase-header {
-      text-align: center;
-      margin-bottom: var(--space-2xl);
-      padding: var(--space-2xl) 0;
-      border-bottom: var(--space-fixed-2xs) solid var(--ink-faint);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .showcase-header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 50%, var(--alpha-primary10) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 50%, var(--alpha-success10) 0%, transparent 50%);
-      opacity: 0.5;
-      z-index: -1;
-    }
-
-    .showcase-header h1 {
-      font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--ink-black);
-      margin-bottom: var(--space-md);
-    }
-
-    .showcase-header p {
-      font-size: var(--font-size-lg);
-      color: var(--ink-medium);
-      max-width: 40rem;
-      margin: 0 auto;
-    }
-
-    .showcase-header .version-badge {
-      display: inline-block;
-      margin-top: var(--space-md);
-      padding: var(--space-xs) var(--space-sm);
-      background: var(--alpha-primary10);
-      color: var(--accent-primary);
-      border-radius: var(--radius-full);
-      font-size: var(--font-size-sm);
-      font-weight: 500;
-    }
-
-    .section {
-      margin-bottom: var(--space-2xl);
-      scroll-margin-top: 4rem;
-    }
-
-    .section-title {
-      font-size: var(--font-size-xl);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--ink-dark);
-      margin-bottom: var(--space-lg);
-      padding-bottom: var(--space-sm);
-      border-bottom: 2px solid var(--accent-primary);
-      display: inline-block;
-    }
-
-    .section-subtitle {
-      font-size: var(--font-size-base);
-      color: var(--ink-medium);
-      margin: var(--space-lg) 0 var(--space-md);
-      font-weight: 500;
-    }
-
-    /* Color Palette */
-    .color-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-      gap: var(--space-md);
-    }
-
-    .color-swatch {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      background: var(--paper-white);
-      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
-    }
-
-    .color-swatch:hover {
-      transform: translateY(-0.25rem);
-      box-shadow: var(--shadow-modal);
-    }
-
-    .color-swatch-preview {
-      height: 5rem;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .color-swatch-preview::after {
-      content: attr(data-wcag);
-      position: absolute;
-      bottom: 0.5rem;
-      right: 0.5rem;
-      font-size: 0.625rem;
-      font-weight: 600;
-      padding: 0.125rem 0.375rem;
-      border-radius: 0.25rem;
-      background: rgba(255,255,255,0.9);
-      color: var(--ink-dark);
-    }
-
-    .color-swatch-info {
-      padding: var(--space-sm);
-    }
-
-    .color-swatch-name {
-      font-size: var(--font-size-sm);
-      font-weight: 600;
-      color: var(--ink-dark);
-    }
-
-    .color-swatch-value {
-      font-size: 0.6875rem;
-      color: var(--ink-light);
-      font-family: monospace;
-    }
-
-    /* Ink Demo Section */
-    .ink-demo-container {
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-card);
-    }
-
-    .ink-demo-row {
-      display: grid;
-      grid-template-columns: 8rem 1fr;
-      gap: var(--space-lg);
-      padding: var(--space-md) 0;
-      border-bottom: var(--space-fixed-2xs) solid var(--paper-warm);
-      align-items: center;
-    }
-
-    .ink-demo-row:last-child {
-      border-bottom: none;
-    }
-
-    .ink-demo-label {
-      font-size: var(--font-size-sm);
-      font-family: monospace;
-      color: var(--ink-light);
-    }
-
-    .ink-demo-samples {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-md);
-      align-items: center;
-    }
-
-    .ink-sample {
-      padding: var(--space-sm) var(--space-md);
-      border-radius: var(--radius-sm);
-      font-size: var(--font-size-sm);
-      transition: all var(--transition-smooth);
-    }
-
-    .ink-sample:hover {
-      transform: scale(1.05);
-    }
-
-    .ink-sample-text {
-      font-weight: 500;
-    }
-
-    .ink-sample-heading {
-      font-size: var(--font-size-lg);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-
-    .ink-sample-caption {
-      font-size: var(--font-size-sm);
-      font-style: italic;
-    }
-
-    /* Ink on Different Backgrounds */
-    .ink-bg-demo {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-      gap: var(--space-md);
-      margin-top: var(--space-md);
-    }
-
-    .ink-bg-card {
-      padding: var(--space-lg);
-      border-radius: var(--radius-md);
-      transition: transform var(--transition-smooth);
-    }
-
-    .ink-bg-card:hover {
-      transform: scale(1.02);
-    }
-
-    .ink-bg-card h4 {
-      font-size: var(--font-size-base);
-      font-weight: 600;
-      margin-bottom: var(--space-sm);
-    }
-
-    .ink-bg-card p {
-      font-size: var(--font-size-sm);
-      line-height: var(--line-height-normal);
-    }
-
-    .ink-bg-card .caption {
-      font-size: 0.75rem;
-      margin-top: var(--space-sm);
-      opacity: 0.7;
-    }
-
-    /* Ink Hierarchy Demo */
-    .ink-hierarchy {
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      padding: var(--space-xl);
-      box-shadow: var(--shadow-card);
-    }
-
-    .ink-hierarchy-item {
-      margin-bottom: var(--space-lg);
-    }
-
-    .ink-hierarchy-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .ink-hierarchy h2 {
-      font-size: var(--font-size-2xl);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--ink-black);
-      margin-bottom: var(--space-xs);
-    }
-
-    .ink-hierarchy h3 {
-      font-size: var(--font-size-xl);
-      font-weight: 600;
-      color: var(--ink-dark);
-      margin-bottom: var(--space-xs);
-    }
-
-    .ink-hierarchy p {
-      font-size: var(--font-size-base);
-      color: var(--ink-medium);
-      margin-bottom: var(--space-xs);
-    }
-
-    .ink-hierarchy .meta {
-      font-size: var(--font-size-sm);
-      color: var(--ink-light);
-    }
-
-    .ink-hierarchy .disabled {
-      font-size: var(--font-size-sm);
-      color: var(--ink-faint);
-    }
-
-    /* Typography */
-    .type-specimen {
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-card);
-      margin-bottom: var(--space-md);
-    }
-
-    .type-row {
-      display: flex;
-      align-items: baseline;
-      gap: var(--space-lg);
-      padding: var(--space-md) 0;
-      border-bottom: var(--space-fixed-2xs) solid var(--paper-warm);
-    }
-
-    .type-row:last-child {
-      border-bottom: none;
-    }
-
-    .type-label {
-      flex: 0 0 6rem;
-      font-size: var(--font-size-sm);
-      color: var(--ink-light);
-      font-family: monospace;
-    }
-
-    .type-sample {
-      flex: 1;
-    }
-
-    .type-2xl { font-size: var(--font-size-2xl); font-weight: 600; letter-spacing: -0.02em; }
-    .type-xl { font-size: var(--font-size-xl); font-weight: 600; letter-spacing: -0.01em; }
-    .type-lg { font-size: var(--font-size-lg); }
-    .type-base { font-size: var(--font-size-base); }
-    .type-sm { font-size: var(--font-size-sm); color: var(--ink-medium); }
-
-    /* Line Height Demo */
-    .line-height-demo {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-      gap: var(--space-md);
-    }
-
-    .line-height-card {
-      background: var(--paper-white);
-      border-radius: var(--radius-md);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-card);
-    }
-
-    .line-height-card h4 {
-      font-size: var(--font-size-sm);
-      color: var(--ink-light);
-      font-family: monospace;
-      margin-bottom: var(--space-sm);
-    }
-
-    .line-height-card p {
-      font-size: var(--font-size-base);
-      color: var(--ink-medium);
-    }
-
-    /* Spacing */
-    .space-demo {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-      background: var(--paper-white);
-      padding: var(--space-lg);
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-card);
-    }
-
-    .space-row {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-    }
-
-    .space-label {
-      flex: 0 0 7rem;
-      font-size: var(--font-size-sm);
-      color: var(--ink-light);
-      font-family: monospace;
-    }
-
-    .space-bar {
-      height: 1.5rem;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
-      border-radius: var(--radius-sm);
-      transition: transform var(--transition-smooth);
-      position: relative;
-    }
-
-    .space-bar::after {
-      content: attr(data-value);
-      position: absolute;
-      right: -4rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.6875rem;
-      color: var(--ink-light);
-      font-family: monospace;
-    }
-
-    .space-bar:hover {
-      transform: scaleX(1.02);
-    }
-
-    /* Shadows */
-    .shadow-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-      gap: var(--space-lg);
-    }
-
-    .shadow-item {
-      background: var(--paper-white);
-      border-radius: var(--radius-md);
-      padding: var(--space-lg);
-      text-align: center;
-      transition: transform var(--transition-smooth);
-    }
-
-    .shadow-item:hover {
-      transform: translateY(-0.25rem);
-    }
-
-    .shadow-item span {
-      font-size: var(--font-size-sm);
-      color: var(--ink-medium);
-      font-family: monospace;
-    }
-
-    .shadow-card { box-shadow: var(--shadow-card); }
-    .shadow-overlay { box-shadow: var(--shadow-overlay); }
-    .shadow-modal { box-shadow: var(--shadow-modal); }
-    .shadow-button { box-shadow: var(--shadow-button-hover-primary); }
-    .shadow-input { box-shadow: var(--shadow-input-focus); }
-
-    /* Animation Demo */
-    .animation-demo {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-lg);
-    }
-
-    @media (max-width: 640px) {
-      .animation-demo {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .animation-box {
-      background: var(--paper-white);
-      border-radius: var(--radius-md);
-      padding: var(--space-lg);
-      text-align: center;
-      box-shadow: var(--shadow-card);
-      cursor: pointer;
-    }
-
-    .animation-box:hover .anim-target {
-      transform: translateY(-0.5rem);
-      background: var(--accent-primary);
-    }
-
-    .anim-target {
-      width: 3rem;
-      height: 3rem;
-      background: var(--ink-faint);
-      border-radius: var(--radius-md);
-      margin: 0 auto var(--space-md);
-    }
-
-    .anim-fast .anim-target { transition: all var(--transition-fast); }
-    .anim-smooth .anim-target { transition: all var(--transition-smooth); }
-    .anim-bounce .anim-target { transition: all var(--transition-bounce); }
-
-    .animation-box span {
-      font-size: var(--font-size-sm);
-      color: var(--ink-medium);
-      font-family: monospace;
-    }
-
-    /* Ink Effect Demo */
-    .ink-effect-demo {
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-card);
-    }
-
-    .ink-effect-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-      gap: var(--space-md);
-    }
-
-    .ink-effect-item {
-      text-align: center;
-      padding: var(--space-md);
-      background: var(--paper-cream);
-      border-radius: var(--radius-md);
-    }
-
-    .ink-effect-item .label {
-      font-size: var(--font-size-sm);
-      color: var(--ink-light);
-      font-family: monospace;
-    }
-
-    .ink-effect-item .value {
-      font-size: var(--font-size-lg);
-      font-weight: 600;
-      color: var(--ink-dark);
-      margin-top: var(--space-xs);
-    }
-
-    /* Components Demo */
-    .components-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-      gap: var(--space-lg);
-    }
-
-    .component-card {
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-card);
-    }
-
-    .component-card h3 {
-      font-size: var(--font-size-base);
-      font-weight: 600;
-      color: var(--ink-dark);
-      margin-bottom: var(--space-md);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-sm);
-    }
-
-    .form-group {
-      margin-bottom: var(--space-md);
-    }
-
-    /* Interactive States Demo */
-    .states-demo {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-      gap: var(--space-lg);
-    }
-
-    .state-card {
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-card);
-    }
-
-    .state-card h4 {
-      font-size: var(--font-size-sm);
-      font-weight: 600;
-      color: var(--ink-dark);
-      margin-bottom: var(--space-md);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .state-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-    }
-
-    .state-buttons .button {
-      width: 100%;
-      text-align: center;
-    }
-
-    /* Z-Index Demo */
-    .z-index-demo {
-      position: relative;
-      height: 16rem;
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
-    }
-
-    .z-layer {
-      position: absolute;
-      padding: var(--space-sm) var(--space-md);
-      border-radius: var(--radius-sm);
-      font-size: var(--font-size-sm);
-      font-family: monospace;
-      color: var(--paper-white);
-      box-shadow: var(--shadow-card);
-    }
-
-    .z-dropdown { background: var(--accent-primary); top: 1rem; left: 1rem; z-index: 1000; }
-    .z-sticky { background: var(--accent-success); top: 2.5rem; left: 3rem; z-index: 1020; }
-    .z-fixed { background: var(--semantic-info); top: 4rem; left: 5rem; z-index: 1030; }
-    .z-modal-backdrop { background: var(--ink-medium); top: 5.5rem; left: 7rem; z-index: 1040; }
-    .z-modal { background: var(--semantic-warning); top: 7rem; left: 9rem; z-index: 1050; }
-    .z-popover { background: var(--error-base); top: 8.5rem; left: 11rem; z-index: 1060; }
-    .z-tooltip { background: var(--ink-dark); top: 10rem; left: 13rem; z-index: 1070; }
-
-    /* Breakpoint Demo */
-    .breakpoint-demo {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-      background: var(--paper-white);
-      padding: var(--space-lg);
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-card);
-    }
-
-    .breakpoint-row {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-    }
-
-    .breakpoint-label {
-      flex: 0 0 8rem;
-      font-size: var(--font-size-sm);
-      color: var(--ink-light);
-      font-family: monospace;
-    }
-
-    .breakpoint-bar {
-      height: 1.5rem;
-      background: linear-gradient(135deg, var(--accent-success), var(--accent-success-hover));
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: var(--space-sm);
-      font-size: 0.6875rem;
-      color: var(--paper-white);
-      font-family: monospace;
-    }
-
-    /* Semantic Colors Demo */
-    .semantic-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-      gap: var(--space-md);
-    }
-
-    /* Brand Demo */
-    .brand-demo {
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-card);
-      display: flex;
-      gap: var(--space-lg);
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .brand-color {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-
-    .brand-color-swatch {
-      width: 4rem;
-      height: 4rem;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-card);
-    }
-
-    .brand-color-label {
-      font-size: var(--font-size-sm);
-      font-family: monospace;
-      color: var(--ink-medium);
-    }
-
-    /* Accessibility Table */
-    .contrast-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--paper-white);
-      border-radius: var(--radius-card);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-    }
-
-    .contrast-table th,
-    .contrast-table td {
-      padding: var(--space-sm) var(--space-md);
-      text-align: left;
-      border-bottom: var(--space-fixed-2xs) solid var(--paper-warm);
-    }
-
-    .contrast-table th {
-      background: var(--paper-cream);
-      font-size: var(--font-size-sm);
-      font-weight: 600;
-      color: var(--ink-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .contrast-pass {
-      color: var(--accent-success);
-      font-weight: 600;
-    }
-
-    .contrast-fail {
-      color: var(--error-base);
-      font-weight: 600;
-    }
-
-    /* Alpha Demo */
-    .alpha-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
-      gap: var(--space-sm);
-    }
-
-    .alpha-swatch {
-      aspect-ratio: 1;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6875rem;
-      font-family: monospace;
-      color: var(--ink-dark);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .alpha-swatch::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(45deg, #ccc 25%, transparent 25%),
-        linear-gradient(-45deg, #ccc 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #ccc 75%),
-        linear-gradient(-45deg, transparent 75%, #ccc 75%);
-      background-size: 1rem 1rem;
-      background-position: 0 0, 0 0.5rem, 0.5rem -0.5rem, -0.5rem 0;
-      z-index: 0;
-    }
-
-    .alpha-swatch span {
-      position: relative;
-      z-index: 2;
-      background: var(--paper-white);
-      padding: 0.125rem 0.25rem;
-      border-radius: 0.125rem;
-    }
-
-    .alpha-swatch .overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-
-    /* Footer */
-    .showcase-footer {
-      text-align: center;
-      padding: var(--space-2xl) 0;
-      margin-top: var(--space-2xl);
-      border-top: var(--space-fixed-2xs) solid var(--ink-faint);
-      color: var(--ink-light);
-      font-size: var(--font-size-sm);
-    }
-
-    /* Radius Demo */
-    .radius-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
-      gap: var(--space-md);
-    }
-
-    .radius-item {
-      background: var(--accent-primary);
-      height: 6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--paper-white);
-      font-size: var(--font-size-sm);
-      font-family: monospace;
-      transition: transform var(--transition-smooth);
-    }
-
-    .radius-item:hover {
-      transform: scale(1.05);
-    }
-  </style>
+  <link rel="stylesheet" href="../build/tokens.css">
+  <link rel="stylesheet" href="../build/tokens-dark.css">
+  <link rel="stylesheet" href="../build/components.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <nav class="nav">
@@ -909,6 +25,9 @@
       <a href="#radius" class="nav-link">Radius</a>
       <a href="#shadows" class="nav-link">Shadows</a>
       <a href="#transitions" class="nav-link">Transitions</a>
+      <a href="#sizing" class="nav-link">Sizing</a>
+      <a href="#opacity" class="nav-link">Opacity</a>
+      <a href="#overlay" class="nav-link">Overlay</a>
       <a href="#components" class="nav-link">Components</a>
       <a href="#accessibility" class="nav-link">Accessibility</a>
       <div class="theme-toggle">
@@ -922,7 +41,7 @@
     <header class="showcase-header">
       <h1>@transcodes/design-tokens</h1>
       <p>A Style Dictionary-based design token library with dark mode support for consistent, beautiful interfaces.</p>
-      <span class="version-badge">v0.1.0 - Dark Mode Enabled</span>
+      <span class="version-badge" id="version-badge">Loading...</span>
     </header>
 
     <!-- Brand Tokens -->
@@ -1397,6 +516,208 @@
       </div>
     </section>
 
+    <!-- Sizing -->
+    <section id="sizing" class="section">
+      <h2 class="section-title">Sizing Tokens</h2>
+
+      <h3 class="section-subtitle">Icon Sizes</h3>
+      <div class="sizing-demo">
+        <div class="sizing-row">
+          <div class="sizing-label">size-icon-sm</div>
+          <div class="sizing-preview">
+            <div class="sizing-box" style="width: var(--size-icon-sm); height: var(--size-icon-sm);">
+              <span>16px</span>
+            </div>
+          </div>
+        </div>
+        <div class="sizing-row">
+          <div class="sizing-label">size-icon-md</div>
+          <div class="sizing-preview">
+            <div class="sizing-box" style="width: var(--size-icon-md); height: var(--size-icon-md);">
+              <span>24px</span>
+            </div>
+          </div>
+        </div>
+        <div class="sizing-row">
+          <div class="sizing-label">size-icon-lg</div>
+          <div class="sizing-preview">
+            <div class="sizing-box" style="width: var(--size-icon-lg); height: var(--size-icon-lg);">
+              <span>32px</span>
+            </div>
+          </div>
+        </div>
+        <div class="sizing-row">
+          <div class="sizing-label">size-icon-xl</div>
+          <div class="sizing-preview">
+            <div class="sizing-box" style="width: var(--size-icon-xl); height: var(--size-icon-xl);">
+              <span>40px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Spinner Sizes</h3>
+      <div class="sizing-demo" style="flex-direction: row; gap: var(--space-xl);">
+        <div class="sizing-item">
+          <div class="sizing-box sizing-spinner" style="width: var(--size-spinner-sm); height: var(--size-spinner-sm);"></div>
+          <span class="sizing-label">spinner-sm</span>
+        </div>
+        <div class="sizing-item">
+          <div class="sizing-box sizing-spinner" style="width: var(--size-spinner-md); height: var(--size-spinner-md);"></div>
+          <span class="sizing-label">spinner-md</span>
+        </div>
+        <div class="sizing-item">
+          <div class="sizing-box sizing-spinner" style="width: var(--size-spinner-lg); height: var(--size-spinner-lg);"></div>
+          <span class="sizing-label">spinner-lg</span>
+        </div>
+        <div class="sizing-item">
+          <div class="sizing-box sizing-spinner" style="width: var(--size-spinner-button); height: var(--size-spinner-button);"></div>
+          <span class="sizing-label">spinner-button</span>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Border Widths</h3>
+      <div class="border-width-demo">
+        <div class="border-width-item" style="border-width: var(--size-border-width-thin);">
+          <span>thin (1px)</span>
+        </div>
+        <div class="border-width-item" style="border-width: var(--size-border-width-base);">
+          <span>base (1.5px)</span>
+        </div>
+        <div class="border-width-item" style="border-width: var(--size-border-width-thick);">
+          <span>thick (2px)</span>
+        </div>
+        <div class="border-width-item" style="border-width: var(--size-border-width-heavy);">
+          <span>heavy (3px)</span>
+        </div>
+        <div class="border-width-item" style="border-width: var(--size-border-width-bold);">
+          <span>bold (4px)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opacity -->
+    <section id="opacity" class="section">
+      <h2 class="section-title">Opacity Tokens</h2>
+      <div class="opacity-demo">
+        <div class="opacity-item" style="opacity: var(--opacity-visible);">
+          <div class="opacity-box"></div>
+          <div class="opacity-info">
+            <span class="opacity-name">opacity-visible</span>
+            <span class="opacity-value">1.0 (100%)</span>
+          </div>
+        </div>
+        <div class="opacity-item" style="opacity: var(--opacity-hover);">
+          <div class="opacity-box"></div>
+          <div class="opacity-info">
+            <span class="opacity-name">opacity-hover</span>
+            <span class="opacity-value">0.7 (70%)</span>
+          </div>
+        </div>
+        <div class="opacity-item" style="opacity: var(--opacity-disabled);">
+          <div class="opacity-box"></div>
+          <div class="opacity-info">
+            <span class="opacity-name">opacity-disabled</span>
+            <span class="opacity-value">0.6 (60%)</span>
+          </div>
+        </div>
+        <div class="opacity-item" style="opacity: var(--opacity-loading);">
+          <div class="opacity-box"></div>
+          <div class="opacity-info">
+            <span class="opacity-name">opacity-loading</span>
+            <span class="opacity-value">0.6 (60%)</span>
+          </div>
+        </div>
+        <div class="opacity-item" style="opacity: var(--opacity-hidden);">
+          <div class="opacity-box" style="border: 1px dashed var(--ink-faint);"></div>
+          <div class="opacity-info">
+            <span class="opacity-name">opacity-hidden</span>
+            <span class="opacity-value">0 (0%)</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Use Cases</h3>
+      <div class="components-grid">
+        <div class="component-card">
+          <h3>Disabled State</h3>
+          <button class="button button-primary" style="opacity: var(--opacity-disabled); cursor: not-allowed;">
+            Disabled Button
+          </button>
+          <p style="font-size: var(--font-size-sm); color: var(--ink-light); margin-top: var(--space-sm);">
+            Uses opacity-disabled for WCAG compliant disabled states
+          </p>
+        </div>
+        <div class="component-card">
+          <h3>Loading State</h3>
+          <div style="opacity: var(--opacity-loading); animation: pulse 1.5s ease-in-out infinite;">
+            <div class="card">
+              <h4 class="title">Loading...</h4>
+              <p style="color: var(--ink-medium); font-size: var(--font-size-sm);">Content is being fetched</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overlay -->
+    <section id="overlay" class="section">
+      <h2 class="section-title">Overlay Colors</h2>
+      <p style="color: var(--ink-medium); margin-bottom: var(--space-lg); font-size: var(--font-size-sm);">
+        Overlay colors for modals, shadows, and glows
+      </p>
+
+      <h3 class="section-subtitle">Modal Overlays</h3>
+      <div class="overlay-demo">
+        <div class="overlay-item" style="background: var(--overlay-dim);">
+          <span>overlay-dim</span>
+          <span class="overlay-desc">rgba(0,0,0,0.5)</span>
+        </div>
+        <div class="overlay-item" style="background: var(--overlay-dark);">
+          <span>overlay-dark</span>
+          <span class="overlay-desc">rgba(0,0,0,0.7)</span>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Shadow Colors</h3>
+      <div class="overlay-demo">
+        <div class="overlay-item overlay-item-shadow" style="background: var(--overlay-shadow-light);">
+          <span>shadow-light</span>
+          <span class="overlay-desc">10%</span>
+        </div>
+        <div class="overlay-item overlay-item-shadow" style="background: var(--overlay-shadow-subtle);">
+          <span>shadow-subtle</span>
+          <span class="overlay-desc">15%</span>
+        </div>
+        <div class="overlay-item overlay-item-shadow" style="background: var(--overlay-shadow-medium);">
+          <span>shadow-medium</span>
+          <span class="overlay-desc">20%</span>
+        </div>
+        <div class="overlay-item overlay-item-shadow" style="background: var(--overlay-shadow-strong);">
+          <span>shadow-strong</span>
+          <span class="overlay-desc">30%</span>
+        </div>
+        <div class="overlay-item overlay-item-shadow" style="background: var(--overlay-shadow-heavy);">
+          <span>shadow-heavy</span>
+          <span class="overlay-desc">40%</span>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Special Effects</h3>
+      <div class="overlay-demo">
+        <div class="overlay-item overlay-item-glow" style="background: var(--accent-primary);">
+          <div class="glow-effect" style="background: radial-gradient(circle, var(--overlay-glow-white) 0%, transparent 70%);"></div>
+          <span>glow-white</span>
+          <span class="overlay-desc">Button hover glow</span>
+        </div>
+        <div class="overlay-item overlay-item-spinner" style="background: var(--accent-primary);">
+          <div class="spinner-track" style="border-color: var(--overlay-spinner-track);"></div>
+          <span>spinner-track</span>
+          <span class="overlay-desc">Spinner base</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Components -->
     <section id="components" class="section">
       <h2 class="section-title">Components</h2>
@@ -1550,9 +871,7 @@
           <p style="color: var(--ink-medium); font-size: var(--font-size-sm); margin-bottom: var(--space-md); position: relative; z-index: 2;">
             Decorative blurred backgrounds that float and drift
           </p>
-          <!-- Primary decoration -->
           <div class="page-decoration page-decoration--float" style="width: 10rem; height: 10rem; top: -3rem; right: -3rem; background: rgba(124, 92, 255, 0.45); filter: blur(2rem);"></div>
-          <!-- Success decoration -->
           <div class="page-decoration page-decoration--drift" style="width: 9rem; height: 9rem; bottom: -3rem; left: -3rem; background: rgba(61, 138, 80, 0.45); filter: blur(2rem);"></div>
           <div style="position: relative; z-index: 2;">
             <code style="font-size: 0.75rem; color: var(--ink-light);">.page-decoration--float<br>.page-decoration--drift</code>
@@ -1641,214 +960,11 @@
     </section>
 
     <footer class="showcase-footer">
-      <p>Design Token Showcase | @transcodes/design-tokens v0.1.0</p>
+      <p>Design Token Showcase | @transcodes/design-tokens <span id="footer-version">v0.2.0</span></p>
       <p style="margin-top: var(--space-xs); color: var(--ink-faint);">Built with Style Dictionary v4 | Dark Mode Enabled</p>
     </footer>
   </div>
 
-  <script>
-    // WCAG Contrast Ratio Calculator
-    const ContrastChecker = {
-      // Parse CSS color to RGB
-      parseColor(colorStr) {
-        const temp = document.createElement('div');
-        temp.style.color = colorStr;
-        document.body.appendChild(temp);
-        const computed = getComputedStyle(temp).color;
-        document.body.removeChild(temp);
-
-        const match = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-        if (match) {
-          return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) };
-        }
-        return { r: 0, g: 0, b: 0 };
-      },
-
-      // Get relative luminance (WCAG formula)
-      getLuminance(rgb) {
-        const [r, g, b] = [rgb.r, rgb.g, rgb.b].map(v => {
-          v /= 255;
-          return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
-        });
-        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-      },
-
-      // Calculate contrast ratio
-      getContrastRatio(color1, color2) {
-        const l1 = this.getLuminance(this.parseColor(color1));
-        const l2 = this.getLuminance(this.parseColor(color2));
-        const lighter = Math.max(l1, l2);
-        const darker = Math.min(l1, l2);
-        return (lighter + 0.05) / (darker + 0.05);
-      },
-
-      // Get CSS variable value
-      getCSSVar(name) {
-        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      }
-    };
-
-    // Color combinations to check
-    const colorCombinations = [
-      { fg: '--ink-black', bg: '--paper-white', name: 'ink-black on paper-white' },
-      { fg: '--ink-dark', bg: '--paper-white', name: 'ink-dark on paper-white' },
-      { fg: '--ink-medium', bg: '--paper-white', name: 'ink-medium on paper-white' },
-      { fg: '--ink-light', bg: '--paper-white', name: 'ink-light on paper-white' },
-      { fg: '--ink-faint', bg: '--paper-white', name: 'ink-faint on paper-white', decorative: true },
-      { fg: '--accent-primary', bg: '--paper-white', name: 'accent-primary on paper-white' },
-      { fg: '--paper-white', bg: '--accent-primary', name: 'paper-white on accent-primary' },
-      { fg: '--accent-success', bg: '--paper-white', name: 'accent-success on paper-white' },
-      { fg: '--paper-white', bg: '--accent-success', name: 'paper-white on accent-success' },
-      { fg: '--error-base', bg: '--paper-white', name: 'error-base on paper-white' },
-      { fg: '--semantic-warning', bg: '--paper-white', name: 'semantic-warning on paper-white' },
-      { fg: '--semantic-info', bg: '--paper-white', name: 'semantic-info on paper-white' },
-    ];
-
-    function updateContrastTable() {
-      const tbody = document.querySelector('#contrast-table tbody');
-      tbody.innerHTML = '';
-
-      colorCombinations.forEach(combo => {
-        const fgColor = ContrastChecker.getCSSVar(combo.fg);
-        const bgColor = ContrastChecker.getCSSVar(combo.bg);
-        const ratio = ContrastChecker.getContrastRatio(fgColor, bgColor);
-
-        const passAA = ratio >= 4.5;
-        const passAALarge = ratio >= 3;
-        const passAAA = ratio >= 7;
-
-        const tr = document.createElement('tr');
-
-        // Color preview + name
-        const tdName = document.createElement('td');
-        tdName.innerHTML = `
-          <span style="display: inline-flex; align-items: center; gap: 0.5rem;">
-            <span style="width: 1rem; height: 1rem; background: ${fgColor}; border: 1px solid var(--ink-faint); border-radius: 2px;"></span>
-            <span style="width: 1rem; height: 1rem; background: ${bgColor}; border: 1px solid var(--ink-faint); border-radius: 2px;"></span>
-            ${combo.name}
-          </span>
-        `;
-        tr.appendChild(tdName);
-
-        // Ratio
-        const tdRatio = document.createElement('td');
-        tdRatio.textContent = ratio.toFixed(2) + ':1';
-        tdRatio.style.fontFamily = 'monospace';
-        tr.appendChild(tdRatio);
-
-        // AA status
-        const tdAA = document.createElement('td');
-        if (combo.decorative) {
-          tdAA.textContent = 'N/A (Decorative)';
-          tdAA.style.color = 'var(--ink-light)';
-        } else if (passAA) {
-          tdAA.textContent = 'Pass';
-          tdAA.className = 'contrast-pass';
-        } else if (passAALarge) {
-          tdAA.textContent = 'Large text only';
-          tdAA.style.color = 'var(--semantic-warning)';
-        } else {
-          tdAA.textContent = 'Fail';
-          tdAA.className = 'contrast-fail';
-        }
-        tr.appendChild(tdAA);
-
-        // AAA status
-        const tdAAA = document.createElement('td');
-        if (combo.decorative) {
-          tdAAA.textContent = 'N/A';
-          tdAAA.style.color = 'var(--ink-light)';
-        } else if (passAAA) {
-          tdAAA.textContent = 'Pass';
-          tdAAA.className = 'contrast-pass';
-        } else {
-          tdAAA.textContent = 'Fail';
-          tdAAA.className = 'contrast-fail';
-        }
-        tr.appendChild(tdAAA);
-
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Also update color swatch WCAG badges
-    function updateSwatchBadges() {
-      document.querySelectorAll('.color-swatch-preview[data-wcag]').forEach(el => {
-        const bgColor = getComputedStyle(el).backgroundColor;
-        const paperWhite = ContrastChecker.getCSSVar('--paper-white');
-        const ratio = ContrastChecker.getContrastRatio(bgColor, paperWhite);
-
-        if (ratio >= 7) {
-          el.setAttribute('data-wcag', 'AAA ' + ratio.toFixed(1) + ':1');
-        } else if (ratio >= 4.5) {
-          el.setAttribute('data-wcag', 'AA ' + ratio.toFixed(1) + ':1');
-        } else if (ratio >= 3) {
-          el.setAttribute('data-wcag', 'AA Large ' + ratio.toFixed(1) + ':1');
-        } else {
-          el.setAttribute('data-wcag', ratio.toFixed(1) + ':1');
-        }
-      });
-    }
-
-    function toggleTheme() {
-      const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-
-      // Update contrast table after theme change
-      requestAnimationFrame(() => {
-        updateContrastTable();
-        updateSwatchBadges();
-      });
-    }
-
-    // Load saved theme on page load
-    (() => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    })();
-
-    // Initialize contrast table on DOM ready
-    document.addEventListener('DOMContentLoaded', () => {
-      updateContrastTable();
-      updateSwatchBadges();
-    });
-
-    // Replay animation helper
-    function replayAnimation(element, animationName) {
-      element.style.animation = 'none';
-      element.offsetHeight; // Trigger reflow
-      element.style.animation = `${animationName} ${animationName === 'shake' ? '400ms' : '600ms'} ease both`;
-    }
-
-    // Ink spread demo
-    function triggerInkSpread(container) {
-      const demo = container.querySelector('.ink-spread-demo');
-      // Remove existing circle if any
-      demo.innerHTML = '';
-
-      const circle = document.createElement('div');
-      circle.style.cssText = `
-        width: 3rem;
-        height: 3rem;
-        background: var(--accent-primary);
-        opacity: 0.6;
-        border-radius: 50%;
-        animation: inkSpread 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      `;
-      demo.appendChild(circle);
-
-      // Clean up after animation
-      setTimeout(() => {
-        demo.innerHTML = '';
-      }, 700);
-    }
-  </script>
+  <script src="./main.js"></script>
 </body>
 </html>

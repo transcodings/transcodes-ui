@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../widgets/tc-page-decoration.js';
-import '../primitives/tc-text.js';
+import '../../widgets/tc-page-decoration.js';
+import '../../primitives/tc-text.js';
 
 const meta: Meta = {
   title: 'Widgets/tc-page-decoration',
