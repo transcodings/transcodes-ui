@@ -197,6 +197,10 @@ This package uses CSS custom properties (CSS variables) and `clamp()` for respon
 
 - [@transcodes/ui-components](https://www.npmjs.com/package/@transcodes/ui-components) - Lit 3.x component library using these tokens
 
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
+
 ## License
 
 [MIT](./LICENSE)

@@ -47,7 +47,8 @@
   },
   "files": [
     "build/",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts && bun run scripts/build-components-js.ts && bun run scripts/build-index.ts",

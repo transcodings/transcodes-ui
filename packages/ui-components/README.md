@@ -230,6 +230,10 @@ bun run type-check
 
 - [@transcodes/design-tokens](https://www.npmjs.com/package/@transcodes/design-tokens) - Design tokens used by this library
 
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
+
 ## License
 
 [MIT](./LICENSE)
