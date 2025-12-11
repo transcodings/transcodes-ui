@@ -10,7 +10,7 @@ export default defineConfig({
       dts({
         include: ['src'],
         exclude: ['src/stories'],
-        rollupTypes: true,
+        rollupTypes: false, // preserveModules와 함께 사용하려면 false로 설정
       }),
   ].filter(Boolean),
   esbuild: {
