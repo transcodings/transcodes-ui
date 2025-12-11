@@ -1,6 +1,6 @@
 {
   "name": "@transcodes/ui-components",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": false,
   "description": "Lit 3.x component library with Reactive Controllers",
   "keywords": [
@@ -57,7 +57,8 @@
   "files": [
     "dist",
     "README.md",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc && vite build",
@@ -71,7 +72,7 @@
     "lit": "^3.0.0"
   },
   "dependencies": {
-    "@transcodes/design-tokens": "^0.3.0"
+    "@transcodes/design-tokens": "^0.3.1"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.1.5",

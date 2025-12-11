@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2025-12-11
+
+### Added
+
+- Tree-shaking 지원: preserveModules 빌드로 사용하는 컴포넌트만 번들에 포함
+- package.json exports 개선: 계층별 subpath exports 추가 (`/primitives`, `/widgets`, `/screens`, `/controllers`)
+- esbuild minification 및 적극적 tree-shaking 설정
+
+### Changed
+
+- design-tokens CSS import 제거 (design-tokens에서 자동 로드)
+- package.json `sideEffects: false` 설정으로 더 나은 tree-shaking 지원
+- Vite 빌드 최적화: constBindings, compact, es2020 target
+
+### Fixed
+
+- vite.config.ts 타입 에러 수정: esbuild 옵션을 최상위 레벨로 이동
+
 ## [0.3.0] - 2025-12-11
 
 ### Added

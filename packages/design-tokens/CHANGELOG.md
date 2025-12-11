@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2025-12-11
+
+### Added
+
+- CSS auto-import: `import '@transcodes/design-tokens'`로 CSS 자동 로드 (하위 호환성 복구)
+- 다크모드 dual selector 지원: `prefers-color-scheme` 자동 감지 + `data-theme` 수동 오버라이드
+- CSS minification: lightningcss 기반 압축 (평균 45% 용량 감소)
+
+### Changed
+
+- 다크모드 CSS 선택자 개선: `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` + `[data-theme="dark"]`
+- package.json에 `sideEffects` 필드 추가로 번들러 최적화 지원
+
 ## [0.3.0] - 2025-12-11
 
 ### Added

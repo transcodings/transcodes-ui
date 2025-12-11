@@ -9,6 +9,7 @@ A modern web component library built with [Lit 3.x](https://lit.dev/). Features 
 
 - **Web Components** - Framework-agnostic, works with React, Vue, Angular, or vanilla JS
 - **Lit 3.x Powered** - Fast, lightweight, and reactive
+- **Tree-shakable** - Import only what you need (v0.3.1+)
 - **Design Token Integration** - Built on [@transcodes/design-tokens](https://www.npmjs.com/package/@transcodes/design-tokens)
 - **Reactive Controllers** - Reusable logic for forms, animations, storage, and more
 - **TypeScript First** - Full type definitions included
@@ -26,12 +27,14 @@ bun add @transcodes/ui-components lit
 
 ## Quick Start
 
-```typescript
-// Import all components (registers custom elements automatically)
-import '@transcodes/ui-components';
+### Import All Components
 
-// Import styles
-import '@transcodes/ui-components/styles.css';
+```typescript
+// Import design tokens (auto-loads CSS)
+import '@transcodes/design-tokens';
+
+// Import all components (registers custom elements)
+import '@transcodes/ui-components';
 ```
 
 ```html
@@ -43,6 +46,26 @@ import '@transcodes/ui-components/styles.css';
   This is an informational message.
 </tc-callout>
 ```
+
+### Tree-shaking (v0.3.1+)
+
+Import only the components you need for smaller bundle sizes:
+
+```typescript
+// Import design tokens
+import '@transcodes/design-tokens';
+
+// Import specific component categories
+import { TcButton, TcInput } from '@transcodes/ui-components/primitives';
+import { TcModal } from '@transcodes/ui-components/widgets';
+import { LoadingController } from '@transcodes/ui-components/controllers';
+```
+
+**Bundle Size Comparison:**
+
+- Full import: ~252 KB (all components)
+- Single component: ~4-12 KB (e.g., `tc-button` = 4.35 KB)
+- Category import: Varies by selection
 
 ## Components
 
@@ -173,14 +196,28 @@ All components accept an `sx` prop for inline style overrides:
 
 ## Module Exports
 
-| Path | Description |
-|------|-------------|
-| `@transcodes/ui-components` | All components |
-| `@transcodes/ui-components/primitives` | Primitive components only |
-| `@transcodes/ui-components/widgets` | Widget components only |
-| `@transcodes/ui-components/screens` | Screen components only |
-| `@transcodes/ui-components/controllers` | Reactive Controllers |
-| `@transcodes/ui-components/styles.css` | Component styles |
+| Path | Description | Bundle Impact |
+|------|-------------|---------------|
+| `@transcodes/ui-components` | All components | ~252 KB |
+| `@transcodes/ui-components/primitives` | Primitive components only | ~120 KB |
+| `@transcodes/ui-components/widgets` | Widget components only | ~50 KB |
+| `@transcodes/ui-components/screens` | Screen components only | ~10 KB |
+| `@transcodes/ui-components/controllers` | Reactive Controllers | ~7 KB |
+
+**Note:** Tree-shaking is automatic when using modern bundlers (Vite, Webpack 5+, Rollup).
+
+### Migration from v0.3.0
+
+```typescript
+// v0.3.0 (manual CSS imports)
+import '@transcodes/design-tokens/css';
+import '@transcodes/design-tokens/tokens-dark.css';
+import '@transcodes/ui-components';
+
+// v0.3.1+ (automatic, tree-shakable)
+import '@transcodes/design-tokens'; // CSS auto-loaded
+import '@transcodes/ui-components'; // or import from subpaths
+```
 
 ## Framework Integration
 

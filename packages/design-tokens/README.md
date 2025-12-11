@@ -7,11 +7,12 @@ A comprehensive design token system built with [Style Dictionary](https://amzn.g
 
 ## Features
 
-- **Dark Mode Support** - Built-in light and dark themes with `data-theme` attribute
+- **Dark Mode Support** - Automatic system detection + manual override with `data-theme`
 - **WCAG AA Compliant** - All color combinations meet accessibility contrast requirements
 - **Responsive Values** - Fluid typography and spacing using CSS `clamp()`
 - **TypeScript Support** - Full type definitions included
-- **JS & CSS Exports** - Use as CSS variables or JavaScript objects
+- **CSS Auto-import** - Zero-config CSS loading (v0.3.1+)
+- **Tree-shakable** - Optimized for modern bundlers
 
 ## Installation
 
@@ -23,18 +24,14 @@ bun add @transcodes/design-tokens
 
 ## Quick Start
 
-### Option 1: CSS Variables (Recommended)
+### Automatic CSS Loading (v0.3.1+)
 
 ```typescript
-// Import CSS variables
-import '@transcodes/design-tokens/css';
-
-// Optional: Dark theme support
-import '@transcodes/design-tokens/tokens-dark.css';
-
-// Optional: Component utility classes
-import '@transcodes/design-tokens/components.css';
+// CSS automatically loaded (light + dark themes)
+import '@transcodes/design-tokens';
 ```
+
+That's it! CSS variables are now available globally.
 
 ```css
 .card {
@@ -42,40 +39,65 @@ import '@transcodes/design-tokens/components.css';
   background: var(--paper-white);
   padding: var(--space-md);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
 }
 ```
 
-### Option 2: JavaScript Objects
+### JavaScript Objects (Optional)
 
 ```typescript
 import { tokens, cssVars } from '@transcodes/design-tokens';
 
 // camelCase keys
 console.log(tokens.accentPrimary); // "#6b4fd9"
-console.log(tokens.spaceMd);       // "clamp(14px, 2.5vw, 20px)"
+console.log(tokens.spaceMd);       // "clamp(0.875rem, 0.77rem + 0.54vw, 1.25rem)"
 
 // CSS variable names as keys
 console.log(cssVars['--accent-primary']); // "#6b4fd9"
-console.log(cssVars['--space-md']);       // "clamp(14px, 2.5vw, 20px)"
+console.log(cssVars['--space-md']);       // "clamp(0.875rem, 0.77rem + 0.54vw, 1.25rem)"
 ```
 
 ### Dark Mode
 
+**Automatic Detection (v0.3.1+)**
+
+Dark mode is automatically applied based on system preferences:
+
+```css
+/* Respects prefers-color-scheme: dark */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Dark theme variables */
+  }
+}
+```
+
+**Manual Override**
+
+Force a specific theme:
+
 ```html
-<!-- Light theme (default) -->
+<!-- Force light theme (ignores system preference) -->
 <html data-theme="light">
 
-<!-- Dark theme -->
+<!-- Force dark theme (ignores system preference) -->
 <html data-theme="dark">
+
+<!-- Auto (respect system preference) -->
+<html> <!-- no data-theme attribute -->
 ```
 
 ```javascript
-// Toggle theme
+// Toggle theme with manual override
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
+}
+
+// Reset to system preference
+function resetTheme() {
+  document.documentElement.removeAttribute('data-theme');
 }
 ```
 
@@ -169,13 +191,24 @@ Responsive values that scale with viewport width.
 
 | Path | Description |
 |------|-------------|
-| `@transcodes/design-tokens` | JS objects (`tokens`, `cssVars`) |
-| `@transcodes/design-tokens/css` | CSS variables (light theme) |
-| `@transcodes/design-tokens/tokens-dark.css` | Dark theme overrides |
+| `@transcodes/design-tokens` | **Recommended** - Auto-loads CSS + exports JS objects |
+| `@transcodes/design-tokens/css` | CSS variables only (light theme) |
+| `@transcodes/design-tokens/tokens-dark.css` | Dark theme CSS only |
 | `@transcodes/design-tokens/components.css` | Component utility classes |
 | `@transcodes/design-tokens/components` | Component styles as JS |
 | `@transcodes/design-tokens/types` | TypeScript type definitions |
 | `@transcodes/design-tokens/json` | Raw token values as JSON |
+
+### Migration from v0.3.0
+
+```typescript
+// v0.3.0 (manual CSS imports)
+import '@transcodes/design-tokens/css';
+import '@transcodes/design-tokens/tokens-dark.css';
+
+// v0.3.1+ (automatic)
+import '@transcodes/design-tokens';
+```
 
 ## Accessibility
 

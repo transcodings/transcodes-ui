@@ -1,6 +1,6 @@
 {
   "name": "@transcodes/design-tokens",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": false,
   "description": "Style Dictionary based design tokens with dark mode support for consistent, beautiful interfaces",
   "keywords": [
@@ -52,7 +52,8 @@
   "files": [
     "build/",
     "README.md",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "bun --bun style-dictionary build --config sd.config.ts && bun --bun style-dictionary build --config sd.config.dark.ts && bun run scripts/build-dark-css.ts && bun run scripts/build-components-js.ts && bun run scripts/build-index.ts && bun run scripts/minify-css.ts",
