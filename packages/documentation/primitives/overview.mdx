@@ -1,0 +1,233 @@
+---
+title: "Primitives 개요"
+description: "기본 UI 컴포넌트 라이브러리 개요"
+---
+
+# Primitives 개요
+
+Primitives는 Transcodes UI의 기본 UI 컴포넌트 모음입니다. Lit 3.x로 구축된 웹 컴포넌트로, 재사용 가능하고 접근성 있는 UI 요소들을 제공합니다.
+
+## 컴포넌트 카테고리
+
+Primitives는 5개의 카테고리로 구분된 **21개의 컴포넌트**로 구성되어 있습니다.
+
+### 1. 버튼 & 입력 (Buttons & Inputs) - 4개
+기본적인 상호작용 요소들입니다.
+
+- **tc-button**: 각종 상태를 지원하는 버튼
+- **tc-input**: 텍스트 입력 필드
+- **tc-otp-input**: OTP 입력 필드 (6자리 숫자 입력)
+- **tc-input-with-chip**: 칩과 함께 표시되는 입력 필드
+
+### 2. 카드 & 컨테이너 (Cards & Containers) - 4개
+콘텐츠를 그룹화하고 구조화하는 컴포넌트들입니다.
+
+- **tc-card**: 그림자 효과가 있는 카드
+- **tc-box**: 기본 컨테이너 (레이아웃용)
+- **tc-container**: 최대 너비가 제한된 플렉스 컨테이너
+- **tc-section**: 세로 배열의 섹션 컨테이너
+
+### 3. 텍스트 & 디스플레이 (Text & Display) - 4개
+텍스트 표현 및 시각적 요소들입니다.
+
+- **tc-text**: 동적 태그 렌더링 지원 텍스트
+- **tc-icon**: 내장 아이콘 세트
+- **tc-symbol**: 원형 심볼/아바타
+- **tc-divider**: 구분선 (텍스트 포함 옵션)
+
+### 4. 피드백 (Feedback) - 4개
+사용자 반응 및 상태를 전달하는 컴포넌트들입니다.
+
+- **tc-toast**: 자동 소멸되는 알림 메시지
+- **tc-callout**: 알림/공지 박스
+- **tc-spinner**: 로딩 스피너
+- **tc-error-message**: 에러/경고/정보 메시지
+
+### 5. 폼 (Forms) - 5개
+폼 관련 보조 컴포넌트들입니다.
+
+- **tc-form-header**: 폼 제목 및 부제
+- **tc-chip**: 라벨/배지
+- **tc-item**: 클릭할 수 없는 아이템 (리스트용)
+- **tc-item-button**: 클릭 가능한 아이템 버튼
+
+## 전체 컴포넌트 목록
+
+| 컴포넌트명 | 카테고리 | 설명 |
+|-----------|----------|------|
+| `tc-button` | Buttons & Inputs | 상태별 버튼 (primary, secondary, success) |
+| `tc-input` | Buttons & Inputs | 라벨과 에러 표시가 있는 입력 필드 |
+| `tc-otp-input` | Buttons & Inputs | OTP 6자리 입력 필드 |
+| `tc-input-with-chip` | Buttons & Inputs | 칩 인디케이터가 있는 입력 필드 |
+| `tc-card` | Cards & Containers | 그림자와 보더 효과가 있는 카드 |
+| `tc-box` | Cards & Containers | 기본 컨테이너 (display: contents) |
+| `tc-container` | Cards & Containers | 최대 너비 제약이 있는 플렉스 컨테이너 |
+| `tc-section` | Cards & Containers | 세로 배열 섹션 컨테이너 |
+| `tc-text` | Text & Display | 동적 태그 렌더링 텍스트 |
+| `tc-icon` | Text & Display | 내장 아이콘 (39개) |
+| `tc-symbol` | Text & Display | 원형 심볼/아바타 |
+| `tc-divider` | Text & Display | 구분선 |
+| `tc-toast` | Feedback | 알림 토스트 |
+| `tc-callout` | Feedback | 알림 박스 |
+| `tc-spinner` | Feedback | 로딩 스피너 |
+| `tc-error-message` | Feedback | 에러/경고/정보 메시지 |
+| `tc-form-header` | Forms | 폼 제목 헤더 |
+| `tc-chip` | Forms | 라벨/배지 |
+| `tc-item` | Forms | 비활성 아이템 |
+| `tc-item-button` | Forms | 클릭 가능한 아이템 |
+
+## 사용 방법
+
+### 설치
+
+모든 primitives는 `@transcodes/ui-components` 패키지에 포함되어 있습니다.
+
+```bash
+npm install @transcodes/ui-components
+# 또는
+bun add @transcodes/ui-components
+```
+
+### HTML에서 사용
+
+```html
+<script type="module">
+  import '@transcodes/ui-components/primitives';
+</script>
+
+<tc-button>클릭하세요</tc-button>
+<tc-input label="사용자명" placeholder="Enter username"></tc-input>
+```
+
+### React에서 사용
+
+```jsx
+import { TcButton, TcInput } from '@transcodes/ui-components/primitives';
+
+export function MyComponent() {
+  return (
+    <>
+      <TcButton>클릭하세요</TcButton>
+      <TcInput label="사용자명" placeholder="Enter username" />
+    </>
+  );
+}
+```
+
+### Vue에서 사용
+
+```vue
+<script setup>
+import '@transcodes/ui-components/primitives';
+</script>
+
+<template>
+  <tc-button>클릭하세요</tc-button>
+  <tc-input label="사용자명" placeholder="Enter username"></tc-input>
+</template>
+```
+
+## 주요 특징
+
+### 디자인 토큰 통합
+모든 컴포넌트는 `@transcodes/design-tokens`의 CSS 변수를 사용하여 일관된 스타일링을 제공합니다.
+
+```css
+:root {
+  --accent-primary: #007AFF;
+  --paper-white: #FFFFFF;
+  --ink-black: #000000;
+  /* ... 더 많은 토큰 */
+}
+```
+
+### 다크 모드 지원
+`[data-theme="dark"]` 선택자를 통해 자동으로 다크 모드를 지원합니다.
+
+```html
+<html data-theme="dark">
+  <body>
+    <tc-button>다크 모드 버튼</tc-button>
+  </body>
+</html>
+```
+
+### sx Props
+모든 컴포넌트는 `sx` prop을 통해 인라인 스타일 오버라이드를 지원합니다.
+
+```html
+<tc-button sx='{"width": "200px", "background": "red"}'>
+  커스텀 스타일
+</tc-button>
+```
+
+### 접근성 (A11y)
+WAI-ARIA 속성을 적용하여 스크린 리더 친화적입니다.
+
+- ARIA labels
+- ARIA live regions
+- Keyboard navigation
+- Focus management
+
+### 커스텀 이벤트
+모든 상호작용 컴포넌트는 `tc-` 접두사의 커스텀 이벤트를 발생시킵니다.
+
+```javascript
+const button = document.querySelector('tc-button');
+button.addEventListener('tc-click', (e) => {
+  console.log('Button clicked', e.detail);
+});
+```
+
+## Tree-Shaking
+
+### 필요한 컴포넌트만 선택적으로 임포트
+
+Primitives 패키지는 ESM 형식으로 제공되어 완벽한 tree-shaking을 지원합니다.
+
+```javascript
+// 전체 임포트 (모든 컴포넌트)
+import '@transcodes/ui-components/primitives';
+
+// 또는 필요한 컴포넌트만 임포트
+import '@transcodes/ui-components/primitives/tc-button.js';
+import '@transcodes/ui-components/primitives/tc-input.js';
+```
+
+### 빌드 최적화
+
+번들 크기를 최소화하려면 필요한 컴포넌트만 임포트하세요:
+
+```javascript
+// 번들 크기 증가: 모든 컴포넌트 포함
+import '@transcodes/ui-components/primitives';
+
+// 번들 크기 최소: 필요한 것만
+import '@transcodes/ui-components/primitives/tc-button.js';
+import '@transcodes/ui-components/primitives/tc-text.js';
+```
+
+## 성능 팁
+
+1. **동적 임포트 사용**: 페이지 로드 시간에 영향을 주지 않도록 동적 임포트를 활용하세요.
+
+```javascript
+button.addEventListener('click', async () => {
+  const { TcModal } = await import('@transcodes/ui-components/widgets');
+  // 모달 사용
+});
+```
+
+2. **컴포넌트 재사용**: 같은 컴포넌트를 여러 곳에서 사용하면 최적화됩니다.
+
+3. **라이드 태그**: 불필요한 DOM 요소 생성을 피하세요.
+
+## 다음 단계
+
+각 카테고리의 상세 문서를 참고하세요:
+
+- [버튼 & 입력](/primitives/buttons-inputs)
+- [카드 & 컨테이너](/primitives/cards-containers)
+- [텍스트 & 디스플레이](/primitives/text-display)
+- [피드백](/primitives/feedback)
+- [폼](/primitives/forms)

@@ -1,0 +1,211 @@
+---
+title: 'Overview'
+description: 'Design Token 시스템 소개 및 Style Dictionary 기반 디자인 토큰 설명'
+---
+
+## Design Token 시스템 소개
+
+Design Token은 색상, 타이포그래피, 간격 등의 **디자인 결정 사항을 데이터로 표현**한 것입니다. Transcodes UI는 [Style Dictionary v4](https://styledictionary.com)를 사용하여 JSON 형식의 토큰을 **CSS Variables**와 **TypeScript 타입**으로 자동 변환합니다.
+
+### 장점
+
+- **일관성**: 전체 애플리케이션에서 동일한 디자인 가치 사용
+- **유지보수성**: 토큰 수정 시 모든 곳이 자동으로 업데이트
+- **접근성**: WCAG AA 기준을 충족하는 색상 대비 관리
+- **다크 모드**: 자동 테마 전환 지원
+- **확장성**: 새로운 토큰 추가 시 전체 시스템에 반영
+
+## 토큰 카테고리
+
+Transcodes UI의 디자인 토큰은 5개의 주요 카테고리로 구성됩니다:
+
+<CardGroup cols={2}>
+  <Card title="Colors" icon="palette" href="/design-tokens/colors">
+    Paper, Ink, Accent, Error, Alpha 색상 팔레트
+  </Card>
+  <Card title="Typography" icon="type">
+    폰트 크기, 가중치, 라인 높이
+  </Card>
+  <Card title="Spacing" icon="indent">
+    8px 그리드 기반 간격 토큰
+  </Card>
+  <Card title="Components" icon="puzzle-piece">
+    버튼, 카드, 입력 필드 등 컴포넌트별 토큰
+  </Card>
+  <Card title="Dark Mode" icon="moon" href="/design-tokens/dark-mode">
+    다크 테마 색상 오버라이드
+  </Card>
+</CardGroup>
+
+## CSS Variables 사용 예시
+
+### 기본 사용법
+
+생성된 CSS 변수는 `:root` 선택자에 정의되어 모든 컴포넌트에서 접근 가능합니다:
+
+```css
+/* 색상 */
+color: var(--ink-black);
+background-color: var(--paper-white);
+border-color: var(--accent-primary);
+
+/* 타이포그래피 */
+font-size: var(--font-size-base);
+font-weight: var(--font-weight-medium);
+line-height: var(--line-height-normal);
+
+/* 간격 */
+padding: var(--space-md);
+margin-bottom: var(--space-lg);
+gap: var(--space-sm);
+```
+
+### JavaScript에서 사용
+
+```javascript
+// CSS 변수 읽기
+const primaryColor = getComputedStyle(document.documentElement)
+  .getPropertyValue('--accent-primary')
+  .trim();
+
+// 동적 설정 (다크 모드)
+document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+## 토큰 구조
+
+Transcodes UI는 **DTCG(Design Token Community Group)** 형식을 따릅니다:
+
+```json
+{
+  "ink": {
+    "black": {
+      "$value": "#1a1a1a",
+      "$type": "color",
+      "$description": "Primary text color"
+    }
+  }
+}
+```
+
+각 토큰은 다음 속성을 포함합니다:
+
+- **`$value`**: 토큰의 실제 값 (색상, 크기, 수치 등)
+- **`$type`**: 토큰의 타입 (color, dimension, number, fontFamily 등)
+- **`$description`**: 토큰의 용도 및 접근성 정보
+
+## 빌드 결과물
+
+디자인 토큰을 빌드하면 다음 파일들이 생성됩니다:
+
+<CodeGroup>
+  <CodeBlock title="tokens.css" language="css">
+    {`/* 라이트 모드 CSS 변수 */
+:root {
+  --ink-black: #1a1a1a;
+  --paper-white: #faf9fc;
+  --accent-primary: #6b4fd9;
+  --font-size-base: clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
+  --space-md: clamp(0.875rem, 0.77rem + 0.54vw, 1.25rem);
+  /* ... 모든 토큰 */
+}`}
+  </CodeBlock>
+  <CodeBlock title="tokens-dark.css" language="css">
+    {`/* 다크 모드 CSS 변수 오버라이드 */
+[data-theme="dark"] {
+  --ink-black: #f5f5f5;
+  --paper-white: #1a1a1a;
+  --accent-primary: #8b6fd9;
+  /* ... */
+}`}
+  </CodeBlock>
+  <CodeBlock title="tokens.d.ts" language="typescript">
+    {`export const tokens = {
+  ink: {
+    black: '#1a1a1a',
+    dark: '#2d2d2d',
+    // ...
+  },
+  paper: {
+    white: '#faf9fc',
+    cream: '#f5f4f8',
+    // ...
+  },
+  space: {
+    xs: 'clamp(0.25rem, 0.23rem + 0.11vw, 0.3125rem)',
+    sm: 'clamp(0.5rem, 0.46rem + 0.22vw, 0.625rem)',
+    // ...
+  },
+} as const;`}
+  </CodeBlock>
+</CodeGroup>
+
+## 반응형 디자인
+
+Transcodes UI의 토큰은 **Fluid Typography** 패턴을 사용합니다:
+
+```css
+/* clamp()로 반응형 크기 자동 조정 */
+font-size: clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
+```
+
+이는 다음을 의미합니다:
+- **최소값**: 0.875rem (모바일)
+- **선호값**: 0.83rem + 뷰포트 너비의 0.22% (유동 계산)
+- **최대값**: 1rem (데스크톱)
+
+모든 기기에서 자연스러운 확대/축소를 제공합니다.
+
+## npm 패키지 사용
+
+Transcodes UI의 토큰은 `@transcodes/design-tokens` 패키지로 배포됩니다:
+
+<Tabs>
+  <Tab title="설치">
+    ```bash
+    npm install @transcodes/design-tokens
+    ```
+  </Tab>
+  <Tab title="CSS 임포트">
+    ```html
+    <head>
+      <!-- 라이트 모드 (기본) -->
+      <link rel="stylesheet" href="@transcodes/design-tokens/build/tokens.css" />
+    </head>
+    ```
+  </Tab>
+  <Tab title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    console.log(tokens.ink.black); // "#1a1a1a"
+    console.log(tokens.space.md); // "clamp(...)"
+    ```
+  </Tab>
+</Tabs>
+
+## 접근성
+
+모든 Transcodes UI 토큰은 **WCAG AA** 기준을 충족합니다:
+
+- **색상 대비**: 텍스트와 배경 간 대비율 4.5:1 이상
+- **필수 정보 표현**: 색상만으로 정보를 전달하지 않음
+- **포커스 표시**: 명확한 포커스 인디케이터
+- **다크 모드**: 모든 토큰이 다크 모드에서도 대비율 유지
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Colors" icon="palette" href="/design-tokens/colors">
+    색상 팔레트 및 스와치 확인
+  </Card>
+  <Card title="Typography" icon="type" href="/design-tokens/typography">
+    폰트 크기 및 가중치 사용법
+  </Card>
+  <Card title="Spacing" icon="indent" href="/design-tokens/spacing">
+    8px 그리드 및 간격 토큰
+  </Card>
+  <Card title="Dark Mode" icon="moon" href="/design-tokens/dark-mode">
+    다크 모드 설정 및 토글
+  </Card>
+</CardGroup>

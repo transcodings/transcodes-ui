@@ -1,0 +1,634 @@
+---
+title: "버튼 & 입력 (Buttons & Inputs)"
+description: "기본 상호작용 컴포넌트 - 버튼, 입력 필드, OTP 입력, 칩 입력"
+---
+
+# 버튼 & 입력 (Buttons & Inputs)
+
+기본적인 사용자 상호작용을 위한 4개의 컴포넌트입니다.
+
+## tc-button
+
+상태별 스타일을 지원하는 다목적 버튼 컴포넌트입니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `disabled` | `boolean` | `false` | 버튼 비활성화 |
+| `loading` | `boolean` | `false` | 로딩 상태 (스피너 표시) |
+| `variant` | `'primary' \| 'secondary' \| 'success'` | `'primary'` | 버튼 스타일 변형 |
+| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
+
+### Events
+
+| 이벤트명 | Detail | 설명 |
+|---------|--------|------|
+| `tc-click` | `{ originalEvent: Event }` | 버튼 클릭 시 발생 |
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<tc-button>기본 버튼</tc-button>
+
+<tc-button variant="secondary">세컨더리</tc-button>
+
+<tc-button variant="success">성공</tc-button>
+
+<tc-button disabled>비활성</tc-button>
+
+<tc-button loading>로딩 중...</tc-button>
+
+<tc-button sx='{"width": "200px"}'>
+  커스텀 너비
+</tc-button>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcButton } from '@transcodes/ui-components/primitives';
+
+export function ButtonDemo() {
+  return (
+    <>
+      <TcButton>기본 버튼</TcButton>
+      <TcButton variant="secondary">세컨더리</TcButton>
+      <TcButton variant="success">성공</TcButton>
+      <TcButton disabled>비활성</TcButton>
+      <TcButton loading>로딩 중...</TcButton>
+      <TcButton sx={{ width: '200px' }}>
+        커스텀 너비
+      </TcButton>
+
+      <TcButton
+        onClick={() => console.log('Clicked!')}
+        onTcClick={(e) => console.log('tc-click', e.detail)}
+      >
+        클릭 가능
+      </TcButton>
+    </>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref } from 'vue';
+import '@transcodes/ui-components/primitives/tc-button.js';
+
+const isLoading = ref(false);
+
+const handleClick = () => {
+  console.log('Button clicked');
+};
+</script>
+
+<template>
+  <div>
+    <tc-button>기본 버튼</tc-button>
+    <tc-button variant="secondary">세컨더리</tc-button>
+    <tc-button variant="success">성공</tc-button>
+    <tc-button :disabled="true">비활성</tc-button>
+    <tc-button :loading="isLoading">로딩 중...</tc-button>
+    <tc-button :sx="{ width: '200px' }">
+      커스텀 너비
+    </tc-button>
+    <tc-button @tc-click="handleClick">
+      클릭 가능
+    </tc-button>
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-button--primary" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-input
+
+라벨과 에러 표시가 있는 텍스트 입력 필드입니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `label` | `string` | `''` | 입력 필드 라벨 |
+| `type` | `string` | `'text'` | HTML input type |
+| `placeholder` | `string` | `''` | 입력 필드 플레이스홀더 |
+| `value` | `string` | `''` | 입력 필드 값 |
+| `error` | `string` | `''` | 에러 메시지 |
+| `disabled` | `boolean` | `false` | 입력 필드 비활성화 |
+| `required` | `boolean` | `false` | 필수 입력 필드 |
+| `name` | `string` | `''` | input name 속성 |
+| `autocomplete` | `string` | `''` | 자동완성 속성 |
+| `inputmode` | `string` | `''` | 모바일 키보드 유형 |
+| `maxlength` | `number` | `0` | 최대 입력 길이 (0=무제한) |
+| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
+
+### Events
+
+| 이벤트명 | Detail | 설명 |
+|---------|--------|------|
+| `tc-input` | `{ value: string }` | 입력값 변경 시 발생 |
+| `tc-blur` | `{ value: string }` | 포커스 해제 시 발생 |
+| `tc-keydown` | `{ key: string, value: string, originalEvent: KeyboardEvent }` | 키 입력 시 발생 |
+| `tc-paste` | `{ data: string, originalEvent: ClipboardEvent }` | 붙여넣기 시 발생 |
+
+### Methods
+
+| 메서드명 | 설명 |
+|---------|------|
+| `focus()` | 입력 필드에 포커스 설정 |
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<tc-input
+  label="사용자명"
+  placeholder="Enter your username"
+  required
+></tc-input>
+
+<tc-input
+  label="이메일"
+  type="email"
+  placeholder="example@domain.com"
+></tc-input>
+
+<tc-input
+  label="비밀번호"
+  type="password"
+  placeholder="••••••••"
+></tc-input>
+
+<tc-input
+  label="전화번호"
+  type="tel"
+  inputmode="tel"
+  maxlength="11"
+></tc-input>
+
+<tc-input
+  label="입금액"
+  type="number"
+  inputmode="decimal"
+></tc-input>
+
+<tc-input
+  label="사용자명"
+  error="이미 사용 중인 사용자명입니다"
+></tc-input>
+
+<tc-input
+  label="이름"
+  disabled
+  value="John Doe"
+></tc-input>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcInput } from '@transcodes/ui-components/primitives';
+import { useState } from 'react';
+
+export function InputDemo() {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState('');
+
+  const handleInput = (e) => {
+    const val = e.detail.value;
+    setValue(val);
+
+    // 유효성 검사
+    if (val.length < 3) {
+      setError('최소 3자 이상 입력해주세요');
+    } else {
+      setError('');
+    }
+  };
+
+  return (
+    <div>
+      <TcInput
+        label="사용자명"
+        placeholder="Enter your username"
+        value={value}
+        error={error}
+        required
+        onTcInput={handleInput}
+      />
+
+      <TcInput
+        label="이메일"
+        type="email"
+        placeholder="example@domain.com"
+      />
+
+      <TcInput
+        label="비밀번호"
+        type="password"
+        placeholder="••••••••"
+      />
+
+      <TcInput
+        label="전화번호"
+        type="tel"
+        inputmode="tel"
+        maxlength="11"
+      />
+    </div>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref } from 'vue';
+import '@transcodes/ui-components/primitives/tc-input.js';
+
+const username = ref('');
+const error = ref('');
+
+const handleInput = (e) => {
+  username.value = e.detail.value;
+
+  if (username.value.length < 3) {
+    error.value = '최소 3자 이상 입력해주세요';
+  } else {
+    error.value = '';
+  }
+};
+
+const handleBlur = (e) => {
+  console.log('Input blurred:', e.detail.value);
+};
+</script>
+
+<template>
+  <div>
+    <tc-input
+      label="사용자명"
+      placeholder="Enter your username"
+      :value="username"
+      :error="error"
+      required
+      @tc-input="handleInput"
+      @tc-blur="handleBlur"
+    />
+
+    <tc-input
+      label="이메일"
+      type="email"
+      placeholder="example@domain.com"
+    />
+
+    <tc-input
+      label="비밀번호"
+      type="password"
+      placeholder="••••••••"
+    />
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-input--default" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-otp-input
+
+6자리 OTP(One-Time Password) 입력을 위한 전문화된 컴포넌트입니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `length` | `number` | `6` | OTP 자리 수 |
+| `error` | `boolean` | `false` | 에러 상태 (흔들림 애니메이션) |
+| `disabled` | `boolean` | `false` | 입력 필드 비활성화 |
+| `show-progress` | `boolean` | `true` | 진행률 표시 여부 |
+
+### Events
+
+| 이벤트명 | Detail | 설명 |
+|---------|--------|------|
+| `tc-change` | `{ value: string, values: string[] }` | 값 변경 시 발생 |
+| `tc-complete` | `{ value: string }` | 모든 자리 입력 완료 시 발생 |
+
+### Methods
+
+| 메서드명 | 설명 |
+|---------|------|
+| `focus()` | 첫 번째 또는 첫 빈 셀에 포커스 설정 |
+| `clear()` | 모든 값 초기화 |
+| `getValue()` | 현재 OTP 값 반환 |
+
+### Features
+
+- 자동 셀 이동: 숫자 입력 시 다음 셀로 자동 이동
+- 백스페이스 처리: 이전 셀로 자동 이동
+- 화살표 키 네비게이션: 좌/우 화살표로 셀 이동
+- 붙여넣기 지원: 6자리 숫자 동시 입력 가능
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<tc-otp-input></tc-otp-input>
+
+<tc-otp-input length="4"></tc-otp-input>
+
+<tc-otp-input show-progress="false"></tc-otp-input>
+
+<tc-otp-input error="true"></tc-otp-input>
+
+<tc-otp-input disabled="true"></tc-otp-input>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcOtpInput } from '@transcodes/ui-components/primitives';
+import { useRef, useState } from 'react';
+
+export function OtpDemo() {
+  const otpRef = useRef();
+  const [otp, setOtp] = useState('');
+  const [error, setError] = useState(false);
+
+  const handleComplete = (e) => {
+    const value = e.detail.value;
+    setOtp(value);
+    console.log('OTP completed:', value);
+
+    // OTP 검증
+    verifyOtp(value);
+  };
+
+  const handleChange = (e) => {
+    console.log('OTP changed:', e.detail.value);
+  };
+
+  const verifyOtp = async (value) => {
+    // API 호출
+    const isValid = await checkOtp(value);
+    if (!isValid) {
+      setError(true);
+      otpRef.current?.clear();
+    }
+  };
+
+  return (
+    <div>
+      <TcOtpInput
+        ref={otpRef}
+        error={error}
+        onTcChange={handleChange}
+        onTcComplete={handleComplete}
+      />
+      <p>입력된 OTP: {otp}</p>
+    </div>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref } from 'vue';
+import '@transcodes/ui-components/primitives/tc-otp-input.js';
+
+const otpRef = ref();
+const otp = ref('');
+const error = ref(false);
+
+const handleComplete = (e) => {
+  otp.value = e.detail.value;
+  console.log('OTP completed:', otp.value);
+
+  verifyOtp(otp.value);
+};
+
+const handleChange = (e) => {
+  console.log('OTP changed:', e.detail.value);
+};
+
+const verifyOtp = async (value) => {
+  const isValid = await checkOtp(value);
+  if (!isValid) {
+    error.value = true;
+    otpRef.value?.clear();
+  }
+};
+</script>
+
+<template>
+  <div>
+    <tc-otp-input
+      ref="otpRef"
+      :error="error"
+      @tc-change="handleChange"
+      @tc-complete="handleComplete"
+    />
+    <p>입력된 OTP: {{ otp }}</p>
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-otp-input--default" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-input-with-chip
+
+입력 필드 옆에 칩 인디케이터가 함께 표시되는 컴포넌트입니다. 인증 방식을 선택했을 때 사용 가능합니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `label` | `string` | `''` | 입력 필드 라벨 |
+| `placeholder` | `string` | `''` | 입력 필드 플레이스홀더 |
+| `value` | `string` | `''` | 입력 필드 값 |
+| `error` | `string` | `''` | 에러 메시지 |
+| `disabled` | `boolean` | `false` | 입력 필드 비활성화 |
+| `readonly` | `boolean` | `false` | 읽기 전용 모드 |
+| `chip-label` | `string` | `''` | 칩 텍스트 |
+| `chip-icon` | `string` | `''` | 칩 아이콘 이름 |
+| `chip-variant` | `'default' \| 'success' \| 'error' \| 'info'` | `'default'` | 칩 스타일 변형 |
+
+### Events
+
+| 이벤트명 | Detail | 설명 |
+|---------|--------|------|
+| `tc-input` | `{ value: string }` | 입력값 변경 시 발생 |
+| `tc-blur` | `{ value: string }` | 포커스 해제 시 발생 |
+| `tc-keydown` | `{ key: string, value: string, originalEvent: KeyboardEvent }` | 키 입력 시 발생 |
+
+### Methods
+
+| 메서드명 | 설명 |
+|---------|------|
+| `focus()` | 입력 필드에 포커스 설정 |
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<!-- 이메일 인증 -->
+<tc-input-with-chip
+  label="이메일"
+  placeholder="your@email.com"
+  chip-label="이메일"
+  chip-icon="email"
+  chip-variant="info"
+></tc-input-with-chip>
+
+<!-- 생체 인증 -->
+<tc-input-with-chip
+  label="계정명"
+  placeholder="username"
+  chip-label="생체 인증"
+  chip-icon="biometric"
+  chip-variant="success"
+></tc-input-with-chip>
+
+<!-- 에러 상태 -->
+<tc-input-with-chip
+  label="이메일"
+  placeholder="your@email.com"
+  error="유효하지 않은 이메일입니다"
+  chip-label="이메일"
+  chip-icon="email"
+  chip-variant="error"
+></tc-input-with-chip>
+
+<!-- 읽기 전용 -->
+<tc-input-with-chip
+  label="계정명"
+  value="john.doe"
+  readonly="true"
+  chip-label="생체 인증"
+  chip-icon="biometric"
+  chip-variant="success"
+></tc-input-with-chip>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcInputWithChip } from '@transcodes/ui-components/primitives';
+import { useState } from 'react';
+
+export function InputWithChipDemo() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const handleInput = (e) => {
+    const value = e.detail.value;
+    setEmail(value);
+
+    // 이메일 검증
+    const isValid = /^[^@]+@[^@]+\.[^@]+$/.test(value);
+    setError(isValid ? '' : 'Invalid email');
+  };
+
+  return (
+    <div>
+      <TcInputWithChip
+        label="이메일"
+        placeholder="your@email.com"
+        value={email}
+        error={error}
+        chipLabel="이메일"
+        chipIcon="email"
+        chipVariant="info"
+        onTcInput={handleInput}
+      />
+
+      <TcInputWithChip
+        label="생체 인증 계정"
+        placeholder="username"
+        readonly
+        chipLabel="생체 인증"
+        chipIcon="biometric"
+        chipVariant="success"
+      />
+    </div>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref } from 'vue';
+import '@transcodes/ui-components/primitives/tc-input-with-chip.js';
+
+const email = ref('');
+const error = ref('');
+
+const handleInput = (e) => {
+  email.value = e.detail.value;
+
+  const isValid = /^[^@]+@[^@]+\.[^@]+$/.test(email.value);
+  error.value = isValid ? '' : 'Invalid email';
+};
+</script>
+
+<template>
+  <div>
+    <tc-input-with-chip
+      label="이메일"
+      placeholder="your@email.com"
+      :value="email"
+      :error="error"
+      chip-label="이메일"
+      chip-icon="email"
+      chip-variant="info"
+      @tc-input="handleInput"
+    />
+
+    <tc-input-with-chip
+      label="생체 인증 계정"
+      placeholder="username"
+      readonly
+      chip-label="생체 인증"
+      chip-icon="biometric"
+      chip-variant="success"
+    />
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-input-with-chip--default" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>

@@ -1,0 +1,243 @@
+---
+title: "Widgets 개요"
+description: "복합 컴포넌트 라이브러리 개요"
+---
+
+# Widgets 개요
+
+Widgets은 Transcodes UI의 복합 컴포넌트 모음입니다. Primitives를 조합하여 구성된 고수준의 컴포넌트로, 실제 애플리케이션에서 자주 사용되는 UI 패턴들을 제공합니다.
+
+## 컴포넌트 카테고리
+
+Widgets는 **8개의 컴포넌트**로 구성되어 있으며, 기능별로 3개 카테고리로 나뉩니다.
+
+### 1. 모달 (Modals) - 3개
+사용자 상호작용을 위한 모달 컴포넌트들입니다.
+
+- **tc-notification-modal**: 알림 권한 요청 모달 (Storage 기반 상태 저장)
+- **tc-offline-modal**: 오프라인 상태 모달 (자동 감지)
+- **tc-iframe-modal**: iframe 콘텐츠를 표시하는 모달 (메시지 통신 지원)
+
+### 2. 설치 안내 (Installation) - 2개
+PWA 설치를 안내하는 컴포넌트들입니다.
+
+- **tc-installation-banner**: PWA 설치 배너 (하단 고정)
+- **tc-ios-installation-guide**: iOS PWA 설치 단계 가이드
+
+### 3. UI 요소 (UI Elements) - 3개
+페이지 디자인 및 인증 관련 컴포넌트들입니다.
+
+- **tc-floating-button**: 고정 위치 플로팅 액션 버튼 (4개 위치)
+- **tc-page-decoration**: 배경 장식용 floating blob (3가지 색상)
+- **tc-authenticator-card**: 인증 방식 카드 (5가지 타입)
+
+## 전체 컴포넌트 목록
+
+| 컴포넌트명 | 카테고리 | 설명 | 주요 기능 |
+|-----------|----------|------|---------|
+| `tc-notification-modal` | 모달 | 알림 권한 요청 | Storage 기반 상태 저장 |
+| `tc-offline-modal` | 모달 | 오프라인 상태 표시 | 네트워크 감시 |
+| `tc-iframe-modal` | 모달 | iframe 모달 | 메시지 통신, 히스토리 관리 |
+| `tc-installation-banner` | 설치 안내 | PWA 설치 배너 | 일시적 해제 기능 |
+| `tc-ios-installation-guide` | 설치 안내 | iOS 설치 가이드 | 단계별 안내 |
+| `tc-floating-button` | UI 요소 | 플로팅 버튼 | 4개 위치 지원 |
+| `tc-page-decoration` | UI 요소 | 배경 장식 | 3가지 색상 variant |
+| `tc-authenticator-card` | UI 요소 | 인증 카드 | 5가지 인증 타입 |
+
+## 사용 방법
+
+### 설치
+
+모든 widgets는 `@transcodes/ui-components` 패키지에 포함되어 있습니다.
+
+```bash
+npm install @transcodes/ui-components
+# 또는
+bun add @transcodes/ui-components
+```
+
+### HTML에서 사용
+
+```html
+<script type="module">
+  import '@transcodes/ui-components/widgets';
+</script>
+
+<tc-floating-button position="bottom-right">
+  <tc-icon name="message"></tc-icon>
+</tc-floating-button>
+
+<tc-notification-modal title="알림 활성화" description="중요한 소식을 놓치지 마세요"></tc-notification-modal>
+```
+
+### React에서 사용
+
+```jsx
+import { TcFloatingButton, TcNotificationModal } from '@transcodes/ui-components/widgets';
+import { TcIcon } from '@transcodes/ui-components/primitives';
+
+export function MyComponent() {
+  return (
+    <>
+      <TcFloatingButton position="bottom-right">
+        <TcIcon name="message"></TcIcon>
+      </TcFloatingButton>
+
+      <TcNotificationModal
+        title="알림 활성화"
+        description="중요한 소식을 놓치지 마세요"
+      />
+    </>
+  );
+}
+```
+
+### Vue에서 사용
+
+```vue
+<script setup>
+import '@transcodes/ui-components/widgets';
+</script>
+
+<template>
+  <div>
+    <tc-floating-button position="bottom-right">
+      <tc-icon name="message"></tc-icon>
+    </tc-floating-button>
+
+    <tc-notification-modal
+      title="알림 활성화"
+      description="중요한 소식을 놓치지 마세요"
+    />
+  </div>
+</template>
+```
+
+## 주요 특징
+
+### 상태 관리
+일부 Widgets은 내부적으로 상태를 관리합니다:
+- **tc-notification-modal**: localStorage를 통해 선택 상태 저장
+- **tc-offline-modal**: navigator.onLine을 통해 네트워크 상태 감시
+- **tc-installation-banner**: 일시적 해제 상태 관리
+
+### 애니메이션
+모든 모달 컴포넌트는 부드러운 opening/closing 애니메이션을 제공합니다:
+- show/hide 메서드로 프로그래밍 제어 가능
+- `data-state` 속성을 통해 애니메이션 상태 추적 가능
+
+### 이벤트 기반 통신
+모든 Widgets은 커스텀 이벤트를 발생시킵니다:
+
+```javascript
+const modal = document.querySelector('tc-notification-modal');
+
+modal.addEventListener('tc-allow', () => {
+  console.log('사용자가 알림을 허용했습니다');
+});
+
+modal.addEventListener('tc-deny', () => {
+  console.log('사용자가 알림을 거부했습니다');
+});
+
+modal.addEventListener('tc-close', () => {
+  console.log('모달이 닫혔습니다');
+});
+```
+
+### 메시지 통신
+**tc-iframe-modal**은 iframe과의 양방향 통신을 지원합니다:
+
+```javascript
+const iframeModal = document.querySelector('tc-iframe-modal');
+
+// iframe으로 메시지 전송
+iframeModal.sendMessage('init', { userId: '123' });
+
+// iframe으로부터 메시지 수신
+iframeModal.addEventListener('tc-message', (e) => {
+  const { type, payload } = e.detail;
+  console.log('Received:', type, payload);
+});
+```
+
+## 디자인 토큰 통합
+
+모든 Widgets은 `@transcodes/design-tokens`의 CSS 변수를 사용하여 일관된 스타일링을 제공합니다.
+
+### 다크 모드 지원
+`[data-theme="dark"]` 선택자를 통해 자동으로 다크 모드를 지원합니다.
+
+```html
+<html data-theme="dark">
+  <body>
+    <tc-notification-modal></tc-notification-modal>
+  </body>
+</html>
+```
+
+### CSS Parts
+모든 Widgets은 CSS Parts를 통해 내부 요소 커스터마이징을 지원합니다.
+
+```css
+tc-notification-modal::part(modal) {
+  border: 2px solid red;
+}
+
+tc-floating-button::part(button) {
+  width: 4rem;
+  height: 4rem;
+}
+```
+
+## Tree-Shaking
+
+### 필요한 컴포넌트만 선택적으로 임포트
+
+Widgets 패키지는 ESM 형식으로 제공되어 완벽한 tree-shaking을 지원합니다.
+
+```javascript
+// 전체 임포트 (모든 widgets)
+import '@transcodes/ui-components/widgets';
+
+// 또는 필요한 컴포넌트만 임포트
+import '@transcodes/ui-components/widgets/tc-floating-button.js';
+import '@transcodes/ui-components/widgets/tc-notification-modal.js';
+```
+
+## 성능 팁
+
+1. **동적 임포트 사용**: 모달은 사용자 상호작용 시 동적으로 로드하세요.
+
+```javascript
+button.addEventListener('click', async () => {
+  const { TcNotificationModal } = await import('@transcodes/ui-components/widgets');
+  const modal = document.createElement('tc-notification-modal');
+  document.body.appendChild(modal);
+  await modal.show();
+});
+```
+
+2. **이벤트 위임**: 여러 Widgets이 있을 경우 이벤트 위임을 사용하세요.
+
+```javascript
+document.addEventListener('tc-install', (e) => {
+  if (e.target.matches('tc-installation-banner')) {
+    handleInstall();
+  }
+});
+```
+
+## 다음 단계
+
+각 컴포넌트의 상세 문서를 참고하세요:
+
+- [모달](/widgets/modals)
+- [설치 안내](/widgets/installation)
+- [플로팅 버튼](/widgets/floating-button)
+- [페이지 장식](/widgets/page-decoration)
+- [인증 카드](/widgets/authenticator-card)
+
+또는 <Card title="Storybook에서 보기" href="https://transcodes-ui-storybook.vercel.app/?path=/story/widgets" icon="book-open">
+  Storybook에서 모든 Widgets의 대화형 예제를 확인할 수 있습니다.
+</Card>

@@ -1,0 +1,282 @@
+---
+title: 'TypeScript Types'
+description: 'Transcodes UI TypeScript 타입 레퍼런스'
+---
+
+## 개요
+
+Transcodes UI는 완전한 TypeScript 타입 정의를 제공합니다. 모든 컴포넌트, Props, Events에 대한 타입이 포함되어 있습니다.
+
+## 컴포넌트 타입 Import
+
+```typescript
+// Primitives
+import type { TcButton } from '@transcodes/ui-components/primitives/tc-button.js';
+import type { TcInput } from '@transcodes/ui-components/primitives/tc-input.js';
+import type { TcCard } from '@transcodes/ui-components/primitives/tc-card.js';
+
+// Widgets
+import type { TcNotificationModal } from '@transcodes/ui-components/widgets/tc-notification-modal.js';
+import type { TcFloatingButton } from '@transcodes/ui-components/widgets/tc-floating-button.js';
+
+// Screens
+import type { TcLoadingScreen } from '@transcodes/ui-components/screens/tc-loading-screen.js';
+```
+
+## 공통 타입
+
+### SxProp
+
+모든 컴포넌트가 지원하는 인라인 스타일 prop:
+
+```typescript
+type SxProp = {
+  [key: string]: string | number;
+};
+
+// 사용 예시
+const button = document.querySelector<TcButton>('tc-button');
+button.sx = {
+  backgroundColor: 'blue',
+  padding: '16px',
+  borderRadius: '8px',
+};
+```
+
+### Variant Types
+
+```typescript
+// Button variants
+type ButtonVariant = 'primary' | 'secondary' | 'success' | 'error' | 'warning';
+
+// Text variants
+type TextVariant = 'body' | 'caption' | 'heading' | 'title';
+
+// Card variants
+type CardVariant = 'default' | 'outlined' | 'elevated';
+```
+
+## 이벤트 타입
+
+### Custom Event Detail Types
+
+```typescript
+// tc-button 클릭 이벤트
+interface TcClickEventDetail {
+  originalEvent: MouseEvent;
+}
+
+// tc-input 입력 이벤트
+interface TcInputEventDetail {
+  value: string;
+  originalEvent: InputEvent;
+}
+
+// tc-otp-input 완료 이벤트
+interface TcOtpCompleteEventDetail {
+  code: string;
+}
+
+// tc-chip 추가/제거 이벤트
+interface TcChipEventDetail {
+  chip: string;
+  index: number;
+}
+```
+
+### 이벤트 리스너 타입
+
+```typescript
+// TypeScript에서 커스텀 이벤트 리스너 타입 정의
+type TcClickEvent = CustomEvent<TcClickEventDetail>;
+type TcInputEvent = CustomEvent<TcInputEventDetail>;
+
+// 사용 예시
+const button = document.querySelector<TcButton>('tc-button');
+button?.addEventListener('tc-click', (e: TcClickEvent) => {
+  console.log(e.detail.originalEvent);
+});
+```
+
+## React 타입 확장
+
+React에서 TypeScript를 사용할 때 JSX IntrinsicElements를 확장해야 합니다:
+
+```typescript
+// types/transcodes.d.ts
+import type { TcButton } from '@transcodes/ui-components/primitives/tc-button.js';
+import type { TcInput } from '@transcodes/ui-components/primitives/tc-input.js';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'tc-button': Partial<TcButton> & {
+        children?: React.ReactNode;
+        onTcClick?: (e: CustomEvent) => void;
+      };
+      'tc-input': Partial<TcInput> & {
+        onTcInput?: (e: CustomEvent) => void;
+        onTcChange?: (e: CustomEvent) => void;
+      };
+      // ... 다른 컴포넌트들
+    }
+  }
+}
+```
+
+### React 컴포넌트 예시
+
+```tsx
+import '@transcodes/ui-components/primitives';
+
+function MyComponent() {
+  const handleClick = (e: CustomEvent<TcClickEventDetail>) => {
+    console.log('Clicked!', e.detail);
+  };
+
+  return (
+    <tc-button
+      variant="primary"
+      disabled={false}
+      onTcClick={handleClick}
+    >
+      Click me
+    </tc-button>
+  );
+}
+```
+
+## Vue 3 타입
+
+Vue 3에서 전역 컴포넌트 타입을 등록합니다:
+
+```typescript
+// types/transcodes.d.ts
+import type { TcButton } from '@transcodes/ui-components/primitives/tc-button.js';
+import type { TcInput } from '@transcodes/ui-components/primitives/tc-input.js';
+
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    TcButton: typeof TcButton;
+    TcInput: typeof TcInput;
+    // ... 다른 컴포넌트들
+  }
+}
+
+export {};
+```
+
+### Vue 컴포넌트 예시
+
+```vue
+<template>
+  <tc-button variant="primary" @tc-click="handleClick">
+    Click me
+  </tc-button>
+</template>
+
+<script setup lang="ts">
+import '@transcodes/ui-components/primitives';
+import type { TcClickEventDetail } from '@transcodes/ui-components/primitives/tc-button.js';
+
+const handleClick = (e: CustomEvent<TcClickEventDetail>) => {
+  console.log('Clicked!', e.detail);
+};
+</script>
+```
+
+## Design Token 타입
+
+```typescript
+// Design token CSS variables
+type ColorToken =
+  | '--paper-white'
+  | '--paper-cream'
+  | '--ink-black'
+  | '--ink-gray-900'
+  | '--accent-primary'
+  | '--accent-success'
+  | '--accent-error';
+
+type SpacingToken =
+  | '--space-xs'
+  | '--space-sm'
+  | '--space-md'
+  | '--space-lg'
+  | '--space-xl'
+  | '--space-2xl';
+
+type FontSizeToken =
+  | '--font-size-xs'
+  | '--font-size-sm'
+  | '--font-size-base'
+  | '--font-size-md'
+  | '--font-size-lg'
+  | '--font-size-xl'
+  | '--font-size-2xl';
+```
+
+## 유틸리티 타입
+
+```typescript
+// 컴포넌트 Props 추출
+type ButtonProps = Partial<TcButton>;
+type InputProps = Partial<TcInput>;
+
+// 이벤트 핸들러 타입
+type EventHandler<T = any> = (event: CustomEvent<T>) => void;
+
+// Nullable 타입
+type Nullable<T> = T | null | undefined;
+```
+
+## tsconfig.json 권장 설정
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx", // React 사용 시
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": ["src/**/*", "types/**/*"]
+}
+```
+
+## 타입 체크
+
+TypeScript 타입 체크를 실행하려면:
+
+```bash
+# TypeScript 컴파일러 설치
+npm install -D typescript
+
+# 타입 체크 실행
+npx tsc --noEmit
+```
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Primitives API" icon="puzzle-piece" href="/primitives/overview">
+    컴포넌트별 상세 타입
+  </Card>
+  <Card title="Design Tokens" icon="palette" href="/design-tokens/overview">
+    토큰 타입 레퍼런스
+  </Card>
+  <Card title="React 가이드" icon="react" href="/guides/getting-started">
+    React에서 사용하기
+  </Card>
+  <Card title="Vue 가이드" icon="vuejs" href="/guides/getting-started">
+    Vue에서 사용하기
+  </Card>
+</CardGroup>

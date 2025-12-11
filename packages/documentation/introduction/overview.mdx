@@ -1,0 +1,121 @@
+---
+title: 'Overview'
+description: 'Transcodes UI 라이브러리 소개'
+---
+
+## 소개
+
+Transcodes UI는 **Lit 3.x** 기반의 현대적이고 접근성 높은 웹 컴포넌트 라이브러리입니다. 프레임워크에 구애받지 않으며, React, Vue, Angular, Vanilla JavaScript 모두에서 사용할 수 있습니다.
+
+## 설계 철학
+
+### KISS, DRY, YAGNI
+
+Transcodes UI는 다음 원칙을 엄격히 준수합니다:
+
+- **KISS** (Keep It Simple, Stupid): 불필요한 복잡성을 배제하고 단순하게 유지
+- **DRY** (Don't Repeat Yourself): 중복 코드 금지, 공통 로직은 추상화
+- **YAGNI** (You Aren't Gonna Need It): 현재 필요한 것만 구현, 미래 요구사항 예측 금지
+
+### 접근성 우선
+
+모든 컴포넌트는 **WCAG AA** 기준을 충족하도록 설계되었습니다:
+
+- **키보드 네비게이션**: Tab, Enter, Escape 등 표준 키 지원
+- **스크린 리더**: ARIA 속성으로 의미론적 정보 제공
+- **고대비 모드**: 충분한 색상 대비 (4.5:1 이상)
+- **포커스 관리**: 명확한 포커스 인디케이터
+
+### 디자인 토큰 기반
+
+Style Dictionary로 생성된 디자인 토큰을 사용하여 일관성을 보장합니다:
+
+- **색상**: 체계적인 팔레트 (Paper, Ink, Accent)
+- **타이포그래피**: 일관된 폰트 크기와 라인 높이
+- **간격**: 8px 그리드 시스템
+- **다크 모드**: 자동 및 수동 전환 지원
+
+## 주요 기능
+
+<CardGroup cols={2}>
+  <Card title="Web Components" icon="code">
+    표준 웹 컴포넌트로 모든 프레임워크에서 사용
+  </Card>
+  <Card title="TypeScript" icon="file-code">
+    완전한 타입 정의 및 IntelliSense 지원
+  </Card>
+  <Card title="Tree-shakable" icon="tree">
+    필요한 컴포넌트만 번들에 포함
+  </Card>
+  <Card title="Dark Mode" icon="moon">
+    `data-theme` 속성으로 간단한 다크 모드 전환
+  </Card>
+</CardGroup>
+
+## 브라우저 지원
+
+- **Chrome/Edge**: 120 이상
+- **Firefox**: 120 이상
+- **Safari**: 17 이상
+
+<Note>
+Modern browsers only. IE11은 지원하지 않습니다.
+</Note>
+
+## 패키지 구성
+
+Transcodes UI는 2개의 npm 패키지로 구성됩니다:
+
+### @transcodes/design-tokens
+
+디자인 시스템의 기반이 되는 토큰들:
+
+- CSS Variables (tokens.css, tokens-dark.css)
+- Component Styles (components.css)
+- TypeScript 타입 정의
+
+```bash
+npm install @transcodes/design-tokens
+```
+
+### @transcodes/ui-components
+
+32개의 웹 컴포넌트:
+
+- **Primitives**: 21개 기본 UI 요소
+- **Widgets**: 8개 복합 컴포넌트
+- **Screens**: 3개 전체 화면 레이아웃
+
+```bash
+npm install @transcodes/ui-components
+```
+
+## 번들 크기
+
+| Import 방식 | 크기 (gzip) | 포함 컴포넌트 |
+|-------------|-------------|--------------|
+| 전체 | ~80KB | 모든 컴포넌트 (32개) |
+| Primitives | ~50KB | 기본 UI 요소 (21개) |
+| 개별 (Button) | ~4KB | tc-button 단일 |
+| 개별 (Input + Button) | ~8KB | 2개 컴포넌트 |
+
+<Tip>
+개별 임포트를 사용하면 번들 크기를 **95% 이상** 줄일 수 있습니다!
+</Tip>
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="설치 가이드" icon="download" href="/introduction/installation">
+    상세한 설치 및 번들러 설정
+  </Card>
+  <Card title="아키텍처" icon="sitemap" href="/introduction/architecture">
+    4계층 구조 이해하기
+  </Card>
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    5분 안에 시작하기
+  </Card>
+  <Card title="컴포넌트" icon="puzzle-piece" href="/primitives/overview">
+    컴포넌트 API 레퍼런스
+  </Card>
+</CardGroup>

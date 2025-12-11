@@ -1,0 +1,582 @@
+---
+title: "모달 (Modals)"
+description: "알림, 오프라인, iframe 모달 컴포넌트"
+---
+
+# 모달 (Modals)
+
+사용자 상호작용을 위한 3개의 모달 컴포넌트입니다.
+
+---
+
+## tc-notification-modal
+
+알림 권한을 요청하는 모달입니다. Storage를 통해 사용자의 선택 상태를 저장하므로, 한번 거부하면 다시 표시되지 않습니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `title` | `string` | `'Enable Notifications'` | 모달 제목 |
+| `description` | `string` | `'Stay updated with important alerts and messages.'` | 모달 설명 |
+| `allow-label` | `string` | `'Allow'` | 허용 버튼 텍스트 |
+| `deny-label` | `string` | `'Not Now'` | 거부 버튼 텍스트 |
+| `storage-key` | `string` | `'tc-notification-modal-state'` | localStorage 키 |
+
+### Events
+
+| 이벤트명 | 설명 |
+|---------|------|
+| `tc-allow` | 사용자가 허용 버튼을 클릭했을 때 발생 |
+| `tc-deny` | 사용자가 거부 버튼을 클릭했을 때 발생 |
+| `tc-close` | 모달이 닫혔을 때 발생 |
+
+### Methods
+
+| 메서드명 | 반환값 | 설명 |
+|---------|-------|------|
+| `show()` | `Promise<void>` | 모달 표시 (shouldShow() 체크 후) |
+| `close()` | `Promise<void>` | 모달 닫기 및 이벤트 발생 |
+| `shouldShow()` | `boolean` | 모달을 표시해야 하는지 확인 |
+
+### CSS Parts
+
+| Part 이름 | 설명 |
+|----------|------|
+| `overlay` | 배경 오버레이 |
+| `modal` | 모달 컨테이너 |
+| `icon` | 아이콘 컨테이너 |
+| `title` | 제목 |
+| `description` | 설명 텍스트 |
+| `actions` | 액션 버튼 그룹 |
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<script type="module">
+  import '@transcodes/ui-components/widgets/tc-notification-modal.js';
+</script>
+
+<tc-notification-modal
+  id="notifModal"
+  title="알림을 활성화하세요"
+  description="새로운 메시지를 바로 받아보세요"
+  allow-label="네"
+  deny-label="나중에"
+></tc-notification-modal>
+
+<script>
+  const modal = document.getElementById('notifModal');
+
+  // 모달 표시
+  modal.show();
+
+  // 이벤트 리스너
+  modal.addEventListener('tc-allow', () => {
+    console.log('사용자가 알림을 허용했습니다');
+    // Notification API 요청
+    Notification.requestPermission();
+  });
+
+  modal.addEventListener('tc-deny', () => {
+    console.log('사용자가 알림을 거부했습니다');
+  });
+
+  modal.addEventListener('tc-close', () => {
+    console.log('모달이 닫혔습니다');
+  });
+</script>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { useEffect, useRef } from 'react';
+import '@transcodes/ui-components/widgets/tc-notification-modal.js';
+
+export function NotificationModalDemo() {
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const handleAllow = () => {
+      console.log('사용자가 알림을 허용했습니다');
+      Notification.requestPermission();
+    };
+
+    const handleDeny = () => {
+      console.log('사용자가 알림을 거부했습니다');
+    };
+
+    const handleClose = () => {
+      console.log('모달이 닫혔습니다');
+    };
+
+    modal.addEventListener('tc-allow', handleAllow);
+    modal.addEventListener('tc-deny', handleDeny);
+    modal.addEventListener('tc-close', handleClose);
+
+    // 모달 표시
+    modal.show();
+
+    return () => {
+      modal.removeEventListener('tc-allow', handleAllow);
+      modal.removeEventListener('tc-deny', handleDeny);
+      modal.removeEventListener('tc-close', handleClose);
+    };
+  }, []);
+
+  return (
+    <tc-notification-modal
+      ref={modalRef}
+      title="알림을 활성화하세요"
+      description="새로운 메시지를 바로 받아보세요"
+      allow-label="네"
+      deny-label="나중에"
+    />
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref, onMounted } from 'vue';
+import '@transcodes/ui-components/widgets/tc-notification-modal.js';
+
+const modalRef = ref(null);
+
+const handleAllow = () => {
+  console.log('사용자가 알림을 허용했습니다');
+  Notification.requestPermission();
+};
+
+const handleDeny = () => {
+  console.log('사용자가 알림을 거부했습니다');
+};
+
+const handleClose = () => {
+  console.log('모달이 닫혔습니다');
+};
+
+onMounted(() => {
+  const modal = modalRef.value;
+  modal.addEventListener('tc-allow', handleAllow);
+  modal.addEventListener('tc-deny', handleDeny);
+  modal.addEventListener('tc-close', handleClose);
+  modal.show();
+});
+</script>
+
+<template>
+  <tc-notification-modal
+    ref="modalRef"
+    title="알림을 활성화하세요"
+    description="새로운 메시지를 바로 받아보세요"
+    allow-label="네"
+    deny-label="나중에"
+  />
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="https://transcodes-ui-storybook.vercel.app/?path=/story/widgets-tc-notification-modal" icon="external-link">
+  Storybook에서 모든 상태를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-offline-modal
+
+네트워크 연결을 자동으로 감시하여 오프라인 상태를 표시하는 모달입니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `title` | `string` | `'No Connection'` | 모달 제목 |
+| `description` | `string` | `'Please check your internet connection and try again.'` | 모달 설명 |
+| `retry-label` | `string` | `'Try Again'` | 재시도 버튼 텍스트 |
+| `auto-detect` | `boolean` | `true` | 자동으로 네트워크 상태 감시 |
+
+### Events
+
+| 이벤트명 | 설명 |
+|---------|------|
+| `tc-retry` | 재시도 버튼을 클릭했을 때 발생 |
+| `tc-online` | 디바이스가 온라인 상태로 돌아올 때 발생 |
+| `tc-offline` | 디바이스가 오프라인 상태가 될 때 발생 |
+
+### Methods
+
+| 메서드명 | 반환값 | 설명 |
+|---------|-------|------|
+| `show()` | `Promise<void>` | 모달 표시 |
+| `hide()` | `Promise<void>` | 모달 숨김 |
+
+### CSS Parts
+
+| Part 이름 | 설명 |
+|----------|------|
+| `overlay` | 배경 오버레이 |
+| `modal` | 모달 컨테이너 |
+| `icon` | 아이콘 컨테이너 |
+| `title` | 제목 |
+| `description` | 설명 텍스트 |
+| `action` | 액션 버튼 |
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<script type="module">
+  import '@transcodes/ui-components/widgets/tc-offline-modal.js';
+</script>
+
+<tc-offline-modal
+  id="offlineModal"
+  title="연결이 끊어졌습니다"
+  description="인터넷 연결을 확인해주세요"
+  retry-label="다시 시도"
+></tc-offline-modal>
+
+<script>
+  const modal = document.getElementById('offlineModal');
+
+  modal.addEventListener('tc-retry', () => {
+    console.log('사용자가 재시도를 요청했습니다');
+    // 재시도 로직 구현
+    location.reload();
+  });
+
+  modal.addEventListener('tc-online', () => {
+    console.log('온라인 상태로 복구됨');
+  });
+
+  modal.addEventListener('tc-offline', () => {
+    console.log('오프라인 상태 감지됨');
+  });
+</script>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { useEffect, useRef } from 'react';
+import '@transcodes/ui-components/widgets/tc-offline-modal.js';
+
+export function OfflineModalDemo() {
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const handleRetry = () => {
+      console.log('사용자가 재시도를 요청했습니다');
+      location.reload();
+    };
+
+    const handleOnline = () => {
+      console.log('온라인 상태로 복구됨');
+    };
+
+    const handleOffline = () => {
+      console.log('오프라인 상태 감지됨');
+    };
+
+    modal.addEventListener('tc-retry', handleRetry);
+    modal.addEventListener('tc-online', handleOnline);
+    modal.addEventListener('tc-offline', handleOffline);
+
+    return () => {
+      modal.removeEventListener('tc-retry', handleRetry);
+      modal.removeEventListener('tc-online', handleOnline);
+      modal.removeEventListener('tc-offline', handleOffline);
+    };
+  }, []);
+
+  return (
+    <tc-offline-modal
+      ref={modalRef}
+      title="연결이 끊어졌습니다"
+      description="인터넷 연결을 확인해주세요"
+      retry-label="다시 시도"
+    />
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref, onMounted } from 'vue';
+import '@transcodes/ui-components/widgets/tc-offline-modal.js';
+
+const modalRef = ref(null);
+
+const handleRetry = () => {
+  console.log('사용자가 재시도를 요청했습니다');
+  location.reload();
+};
+
+const handleOnline = () => {
+  console.log('온라인 상태로 복구됨');
+};
+
+const handleOffline = () => {
+  console.log('오프라인 상태 감지됨');
+};
+
+onMounted(() => {
+  const modal = modalRef.value;
+  modal.addEventListener('tc-retry', handleRetry);
+  modal.addEventListener('tc-online', handleOnline);
+  modal.addEventListener('tc-offline', handleOffline);
+});
+</script>
+
+<template>
+  <tc-offline-modal
+    ref="modalRef"
+    title="연결이 끊어졌습니다"
+    description="인터넷 연결을 확인해주세요"
+    retry-label="다시 시도"
+  />
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="https://transcodes-ui-storybook.vercel.app/?path=/story/widgets-tc-offline-modal" icon="external-link">
+  Storybook에서 모든 상태를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-iframe-modal
+
+iframe 콘텐츠를 표시하는 모달입니다. 로딩 상태를 관리하고, 메시지 통신을 지원합니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `src` | `string` | `''` | iframe의 src 속성 |
+| `title` | `string` | `''` | 모달 제목 |
+| `close-on-escape` | `boolean` | `true` | Escape 키로 닫기 |
+| `close-on-overlay` | `boolean` | `true` | 오버레이 클릭으로 닫기 |
+| `use-history` | `boolean` | `true` | 브라우저 히스토리 관리 |
+
+### Events
+
+| 이벤트명 | Detail | 설명 |
+|---------|--------|------|
+| `tc-close` | - | 모달이 닫혔을 때 발생 |
+| `tc-message` | `{ type: string, payload: unknown }` | iframe으로부터 메시지 수신 |
+| `tc-load` | - | iframe 콘텐츠 로드 완료 |
+
+### Methods
+
+| 메서드명 | 반환값 | 설명 |
+|---------|-------|------|
+| `open()` | `Promise<void>` | 모달 열기 |
+| `close()` | `Promise<void>` | 모달 닫기 |
+| `sendMessage(type, payload)` | `void` | iframe으로 메시지 전송 |
+
+### CSS Parts
+
+| Part 이름 | 설명 |
+|----------|------|
+| `overlay` | 배경 오버레이 |
+| `modal` | 모달 컨테이너 |
+| `header` | 헤더 영역 |
+| `close` | 닫기 버튼 |
+| `content` | 콘텐츠 영역 |
+| `iframe` | iframe 요소 |
+| `loader` | 로딩 인디케이터 |
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<script type="module">
+  import '@transcodes/ui-components/widgets/tc-iframe-modal.js';
+</script>
+
+<tc-iframe-modal
+  id="iframeModal"
+  src="https://example.com/form"
+  title="외부 양식"
+></tc-iframe-modal>
+
+<button onclick="openModal()">양식 열기</button>
+
+<script>
+  const modal = document.getElementById('iframeModal');
+
+  function openModal() {
+    modal.open();
+  }
+
+  modal.addEventListener('tc-load', () => {
+    console.log('iframe 콘텐츠 로드됨');
+    // iframe이 준비됨
+    modal.sendMessage('init', { userId: '123' });
+  });
+
+  modal.addEventListener('tc-message', (e) => {
+    const { type, payload } = e.detail;
+    console.log('메시지 수신:', type, payload);
+
+    if (type === 'submit') {
+      console.log('양식 제출됨:', payload);
+      modal.close();
+    }
+  });
+
+  modal.addEventListener('tc-close', () => {
+    console.log('모달이 닫혔습니다');
+  });
+</script>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { useRef } from 'react';
+import '@transcodes/ui-components/widgets/tc-iframe-modal.js';
+
+export function IframeModalDemo() {
+  const modalRef = useRef(null);
+
+  const openModal = () => {
+    modalRef.current?.open();
+  };
+
+  const handleLoad = () => {
+    console.log('iframe 콘텐츠 로드됨');
+    modalRef.current?.sendMessage('init', { userId: '123' });
+  };
+
+  const handleMessage = (e) => {
+    const { type, payload } = e.detail;
+    console.log('메시지 수신:', type, payload);
+
+    if (type === 'submit') {
+      console.log('양식 제출됨:', payload);
+      modalRef.current?.close();
+    }
+  };
+
+  const handleClose = () => {
+    console.log('모달이 닫혔습니다');
+  };
+
+  return (
+    <>
+      <button onClick={openModal}>양식 열기</button>
+
+      <tc-iframe-modal
+        ref={modalRef}
+        src="https://example.com/form"
+        title="외부 양식"
+        onTcLoad={handleLoad}
+        onTcMessage={handleMessage}
+        onTcClose={handleClose}
+      />
+    </>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref } from 'vue';
+import '@transcodes/ui-components/widgets/tc-iframe-modal.js';
+
+const modalRef = ref(null);
+
+const openModal = () => {
+  modalRef.value?.open();
+};
+
+const handleLoad = () => {
+  console.log('iframe 콘텐츠 로드됨');
+  modalRef.value?.sendMessage('init', { userId: '123' });
+};
+
+const handleMessage = (e) => {
+  const { type, payload } = e.detail;
+  console.log('메시지 수신:', type, payload);
+
+  if (type === 'submit') {
+    console.log('양식 제출됨:', payload);
+    modalRef.value?.close();
+  }
+};
+
+const handleClose = () => {
+  console.log('모달이 닫혔습니다');
+};
+</script>
+
+<template>
+  <div>
+    <button @click="openModal">양식 열기</button>
+
+    <tc-iframe-modal
+      ref="modalRef"
+      src="https://example.com/form"
+      title="외부 양식"
+      @tc-load="handleLoad"
+      @tc-message="handleMessage"
+      @tc-close="handleClose"
+    />
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+### iframe 메시지 통신 프로토콜
+
+Parent에서 iframe으로 메시지 전송:
+
+```javascript
+// 초기화 메시지
+modal.sendMessage('init', { userId: '123', lang: 'ko' });
+
+// 데이터 업데이트
+modal.sendMessage('update', { status: 'active' });
+```
+
+iframe에서 Parent로 메시지 전송 (postMessage):
+
+```javascript
+// iframe 내부 코드
+window.parent.postMessage(
+  { type: 'submit', payload: { formData: {...} } },
+  '*'
+);
+
+window.parent.postMessage(
+  { type: 'error', payload: { message: 'Validation failed' } },
+  '*'
+);
+```
+
+<Card title="Storybook에서 보기" href="https://transcodes-ui-storybook.vercel.app/?path=/story/widgets-tc-iframe-modal" icon="external-link">
+  Storybook에서 모든 상태를 확인할 수 있습니다.
+</Card>

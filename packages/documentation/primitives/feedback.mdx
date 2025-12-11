@@ -1,0 +1,526 @@
+---
+title: "피드백 (Feedback)"
+description: "사용자 반응 및 상태를 전달하는 컴포넌트"
+---
+
+# 피드백 (Feedback)
+
+사용자에게 피드백을 제공하는 4개의 컴포넌트입니다.
+
+## tc-toast
+
+자동으로 소멸되는 알림 메시지 컴포넌트입니다. 화면 하단에 고정되어 표시됩니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | 토스트 스타일 |
+| `duration` | `number` | `5000` | 자동 소멸 시간 (밀리초, 0=비활성화) |
+| `auto-dismiss` | `boolean` | `true` | 자동 소멸 활성화 |
+| `dismissible` | `boolean` | `true` | 닫기 버튼 표시 |
+
+### Events
+
+| 이벤트명 | Detail | 설명 |
+|---------|--------|------|
+| `tc-dismiss` | (없음) | 토스트 소멸 시 발생 |
+
+### Methods
+
+| 메서드명 | 설명 |
+|---------|------|
+| `show()` | 토스트 표시 (애니메이션) |
+| `hide()` | 토스트 숨김 (애니메이션) |
+
+### Features
+
+- 자동 위치: 화면 중앙 하단
+- 네 가지 색상 스킴
+- 커스텀 지속 시간
+- 스크린 리더 지원 (`aria-live="polite"`)
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<tc-toast id="successToast" variant="success">
+  작업이 완료되었습니다!
+</tc-toast>
+
+<tc-toast id="errorToast" variant="error">
+  오류가 발생했습니다. 다시 시도해주세요.
+</tc-toast>
+
+<tc-toast id="warningToast" variant="warning" duration="0">
+  경고: 이 작업은 되돌릴 수 없습니다.
+</tc-toast>
+
+<tc-toast id="infoToast" variant="info" :dismissible="false">
+  로딩 중입니다...
+</tc-toast>
+
+<script>
+  // 프로그래밍 방식으로 토스트 표시
+  const toast = document.getElementById('successToast');
+  await toast.show();
+</script>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcToast } from '@transcodes/ui-components/primitives';
+import { useRef } from 'react';
+
+export function ToastDemo() {
+  const successRef = useRef();
+  const errorRef = useRef();
+
+  const showSuccess = async () => {
+    await successRef.current?.show();
+  };
+
+  const showError = async () => {
+    await errorRef.current?.show();
+  };
+
+  const handleDismiss = () => {
+    console.log('Toast dismissed');
+  };
+
+  return (
+    <>
+      <TcToast
+        ref={successRef}
+        variant="success"
+        onTcDismiss={handleDismiss}
+      >
+        작업이 완료되었습니다!
+      </TcToast>
+
+      <TcToast
+        ref={errorRef}
+        variant="error"
+        onTcDismiss={handleDismiss}
+      >
+        오류가 발생했습니다. 다시 시도해주세요.
+      </TcToast>
+
+      <TcToast variant="warning" duration={0}>
+        경고: 이 작업은 되돌릴 수 없습니다.
+      </TcToast>
+
+      <TcToast variant="info" dismissible={false}>
+        로딩 중입니다...
+      </TcToast>
+
+      <button onClick={showSuccess}>성공 토스트</button>
+      <button onClick={showError}>에러 토스트</button>
+    </>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref } from 'vue';
+import '@transcodes/ui-components/primitives/tc-toast.js';
+
+const successRef = ref();
+const errorRef = ref();
+
+const showSuccess = async () => {
+  await successRef.value?.show();
+};
+
+const showError = async () => {
+  await errorRef.value?.show();
+};
+
+const handleDismiss = () => {
+  console.log('Toast dismissed');
+};
+</script>
+
+<template>
+  <div>
+    <tc-toast
+      ref="successRef"
+      variant="success"
+      @tc-dismiss="handleDismiss"
+    >
+      작업이 완료되었습니다!
+    </tc-toast>
+
+    <tc-toast
+      ref="errorRef"
+      variant="error"
+      @tc-dismiss="handleDismiss"
+    >
+      오류가 발생했습니다. 다시 시도해주세요.
+    </tc-toast>
+
+    <tc-toast variant="warning" :duration="0">
+      경고: 이 작업은 되돌릴 수 없습니다.
+    </tc-toast>
+
+    <tc-toast variant="info" :dismissible="false">
+      로딩 중입니다...
+    </tc-toast>
+
+    <button @click="showSuccess">성공 토스트</button>
+    <button @click="showError">에러 토스트</button>
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-toast--success" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-callout
+
+알림, 공지, 경고 등을 표시하는 박스 컴포넌트입니다. 아이콘 슬롯을 지원합니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | 콜아웃 스타일 |
+
+### Slots
+
+| 슬롯명 | 설명 |
+|-------|------|
+| (default) | 콜아웃 메시지 |
+| `icon` | 아이콘 요소 (선택사항) |
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<!-- 기본 정보 -->
+<tc-callout variant="info">
+  <tc-icon slot="icon" name="info"></tc-icon>
+  이것은 정보입니다.
+</tc-callout>
+
+<!-- 성공 메시지 -->
+<tc-callout variant="success">
+  <tc-icon slot="icon" name="check"></tc-icon>
+  작업이 성공적으로 완료되었습니다.
+</tc-callout>
+
+<!-- 경고 메시지 -->
+<tc-callout variant="warning">
+  <tc-icon slot="icon" name="alert-circle"></tc-icon>
+  주의가 필요합니다.
+</tc-callout>
+
+<!-- 에러 메시지 -->
+<tc-callout variant="error">
+  <tc-icon slot="icon" name="error"></tc-icon>
+  오류가 발생했습니다.
+</tc-callout>
+
+<!-- 아이콘 없음 -->
+<tc-callout variant="info">
+  아이콘 없는 정보 메시지입니다.
+</tc-callout>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcCallout, TcIcon } from '@transcodes/ui-components/primitives';
+
+export function CalloutDemo() {
+  return (
+    <>
+      <TcCallout variant="info">
+        <TcIcon slot="icon" name="info" />
+        이것은 정보입니다.
+      </TcCallout>
+
+      <TcCallout variant="success">
+        <TcIcon slot="icon" name="check" />
+        작업이 성공적으로 완료되었습니다.
+      </TcCallout>
+
+      <TcCallout variant="warning">
+        <TcIcon slot="icon" name="alert-circle" />
+        주의가 필요합니다.
+      </TcCallout>
+
+      <TcCallout variant="error">
+        <TcIcon slot="icon" name="error" />
+        오류가 발생했습니다.
+      </TcCallout>
+
+      <TcCallout variant="info">
+        아이콘 없는 정보 메시지입니다.
+      </TcCallout>
+    </>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import '@transcodes/ui-components/primitives/tc-callout.js';
+import '@transcodes/ui-components/primitives/tc-icon.js';
+</script>
+
+<template>
+  <div>
+    <tc-callout variant="info">
+      <tc-icon slot="icon" name="info" />
+      이것은 정보입니다.
+    </tc-callout>
+
+    <tc-callout variant="success">
+      <tc-icon slot="icon" name="check" />
+      작업이 성공적으로 완료되었습니다.
+    </tc-callout>
+
+    <tc-callout variant="warning">
+      <tc-icon slot="icon" name="alert-circle" />
+      주의가 필요합니다.
+    </tc-callout>
+
+    <tc-callout variant="error">
+      <tc-icon slot="icon" name="error" />
+      오류가 발생했습니다.
+    </tc-callout>
+
+    <tc-callout variant="info">
+      아이콘 없는 정보 메시지입니다.
+    </tc-callout>
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-callout--info" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-spinner
+
+로딩 상태를 나타내는 스피너 컴포넌트입니다. 반응형 크기 조정을 지원합니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `size` | `'sm' \| 'md' \| 'lg' \| 'auto'` | `'auto'` | 스피너 크기 |
+| `color` | `string` | `'var(--accent-primary)'` | 스피너 색상 |
+
+### Features
+
+- **auto 모드**: 모바일(768px 이하)에서는 lg, 데스크톱에서는 더 큼
+- 회전 애니메이션 (`var(--duration-slow)`)
+- ARIA 속성 지원
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<!-- 기본 스피너 (자동 크기) -->
+<tc-spinner></tc-spinner>
+
+<!-- 작은 크기 -->
+<tc-spinner size="sm"></tc-spinner>
+
+<!-- 중간 크기 -->
+<tc-spinner size="md"></tc-spinner>
+
+<!-- 큰 크기 -->
+<tc-spinner size="lg"></tc-spinner>
+
+<!-- 커스텀 색상 -->
+<tc-spinner color="#FF6B6B"></tc-spinner>
+<tc-spinner color="var(--accent-success)"></tc-spinner>
+
+<!-- 로딩 메시지와 함께 -->
+<div style="text-align: center">
+  <tc-spinner></tc-spinner>
+  <p>로딩 중입니다...</p>
+</div>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcSpinner } from '@transcodes/ui-components/primitives';
+
+export function SpinnerDemo() {
+  return (
+    <>
+      <TcSpinner />
+
+      <TcSpinner size="sm" />
+      <TcSpinner size="md" />
+      <TcSpinner size="lg" />
+
+      <TcSpinner color="#FF6B6B" />
+      <TcSpinner color="var(--accent-success)" />
+
+      <div style={{ textAlign: 'center' }}>
+        <TcSpinner />
+        <p>로딩 중입니다...</p>
+      </div>
+    </>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import '@transcodes/ui-components/primitives/tc-spinner.js';
+</script>
+
+<template>
+  <div>
+    <tc-spinner />
+
+    <tc-spinner size="sm" />
+    <tc-spinner size="md" />
+    <tc-spinner size="lg" />
+
+    <tc-spinner color="#FF6B6B" />
+    <tc-spinner color="var(--accent-success)" />
+
+    <div style="text-align: center">
+      <tc-spinner />
+      <p>로딩 중입니다...</p>
+    </div>
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-spinner--auto" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>
+
+---
+
+## tc-error-message
+
+에러, 경고, 정보 메시지를 표시하는 간편 컴포넌트입니다. `tc-callout`, `tc-icon`, `tc-text`를 조합합니다.
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `variant` | `'error' \| 'warning' \| 'info'` | `'error'` | 메시지 타입 |
+| `message` | `string` | `''` | 표시할 메시지 |
+
+### Features
+
+- 자동 아이콘 선택 (variant에 따라)
+- 자동 색상 설정
+- 메시지가 없으면 렌더링되지 않음
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<!-- 에러 메시지 -->
+<tc-error-message
+  variant="error"
+  message="사용자명은 3자 이상이어야 합니다"
+></tc-error-message>
+
+<!-- 경고 메시지 -->
+<tc-error-message
+  variant="warning"
+  message="비밀번호는 8자 이상이어야 합니다"
+></tc-error-message>
+
+<!-- 정보 메시지 -->
+<tc-error-message
+  variant="info"
+  message="입력 후 엔터를 누르세요"
+></tc-error-message>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { TcErrorMessage } from '@transcodes/ui-components/primitives';
+
+export function ErrorMessageDemo() {
+  return (
+    <>
+      <TcErrorMessage
+        variant="error"
+        message="사용자명은 3자 이상이어야 합니다"
+      />
+
+      <TcErrorMessage
+        variant="warning"
+        message="비밀번호는 8자 이상이어야 합니다"
+      />
+
+      <TcErrorMessage
+        variant="info"
+        message="입력 후 엔터를 누르세요"
+      />
+    </>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import '@transcodes/ui-components/primitives/tc-error-message.js';
+</script>
+
+<template>
+  <div>
+    <tc-error-message
+      variant="error"
+      message="사용자명은 3자 이상이어야 합니다"
+    />
+
+    <tc-error-message
+      variant="warning"
+      message="비밀번호는 8자 이상이어야 합니다"
+    />
+
+    <tc-error-message
+      variant="info"
+      message="입력 후 엔터를 누르세요"
+    />
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+<Card title="Storybook에서 보기" href="http://localhost:6006/?path=/story/primitives-tc-error-message--error" icon="external-link">
+  Storybook에서 상세한 예제를 확인할 수 있습니다.
+</Card>

@@ -1,0 +1,596 @@
+---
+title: '폼 가이드'
+description: '폼 구성, 검증, 에러 메시지, 제출 처리'
+---
+
+Transcodes UI는 강력한 폼 구성 요소들을 제공합니다. 이 가이드에서는 안전하고 사용자 친화적인 폼을 만드는 방법을 배웁니다.
+
+## 폼 기본 구조
+
+<Steps>
+  <Step title="폼 컨테이너 설정">
+    가장 먼저 폼의 구조를 정의합니다:
+
+    ```typescript
+    @customElement('user-form')
+    export class UserForm extends LitElement {
+      @state() formData = {
+        email: '',
+        password: '',
+        confirmPassword: '',
+      };
+
+      static styles = css`
+        :host {
+          display: block;
+        }
+
+        .form-wrapper {
+          max-width: 500px;
+          margin: 0 auto;
+          padding: 2rem;
+        }
+
+        .form-group {
+          margin-bottom: 1.5rem;
+        }
+
+        .form-actions {
+          display: flex;
+          gap: 1rem;
+          margin-top: 2rem;
+        }
+      `;
+
+      render() {
+        return html`
+          <div class="form-wrapper">
+            <tc-card>
+              <form @submit=${this.handleSubmit}>
+                <!-- 폼 필드들이 여기에 들어갑니다 -->
+              </form>
+            </tc-card>
+          </div>
+        `;
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="입력 필드 추가">
+    폼 필드들을 추가합니다:
+
+    ```typescript
+    render() {
+      return html`
+        <form @submit=${this.handleSubmit}>
+          <div class="form-group">
+            <tc-input
+              label="이메일"
+              type="email"
+              placeholder="user@example.com"
+              value=${this.formData.email}
+              required
+              @tc-input=${(e: any) => {
+                this.formData.email = e.target.value;
+              }}
+            ></tc-input>
+          </div>
+
+          <div class="form-group">
+            <tc-input
+              label="비밀번호"
+              type="password"
+              placeholder="••••••••"
+              value=${this.formData.password}
+              required
+              minlength="8"
+              @tc-input=${(e: any) => {
+                this.formData.password = e.target.value;
+              }}
+            ></tc-input>
+          </div>
+
+          <div class="form-group">
+            <tc-input
+              label="비밀번호 확인"
+              type="password"
+              placeholder="••••••••"
+              value=${this.formData.confirmPassword}
+              required
+              minlength="8"
+              @tc-input=${(e: any) => {
+                this.formData.confirmPassword = e.target.value;
+              }}
+            ></tc-input>
+          </div>
+        </form>
+      `;
+    }
+    ```
+  </Step>
+
+  <Step title="제출 버튼 추가">
+    마지막으로 제출 버튼을 추가합니다:
+
+    ```typescript
+    <div class="form-actions">
+      <tc-button variant="primary" type="submit">
+        가입하기
+      </tc-button>
+      <tc-button variant="secondary" type="reset">
+        취소
+      </tc-button>
+    </div>
+    ```
+  </Step>
+</Steps>
+
+## HTML5 입력 검증
+
+Transcodes UI의 `tc-input` 컴포넌트는 표준 HTML5 검증 속성을 지원합니다.
+
+### 검증 속성
+
+```typescript
+<tc-input
+  label="이메일"
+  type="email"
+  required                    // 필수 입력
+  pattern="[a-z0-9]+@[a-z]+" // 정규식 패턴
+  minlength="5"               // 최소 길이
+  maxlength="50"              // 최대 길이
+></tc-input>
+
+<tc-input
+  label="나이"
+  type="number"
+  min="0"                     // 최소값
+  max="120"                   // 최대값
+></tc-input>
+
+<tc-input
+  label="전화번호"
+  type="tel"
+  placeholder="010-0000-0000"
+  pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+></tc-input>
+```
+
+### 유효성 검사
+
+```typescript
+private async handleSubmit(e: SubmitEvent) {
+  e.preventDefault();
+
+  const form = e.target as HTMLFormElement;
+
+  // 유효성 검사
+  if (!form.checkValidity()) {
+    // HTML5 검증 실패
+    console.log('폼 검증 실패');
+    return;
+  }
+
+  // 커스텀 검증
+  if (!this.validatePasswords()) {
+    this.error = '비밀번호가 일치하지 않습니다';
+    return;
+  }
+
+  // 폼 제출
+  await this.submitForm();
+}
+
+private validatePasswords(): boolean {
+  return this.formData.password === this.formData.confirmPassword;
+}
+```
+
+## 에러 메시지 표시
+
+### tc-error-message 컴포넌트
+
+`tc-error-message` 컴포넌트를 사용하여 폼 전체 에러를 표시합니다:
+
+```typescript
+@state() formError = '';
+
+render() {
+  return html`
+    ${this.formError
+      ? html`<div class="form-group">
+          <tc-error-message
+            variant="error"
+            message=${this.formError}
+          ></tc-error-message>
+        </div>`
+      : ''}
+
+    <!-- 폼 필드들 -->
+  `;
+}
+```
+
+### 필드별 에러 메시지
+
+`tc-input` 컴포넌트의 `error` prop을 사용하여 필드별 에러를 표시합니다:
+
+```typescript
+@state() fieldErrors = {
+  email: '',
+  password: '',
+};
+
+render() {
+  return html`
+    <div class="form-group">
+      <tc-input
+        label="이메일"
+        type="email"
+        value=${this.formData.email}
+        error=${this.fieldErrors.email}
+        @tc-input=${(e: any) => {
+          this.formData.email = e.target.value;
+          // 에러 메시지 자동 제거
+          this.fieldErrors.email = '';
+        }}
+      ></tc-input>
+    </div>
+  `;
+}
+```
+
+### 검증 로직과 함께
+
+```typescript
+private validateEmail(email: string): string {
+  if (!email) {
+    return '이메일을 입력해주세요';
+  }
+  if (!email.includes('@')) {
+    return '유효한 이메일을 입력해주세요';
+  }
+  return '';
+}
+
+private validatePassword(password: string): string {
+  if (!password) {
+    return '비밀번호를 입력해주세요';
+  }
+  if (password.length < 8) {
+    return '비밀번호는 최소 8자 이상이어야 합니다';
+  }
+  return '';
+}
+
+private handleEmailChange(e: any) {
+  this.formData.email = e.target.value;
+  // 필드 포커스 해제 시 검증
+  this.fieldErrors.email = this.validateEmail(this.formData.email);
+}
+```
+
+## 실전 예제: 회원가입 폼
+
+완전한 회원가입 폼 예제입니다:
+
+```typescript
+@customElement('signup-form')
+export class SignupForm extends LitElement {
+  @state() formData = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+    terms: false,
+  };
+
+  @state() fieldErrors = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+    terms: '',
+  };
+
+  @state() isSubmitting = false;
+  @state() submitError = '';
+  @state() submitSuccess = false;
+
+  static styles = css`
+    :host {
+      display: block;
+    }
+
+    .form-wrapper {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .checkbox-group input {
+      margin-top: 0.25rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label {
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .form-actions tc-button {
+      flex: 1;
+    }
+
+    .success-message {
+      padding: 1rem;
+      background: var(--semantic-success);
+      color: var(--color-paper);
+      border-radius: 4px;
+      text-align: center;
+    }
+  `;
+
+  render() {
+    if (this.submitSuccess) {
+      return html`
+        <div class="form-wrapper">
+          <div class="success-message">
+            <tc-text weight="bold">가입 완료!</tc-text>
+            <p>이메일 확인 메시지를 확인해주세요.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    return html`
+      <div class="form-wrapper">
+        <tc-card>
+          <!-- 전체 에러 메시지 -->
+          ${this.submitError
+            ? html`<div class="form-group">
+                <tc-error-message
+                  variant="error"
+                  message=${this.submitError}
+                ></tc-error-message>
+              </div>`
+            : ''}
+
+          <form @submit=${this.handleSubmit}>
+            <!-- 이메일 -->
+            <div class="form-group">
+              <tc-input
+                label="이메일"
+                type="email"
+                placeholder="user@example.com"
+                value=${this.formData.email}
+                required
+                error=${this.fieldErrors.email}
+                @tc-input=${(e: any) => this.handleEmailChange(e)}
+                @tc-blur=${(e: any) => {
+                  this.fieldErrors.email = this.validateEmail(
+                    this.formData.email,
+                  );
+                }}
+              ></tc-input>
+            </div>
+
+            <!-- 비밀번호 -->
+            <div class="form-group">
+              <tc-input
+                label="비밀번호"
+                type="password"
+                placeholder="••••••••"
+                value=${this.formData.password}
+                required
+                minlength="8"
+                error=${this.fieldErrors.password}
+                @tc-input=${(e: any) => this.handlePasswordChange(e)}
+                @tc-blur=${(e: any) => {
+                  this.fieldErrors.password = this.validatePassword(
+                    this.formData.password,
+                  );
+                }}
+              ></tc-input>
+            </div>
+
+            <!-- 비밀번호 확인 -->
+            <div class="form-group">
+              <tc-input
+                label="비밀번호 확인"
+                type="password"
+                placeholder="••••••••"
+                value=${this.formData.confirmPassword}
+                required
+                minlength="8"
+                error=${this.fieldErrors.confirmPassword}
+                @tc-input=${(e: any) => this.handleConfirmPasswordChange(e)}
+              ></tc-input>
+            </div>
+
+            <!-- 이용약관 동의 -->
+            <div class="form-group checkbox-group">
+              <input
+                type="checkbox"
+                id="terms"
+                ?checked=${this.formData.terms}
+                @change=${(e: any) => {
+                  this.formData.terms = e.target.checked;
+                  this.fieldErrors.terms = '';
+                }}
+              />
+              <label for="terms" class="checkbox-label">
+                <tc-text size="sm">
+                  <a href="/terms">이용약관</a>에 동의합니다 (필수)
+                </tc-text>
+              </label>
+            </div>
+
+            ${this.fieldErrors.terms
+              ? html`<div class="form-group">
+                  <tc-error-message
+                    variant="error"
+                    message=${this.fieldErrors.terms}
+                  ></tc-error-message>
+                </div>`
+              : ''}
+
+            <!-- 버튼 -->
+            <div class="form-actions">
+              <tc-button
+                variant="primary"
+                type="submit"
+                ?loading=${this.isSubmitting}
+              >
+                가입하기
+              </tc-button>
+              <tc-button variant="secondary" type="reset">
+                취소
+              </tc-button>
+            </div>
+          </form>
+        </tc-card>
+      </div>
+    `;
+  }
+
+  private handleEmailChange(e: any) {
+    this.formData.email = e.target.value;
+    this.submitError = '';
+  }
+
+  private handlePasswordChange(e: any) {
+    this.formData.password = e.target.value;
+    this.submitError = '';
+  }
+
+  private handleConfirmPasswordChange(e: any) {
+    this.formData.confirmPassword = e.target.value;
+    this.submitError = '';
+    this.fieldErrors.confirmPassword = this.validateConfirmPassword();
+  }
+
+  private validateEmail(email: string): string {
+    if (!email) return '이메일을 입력해주세요';
+    if (!email.includes('@')) return '유효한 이메일을 입력해주세요';
+    return '';
+  }
+
+  private validatePassword(password: string): string {
+    if (!password) return '비밀번호를 입력해주세요';
+    if (password.length < 8) return '비밀번호는 최소 8자 이상이어야 합니다';
+    return '';
+  }
+
+  private validateConfirmPassword(): string {
+    if (this.formData.confirmPassword !== this.formData.password) {
+      return '비밀번호가 일치하지 않습니다';
+    }
+    return '';
+  }
+
+  private async handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    this.submitError = '';
+
+    // 필드 검증
+    this.fieldErrors.email = this.validateEmail(this.formData.email);
+    this.fieldErrors.password = this.validatePassword(this.formData.password);
+    this.fieldErrors.confirmPassword = this.validateConfirmPassword();
+    this.fieldErrors.terms = this.formData.terms ? '' : '약관에 동의해주세요';
+
+    // 에러 있으면 중단
+    const hasErrors = Object.values(this.fieldErrors).some((e) => e);
+    if (hasErrors) return;
+
+    this.isSubmitting = true;
+
+    try {
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: this.formData.email,
+          password: this.formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || '가입 실패');
+      }
+
+      this.submitSuccess = true;
+    } catch (err) {
+      this.submitError = err instanceof Error ? err.message : '오류가 발생했습니다';
+    } finally {
+      this.isSubmitting = false;
+    }
+  }
+}
+```
+
+## 폼 상태 관리
+
+복잡한 폼의 경우 상태 관리 패턴을 사용하세요:
+
+```typescript
+interface FormState {
+  data: Record<string, any>;
+  errors: Record<string, string>;
+  touched: Record<string, boolean>;
+  isSubmitting: boolean;
+}
+
+const initialState: FormState = {
+  data: {},
+  errors: {},
+  touched: {},
+  isSubmitting: false,
+};
+
+// 폼 상태 업데이트 헬퍼
+private updateField(name: string, value: any) {
+  this.state.data[name] = value;
+  this.state.errors[name] = this.validateField(name, value);
+  this.requestUpdate();
+}
+
+private markTouched(name: string) {
+  this.state.touched[name] = true;
+  this.requestUpdate();
+}
+```
+
+<Tip>
+폼 검증은 클라이언트와 서버에서 모두 수행해야 합니다. 클라이언트 검증은 사용자 경험을 위한 것이고, 서버 검증은 보안을 위한 것입니다.
+</Tip>
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="시작하기" icon="rocket" href="/guides/getting-started">
+    첫 번째 폼 만들기
+  </Card>
+  <Card title="베스트 프랙티스" icon="lightbulb" href="/guides/best-practices">
+    접근성과 성능
+  </Card>
+  <Card title="컴포넌트 레퍼런스" icon="code" href="/primitives/overview">
+    전체 API 문서
+  </Card>
+</CardGroup>

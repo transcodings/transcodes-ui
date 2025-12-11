@@ -1,0 +1,325 @@
+---
+title: '시작하기'
+description: '첫 번째 로그인 폼 만들기'
+---
+
+이 가이드에서는 Transcodes UI를 사용하여 첫 번째 로그인 폼을 만들어보겠습니다.
+
+## 설치
+
+아직 설치하지 않았다면 먼저 패키지를 설치하세요:
+
+<Tabs>
+  <Tab title="npm">
+    ```bash
+    npm install @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+  <Tab title="pnpm">
+    ```bash
+    pnpm add @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+  <Tab title="yarn">
+    ```bash
+    yarn add @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+  <Tab title="bun">
+    ```bash
+    bun add @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+</Tabs>
+
+## CSS 토큰 로드
+
+디자인 토큰(CSS 변수)을 먼저 로드해야 모든 컴포넌트가 올바르게 스타일됩니다:
+
+```typescript
+// main.ts 또는 app.ts
+import '@transcodes/design-tokens';
+```
+
+## 첫 컴포넌트: 로그인 폼
+
+<Steps>
+  <Step title="필요한 컴포넌트 import">
+    로그인 폼에 필요한 컴포넌트들을 import합니다:
+
+    ```typescript
+    // components/LoginForm.ts
+    import { LitElement, html, css } from 'lit';
+    import { customElement, state } from 'lit/decorators.js';
+    import '@transcodes/ui-components/primitives/tc-card.js';
+    import '@transcodes/ui-components/primitives/tc-input.js';
+    import '@transcodes/ui-components/primitives/tc-button.js';
+    import '@transcodes/ui-components/primitives/tc-text.js';
+    ```
+  </Step>
+
+  <Step title="컴포넌트 클래스 정의">
+    상태와 렌더 메서드를 포함한 컴포넌트를 만듭니다:
+
+    ```typescript
+    @customElement('login-form')
+    export class LoginForm extends LitElement {
+      @state() email = '';
+      @state() password = '';
+      @state() isLoading = false;
+      @state() error = '';
+
+      static styles = css`
+        :host {
+          display: block;
+          padding: 2rem;
+        }
+
+        .form-container {
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        .form-group {
+          margin-bottom: 1.5rem;
+        }
+
+        .form-title {
+          margin-bottom: 2rem;
+          text-align: center;
+        }
+      `;
+
+      render() {
+        return html`
+          <div class="form-container">
+            <tc-card>
+              <div class="form-title">
+                <tc-text size="lg" weight="bold">로그인</tc-text>
+              </div>
+
+              <!-- 에러 메시지 -->
+              ${this.error
+                ? html`<div class="form-group">
+                    <tc-error-message
+                      variant="error"
+                      message=${this.error}
+                    ></tc-error-message>
+                  </div>`
+                : ''}
+
+              <!-- 이메일 입력 -->
+              <div class="form-group">
+                <tc-input
+                  label="이메일"
+                  type="email"
+                  placeholder="your@email.com"
+                  value=${this.email}
+                  required
+                  @tc-input=${this.handleEmailChange}
+                ></tc-input>
+              </div>
+
+              <!-- 비밀번호 입력 -->
+              <div class="form-group">
+                <tc-input
+                  label="비밀번호"
+                  type="password"
+                  placeholder="••••••••"
+                  value=${this.password}
+                  required
+                  @tc-input=${this.handlePasswordChange}
+                ></tc-input>
+              </div>
+
+              <!-- 제출 버튼 -->
+              <tc-button
+                variant="primary"
+                ?loading=${this.isLoading}
+                @tc-click=${this.handleSubmit}
+              >
+                로그인
+              </tc-button>
+            </tc-card>
+          </div>
+        `;
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="이벤트 핸들러 구현">
+    사용자 입력과 폼 제출을 처리하는 메서드를 추가합니다:
+
+    ```typescript
+    private handleEmailChange(e: Event) {
+      const target = e.target as any;
+      this.email = target.value;
+      this.error = ''; // 사용자 입력 시 에러 메시지 제거
+    }
+
+    private handlePasswordChange(e: Event) {
+      const target = e.target as any;
+      this.password = target.value;
+      this.error = '';
+    }
+
+    private async handleSubmit() {
+      // 유효성 검사
+      if (!this.email) {
+        this.error = '이메일을 입력해주세요';
+        return;
+      }
+
+      if (!this.password) {
+        this.error = '비밀번호를 입력해주세요';
+        return;
+      }
+
+      // 로딩 시작
+      this.isLoading = true;
+
+      try {
+        // API 호출 (예제)
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('로그인 실패');
+        }
+
+        // 성공 처리
+        console.log('로그인 성공!');
+      } catch (err) {
+        this.error = err instanceof Error ? err.message : '로그인 중 오류가 발생했습니다';
+      } finally {
+        this.isLoading = false;
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+## HTML에서 사용
+
+완성된 컴포넌트를 HTML에서 사용할 수 있습니다:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인</title>
+</head>
+<body>
+  <login-form></login-form>
+
+  <script type="module" src="/src/components/LoginForm.ts"></script>
+</body>
+</html>
+```
+
+## 스타일링 커스터마이징
+
+`sx` prop을 사용하여 개별 컴포넌트의 스타일을 커스터마이징할 수 있습니다:
+
+```typescript
+<tc-button
+  variant="primary"
+  sx=${{
+    '--space-md': '1.5rem', // 패딩 커스터마이징
+    color: 'red', // 텍스트 색상
+  }}
+>
+  로그인
+</tc-button>
+```
+
+또는 CSS 클래스를 사용하여 스타일할 수도 있습니다:
+
+```typescript
+static styles = css`
+  tc-input {
+    --input-border-color: var(--accent-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  tc-button {
+    padding: 1rem;
+    font-weight: bold;
+  }
+`;
+```
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="폼 검증" icon="list-check" href="/guides/forms">
+    입력 검증 및 에러 메시지 표시
+  </Card>
+  <Card title="테마 커스터마이징" icon="palette" href="/guides/theming">
+    CSS 변수 오버라이드 및 다크 모드
+  </Card>
+  <Card title="컴포넌트 API" icon="code" href="/primitives/overview">
+    전체 컴포넌트 레퍼런스
+  </Card>
+  <Card title="베스트 프랙티스" icon="lightbulb" href="/guides/best-practices">
+    성능과 접근성 가이드
+  </Card>
+</CardGroup>
+
+## 일반적인 질문
+
+<Accordion title="이벤트는 어떻게 처리하나요?">
+  모든 Transcodes UI 컴포넌트는 `tc-` 접두사가 있는 커스텀 이벤트를 발생시킵니다.
+  표준 DOM 이벤트 리스너를 사용하여 처리할 수 있습니다:
+
+  ```typescript
+  @tc-input=${(e: Event) => {
+    const target = e.target as any;
+    console.log(target.value);
+  }}
+  ```
+</Accordion>
+
+<Accordion title="React에서는 어떻게 사용하나요?">
+  웹 컴포넌트는 모든 프레임워크에서 작동하므로 React에서도 동일하게 사용할 수 있습니다:
+
+  ```jsx
+  import React, { useState } from 'react';
+  import '@transcodes/ui-components/primitives/tc-button.js';
+
+  export function LoginForm() {
+    const [email, setEmail] = useState('');
+
+    return (
+      <tc-input
+        value={email}
+        onTcInput={(e: any) => setEmail(e.target.value)}
+      />
+    );
+  }
+  ```
+
+  자세한 내용은 [React 통합 가이드](https://lit.dev/docs/frameworks/react/)를 참고하세요.
+</Accordion>
+
+<Accordion title="다크 모드는 어떻게 설정하나요?">
+  `<html>` 요소에 `data-theme="dark"` 속성을 추가하면 다크 모드가 활성화됩니다:
+
+  ```html
+  <html data-theme="dark">
+    <body>
+      <!-- 다크 모드 스타일이 자동으로 적용됩니다 -->
+    </body>
+  </html>
+  ```
+
+  자세한 내용은 [테마 커스터마이징 가이드](/guides/theming)를 참고하세요.
+</Accordion>

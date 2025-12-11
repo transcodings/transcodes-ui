@@ -1,0 +1,209 @@
+---
+title: 'Architecture'
+description: 'Transcodes UI의 4계층 구조'
+---
+
+## 4계층 아키텍처
+
+Transcodes UI는 명확한 계층 구조로 설계되어 있습니다:
+
+```
+┌─────────────────────────────────────────────────┐
+│                   Screens                       │  전체 화면 레이아웃
+│  Loading, Error, Success                        │  (3개 컴포넌트)
+├─────────────────────────────────────────────────┤
+│                   Widgets                       │  복합 컴포넌트
+│  Modal, Banner, FloatingButton                  │  (8개 컴포넌트)
+├─────────────────────────────────────────────────┤
+│                  Primitives                     │  기본 UI 요소
+│  Button, Input, Card, Icon, Text                │  (21개 컴포넌트)
+├─────────────────────────────────────────────────┤
+│                Design Tokens                    │  디자인 시스템
+│  Colors, Typography, Spacing, Components        │  (CSS Variables)
+└─────────────────────────────────────────────────┘
+```
+
+## Layer 1: Design Tokens
+
+디자인 시스템의 기반이 되는 토큰들입니다.
+
+### 토큰 카테고리
+
+| 카테고리 | 설명 | 예시 |
+|---------|------|-----|
+| **Colors** | 색상 팔레트 | `--paper-white`, `--ink-black`, `--accent-primary` |
+| **Typography** | 폰트 크기, weight | `--font-size-base`, `--font-weight-medium` |
+| **Spacing** | 간격, 패딩, 마진 | `--space-xs`, `--space-md`, `--space-lg` |
+| **Border Radius** | 모서리 둥글기 | `--radius-sm`, `--radius-md`, `--radius-lg` |
+| **Components** | 컴포넌트 클래스 | `.button`, `.input`, `.card` |
+
+### 사용 예시
+
+```css
+.my-element {
+  color: var(--ink-black);
+  background: var(--paper-white);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+}
+```
+
+<Card title="Design Tokens 상세 가이드" icon="palette" href="/design-tokens/overview">
+  모든 토큰 목록 및 사용법
+</Card>
+
+## Layer 2: Primitives
+
+기본 UI 요소들입니다. 다른 컴포넌트의 빌딩 블록 역할을 합니다.
+
+### 카테고리별 Primitives
+
+<AccordionGroup>
+  <Accordion title="Buttons & Inputs (5개)">
+    - **tc-button**: 기본 버튼
+    - **tc-input**: 텍스트 입력
+    - **tc-otp-input**: OTP 입력
+    - **tc-input-with-chip**: 칩 포함 입력
+    - **tc-chip**: 태그/칩
+  </Accordion>
+
+  <Accordion title="Cards & Containers (4개)">
+    - **tc-card**: 카드 컨테이너
+    - **tc-box**: 박스 레이아웃
+    - **tc-container**: 컨테이너
+    - **tc-section**: 섹션
+  </Accordion>
+
+  <Accordion title="Text & Display (4개)">
+    - **tc-text**: 텍스트
+    - **tc-icon**: 아이콘
+    - **tc-symbol**: 심볼
+    - **tc-divider**: 구분선
+  </Accordion>
+
+  <Accordion title="Feedback (4개)">
+    - **tc-toast**: 토스트 알림
+    - **tc-callout**: 콜아웃
+    - **tc-spinner**: 로딩 스피너
+    - **tc-error-message**: 에러 메시지
+  </Accordion>
+
+  <Accordion title="Forms (4개)">
+    - **tc-form-header**: 폼 헤더
+    - **tc-item**: 리스트 아이템
+    - **tc-item-button**: 버튼 아이템
+  </Accordion>
+</AccordionGroup>
+
+### 설계 원칙
+
+1. **단일 책임**: 각 컴포넌트는 하나의 명확한 목적만 가짐
+2. **조합 가능**: 다른 Primitives와 쉽게 조합 가능
+3. **스타일 오버라이드**: `sx` prop으로 인라인 스타일 커스터마이징
+
+<Card title="Primitives API 레퍼런스" icon="puzzle-piece" href="/primitives/overview">
+  모든 Primitives 컴포넌트 문서
+</Card>
+
+## Layer 3: Widgets
+
+여러 Primitives를 조합한 복합 컴포넌트들입니다.
+
+### Widget 목록
+
+| Widget | 구성 요소 | 용도 |
+|--------|----------|-----|
+| **tc-notification-modal** | tc-card, tc-button, tc-text | 알림 모달 |
+| **tc-offline-modal** | tc-card, tc-icon, tc-text | 오프라인 안내 모달 |
+| **tc-iframe-modal** | tc-card, iframe | iframe 모달 |
+| **tc-floating-button** | tc-button, tc-icon | 플로팅 버튼 |
+| **tc-installation-banner** | tc-card, tc-button | 설치 배너 |
+| **tc-ios-installation-guide** | tc-card, tc-text, tc-divider | iOS 설치 가이드 |
+| **tc-page-decoration** | tc-box, tc-divider | 페이지 장식 |
+| **tc-authenticator-card** | tc-card, tc-input, tc-button | 인증 카드 |
+
+### 특징
+
+- **높은 재사용성**: 자주 사용되는 UI 패턴을 캡슐화
+- **일관된 UX**: 표준화된 상호작용 패턴
+- **커스터마이징 가능**: Slot과 Props로 유연한 커스터마이징
+
+<Card title="Widgets API 레퍼런스" icon="layer-group" href="/widgets/overview">
+  모든 Widgets 컴포넌트 문서
+</Card>
+
+## Layer 4: Screens
+
+전체 화면 레이아웃 컴포넌트들입니다.
+
+### Screen 목록
+
+| Screen | 용도 | 주요 Props |
+|--------|-----|-----------|
+| **tc-loading-screen** | 로딩 화면 | `message` |
+| **tc-error-screen** | 에러 화면 | `title`, `message`, `action` |
+| **tc-success-screen** | 성공 화면 | `title`, `message`, `action` |
+
+### 사용 시나리오
+
+```typescript
+// 로딩 상태
+<tc-loading-screen message="데이터 로딩 중..."></tc-loading-screen>
+
+// 에러 상태
+<tc-error-screen
+  title="오류 발생"
+  message="서버에 연결할 수 없습니다."
+  action="다시 시도"
+></tc-error-screen>
+
+// 성공 상태
+<tc-success-screen
+  title="완료!"
+  message="변경사항이 저장되었습니다."
+  action="확인"
+></tc-success-screen>
+```
+
+<Card title="Screens API 레퍼런스" icon="display" href="/screens/overview">
+  모든 Screens 컴포넌트 문서
+</Card>
+
+## 의존성 흐름
+
+계층 간 의존성은 단방향입니다:
+
+```
+Screens → Widgets → Primitives → Design Tokens
+  ↑         ↑          ↑              ↑
+  └─────────┴──────────┴──────────────┘
+       (순환 의존성 없음)
+```
+
+- **Design Tokens**: 의존성 없음
+- **Primitives**: Design Tokens에만 의존
+- **Widgets**: Primitives + Design Tokens에 의존
+- **Screens**: Widgets + Primitives + Design Tokens에 의존
+
+이 구조는 다음을 보장합니다:
+
+1. **명확한 책임 분리**
+2. **순환 의존성 방지**
+3. **효율적인 Tree-shaking**
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Design Tokens" icon="palette" href="/design-tokens/overview">
+    토큰 시스템 이해하기
+  </Card>
+  <Card title="Primitives" icon="puzzle-piece" href="/primitives/overview">
+    기본 컴포넌트 둘러보기
+  </Card>
+  <Card title="Widgets" icon="layer-group" href="/widgets/overview">
+    복합 컴포넌트 사용하기
+  </Card>
+  <Card title="Screens" icon="display" href="/screens/overview">
+    전체 화면 레이아웃
+  </Card>
+</CardGroup>

@@ -1,0 +1,18 @@
+{
+  "name": "@transcodes/documentation",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mintlify documentation site for Transcodes UI",
+  "type": "module",
+  "scripts": {
+    "dev": "mintlify dev",
+    "build": "echo 'Mintlify builds on Vercel'",
+    "clean": "rm -rf .mintlify"
+  },
+  "devDependencies": {
+    "mintlify": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20.17.0"
+  }
+}

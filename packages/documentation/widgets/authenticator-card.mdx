@@ -1,0 +1,511 @@
+---
+title: "인증 카드 (Authenticator Card)"
+description: "인증 방식을 표시하는 카드 컴포넌트"
+---
+
+# 인증 카드 (Authenticator Card)
+
+사용자의 인증 방식(패스키, TOTP, USB 보안키, 핸드폰, 이메일)을 표시하고 관리하는 카드 컴포넌트입니다.
+
+## tc-authenticator-card
+
+### Properties
+
+| 속성명 | 타입 | 기본값 | 설명 |
+|-------|------|-------|------|
+| `name` | `string` | `''` | 인증 방식 이름 (예: "My Passkey") |
+| `type` | `'passkey' \| 'totp' \| 'usb' \| 'phone' \| 'email'` | `'passkey'` | 인증 방식 타입 |
+| `last-used` | `string` | `''` | 마지막 사용 시간 (예: "2분 전") |
+| `enabled` | `boolean` | `true` | 인증 방식 활성화 상태 |
+| `deletable` | `boolean` | `true` | 삭제 버튼 표시 여부 |
+| `clickable` | `boolean` | `false` | 카드 클릭 가능 여부 |
+
+### Events
+
+| 이벤트명 | Detail | 설명 |
+|---------|--------|------|
+| `tc-delete` | `{ name: string, type: string }` | 삭제 버튼 클릭 시 발생 |
+| `tc-toggle` | - | 토글 버튼 클릭 시 발생 |
+| `tc-click` | - | 카드 클릭 시 발생 (clickable=true일 때) |
+
+### CSS Parts
+
+| Part 이름 | 설명 |
+|----------|------|
+| `card` | 카드 컨테이너 |
+| `icon` | 아이콘 컨테이너 |
+| `content` | 콘텐츠 영역 |
+| `name` | 이름 |
+| `meta` | 메타데이터 영역 |
+| `actions` | 액션 버튼 그룹 |
+| `delete` | 삭제 버튼 |
+
+### 인증 타입
+
+#### Passkey (패스키)
+생물정보 또는 디바이스 보안을 사용한 인증입니다.
+
+```html
+<tc-authenticator-card
+  name="iPhone에서의 Face ID"
+  type="passkey"
+  last-used="5분 전"
+></tc-authenticator-card>
+```
+
+#### TOTP (시간 기반 일회용 비밀번호)
+Google Authenticator, Microsoft Authenticator 등의 앱을 사용합니다.
+
+```html
+<tc-authenticator-card
+  name="Google Authenticator"
+  type="totp"
+  last-used="1일 전"
+></tc-authenticator-card>
+```
+
+#### USB (USB 보안키)
+YubiKey, FIDO2 키 등의 물리적 보안키입니다.
+
+```html
+<tc-authenticator-card
+  name="YubiKey 5"
+  type="usb"
+  last-used="3일 전"
+></tc-authenticator-card>
+```
+
+#### Phone (핸드폰)
+문자 메시지(SMS) 또는 앱 알림을 통한 인증입니다.
+
+```html
+<tc-authenticator-card
+  name="010-1234-5678"
+  type="phone"
+  last-used="2시간 전"
+></tc-authenticator-card>
+```
+
+#### Email (이메일)
+이메일을 통한 확인 링크 인증입니다.
+
+```html
+<tc-authenticator-card
+  name="user@example.com"
+  type="email"
+  last-used="1주일 전"
+></tc-authenticator-card>
+```
+
+### Usage
+
+<Tabs>
+<Tab title="HTML">
+```html
+<script type="module">
+  import '@transcodes/ui-components/widgets/tc-authenticator-card.js';
+</script>
+
+<!-- 기본 사용 -->
+<tc-authenticator-card
+  name="iPhone에서의 Face ID"
+  type="passkey"
+  last-used="5분 전"
+></tc-authenticator-card>
+
+<!-- 비활성화 상태 -->
+<tc-authenticator-card
+  name="이전 Authenticator"
+  type="totp"
+  enabled="false"
+></tc-authenticator-card>
+
+<!-- 삭제 불가능 -->
+<tc-authenticator-card
+  name="기본 이메일"
+  type="email"
+  deletable="false"
+></tc-authenticator-card>
+
+<!-- 클릭 가능 -->
+<tc-authenticator-card
+  id="clickableCard"
+  name="YubiKey 5"
+  type="usb"
+  last-used="3일 전"
+  clickable="true"
+></tc-authenticator-card>
+
+<script>
+  const card = document.getElementById('clickableCard');
+
+  card.addEventListener('tc-delete', (e) => {
+    const { name, type } = e.detail;
+    console.log(`삭제: ${name} (${type})`);
+
+    // 삭제 확인 및 처리
+    if (confirm(`"${name}"을(를) 삭제하시겠습니까?`)) {
+      // API로 삭제 요청
+      deleteAuthenticator(type, name);
+      // 성공 후 카드 제거
+      card.remove();
+    }
+  });
+
+  card.addEventListener('tc-click', () => {
+    console.log('카드 클릭됨');
+    // 인증 방식 수정 페이지로 이동 등
+  });
+</script>
+```
+</Tab>
+
+<Tab title="React">
+```jsx
+import { useState } from 'react';
+import '@transcodes/ui-components/widgets/tc-authenticator-card.js';
+
+export function AuthenticatorCardDemo() {
+  const [authenticators, setAuthenticators] = useState([
+    {
+      id: 1,
+      name: 'iPhone에서의 Face ID',
+      type: 'passkey',
+      lastUsed: '5분 전',
+      enabled: true,
+    },
+    {
+      id: 2,
+      name: 'Google Authenticator',
+      type: 'totp',
+      lastUsed: '1일 전',
+      enabled: true,
+    },
+    {
+      id: 3,
+      name: 'YubiKey 5',
+      type: 'usb',
+      lastUsed: '3일 전',
+      enabled: true,
+    },
+  ]);
+
+  const handleDelete = (id, name, type) => {
+    if (confirm(`"${name}"을(를) 삭제하시겠습니까?`)) {
+      // API로 삭제 요청
+      deleteAuthenticator(type, name);
+      // UI에서 제거
+      setAuthenticators(authenticators.filter((a) => a.id !== id));
+    }
+  };
+
+  const handleCardClick = (authenticator) => {
+    console.log('카드 클릭:', authenticator);
+    // 인증 방식 수정 페이지로 이동 등
+  };
+
+  const deleteAuthenticator = async (type, name) => {
+    try {
+      const response = await fetch('/api/authenticators', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, name }),
+      });
+
+      if (!response.ok) {
+        throw new Error('삭제 실패');
+      }
+
+      console.log('인증 방식이 삭제되었습니다');
+    } catch (error) {
+      console.error('삭제 오류:', error);
+      alert('삭제에 실패했습니다');
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <h2>등록된 인증 방식</h2>
+
+      {authenticators.map((auth) => (
+        <tc-authenticator-card
+          key={auth.id}
+          name={auth.name}
+          type={auth.type}
+          last-used={auth.lastUsed}
+          enabled={auth.enabled}
+          clickable={true}
+          onTcDelete={() => handleDelete(auth.id, auth.name, auth.type)}
+          onTcClick={() => handleCardClick(auth)}
+        />
+      ))}
+    </div>
+  );
+}
+```
+</Tab>
+
+<Tab title="Vue">
+```vue
+<script setup>
+import { ref } from 'vue';
+import '@transcodes/ui-components/widgets/tc-authenticator-card.js';
+
+const authenticators = ref([
+  {
+    id: 1,
+    name: 'iPhone에서의 Face ID',
+    type: 'passkey',
+    lastUsed: '5분 전',
+    enabled: true,
+  },
+  {
+    id: 2,
+    name: 'Google Authenticator',
+    type: 'totp',
+    lastUsed: '1일 전',
+    enabled: true,
+  },
+  {
+    id: 3,
+    name: 'YubiKey 5',
+    type: 'usb',
+    lastUsed: '3일 전',
+    enabled: true,
+  },
+]);
+
+const handleDelete = async (id, name, type) => {
+  if (confirm(`"${name}"을(를) 삭제하시겠습니까?`)) {
+    try {
+      await fetch('/api/authenticators', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, name }),
+      });
+
+      authenticators.value = authenticators.value.filter((a) => a.id !== id);
+      console.log('인증 방식이 삭제되었습니다');
+    } catch (error) {
+      console.error('삭제 오류:', error);
+      alert('삭제에 실패했습니다');
+    }
+  }
+};
+
+const handleCardClick = (authenticator) => {
+  console.log('카드 클릭:', authenticator);
+};
+</script>
+
+<template>
+  <div style="display: flex; flex-direction: column; gap: 1rem">
+    <h2>등록된 인증 방식</h2>
+
+    <tc-authenticator-card
+      v-for="auth in authenticators"
+      :key="auth.id"
+      :name="auth.name"
+      :type="auth.type"
+      :last-used="auth.lastUsed"
+      :enabled="auth.enabled"
+      clickable
+      @tc-delete="handleDelete(auth.id, auth.name, auth.type)"
+      @tc-click="handleCardClick(auth)"
+    />
+  </div>
+</template>
+```
+</Tab>
+</Tabs>
+
+### 인증 방식 목록 화면
+
+```html
+<script type="module">
+  import '@transcodes/ui-components/widgets/tc-authenticator-card.js';
+  import '@transcodes/ui-components/primitives/tc-button.js';
+</script>
+
+<div style="padding: var(--space-lg); max-width: 600px;">
+  <h1>보안 설정</h1>
+
+  <section style="margin-bottom: var(--space-xl);">
+    <h2>등록된 인증 방식</h2>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+      <!-- Passkey -->
+      <tc-authenticator-card
+        name="iPhone에서의 Face ID"
+        type="passkey"
+        last-used="5분 전"
+        clickable="true"
+      ></tc-authenticator-card>
+
+      <!-- TOTP -->
+      <tc-authenticator-card
+        name="Google Authenticator"
+        type="totp"
+        last-used="1일 전"
+      ></tc-authenticator-card>
+
+      <!-- USB -->
+      <tc-authenticator-card
+        name="YubiKey 5"
+        type="usb"
+        last-used="3일 전"
+      ></tc-authenticator-card>
+
+      <!-- 비활성화된 방식 -->
+      <tc-authenticator-card
+        name="이전 Authenticator"
+        type="totp"
+        enabled="false"
+      ></tc-authenticator-card>
+
+      <!-- 삭제 불가능한 기본 방식 -->
+      <tc-authenticator-card
+        name="user@example.com"
+        type="email"
+        last-used="1주일 전"
+        deletable="false"
+      ></tc-authenticator-card>
+    </div>
+  </section>
+
+  <section>
+    <tc-button variant="primary">새 인증 방식 추가</tc-button>
+  </section>
+</div>
+```
+
+### 삭제 확인 다이얼로그
+
+```javascript
+// 모달 확인 후 삭제
+const card = document.querySelector('tc-authenticator-card');
+
+card.addEventListener('tc-delete', async (e) => {
+  const { name, type } = e.detail;
+
+  // 확인 모달 표시
+  const confirmed = await showConfirmDialog(
+    '삭제 확인',
+    `"${name}"을(를) 정말로 삭제하시겠습니까?`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    // API로 삭제 요청
+    const response = await fetch('/api/authenticators', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, name }),
+    });
+
+    if (!response.ok) throw new Error('Delete failed');
+
+    // UI에서 제거
+    card.remove();
+
+    // 성공 알림
+    showSuccessToast('인증 방식이 삭제되었습니다');
+  } catch (error) {
+    // 에러 처리
+    showErrorToast('삭제에 실패했습니다');
+  }
+});
+```
+
+### 비활성화 상태
+
+비활성화된 인증 방식은 더 이상 로그인에 사용할 수 없습니다:
+
+```html
+<!-- 비활성화 상태 -->
+<tc-authenticator-card
+  name="이전 휴대폰 번호"
+  type="phone"
+  enabled="false"
+  deletable="false"
+></tc-authenticator-card>
+```
+
+비활성화된 카드는:
+- 회색 처리 (opacity)
+- "Disabled" 배지 표시
+- 클릭 불가능 (clickable=true이어도)
+
+### 아이콘 타입
+
+| Type | 아이콘 | 설명 |
+|------|--------|------|
+| `passkey` | key | 패스키 |
+| `totp` | totp | 시간 기반 인증 |
+| `usb` | device | 보안키 |
+| `phone` | phone | 휴대폰 |
+| `email` | email | 이메일 |
+
+### 반응형 디자인
+
+카드는 자동으로 반응형으로 작동합니다:
+
+```css
+/* 모바일에서도 넓이가 100% */
+tc-authenticator-card {
+  width: 100%;
+}
+
+/* 데스크톱에서 최대 너비 제한 */
+@media (min-width: 768px) {
+  .authenticator-list {
+    max-width: 600px;
+  }
+}
+```
+
+### 마지막 사용 시간 포맷팅
+
+```javascript
+// 타이ム스탬프를 상대 시간으로 변환
+function formatLastUsed(timestamp) {
+  const now = new Date();
+  const diff = now - new Date(timestamp);
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (minutes < 1) return '방금 전';
+  if (minutes < 60) return `${minutes}분 전`;
+  if (hours < 24) return `${hours}시간 전`;
+  if (days < 7) return `${days}일 전`;
+  if (days < 30) return `${Math.floor(days / 7)}주 전`;
+  return `${Math.floor(days / 30)}개월 전`;
+}
+
+// 사용 예
+const lastUsed = formatLastUsed(new Date(Date.now() - 5 * 60000)); // "5분 전"
+```
+
+### 접근성
+
+카드는 다음과 같은 접근성 기능을 지원합니다:
+
+- **ARIA Labels**: 삭제 버튼에 `aria-label="Delete [name]"` 설정
+- **키보드 네비게이션**: Tab으로 카드 포커스 가능
+- **포커스 인디케이터**: 명확한 포커스 아웃라인
+
+<Card title="Storybook에서 보기" href="https://transcodes-ui-storybook.vercel.app/?path=/story/widgets-tc-authenticator-card" icon="external-link">
+  Storybook에서 모든 상태와 타입을 확인할 수 있습니다.
+</Card>
+
+## 주요 특징
+
+- **다중 인증 타입**: 5가지 인증 방식 지원
+- **상태 관리**: 활성화/비활성화 상태 표시
+- **삭제 컨트롤**: 인증 방식별로 삭제 가능 여부 제어
+- **클릭 가능성**: 선택적 카드 클릭 처리
+- **메타 정보**: 마지막 사용 시간 표시
+- **비활성화 배지**: 비활성화 상태 시각적 표시
+- **다크 모드**: 자동 다크 모드 지원

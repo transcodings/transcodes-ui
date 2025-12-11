@@ -1,0 +1,104 @@
+---
+title: 'Transcodes UI'
+description: 'Modern, accessible web components built with Lit 3.x and design tokens'
+---
+
+# Welcome to Transcodes UI
+
+Transcodes UI는 Lit 3.x 기반의 현대적이고 접근성 높은 웹 컴포넌트 라이브러리입니다.
+
+<CardGroup cols={2}>
+  <Card title="빠른 시작" icon="rocket" href="/quickstart">
+    5분 안에 시작하기
+  </Card>
+  <Card title="아키텍처" icon="sitemap" href="/introduction/architecture">
+    4계층 구조 이해하기
+  </Card>
+  <Card title="컴포넌트" icon="puzzle-piece" href="/primitives/overview">
+    32개 컴포넌트 둘러보기
+  </Card>
+  <Card title="Storybook" icon="book-open" href="https://transcodes-ui-storybook.vercel.app">
+    Interactive 데모 보기
+  </Card>
+</CardGroup>
+
+## 주요 기능
+
+<CardGroup cols={3}>
+  <Card title="Modern Stack" icon="sparkles">
+    Lit 3.x, TypeScript, Style Dictionary로 구축
+  </Card>
+  <Card title="Accessible" icon="universal-access">
+    WCAG AA 준수, ARIA 지원
+  </Card>
+  <Card title="Design Tokens" icon="palette">
+    일관된 테마와 다크 모드
+  </Card>
+  <Card title="Tree-shakable" icon="tree">
+    필요한 컴포넌트만 임포트
+  </Card>
+  <Card title="Framework Agnostic" icon="code">
+    React, Vue, Angular, Vanilla JS
+  </Card>
+  <Card title="TypeScript" icon="file-code">
+    완전한 타입 정의 지원
+  </Card>
+</CardGroup>
+
+## Quick Start
+
+<Steps>
+  <Step title="설치">
+    ```bash
+    npm install @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Step>
+
+  <Step title="CSS 임포트">
+    ```typescript
+    import '@transcodes/design-tokens';
+    ```
+  </Step>
+
+  <Step title="컴포넌트 사용">
+    ```html
+    <tc-button variant="primary">Click me</tc-button>
+    ```
+  </Step>
+</Steps>
+
+<Card title="자세한 가이드 보기" icon="arrow-right" href="/quickstart">
+  설치 및 설정 상세 가이드
+</Card>
+
+## 아키텍처
+
+Transcodes UI는 4계층 구조로 설계되었습니다:
+
+```
+┌─────────────────────────────────┐
+│         Screens                 │  전체 화면 레이아웃
+├─────────────────────────────────┤
+│         Widgets                 │  복합 컴포넌트
+├─────────────────────────────────┤
+│        Primitives               │  기본 UI 요소
+├─────────────────────────────────┤
+│      Design Tokens              │  디자인 시스템
+└─────────────────────────────────┘
+```
+
+- **Design Tokens**: 색상, 타이포그래피, 간격 등 디자인 시스템
+- **Primitives**: Button, Input, Card 등 기본 UI 요소 (21개)
+- **Widgets**: Modal, Banner 등 복합 컴포넌트 (8개)
+- **Screens**: Loading, Error 등 전체 화면 레이아웃 (3개)
+
+## 커뮤니티
+
+<CardGroup cols={2}>
+  <Card title="GitHub" icon="github" href="https://github.com/transcodings/transcodes-ui">
+    소스 코드 및 이슈 트래킹
+  </Card>
+  <Card title="npm" icon="npm" href="https://www.npmjs.com/package/@transcodes/ui-components">
+    패키지 다운로드
+  </Card>
+</CardGroup>

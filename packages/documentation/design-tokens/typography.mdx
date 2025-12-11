@@ -1,0 +1,420 @@
+---
+title: 'Typography'
+description: '폰트 크기, 가중치, 라인 높이 및 타이포그래피 토큰'
+---
+
+## 타이포그래피 시스템
+
+Transcodes UI의 타이포그래피 시스템은 **반응형 폰트 크기**, **계층적 가중치**, **최적화된 라인 높이**로 구성됩니다. 모든 기기에서 일관되고 접근 가능한 텍스트 경험을 제공합니다.
+
+## 폰트 패밀리
+
+Transcodes UI는 **DM Sans**를 기본 폰트로 사용합니다:
+
+```css
+body {
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+```
+
+DM Sans는:
+- **현대적이고 중립적인 디자인**
+- **읽기 좋은 폰트 간격**
+- **모든 가중치 지원** (400, 500, 600, 700)
+- **다국어 지원** (한글 포함)
+
+<Tip>
+Google Fonts에서 무료로 제공되며 자체 호스팅도 가능합니다.
+</Tip>
+
+## 폰트 크기
+
+폰트 크기는 **Fluid Typography**를 사용하여 모든 기기에서 자동 조정됩니다:
+
+```css
+/* clamp(최소값, 선호값, 최대값) */
+font-size: clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
+```
+
+### 크기 토큰
+
+| 토큰 | 최소값 | 선호값 | 최대값 | 용도 |
+|------|--------|--------|--------|------|
+| `font-size-sm` | 0.8125rem (13px) | 0.78rem + 0.16vw | 0.9375rem (15px) | 작은 라벨, 캡션 |
+| `font-size-base` | 0.875rem (14px) | 0.83rem + 0.22vw | 1rem (16px) | 본문 텍스트 |
+| `font-size-lg` | 1rem (16px) | 0.93rem + 0.33vw | 1.25rem (20px) | 부제목 |
+| `font-size-xl` | 1.25rem (20px) | 1.14rem + 0.54vw | 1.5rem (24px) | 제목 |
+| `font-size-2xl` | 1.5rem (24px) | 1.35rem + 0.76vw | 1.875rem (30px) | 큰 제목 |
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 본문 */
+    body {
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-normal);
+    }
+
+    /* 작은 텍스트 */
+    .caption, small {
+      font-size: var(--font-size-sm);
+    }
+
+    /* 제목 */
+    h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    h3 {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="HTML">
+    ```html
+    <!-- 의미론적 마크업 -->
+    <h1>페이지 제목</h1>
+    <h2>섹션 제목</h2>
+    <p>본문 텍스트는 기본 크기입니다.</p>
+    <small>작은 주석</small>
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    // 폰트 크기 접근
+    const sizes = {
+      sm: tokens['font-size'].sm,      // "clamp(...)"
+      base: tokens['font-size'].base,  // "clamp(...)"
+      lg: tokens['font-size'].lg,      // "clamp(...)"
+      xl: tokens['font-size'].xl,      // "clamp(...)"
+      '2xl': tokens['font-size']['2xl'], // "clamp(...)"
+    };
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 반응형 예시
+
+<div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#f5f4f8', borderRadius: '4px' }}>
+  <p style={{ margin: '1rem 0 0.5rem 0', fontSize: 'clamp(1.5rem, 1.35rem + 0.76vw, 1.875rem)', fontWeight: '700' }}>
+    모바일에서는 더 작고, 데스크톱에서는 더 큽니다
+  </p>
+  <p style={{ margin: '0.5rem 0', fontSize: 'clamp(0.875rem, 0.83rem + 0.22vw, 1rem)', lineHeight: '1.5' }}>
+    브라우저 창의 크기를 조절해 보세요. 폰트 크기가 자동으로 조정됩니다.
+  </p>
+</div>
+
+## 폰트 가중치
+
+Transcodes UI는 **4개의 가중치**를 사용하여 시각적 계층을 구성합니다:
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `font-weight-regular` | 400 | 본문, 기본 텍스트 |
+| `font-weight-medium` | 500 | 강조된 텍스트, 라벨 |
+| `font-weight-semibold` | 600 | 부제목, 카드 제목 |
+| `font-weight-bold` | 700 | 제목, 주요 강조 |
+
+### 가중치 가이드
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 본문 (Regular) */
+    p {
+      font-weight: var(--font-weight-regular);
+    }
+
+    /* 라벨, 버튼 텍스트 (Medium) */
+    label, button {
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* 부제목, 카드 제목 (Semibold) */
+    h3, .card-title {
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* 페이지 제목 (Bold) */
+    h1, h2 {
+      font-weight: var(--font-weight-bold);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="시각적 예시">
+    ```html
+    <div style="font-weight: 400;">Regular (400) - 본문</div>
+    <div style="font-weight: 500;">Medium (500) - 강조</div>
+    <div style="font-weight: 600;">Semibold (600) - 부제목</div>
+    <div style="font-weight: 700;">Bold (700) - 제목</div>
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 시각화
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', marginTop: '1rem' }}>
+  <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '4px' }}>
+    <p style={{ margin: 0, fontWeight: '400', fontSize: '1rem' }}>
+      Regular (400) - 본문 텍스트는 기본 가중치로 읽기 쉬워야 합니다.
+    </p>
+  </div>
+  <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '4px' }}>
+    <p style={{ margin: 0, fontWeight: '500', fontSize: '1rem' }}>
+      Medium (500) - 라벨과 강조 텍스트에 사용합니다.
+    </p>
+  </div>
+  <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '4px' }}>
+    <p style={{ margin: 0, fontWeight: '600', fontSize: '1rem' }}>
+      Semibold (600) - 카드 제목과 부제목에 사용합니다.
+    </p>
+  </div>
+  <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '4px' }}>
+    <p style={{ margin: 0, fontWeight: '700', fontSize: '1rem' }}>
+      Bold (700) - 페이지 제목과 주요 강조에 사용합니다.
+    </p>
+  </div>
+</div>
+
+## 라인 높이
+
+라인 높이는 **텍스트 가독성**을 결정합니다. Transcodes UI는 3개 레벨을 제공합니다:
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `line-height-tight` | 1.25 | 제목, 짧은 텍스트 |
+| `line-height-normal` | 1.5 | 본문, 일반 텍스트 |
+| `line-height-relaxed` | 1.75 | 긴 문장, 에세이 |
+
+### 가이드
+
+<Tip>
+**라인 높이 = 폰트 크기 × 수치**
+
+예: 폰트 크기 16px × 1.5 = 24px 줄 간격
+</Tip>
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 제목 - 타이트한 줄 간격 */
+    h1, h2, h3 {
+      line-height: var(--line-height-tight);
+      /* 1.25 = 폰트 크기 × 1.25 */
+    }
+
+    /* 본문 - 표준 줄 간격 */
+    body, p {
+      line-height: var(--line-height-normal);
+      /* 1.5 = 읽기 좋은 표준 */
+    }
+
+    /* 긴 글 - 넓은 줄 간격 */
+    article {
+      line-height: var(--line-height-relaxed);
+      /* 1.75 = 긴 문장 읽기 최적화 */
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    const lineHeights = {
+      tight: tokens['line-height'].tight,     // "1.25"
+      normal: tokens['line-height'].normal,   // "1.5"
+      relaxed: tokens['line-height'].relaxed, // "1.75"
+    };
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 시각화
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', marginTop: '1rem' }}>
+  <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '4px' }}>
+    <p style={{ margin: 0, lineHeight: '1.25', fontSize: '1rem' }}>
+      Tight (1.25) - 이것은 타이트한 줄 간격입니다. 제목처럼 짧은 텍스트에 사용합니다. 보시다시피 줄이 매우 가깝습니다.
+    </p>
+  </div>
+  <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '4px' }}>
+    <p style={{ margin: 0, lineHeight: '1.5', fontSize: '1rem' }}>
+      Normal (1.5) - 이것은 표준 줄 간격입니다. 본문 텍스트처럼 일반적인 읽기에 최적화되어 있습니다. 대부분의 경우 이것을 사용합니다.
+    </p>
+  </div>
+  <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '4px' }}>
+    <p style={{ margin: 0, lineHeight: '1.75', fontSize: '1rem' }}>
+      Relaxed (1.75) - 이것은 넓은 줄 간격입니다. 긴 문장이나 에세이처럼 확장된 텍스트에 사용합니다. 가독성이 매우 좋습니다.
+    </p>
+  </div>
+</div>
+
+## 타이포그래피 조합
+
+효과적인 타이포그래피는 **크기, 가중치, 라인 높이의 조합**입니다:
+
+<CodeGroup>
+  <CodeBlock title="제목 계층 - CSS">
+    ```css
+    h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-tight);
+    }
+
+    h3 {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-normal);
+    }
+
+    p {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-normal);
+    }
+
+    small {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-normal);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="예시 - HTML">
+    ```html
+    <h1>페이지 제목</h1>
+    <p>이것은 본문 텍스트입니다. 적절한 타이포그래피 토큰을
+       사용하면 자동으로 일관된 스타일이 적용됩니다.</p>
+    <h2>섹션 제목</h2>
+    <p>섹션 설명 텍스트입니다.</p>
+    <small>추가 설명이나 주석</small>
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+## 접근성
+
+<Warning>
+타이포그래피 접근성은 다음 사항을 고려해야 합니다:
+
+1. **최소 폰트 크기**: 본문은 최소 14px 이상
+2. **대비율**: 텍스트와 배경 대비율은 4.5:1 이상
+3. **라인 길이**: 한 줄에 50-75자 (약 600px 이하)
+4. **라인 높이**: 1.5 이상이 권장됨
+</Warning>
+
+### 체크리스트
+
+- [x] 본문: `font-size-base` + `line-height-normal`
+- [x] 제목: 충분한 크기와 가중치 차이
+- [x] 색상 대비: `ink-black` 텍스트 + `paper-white` 배경
+- [x] 스케일링: 사용자가 텍스트 크기 조정 가능
+- [x] 강조: 색상만이 아닌 다른 방식 사용 (굵기, 크기)
+
+## 실제 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="완전한 문서 스타일">
+    ```css
+    :root {
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-normal);
+      color: var(--ink-black);
+      background-color: var(--paper-white);
+    }
+
+    h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      margin: var(--space-xl) 0 var(--space-lg) 0;
+      color: var(--ink-black);
+    }
+
+    h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-tight);
+      margin: var(--space-lg) 0 var(--space-md) 0;
+    }
+
+    p {
+      margin: 0 0 var(--space-md) 0;
+    }
+
+    strong {
+      font-weight: var(--font-weight-semibold);
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    small {
+      font-size: var(--font-size-sm);
+      color: var(--ink-dark);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="React 컴포넌트">
+    ```tsx
+    import { tokens } from '@transcodes/design-tokens';
+
+    export function Article() {
+      return (
+        <article style={{
+          fontSize: tokens['font-size'].base,
+          lineHeight: tokens['line-height'].relaxed,
+          maxWidth: '600px',
+          margin: '0 auto'
+        }}>
+          <h1 style={{
+            fontSize: tokens['font-size']['2xl'],
+            fontWeight: tokens['font-weight'].bold,
+          }}>
+            긴 글 읽기
+          </h1>
+          <p>
+            이 글은 긴 텍스트를 읽기 위해 최적화되었습니다.
+            relaxed 라인 높이와 적절한 폰트 크기를 사용합니다.
+          </p>
+        </article>
+      );
+    }
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Spacing" icon="indent" href="/design-tokens/spacing">
+    간격 토큰 및 그리드 시스템
+  </Card>
+  <Card title="Colors" icon="palette" href="/design-tokens/colors">
+    색상 팔레트 및 대비율
+  </Card>
+  <Card title="Dark Mode" icon="moon" href="/design-tokens/dark-mode">
+    다크 모드 구현
+  </Card>
+</CardGroup>

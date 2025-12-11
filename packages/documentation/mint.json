@@ -1,0 +1,120 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Transcodes UI",
+  "logo": {
+    "dark": "/images/logo/dark.svg",
+    "light": "/images/logo/light.svg"
+  },
+  "favicon": "/images/favicon.svg",
+  "colors": {
+    "primary": "#1a1a1a",
+    "light": "#f5f5f5",
+    "dark": "#1a1a1a",
+    "anchors": {
+      "from": "#1a1a1a",
+      "to": "#4a4a4a"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/transcodings/transcodes-ui"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Storybook",
+    "url": "https://transcodes-ui-storybook.vercel.app"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "Guides",
+      "url": "guides"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "npm",
+      "icon": "npm",
+      "url": "https://www.npmjs.com/package/@transcodes/ui-components"
+    },
+    {
+      "name": "Changelog",
+      "icon": "list",
+      "url": "https://github.com/transcodings/transcodes-ui/blob/main/packages/ui-components/CHANGELOG.md"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "시작하기",
+      "pages": [
+        "index",
+        "quickstart",
+        "introduction/overview",
+        "introduction/installation",
+        "introduction/architecture"
+      ]
+    },
+    {
+      "group": "Design Tokens",
+      "pages": [
+        "design-tokens/overview",
+        "design-tokens/colors",
+        "design-tokens/typography",
+        "design-tokens/spacing",
+        "design-tokens/dark-mode"
+      ]
+    },
+    {
+      "group": "Primitives",
+      "pages": [
+        "primitives/overview",
+        "primitives/buttons-inputs",
+        "primitives/cards-containers",
+        "primitives/text-display",
+        "primitives/feedback",
+        "primitives/forms"
+      ]
+    },
+    {
+      "group": "Widgets",
+      "pages": [
+        "widgets/overview",
+        "widgets/modals",
+        "widgets/installation",
+        "widgets/floating-button",
+        "widgets/page-decoration",
+        "widgets/authenticator-card"
+      ]
+    },
+    {
+      "group": "Screens",
+      "pages": ["screens/overview", "screens/state-screens"]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/getting-started",
+        "guides/theming",
+        "guides/forms",
+        "guides/best-practices",
+        "guides/migration-v0.3"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": ["api-reference/typescript-types"]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/transcodings/transcodes-ui"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  }
+}

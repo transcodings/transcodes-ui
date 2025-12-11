@@ -1,0 +1,421 @@
+---
+title: '베스트 프랙티스'
+description: '컴포넌트 선택, 접근성, 성능, 일반적인 실수 해결'
+---
+
+이 가이드는 Transcodes UI를 효과적이고 안전하게 사용하기 위한 베스트 프랙티스를 다룹니다.
+
+## 컴포넌트 선택 가이드
+
+각 상황에 맞는 적절한 컴포넌트를 선택하는 것이 중요합니다.
+
+### 버튼 선택
+
+<Tabs>
+  <Tab title="tc-button">
+    주요 액션(제출, 저장, 삭제)에 사용합니다.
+
+    ```typescript
+    // 좋음: 명확한 목적
+    <tc-button variant="primary">주문 완료</tc-button>
+    <tc-button variant="secondary">취소</tc-button>
+
+    // 피해야 할 것: 너무 많은 버튼
+    <tc-button variant="primary">저장</tc-button>
+    <tc-button variant="primary">저장 후 계속</tc-button>
+    <tc-button variant="primary">저장 후 나가기</tc-button>
+    ```
+  </Tab>
+
+  <Tab title="tc-item-button">
+    메뉴 항목이나 리스트 아이템으로 사용합니다.
+
+    ```typescript
+    // 좋음: 네비게이션
+    <tc-item-button>
+      <tc-text>설정</tc-text>
+    </tc-item-button>
+
+    // 피해야 할 것: 메인 액션에 사용
+    <tc-item-button>주문 완료</tc-item-button>
+    ```
+  </Tab>
+
+  <Tab title="tc-chip">
+    태그나 필터로 사용합니다.
+
+    ```typescript
+    // 좋음: 태그/필터
+    <tc-chip>React</tc-chip>
+    <tc-chip>TypeScript</tc-chip>
+
+    // 피해야 할 것: 주요 액션
+    <tc-chip>저장</tc-chip>
+    ```
+  </Tab>
+</Tabs>
+
+### 입력 필드 선택
+
+| 상황 | 추천 컴포넌트 | 설명 |
+|------|-------------|------|
+| 텍스트 입력 | `tc-input` | 이메일, 이름, 주소 등 |
+| 비밀번호 | `tc-input type="password"` | 마스킹된 입력 |
+| 숫자 입력 | `tc-input type="number"` | 나이, 가격 등 |
+| OTP 입력 | `tc-otp-input` | 2FA, 이메일 인증 |
+| 태그 입력 | `tc-input-with-chip` | 복수 선택 입력 |
+
+### 피드백 컴포넌트 선택
+
+<Tabs>
+  <Tab title="tc-toast">
+    일시적 알림에 사용합니다 (자동 사라짐).
+
+    ```typescript
+    // 좋음: 일시적 성공 메시지
+    showToast('저장되었습니다');
+
+    // 피해야 할 것: 중요한 정보 표시
+    showToast('서비스 점검 예정: 내일 2시');
+    ```
+  </Tab>
+
+  <Tab title="tc-error-message">
+    폼 검증 에러에 사용합니다.
+
+    ```typescript
+    // 좋음: 폼 검증 실패
+    <tc-error-message message="이메일이 유효하지 않습니다" />
+
+    // 피해야 할 것: 일시적 알림
+    <tc-error-message message="저장되었습니다" />
+    ```
+  </Tab>
+
+  <Tab title="tc-callout">
+    영구적인 정보/경고에 사용합니다.
+
+    ```typescript
+    // 좋음: 경고 메시지
+    <tc-callout variant="warning">
+      이 작업은 되돌릴 수 없습니다
+    </tc-callout>
+
+    // 피해야 할 것: 일시적 메시지
+    <tc-callout variant="info">저장되었습니다</tc-callout>
+    ```
+  </Tab>
+</Tabs>
+
+## 접근성 체크리스트
+
+### 키보드 네비게이션
+
+모든 대화형 요소가 Tab 키로 이동 가능해야 합니다:
+
+```typescript
+// 좋음: 키보드로 모든 요소에 접근 가능
+<tc-button>주문</tc-button>
+<tc-input label="이메일" />
+<tc-item-button>설정</tc-item-button>
+
+// 피해야 할 것: div를 클릭 핸들러로 사용
+<div @click=${this.handleClick}>클릭</div>
+```
+
+### ARIA 속성
+
+필요한 곳에 ARIA 속성을 추가하세요:
+
+```typescript
+// 좋음: 아이콘 버튼에 레이블 추가
+<tc-button aria-label="메뉴 닫기">
+  <tc-icon name="close"></tc-icon>
+</tc-button>
+
+// 피해야 할 것: 레이블 없는 아이콘 버튼
+<tc-button>
+  <tc-icon name="close"></tc-icon>
+</tc-button>
+```
+
+### 색상만으로 구분하지 않기
+
+```typescript
+// 좋음: 색상 + 텍스트/아이콘
+<tc-error-message>
+  <tc-icon name="alert" />
+  오류가 발생했습니다
+</tc-error-message>
+
+// 피해야 할 것: 색상만 사용
+<div style="color: red">오류</div>
+```
+
+### 폼 라벨
+
+모든 입력 필드에 명확한 라벨을 추가하세요:
+
+```typescript
+// 좋음: 명확한 라벨
+<tc-input label="이메일 주소" type="email" />
+<tc-input label="비밀번호" type="password" />
+
+// 피해야 할 것: 라벨 없음
+<tc-input placeholder="이메일" type="email" />
+```
+
+### 포커스 표시
+
+포커스 인디케이터는 명확해야 합니다. Transcodes UI는 기본적으로 좋은 포커스 스타일을 제공합니다:
+
+```typescript
+// Transcodes UI는 이미 포커스 스타일을 제공합니다
+tc-button:focus-visible {
+  /* 명확한 포커스 표시 */
+}
+
+// 커스텀 포커스 스타일이 필요한 경우
+static styles = css`
+  tc-button::part(button):focus-visible {
+    outline: 3px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+`;
+```
+
+### 접근성 테스트
+
+배포 전에 다음을 확인하세요:
+
+- [ ] 키보드만으로 모든 기능 이용 가능
+- [ ] 스크린 리더에서 콘텐츠 읽히는지 확인
+- [ ] 색상 대비 비율이 4.5:1 이상인지 확인
+- [ ] 모바일에서 터치 대상 크기가 최소 44x44px 이상인지 확인
+
+## 성능 최적화
+
+### 1. Tree-shaking으로 번들 크기 최소화
+
+필요한 컴포넌트만 import하세요:
+
+```typescript
+// 좋음: 개별 import (약 4KB)
+import '@transcodes/ui-components/primitives/tc-button.js';
+import '@transcodes/ui-components/primitives/tc-input.js';
+
+// 나쁨: 전체 import (약 80KB)
+import '@transcodes/ui-components';
+```
+
+번들 크기 비교:
+
+| 방식 | 크기 (gzip) | 감소율 |
+|------|-----------|--------|
+| 전체 import | ~80KB | 0% |
+| 카테고리별 | ~30KB | 62.5% |
+| 개별 import | ~8KB | 90% |
+
+### 2. 코드 분할 (Code Splitting)
+
+동적 import를 사용하여 코드를 분할하세요:
+
+```typescript
+// 좋음: 라우트 변경 시에만 로드
+const AdminPage = lazy(() =>
+  import('@transcodes/ui-components/primitives/tc-modal.js').then(() =>
+    import('./pages/AdminPage.js'),
+  ),
+);
+
+// 피해야 할 것: 항상 로드
+import '@transcodes/ui-components/primitives/tc-modal.js';
+```
+
+### 3. 렌더링 최적화
+
+상태 업데이트 시 불필요한 재렌더링을 피하세요:
+
+```typescript
+// 좋음: 상태 분리
+@state() formData = { email: '', password: '' };
+@state() uiState = { isLoading: false, error: '' };
+
+private updateFormData(changes: Partial<typeof this.formData>) {
+  this.formData = { ...this.formData, ...changes };
+}
+
+// 피해야 할 것: 전체 상태 재구성
+@state() state = {
+  formData: {},
+  uiState: {},
+  metadata: {},
+};
+```
+
+### 4. 이벤트 위임
+
+많은 리스너를 피하고 이벤트 위임을 사용하세요:
+
+```typescript
+// 좋음: 부모에서 이벤트 처리
+@customElement('user-list')
+export class UserList extends LitElement {
+  render() {
+    return html`
+      <div @click=${this.handleListClick}>
+        ${this.users.map((user) => html`
+          <tc-item-button data-id=${user.id}>
+            ${user.name}
+          </tc-item-button>
+        `)}
+      </div>
+    `;
+  }
+
+  private handleListClick(e: Event) {
+    const target = e.target as HTMLElement;
+    const button = target.closest('tc-item-button');
+    if (button) {
+      const userId = button.getAttribute('data-id');
+      console.log('선택:', userId);
+    }
+  }
+}
+
+// 피해야 할 것: 각 아이템에 리스너 추가
+${this.users.map((user) => html`
+  <tc-item-button @click=${() => this.selectUser(user)}>
+    ${user.name}
+  </tc-item-button>
+`)}
+```
+
+### 5. 메모이제이션
+
+비용이 큰 계산 결과를 캐시하세요:
+
+```typescript
+// 좋음: 메모이제이션
+private memoizedData: Map<string, any> = new Map();
+
+private getProcessedData(id: string) {
+  if (this.memoizedData.has(id)) {
+    return this.memoizedData.get(id);
+  }
+  const result = expensiveComputation(id);
+  this.memoizedData.set(id, result);
+  return result;
+}
+
+// 피해야 할 것: 매번 계산
+render() {
+  return html`${this.users.map((u) => processUser(u))}`;
+}
+```
+
+## 일반적인 실수와 해결법
+
+### 실수 1: Props 바인딩 누락
+
+```typescript
+// 나쁨: 바인딩 없음
+<tc-input value=${this.email} />
+
+// 좋음: 양방향 바인딩
+<tc-input
+  value=${this.email}
+  @tc-input=${(e: any) => {
+    this.email = e.target.value;
+  }}
+/>
+```
+
+### 실수 2: 이벤트 리스너 미등록
+
+```typescript
+// 나쁨: tc- 접두사 무시
+@click=${this.handleClick}
+
+// 좋음: tc- 이벤트 사용
+@tc-click=${this.handleClick}
+```
+
+### 실수 3: 재귀적 상태 업데이트
+
+```typescript
+// 나쁨: 무한 루프 발생
+render() {
+  this.fetchData(); // render 중에 상태 변경
+  return html`...`;
+}
+
+// 좋음: 생명주기 훅에서 처리
+connectedCallback() {
+  super.connectedCallback();
+  this.fetchData(); // 마운트 시 한 번만 실행
+}
+```
+
+### 실제 4: CSS 변수 오타
+
+```typescript
+// 나쁨: 오타로 적용 안 됨
+sx=${{ '--space-md': '2rem' }}
+
+// 좋음: 정확한 변수명
+sx=${{ '--space-md': '2rem' }}
+
+// CSS 변수 확인
+console.log(
+  getComputedStyle(document.documentElement).getPropertyValue(
+    '--space-md',
+  ),
+);
+```
+
+### 실수 5: 큰 리스트 렌더링
+
+```typescript
+// 나쁨: 1000개 항목 모두 DOM에 생성
+<div>
+  ${this.items.map((item) => html`<tc-item>${item}</tc-item>`)}
+</div>
+
+// 좋음: 가상 스크롤 사용 (큰 리스트의 경우)
+import { virtualScroller } from '@lit-labs/virtualizer';
+
+${virtualScroller({
+  items: this.items,
+  renderItem: (item) => html`<tc-item>${item}</tc-item>`,
+})}
+```
+
+## 성능 모니터링
+
+브라우저 DevTools를 사용하여 성능을 모니터링하세요:
+
+```typescript
+// 성능 측정
+performance.mark('render-start');
+// ... 렌더링 작업
+performance.mark('render-end');
+performance.measure('render', 'render-start', 'render-end');
+
+const measure = performance.getEntriesByName('render')[0];
+console.log(`렌더링 소요 시간: ${measure.duration}ms`);
+```
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="시작하기" icon="rocket" href="/guides/getting-started">
+    기본 사용법 배우기
+  </Card>
+  <Card title="폼 가이드" icon="list-check" href="/guides/forms">
+    폼 구성 및 검증
+  </Card>
+  <Card title="마이그레이션" icon="arrow-right" href="/guides/migration-v0.3">
+    버전 업그레이드
+  </Card>
+</CardGroup>

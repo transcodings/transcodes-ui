@@ -1,0 +1,147 @@
+---
+title: 'Overview'
+description: '전체 화면 레이아웃 컴포넌트 소개'
+---
+
+## Screens 소개
+
+Screens는 **전체 화면을 차지하는 상태별 레이아웃 컴포넌트**입니다. 데이터 로딩, 에러 처리, 성공 확인 등 주요 사용자 상태를 시각적으로 표현하며, 중앙 정렬된 콘텐츠와 반응형 디자인을 제공합니다.
+
+Transcodes UI는 다음 3가지 Screen 컴포넌트를 제공합니다:
+
+<CardGroup cols={3}>
+  <Card title="tc-loading-screen" icon="hourglass" href="/screens/state-screens#tc-loading-screen">
+    로딩 상태 표시
+  </Card>
+  <Card title="tc-error-screen" icon="circle-alert" href="/screens/state-screens#tc-error-screen">
+    에러 상태 표시
+  </Card>
+  <Card title="tc-success-screen" icon="circle-check" href="/screens/state-screens#tc-success-screen">
+    성공 상태 표시
+  </Card>
+</CardGroup>
+
+## 언제 사용하나요?
+
+Screens는 다음과 같은 상황에서 사용합니다:
+
+- **데이터 로딩**: 초기 데이터 페칭, 무한 스크롤 로딩
+- **에러 처리**: 네트워크 오류, 서버 에러, 권한 없음
+- **작업 완료**: 결제 완료, 회원가입 완료, 이메일 인증 완료
+- **빈 상태**: 데이터가 없을 때의 안내 메시지
+
+## 주요 특징
+
+### Fullscreen 레이아웃
+
+모든 Screen 컴포넌트는 **전체 화면을 차지**하며 부모 컨테이너의 높이를 활용합니다:
+
+```css
+/* 부모 컨테이너 높이에 맞춤 */
+min-height: inherit;
+```
+
+따라서 다음과 같이 부모에서 높이를 지정해야 합니다:
+
+```html
+<div style="height: 100vh;">
+  <tc-loading-screen message="Loading..."></tc-loading-screen>
+</div>
+```
+
+### 중앙 정렬 콘텐츠
+
+모든 콘텐츠는 화면 중앙에 정렬됩니다:
+
+```html
+display: flex;
+align-items: center;
+justify-content: center;
+```
+
+이는 사용자 시선을 자동으로 중요 메시지로 유도합니다.
+
+### 반응형 디자인
+
+- **모바일**: 전체 너비, 패딩 적용
+- **태블릿**: 콘텐츠 최대 너비 제한
+- **데스크톱**: 동일한 레이아웃 유지
+
+모든 기기에서 일관된 사용자 경험을 제공합니다:
+
+```typescript
+.content {
+  max-width: 20rem;  // 모든 기기에서 최대 너비 제한
+}
+```
+
+### 유연한 높이 조정
+
+v0.3.0부터 `min-height: inherit`를 사용하여 **부모 컨테이너의 높이에 동적으로 적응**합니다:
+
+```typescript
+// 300px 컨테이너
+<div style="height: 300px">
+  <tc-loading-screen></tc-loading-screen>
+</div>
+
+// 800px 컨테이너
+<div style="height: 800px">
+  <tc-loading-screen></tc-loading-screen>
+</div>
+```
+
+두 경우 모두 해당 높이에 맞게 중앙 정렬됩니다.
+
+## 디자인 토큰 활용
+
+모든 Screen 컴포넌트는 Design Token을 사용하여 일관성 있는 스타일을 제공합니다:
+
+```css
+/* 배경색 */
+background: var(--paper-white);
+
+/* 간격 */
+padding: var(--space-lg);
+gap: var(--space-lg);
+
+/* 타이포그래피 */
+font-size: var(--font-size-base);
+font-weight: 600;
+
+/* 색상 */
+color: var(--ink-medium);
+```
+
+다크 모드도 자동으로 지원됩니다:
+
+```javascript
+// 다크 모드 활성화
+document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+## 접근성
+
+모든 Screen 컴포넌트는 **WCAG AA** 기준을 충족합니다:
+
+- **의미론적 마크업**: `<h1>`, `<p>` 등 올바른 태그 사용
+- **색상 대비**: 텍스트와 배경 간 4.5:1 이상의 대비
+- **키보드 네비게이션**: Tab, Enter 등으로 버튼 조작 가능
+- **스크린 리더**: ARIA 속성으로 의미 전달
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="State Screens" icon="layers" href="/screens/state-screens">
+    tc-loading-screen, tc-error-screen, tc-success-screen 상세 가이드
+  </Card>
+  <Card title="Primitives" icon="cube" href="/primitives/overview">
+    기본 UI 요소 (Button, Input, Text 등)
+  </Card>
+  <Card title="Widgets" icon="package" href="/widgets/overview">
+    복합 컴포넌트 (Modal, FloatingButton 등)
+  </Card>
+  <Card title="Design Tokens" icon="palette" href="/design-tokens/overview">
+    색상, 타이포그래피, 간격 시스템
+  </Card>
+</CardGroup>

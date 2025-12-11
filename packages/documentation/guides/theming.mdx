@@ -1,0 +1,383 @@
+---
+title: '테마 커스터마이징'
+description: 'CSS 변수, sx prop, 커스텀 테마 및 다크 모드 가이드'
+---
+
+Transcodes UI는 강력한 테마 시스템을 제공하여 브랜드에 맞게 완전히 커스터마이징할 수 있습니다.
+
+## CSS 변수 오버라이드
+
+모든 디자인 토큰은 CSS 변수로 정의되어 있어 언제든지 오버라이드할 수 있습니다.
+
+### 기본 색상 변수
+
+```css
+:root {
+  /* 기본 색상 */
+  --color-paper: #ffffff;
+  --color-ink: #1a1a1a;
+  --accent-primary: #0066cc;
+  --accent-secondary: #00cc99;
+
+  /* 의미론적 색상 */
+  --error-base: #cc0000;
+  --semantic-warning: #ffaa00;
+  --semantic-info: #0099ff;
+  --semantic-success: #00aa00;
+
+  /* 간격 */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+}
+```
+
+### 전역 CSS로 오버라이드
+
+```css
+/* styles.css */
+:root {
+  /* 브랜드 색상 */
+  --accent-primary: #e63946; /* 빨강 */
+  --accent-secondary: #457b9d; /* 파랑 */
+
+  /* 타이포그래피 */
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+
+  /* 간격 */
+  --space-md: 1.25rem;
+}
+```
+
+```typescript
+// main.ts
+import './styles.css';
+import '@transcodes/design-tokens';
+```
+
+### 특정 요소에만 적용
+
+특정 컨테이너 내에서만 테마를 변경할 수 있습니다:
+
+```css
+.dark-section {
+  --color-paper: #1a1a1a;
+  --color-ink: #ffffff;
+  --accent-primary: #66ddff;
+}
+```
+
+```html
+<div class="dark-section">
+  <!-- 이 섹션의 컴포넌트는 커스텀 색상 사용 -->
+  <tc-button>이 버튼은 커스텀 색상입니다</tc-button>
+</div>
+```
+
+## sx Prop 사용
+
+`sx` prop을 사용하여 개별 컴포넌트에 인라인 스타일을 적용할 수 있습니다.
+
+### 기본 사용법
+
+```typescript
+import { html, LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
+
+@customElement('my-component')
+export class MyComponent extends LitElement {
+  render() {
+    return html`
+      <tc-button
+        sx=${{
+          color: 'red',
+          padding: '2rem',
+          '--accent-primary': '#ff0000',
+        }}
+      >
+        커스텀 스타일 버튼
+      </tc-button>
+    `;
+  }
+}
+```
+
+### CSS 변수와 함께 사용
+
+```typescript
+<tc-card
+  sx=${{
+    '--space-md': '2rem',
+    '--accent-primary': '#00cc99',
+    backgroundColor: 'var(--color-paper)',
+  }}
+>
+  커스텀 스타일 카드
+</tc-card>
+```
+
+### 반응형 스타일
+
+sx prop으로는 미디어 쿼리를 직접 사용할 수 없으므로, CSS 클래스나 CSS-in-JS 솔루션을 함께 사용하세요:
+
+```typescript
+static styles = css`
+  tc-button {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    tc-button {
+      width: auto;
+      min-width: 200px;
+    }
+  }
+`;
+```
+
+## 커스텀 테마 만들기
+
+재사용 가능한 테마를 만들어 여러 페이지에서 사용할 수 있습니다.
+
+### 테마 정의
+
+```typescript
+// themes/brand-theme.ts
+export const brandTheme = {
+  colors: {
+    primary: '#e63946',
+    secondary: '#457b9d',
+    success: '#2a9d8f',
+    warning: '#f4a261',
+    error: '#e76f51',
+  },
+  spacing: {
+    xs: '0.25rem',
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '1.5rem',
+  },
+  typography: {
+    fontFamily: '"Inter", "Segoe UI", sans-serif',
+    sizes: {
+      sm: '0.875rem',
+      md: '1rem',
+      lg: '1.25rem',
+      xl: '1.5rem',
+    },
+  },
+};
+```
+
+### 테마 적용
+
+```typescript
+// main.ts
+import { brandTheme } from './themes/brand-theme.js';
+
+function applyTheme(theme: typeof brandTheme) {
+  const root = document.documentElement;
+  root.style.setProperty('--accent-primary', theme.colors.primary);
+  root.style.setProperty('--accent-secondary', theme.colors.secondary);
+  root.style.setProperty('--semantic-success', theme.colors.success);
+  root.style.setProperty('--semantic-warning', theme.colors.warning);
+  root.style.setProperty('--error-base', theme.colors.error);
+  root.style.setProperty('--space-md', theme.spacing.md);
+  root.style.setProperty('--space-lg', theme.spacing.lg);
+}
+
+// 앱 시작 시 테마 적용
+applyTheme(brandTheme);
+```
+
+### 여러 테마 지원
+
+```typescript
+// themes/index.ts
+export const themes = {
+  light: {
+    '--color-paper': '#ffffff',
+    '--color-ink': '#1a1a1a',
+    '--accent-primary': '#0066cc',
+  },
+  dark: {
+    '--color-paper': '#1a1a1a',
+    '--color-ink': '#ffffff',
+    '--accent-primary': '#66ddff',
+  },
+  highContrast: {
+    '--color-paper': '#ffffff',
+    '--color-ink': '#000000',
+    '--accent-primary': '#0000ff',
+  },
+};
+
+export function switchTheme(themeName: keyof typeof themes) {
+  const theme = themes[themeName];
+  const root = document.documentElement;
+
+  Object.entries(theme).forEach(([key, value]) => {
+    root.style.setProperty(key, value as string);
+  });
+
+  localStorage.setItem('theme', themeName);
+}
+
+// 페이지 로드 시 저장된 테마 복원
+const savedTheme = localStorage.getItem('theme') as keyof typeof themes;
+if (savedTheme) {
+  switchTheme(savedTheme);
+}
+```
+
+## 다크 모드 커스터마이징
+
+### 다크 모드 활성화
+
+HTML 요소에 `data-theme="dark"` 속성을 추가하면 다크 모드가 활성화됩니다:
+
+```html
+<html data-theme="dark">
+  <body>
+    <!-- 모든 컴포넌트가 다크 모드 스타일을 사용합니다 -->
+  </body>
+</html>
+```
+
+### 수동 다크 모드 제어
+
+JavaScript를 사용하여 동적으로 다크 모드를 전환할 수 있습니다:
+
+```typescript
+// theme-controller.ts
+export class ThemeController {
+  static toggleDarkMode() {
+    const html = document.documentElement;
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.removeAttribute('data-theme');
+      localStorage.setItem('theme-mode', 'light');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme-mode', 'dark');
+    }
+  }
+
+  static initFromStorage() {
+    const saved = localStorage.getItem('theme-mode');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }
+
+  static initFromSystemPreference() {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }
+}
+
+// 페이지 로드 시 초기화
+ThemeController.initFromStorage();
+```
+
+### 다크 모드 UI 토글
+
+```typescript
+@customElement('theme-toggle')
+export class ThemeToggle extends LitElement {
+  @state() isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+
+  static styles = css`
+    :host {
+      display: inline-block;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--color-ink);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--accent-primary);
+      color: var(--color-paper);
+    }
+  `;
+
+  render() {
+    return html`
+      <button @click=${this.handleToggle}>
+        ${this.isDarkMode ? '☀️ 라이트 모드' : '🌙 다크 모드'}
+      </button>
+    `;
+  }
+
+  private handleToggle() {
+    ThemeController.toggleDarkMode();
+    this.isDarkMode = !this.isDarkMode;
+  }
+}
+```
+
+### 다크 모드 색상 커스터마이징
+
+다크 모드에서만 적용되는 색상을 정의할 수 있습니다:
+
+```css
+:root {
+  --color-paper: #ffffff;
+  --color-ink: #1a1a1a;
+}
+
+[data-theme='dark'] {
+  --color-paper: #121212;
+  --color-ink: #f5f5f5;
+  --accent-primary: #4da6ff;
+  --accent-secondary: #66ddff;
+}
+```
+
+## 고급: CSS 변수 우선순위
+
+CSS 변수는 **캐스케이딩 규칙**을 따릅니다:
+
+1. **인라인 스타일** (가장 높음) - `sx` prop
+2. **요소 선택자** - 특정 요소의 클래스
+3. **:root 선택자** - 전역 변수
+4. **기본값** (가장 낮음) - `@transcodes/design-tokens`에 정의된 기본값
+
+```typescript
+// 우선순위 예제
+:root {
+  --accent-primary: #0066cc; /* 3순위 */
+}
+
+.special {
+  --accent-primary: #ff0000; /* 2순위 */
+}
+
+<tc-button sx=${{ '--accent-primary': '#ffff00' }}>
+  <!-- sx prop이 우선됩니다 (1순위) -->
+</tc-button>
+```
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="디자인 토큰" icon="palette" href="/design-tokens/overview">
+    사용 가능한 모든 CSS 변수 확인
+  </Card>
+  <Card title="폼 가이드" icon="list-check" href="/guides/forms">
+    폼 컴포넌트 스타일링
+  </Card>
+  <Card title="베스트 프랙티스" icon="lightbulb" href="/guides/best-practices">
+    성능 최적화 팁
+  </Card>
+</CardGroup>

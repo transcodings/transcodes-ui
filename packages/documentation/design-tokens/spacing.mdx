@@ -1,0 +1,530 @@
+---
+title: 'Spacing'
+description: '8px 그리드 기반 간격 토큰 및 응용'
+---
+
+## 간격 시스템
+
+Transcodes UI의 간격 시스템은 **8px를 기본 단위**로 하는 그리드 기반 설계입니다. 이를 통해 일관되고 조화로운 레이아웃을 구현합니다.
+
+### 설계 철학
+
+- **일관성**: 모든 간격이 8px의 배수
+- **예측 가능성**: 개발자가 자신감 있게 간격 선택
+- **반응성**: `clamp()`로 모바일과 데스크톱 모두 최적화
+- **유지보수성**: 전역 간격 수정 시 전체 UI 자동 업데이트
+
+## 간격 토큰
+
+Transcodes UI는 6개의 간격 토큰을 제공합니다:
+
+| 토큰 | 최소값 | 선호값 | 최대값 | 사용 사례 |
+|------|--------|--------|--------|-----------|
+| `space-xs` | 4px | 0.23rem + 0.11vw | 5px | 아이콘 간격, 작은 갭 |
+| `space-sm` | 8px | 0.46rem + 0.22vw | 10px | 기본 갭, 내부 패딩 |
+| `space-md` | 14px | 0.77rem + 0.54vw | 20px | 섹션 간격, 패딩 |
+| `space-lg` | 20px | 1.03rem + 1.09vw | 32px | 큰 섹션 간격 |
+| `space-xl` | 24px | 1.15rem + 1.74vw | 44px | 주요 섹션 구분 |
+| `space-2xl` | 32px | 1.35rem + 3.26vw | 72px | 페이지 레이아웃 간격 |
+
+### Fluid Spacing
+
+모든 간격 토큰은 **`clamp()`**를 사용하여 반응형으로 조정됩니다:
+
+```css
+/* 모바일: 최소값, 태블릿/데스크톱: 자동 확대 */
+margin: var(--space-md);
+/* clamp(14px, 0.77rem + 0.54vw, 20px) */
+```
+
+<Tip>
+이는 미디어 쿼리 없이 모든 브레이크포인트에서 자동으로 작동합니다.
+</Tip>
+
+## 간격 사용 패턴
+
+### 패딩 (Padding)
+
+패딩은 **요소 내부의 여백**입니다. 콘텐츠와 경계 사이의 공간을 만듭니다.
+
+<CodeGroup>
+  <CodeBlock title="기본 패딩">
+    ```css
+    /* 단일 값 */
+    .button {
+      padding: var(--space-md);
+      /* 상하좌우 모두 같은 간격 */
+    }
+
+    /* 축 (상하, 좌우) */
+    .card {
+      padding: var(--space-lg) var(--space-md);
+      /* 위/아래: lg, 왼쪽/오른쪽: md */
+    }
+
+    /* 모든 방향 */
+    .container {
+      padding-top: var(--space-xl);
+      padding-right: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      padding-left: var(--space-lg);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="컴포넌트 예시">
+    ```css
+    /* 카드 패딩 */
+    .card {
+      background-color: var(--paper-white);
+      border-radius: 8px;
+      padding: var(--space-lg);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 버튼 패딩 */
+    .button {
+      padding: var(--space-sm) var(--space-md);
+      font-weight: var(--font-weight-medium);
+      border-radius: 4px;
+    }
+
+    /* 입력 필드 패딩 */
+    input {
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--ink-faint);
+      border-radius: 4px;
+    }
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 마진 (Margin)
+
+마진은 **요소 외부의 여백**입니다. 다른 요소들 사이의 거리를 조절합니다.
+
+<CodeGroup>
+  <CodeBlock title="기본 마진">
+    ```css
+    /* 아래쪽 마진만 (일반적) */
+    h1 {
+      margin-bottom: var(--space-lg);
+    }
+
+    p {
+      margin-bottom: var(--space-md);
+    }
+
+    .section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* 마지막 요소는 마진 제거 */
+    .section:last-child {
+      margin-bottom: 0;
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="섹션 레이아웃">
+    ```css
+    /* 헤더 */
+    header {
+      padding: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+      border-bottom: 1px solid var(--ink-faint);
+    }
+
+    /* 섹션 */
+    section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    section h2 {
+      margin-bottom: var(--space-lg);
+    }
+
+    section p {
+      margin-bottom: var(--space-md);
+    }
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 갭 (Gap)
+
+갭은 **Flexbox와 Grid에서 자식 요소들 사이의 거리**를 설정합니다.
+
+<CodeGroup>
+  <CodeBlock title="Flexbox">
+    ```css
+    /* 버튼 그룹 */
+    .button-group {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    /* 네비게이션 */
+    nav {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="Grid">
+    ```css
+    /* 카드 그리드 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+
+    /* 폼 그리드 */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+    }
+
+    /* 모바일에서는 단일 열 */
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+    }
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+## 간격 조합 패턴
+
+### 카드 컴포넌트
+
+```css
+.card {
+  /* 외부 마진 */
+  margin-bottom: var(--space-lg);
+
+  /* 카드 내부 패딩 */
+  padding: var(--space-lg);
+
+  background-color: var(--paper-white);
+  border-radius: 8px;
+  border: 1px solid var(--ink-faint);
+}
+
+.card-header {
+  /* 제목 아래 간격 */
+  margin-bottom: var(--space-md);
+
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--alpha-ink06);
+}
+
+.card-title {
+  margin: 0 0 var(--space-sm) 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.card-content {
+  margin: 0;
+}
+
+.card-footer {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--alpha-ink06);
+
+  display: flex;
+  gap: var(--space-sm);
+}
+```
+
+### 폼 레이아웃
+
+```css
+.form {
+  /* 폼 자체의 여백 */
+  padding: var(--space-lg);
+  background-color: var(--paper-white);
+  border-radius: 8px;
+}
+
+.form-group {
+  /* 필드 그룹 간격 */
+  margin-bottom: var(--space-lg);
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--ink-black);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--ink-faint);
+  border-radius: 4px;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--alpha-primary12);
+}
+
+.form-hint {
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--ink-dark);
+}
+```
+
+### 네비게이션
+
+```css
+header {
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--paper-white);
+  border-bottom: 1px solid var(--alpha-ink06);
+}
+
+nav {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+nav a {
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  color: var(--ink-black);
+  font-weight: var(--font-weight-medium);
+  border-radius: 4px;
+  transition: background-color 150ms;
+}
+
+nav a:hover {
+  background-color: var(--paper-cream);
+}
+
+nav a.active {
+  background-color: var(--alpha-primary12);
+  color: var(--accent-primary);
+}
+```
+
+## 반응형 간격 조정
+
+### 모바일 우선 접근
+
+```css
+/* 기본 (모바일) */
+.container {
+  padding: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.section {
+  margin-bottom: var(--space-lg);
+}
+
+/* 태블릿 이상 */
+@media (min-width: 768px) {
+  .container {
+    padding: var(--space-lg);
+    gap: var(--space-md);
+  }
+
+  .section {
+    margin-bottom: var(--space-2xl);
+  }
+}
+
+/* 데스크톱 */
+@media (min-width: 1024px) {
+  .container {
+    padding: var(--space-xl);
+  }
+}
+```
+
+### 컨테이너 쿼리 (최신)
+
+```css
+.card-container {
+  container-type: inline-size;
+}
+
+.card {
+  /* 컨테이너가 작을 때 */
+  padding: var(--space-sm);
+  gap: var(--space-xs);
+}
+
+/* 컨테이너가 클 때 */
+@container (min-width: 400px) {
+  .card {
+    padding: var(--space-lg);
+    gap: var(--space-md);
+  }
+}
+```
+
+## TypeScript에서 사용
+
+```typescript
+import { tokens } from '@transcodes/design-tokens';
+
+// 간격 토큰 접근
+const spacing = {
+  xs: tokens.space.xs,      // "clamp(...)"
+  sm: tokens.space.sm,      // "clamp(...)"
+  md: tokens.space.md,      // "clamp(...)"
+  lg: tokens.space.lg,      // "clamp(...)"
+  xl: tokens.space.xl,      // "clamp(...)"
+  '2xl': tokens.space['2xl'], // "clamp(...)"
+};
+
+// React에서 사용
+function Card() {
+  return (
+    <div style={{
+      padding: spacing.lg,
+      marginBottom: spacing.md,
+      gap: spacing.sm
+    }}>
+      카드 콘텐츠
+    </div>
+  );
+}
+```
+
+## 간격 시각화
+
+다음은 각 간격의 상대적 크기를 시각적으로 보여줍니다:
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', marginTop: '1rem' }}>
+  <div>
+    <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>
+      space-xs (4-5px)
+    </label>
+    <div style={{ height: '30px', backgroundColor: '#6b4fd9', borderRadius: '4px' }} />
+  </div>
+  <div>
+    <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>
+      space-sm (8-10px)
+    </label>
+    <div style={{ height: '40px', backgroundColor: '#6b4fd9', borderRadius: '4px' }} />
+  </div>
+  <div>
+    <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>
+      space-md (14-20px)
+    </label>
+    <div style={{ height: '60px', backgroundColor: '#6b4fd9', borderRadius: '4px' }} />
+  </div>
+  <div>
+    <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>
+      space-lg (20-32px)
+    </label>
+    <div style={{ height: '80px', backgroundColor: '#6b4fd9', borderRadius: '4px' }} />
+  </div>
+  <div>
+    <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>
+      space-xl (24-44px)
+    </label>
+    <div style={{ height: '100px', backgroundColor: '#6b4fd9', borderRadius: '4px' }} />
+  </div>
+  <div>
+    <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>
+      space-2xl (32-72px)
+    </label>
+    <div style={{ height: '130px', backgroundColor: '#6b4fd9', borderRadius: '4px' }} />
+  </div>
+</div>
+
+## 간격 가이드라인
+
+<Tip>
+**일관된 간격 사용 규칙**:
+
+1. 마진은 **아래쪽만** 설정 (margin-bottom)
+2. 마지막 요소는 마진 제거 (`:last-child`)
+3. 그룹은 **갭** 사용 (Flexbox/Grid)
+4. 컨테이너는 **패딩** 사용
+5. 반복 가능한 패턴은 매직 넘버 대신 토큰 사용
+</Tip>
+
+### 좋은 예
+
+```css
+/* O: 마진은 아래쪽만 */
+.item {
+  margin-bottom: var(--space-md);
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+/* O: 그룹은 갭 사용 */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* O: 토큰 사용 */
+.container {
+  padding: var(--space-lg);
+}
+```
+
+### 나쁜 예
+
+```css
+/* X: 모든 방향 마진 */
+.item {
+  margin: var(--space-md);
+}
+
+/* X: 매직 넘버 사용 */
+.container {
+  padding: 15px;
+}
+
+/* X: 일관성 없는 간격 */
+.item {
+  margin-bottom: 12px;
+  padding: 8px;
+}
+```
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Colors" icon="palette" href="/design-tokens/colors">
+    색상 팔레트 및 대비율
+  </Card>
+  <Card title="Typography" icon="type" href="/design-tokens/typography">
+    폰트 크기 및 라인 높이
+  </Card>
+  <Card title="Dark Mode" icon="moon" href="/design-tokens/dark-mode">
+    다크 모드 구현
+  </Card>
+</CardGroup>

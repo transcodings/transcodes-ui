@@ -1,0 +1,197 @@
+---
+title: 'Installation'
+description: '상세 설치 및 번들러 설정 가이드'
+---
+
+## 패키지 설치
+
+<Tabs>
+  <Tab title="npm">
+    ```bash
+    npm install @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+  <Tab title="pnpm">
+    ```bash
+    pnpm add @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+  <Tab title="yarn">
+    ```bash
+    yarn add @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+  <Tab title="bun">
+    ```bash
+    bun add @transcodes/ui-components @transcodes/design-tokens
+    ```
+  </Tab>
+</Tabs>
+
+## 번들러 설정
+
+### Vite
+
+Vite는 별도 설정 없이 바로 사용 가능합니다:
+
+```typescript vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // Tree-shaking 자동 지원
+  build: {
+    target: 'es2020',
+  },
+});
+```
+
+### Webpack 5
+
+```javascript webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  optimization: {
+    usedExports: true, // Tree-shaking 활성화
+  },
+};
+```
+
+### Rollup
+
+```javascript rollup.config.js
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+
+export default {
+  plugins: [
+    resolve(),
+    commonjs(),
+  ],
+  output: {
+    format: 'es',
+  },
+};
+```
+
+## CSS 로딩 방법
+
+### 방법 1: JavaScript Import (권장)
+
+```typescript
+// main.ts
+import '@transcodes/design-tokens';
+```
+
+이 방법은 다음을 자동으로 로드합니다:
+- `tokens.css` (기본 토큰)
+- `tokens-dark.css` (다크 모드 토큰)
+- `components.css` (컴포넌트 스타일)
+
+### 방법 2: HTML Link
+
+```html
+<link rel="stylesheet" href="node_modules/@transcodes/design-tokens/build/tokens.css">
+<link rel="stylesheet" href="node_modules/@transcodes/design-tokens/build/tokens-dark.css">
+<link rel="stylesheet" href="node_modules/@transcodes/design-tokens/build/components.css">
+```
+
+### 방법 3: CSS Import
+
+```css
+/* styles.css */
+@import '@transcodes/design-tokens/build/tokens.css';
+@import '@transcodes/design-tokens/build/tokens-dark.css';
+@import '@transcodes/design-tokens/build/components.css';
+```
+
+## 컴포넌트 Import 전략
+
+### 전체 Import
+
+```typescript
+import '@transcodes/ui-components';
+```
+
+- **번들 크기**: ~252KB
+- **사용 시나리오**: 대부분의 컴포넌트를 사용하는 대규모 앱
+
+### 카테고리별 Import
+
+```typescript
+// Primitives만
+import '@transcodes/ui-components/primitives';
+
+// Widgets만
+import '@transcodes/ui-components/widgets';
+
+// Screens만
+import '@transcodes/ui-components/screens';
+```
+
+- **번들 크기**: Primitives ~50KB, Widgets ~30KB, Screens ~15KB
+- **사용 시나리오**: 특정 카테고리의 컴포넌트만 필요한 경우
+
+### 개별 Import (권장)
+
+```typescript
+import '@transcodes/ui-components/primitives/tc-button.js';
+import '@transcodes/ui-components/primitives/tc-input.js';
+import '@transcodes/ui-components/primitives/tc-card.js';
+```
+
+- **번들 크기**: 컴포넌트당 ~4KB
+- **사용 시나리오**: 최소 번들 크기가 중요한 경우
+
+<Tip>
+개별 임포트로 번들 크기를 **95% 이상** 줄일 수 있습니다!
+</Tip>
+
+## TypeScript 설정
+
+```json tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true
+  }
+}
+```
+
+## CDN 사용 (프로토타이핑용)
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@transcodes/design-tokens@latest/build/tokens.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@transcodes/design-tokens@latest/build/tokens-dark.css">
+</head>
+<body>
+  <tc-button variant="primary">Click me</tc-button>
+
+  <script type="module">
+    import 'https://cdn.jsdelivr.net/npm/@transcodes/ui-components@latest/dist/primitives/tc-button.js';
+  </script>
+</body>
+</html>
+```
+
+<Warning>
+CDN은 프로토타이핑용으로만 사용하세요. 프로덕션에서는 npm 패키지를 사용하는 것이 좋습니다.
+</Warning>
+
+## 다음 단계
+
+<Card title="아키텍처 이해하기" icon="sitemap" href="/introduction/architecture">
+  4계층 구조와 설계 철학
+</Card>
