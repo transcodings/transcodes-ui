@@ -122,58 +122,64 @@ export function ToastDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-toast.js';
+import type { TcToast } from '@transcodes/ui-components/primitives';
 
-const successRef = ref();
-const errorRef = ref();
+@customElement('toast-demo')
+export class ToastDemo extends LitElement {
+  @query('#successToast') private successRef!: TcToast;
+  @query('#errorToast') private errorRef!: TcToast;
 
-const showSuccess = async () => {
-  await successRef.value?.show();
-};
+  render() {
+    return html\`
+      <div>
+        <tc-toast
+          id="successToast"
+          variant="success"
+          @tc-dismiss=\${this.handleDismiss}
+        >
+          작업이 완료되었습니다!
+        </tc-toast>
 
-const showError = async () => {
-  await errorRef.value?.show();
-};
+        <tc-toast
+          id="errorToast"
+          variant="error"
+          @tc-dismiss=\${this.handleDismiss}
+        >
+          오류가 발생했습니다. 다시 시도해주세요.
+        </tc-toast>
 
-const handleDismiss = () => {
-  console.log('Toast dismissed');
-};
-</script>
+        <tc-toast variant="warning" .duration=\${0}>
+          경고: 이 작업은 되돌릴 수 없습니다.
+        </tc-toast>
 
-<template>
-  <div>
-    <tc-toast
-      ref="successRef"
-      variant="success"
-      @tc-dismiss="handleDismiss"
-    >
-      작업이 완료되었습니다!
-    </tc-toast>
+        <tc-toast variant="info" ?dismissible=\${false}>
+          로딩 중입니다...
+        </tc-toast>
 
-    <tc-toast
-      ref="errorRef"
-      variant="error"
-      @tc-dismiss="handleDismiss"
-    >
-      오류가 발생했습니다. 다시 시도해주세요.
-    </tc-toast>
+        <button @click=\${this.showSuccess}>성공 토스트</button>
+        <button @click=\${this.showError}>에러 토스트</button>
+      </div>
+    \`;
+  }
 
-    <tc-toast variant="warning" :duration="0">
-      경고: 이 작업은 되돌릴 수 없습니다.
-    </tc-toast>
+  private async showSuccess() {
+    await this.successRef?.show();
+  }
 
-    <tc-toast variant="info" :dismissible="false">
-      로딩 중입니다...
-    </tc-toast>
+  private async showError() {
+    await this.errorRef?.show();
+  }
 
-    <button @click="showSuccess">성공 토스트</button>
-    <button @click="showError">에러 토스트</button>
-  </div>
-</template>
+  private handleDismiss() {
+    console.log('Toast dismissed');
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -273,40 +279,46 @@ export function CalloutDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-callout.js';
 import '@transcodes/ui-components/primitives/tc-icon.js';
-</script>
 
-<template>
-  <div>
-    <tc-callout variant="info">
-      <tc-icon slot="icon" name="info" />
-      이것은 정보입니다.
-    </tc-callout>
+@customElement('callout-demo')
+export class CalloutDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-callout variant="info">
+          <tc-icon slot="icon" name="info"></tc-icon>
+          이것은 정보입니다.
+        </tc-callout>
 
-    <tc-callout variant="success">
-      <tc-icon slot="icon" name="check" />
-      작업이 성공적으로 완료되었습니다.
-    </tc-callout>
+        <tc-callout variant="success">
+          <tc-icon slot="icon" name="check"></tc-icon>
+          작업이 성공적으로 완료되었습니다.
+        </tc-callout>
 
-    <tc-callout variant="warning">
-      <tc-icon slot="icon" name="alert-circle" />
-      주의가 필요합니다.
-    </tc-callout>
+        <tc-callout variant="warning">
+          <tc-icon slot="icon" name="alert-circle"></tc-icon>
+          주의가 필요합니다.
+        </tc-callout>
 
-    <tc-callout variant="error">
-      <tc-icon slot="icon" name="error" />
-      오류가 발생했습니다.
-    </tc-callout>
+        <tc-callout variant="error">
+          <tc-icon slot="icon" name="error"></tc-icon>
+          오류가 발생했습니다.
+        </tc-callout>
 
-    <tc-callout variant="info">
-      아이콘 없는 정보 메시지입니다.
-    </tc-callout>
-  </div>
-</template>
+        <tc-callout variant="info">
+          아이콘 없는 정보 메시지입니다.
+        </tc-callout>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -389,29 +401,35 @@ export function SpinnerDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-spinner.js';
-</script>
 
-<template>
-  <div>
-    <tc-spinner />
+@customElement('spinner-demo')
+export class SpinnerDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-spinner></tc-spinner>
 
-    <tc-spinner size="sm" />
-    <tc-spinner size="md" />
-    <tc-spinner size="lg" />
+        <tc-spinner size="sm"></tc-spinner>
+        <tc-spinner size="md"></tc-spinner>
+        <tc-spinner size="lg"></tc-spinner>
 
-    <tc-spinner color="#FF6B6B" />
-    <tc-spinner color="var(--accent-success)" />
+        <tc-spinner color="#FF6B6B"></tc-spinner>
+        <tc-spinner color="var(--accent-success)"></tc-spinner>
 
-    <div style="text-align: center">
-      <tc-spinner />
-      <p>로딩 중입니다...</p>
-    </div>
-  </div>
-</template>
+        <div style="text-align: center">
+          <tc-spinner></tc-spinner>
+          <p>로딩 중입니다...</p>
+        </div>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -491,30 +509,36 @@ export function ErrorMessageDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-error-message.js';
-</script>
 
-<template>
-  <div>
-    <tc-error-message
-      variant="error"
-      message="사용자명은 3자 이상이어야 합니다"
-    />
+@customElement('error-message-demo')
+export class ErrorMessageDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-error-message
+          variant="error"
+          message="사용자명은 3자 이상이어야 합니다"
+        ></tc-error-message>
 
-    <tc-error-message
-      variant="warning"
-      message="비밀번호는 8자 이상이어야 합니다"
-    />
+        <tc-error-message
+          variant="warning"
+          message="비밀번호는 8자 이상이어야 합니다"
+        ></tc-error-message>
 
-    <tc-error-message
-      variant="info"
-      message="입력 후 엔터를 누르세요"
-    />
-  </div>
-</template>
+        <tc-error-message
+          variant="info"
+          message="입력 후 엔터를 누르세요"
+        ></tc-error-message>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>

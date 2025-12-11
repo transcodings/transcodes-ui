@@ -124,26 +124,29 @@ export default App;
 React에서 커스텀 이벤트를 사용하려면 `onTcClick`처럼 camelCase로 작성하거나, `ref`를 사용하여 `addEventListener`로 등록하세요.
 </Note>
 
-### Vue 3
+### Lit
 
-```vue
-<template>
-  <div>
-    <tc-button variant="primary" @tc-click="handleClick">
-      Click me
-    </tc-button>
-    <tc-input placeholder="Enter text" />
-  </div>
-</template>
-
-<script setup>
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives';
 
-const handleClick = (e) => {
-  console.log('Clicked!', e.detail);
-};
-</script>
+@customElement('my-app')
+export class MyApp extends LitElement {
+  render() {
+    return html\`
+      <tc-button variant="primary" @tc-click=\${this.handleClick}>
+        Click me
+      </tc-button>
+      <tc-input placeholder="Enter text"></tc-input>
+    \`;
+  }
+
+  private handleClick(e: CustomEvent) {
+    console.log('Clicked!', e.detail);
+  }
+}
 ```
 
 ### TypeScript

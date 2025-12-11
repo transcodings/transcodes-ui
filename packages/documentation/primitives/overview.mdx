@@ -112,17 +112,23 @@ export function MyComponent() {
 }
 ```
 
-### Vue에서 사용
+### Lit에서 사용
 
-```vue
-<script setup>
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives';
-</script>
 
-<template>
-  <tc-button>클릭하세요</tc-button>
-  <tc-input label="사용자명" placeholder="Enter username"></tc-input>
-</template>
+@customElement('my-component')
+export class MyComponent extends LitElement {
+  render() {
+    return html\`
+      <tc-button>클릭하세요</tc-button>
+      <tc-input label="사용자명" placeholder="Enter username"></tc-input>
+    \`;
+  }
+}
 ```
 
 ## 주요 특징

@@ -100,37 +100,43 @@ export function FormHeaderDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-form-header.js';
-</script>
 
-<template>
-  <div>
-    <tc-form-header
-      title="회원가입"
-      subtitle="새 계정을 만들어주세요"
-    />
+@customElement('form-header-demo')
+export class FormHeaderDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-form-header
+          title="회원가입"
+          subtitle="새 계정을 만들어주세요"
+        ></tc-form-header>
 
-    <tc-form-header
-      title="로그인"
-      subtitle="계정에 로그인하세요"
-      notice="첫 로그인이신가요? 회원가입을 먼저 해주세요"
-    />
+        <tc-form-header
+          title="로그인"
+          subtitle="계정에 로그인하세요"
+          notice="첫 로그인이신가요? 회원가입을 먼저 해주세요"
+        ></tc-form-header>
 
-    <tc-form-header
-      title="비밀번호 재설정"
-      no-animation
-    />
+        <tc-form-header
+          title="비밀번호 재설정"
+          ?no-animation=\${true}
+        ></tc-form-header>
 
-    <tc-form-header
-      title="회원 정보"
-      subtitle="개인 정보를 수정하세요"
-      :sx="{ paddingBottom: '2rem' }"
-    />
-  </div>
-</template>
+        <tc-form-header
+          title="회원 정보"
+          subtitle="개인 정보를 수정하세요"
+          .sx=\${{ paddingBottom: '2rem' }}
+        ></tc-form-header>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -215,30 +221,36 @@ export function ChipDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-chip.js';
 import '@transcodes/ui-components/primitives/tc-icon.js';
-</script>
 
-<template>
-  <div>
-    <tc-chip>레이블</tc-chip>
+@customElement('chip-demo')
+export class ChipDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-chip>레이블</tc-chip>
 
-    <tc-chip variant="success">완료</tc-chip>
-    <tc-chip variant="error">실패</tc-chip>
-    <tc-chip variant="info">새로움</tc-chip>
+        <tc-chip variant="success">완료</tc-chip>
+        <tc-chip variant="error">실패</tc-chip>
+        <tc-chip variant="info">새로움</tc-chip>
 
-    <tc-chip size="sm">sm</tc-chip>
-    <tc-chip size="md">md</tc-chip>
+        <tc-chip size="sm">sm</tc-chip>
+        <tc-chip size="md">md</tc-chip>
 
-    <tc-chip variant="success">
-      <tc-icon name="check" size="0.875rem" />
-      완료됨
-    </tc-chip>
-  </div>
-</template>
+        <tc-chip variant="success">
+          <tc-icon name="check" size="0.875rem"></tc-icon>
+          완료됨
+        </tc-chip>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -371,52 +383,58 @@ export function ItemDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-item.js';
 import '@transcodes/ui-components/primitives/tc-text.js';
 import '@transcodes/ui-components/primitives/tc-icon.js';
 import '@transcodes/ui-components/primitives/tc-symbol.js';
 import '@transcodes/ui-components/primitives/tc-chip.js';
-</script>
 
-<template>
-  <div>
-    <tc-item>
-      <tc-text>항목 제목</tc-text>
-    </tc-item>
-
-    <tc-item>
-      <tc-icon slot="prefix" name="user" />
-      <tc-text>사용자 프로필</tc-text>
-    </tc-item>
-
-    <tc-item>
-      <tc-symbol slot="prefix" size="2.5rem">
-        AB
-      </tc-symbol>
+@customElement('item-demo')
+export class ItemDemo extends LitElement {
+  render() {
+    return html\`
       <div>
-        <tc-text weight="600">Alice Brown</tc-text>
-        <tc-text size="sm" color="muted">
-          Premium Member
-        </tc-text>
+        <tc-item>
+          <tc-text>항목 제목</tc-text>
+        </tc-item>
+
+        <tc-item>
+          <tc-icon slot="prefix" name="user"></tc-icon>
+          <tc-text>사용자 프로필</tc-text>
+        </tc-item>
+
+        <tc-item>
+          <tc-symbol slot="prefix" size="2.5rem">
+            AB
+          </tc-symbol>
+          <div>
+            <tc-text weight="600">Alice Brown</tc-text>
+            <tc-text size="sm" color="muted">
+              Premium Member
+            </tc-text>
+          </div>
+        </tc-item>
+
+        <tc-item>
+          <tc-text>알림</tc-text>
+          <tc-chip slot="suffix" variant="info">
+            5
+          </tc-chip>
+        </tc-item>
+
+        <tc-item gap="1rem" padding="1rem">
+          <tc-icon slot="prefix" name="bell"></tc-icon>
+          <tc-text>공지사항</tc-text>
+        </tc-item>
       </div>
-    </tc-item>
-
-    <tc-item>
-      <tc-text>알림</tc-text>
-      <tc-chip slot="suffix" variant="info">
-        5
-      </tc-chip>
-    </tc-item>
-
-    <tc-item gap="1rem" padding="1rem">
-      <tc-icon slot="prefix" name="bell" />
-      <tc-text>공지사항</tc-text>
-    </tc-item>
-  </div>
-</template>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -573,61 +591,67 @@ export function ItemButtonDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-item-button.js';
 import '@transcodes/ui-components/primitives/tc-text.js';
 import '@transcodes/ui-components/primitives/tc-icon.js';
 import '@transcodes/ui-components/primitives/tc-symbol.js';
 import '@transcodes/ui-components/primitives/tc-chip.js';
 
-const handleClick = () => {
-  console.log('Item clicked');
-};
-</script>
+@customElement('item-button-demo')
+export class ItemButtonDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-item-button @tc-click=\${this.handleClick}>
+          <tc-text>설정</tc-text>
+        </tc-item-button>
 
-<template>
-  <div>
-    <tc-item-button @tc-click="handleClick">
-      <tc-text>설정</tc-text>
-    </tc-item-button>
+        <tc-item-button>
+          <tc-icon slot="prefix" name="person"></tc-icon>
+          <tc-text>프로필</tc-text>
+        </tc-item-button>
 
-    <tc-item-button>
-      <tc-icon slot="prefix" name="person" />
-      <tc-text>프로필</tc-text>
-    </tc-item-button>
+        <tc-item-button ?show-arrow=\${false}>
+          <tc-text>체크박스 항목</tc-text>
+          <input slot="suffix" type="checkbox" />
+        </tc-item-button>
 
-    <tc-item-button :show-arrow="false">
-      <tc-text>체크박스 항목</tc-text>
-      <input slot="suffix" type="checkbox" />
-    </tc-item-button>
+        <tc-item-button>
+          <tc-text>구독</tc-text>
+          <tc-chip slot="suffix" variant="success">
+            Pro
+          </tc-chip>
+        </tc-item-button>
 
-    <tc-item-button>
-      <tc-text>구독</tc-text>
-      <tc-chip slot="suffix" variant="success">
-        Pro
-      </tc-chip>
-    </tc-item-button>
+        <tc-item-button ?disabled=\${true}>
+          <tc-icon slot="prefix" name="lock"></tc-icon>
+          <tc-text>비활성화된 항목</tc-text>
+        </tc-item-button>
 
-    <tc-item-button :disabled="true">
-      <tc-icon slot="prefix" name="lock" />
-      <tc-text>비활성화된 항목</tc-text>
-    </tc-item-button>
-
-    <tc-item-button>
-      <tc-symbol slot="prefix" size="2.5rem">
-        AB
-      </tc-symbol>
-      <div style="flex: 1;">
-        <tc-text weight="600">Alice Brown</tc-text>
-        <tc-text size="sm" color="muted">
-          마지막 로그인: 2시간 전
-        </tc-text>
+        <tc-item-button>
+          <tc-symbol slot="prefix" size="2.5rem">
+            AB
+          </tc-symbol>
+          <div style="flex: 1;">
+            <tc-text weight="600">Alice Brown</tc-text>
+            <tc-text size="sm" color="muted">
+              마지막 로그인: 2시간 전
+            </tc-text>
+          </div>
+        </tc-item-button>
       </div>
-    </tc-item-button>
-  </div>
-</template>
+    \`;
+  }
+
+  private handleClick() {
+    console.log('Item clicked');
+  }
+}
 ```
 </Tab>
 </Tabs>

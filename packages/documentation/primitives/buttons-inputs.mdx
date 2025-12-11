@@ -73,34 +73,39 @@ export function ButtonDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-button.js';
 
-const isLoading = ref(false);
+@customElement('button-demo')
+export class ButtonDemo extends LitElement {
+  @state() private isLoading = false;
 
-const handleClick = () => {
-  console.log('Button clicked');
-};
-</script>
+  render() {
+    return html\`
+      <div>
+        <tc-button>기본 버튼</tc-button>
+        <tc-button variant="secondary">세컨더리</tc-button>
+        <tc-button variant="success">성공</tc-button>
+        <tc-button ?disabled=\${true}>비활성</tc-button>
+        <tc-button ?loading=\${this.isLoading}>로딩 중...</tc-button>
+        <tc-button .sx=\${{ width: '200px' }}>
+          커스텀 너비
+        </tc-button>
+        <tc-button @tc-click=\${this.handleClick}>
+          클릭 가능
+        </tc-button>
+      </div>
+    \`;
+  }
 
-<template>
-  <div>
-    <tc-button>기본 버튼</tc-button>
-    <tc-button variant="secondary">세컨더리</tc-button>
-    <tc-button variant="success">성공</tc-button>
-    <tc-button :disabled="true">비활성</tc-button>
-    <tc-button :loading="isLoading">로딩 중...</tc-button>
-    <tc-button :sx="{ width: '200px' }">
-      커스텀 너비
-    </tc-button>
-    <tc-button @tc-click="handleClick">
-      클릭 가능
-    </tc-button>
-  </div>
-</template>
+  private handleClick() {
+    console.log('Button clicked');
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -252,55 +257,60 @@ export function InputDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-input.js';
 
-const username = ref('');
-const error = ref('');
+@customElement('input-demo')
+export class InputDemo extends LitElement {
+  @state() private username = '';
+  @state() private error = '';
 
-const handleInput = (e) => {
-  username.value = e.detail.value;
+  render() {
+    return html\`
+      <div>
+        <tc-input
+          label="사용자명"
+          placeholder="Enter your username"
+          .value=\${this.username}
+          .error=\${this.error}
+          ?required=\${true}
+          @tc-input=\${this.handleInput}
+          @tc-blur=\${this.handleBlur}
+        ></tc-input>
 
-  if (username.value.length < 3) {
-    error.value = '최소 3자 이상 입력해주세요';
-  } else {
-    error.value = '';
+        <tc-input
+          label="이메일"
+          type="email"
+          placeholder="example@domain.com"
+        ></tc-input>
+
+        <tc-input
+          label="비밀번호"
+          type="password"
+          placeholder="••••••••"
+        ></tc-input>
+      </div>
+    \`;
   }
-};
 
-const handleBlur = (e) => {
-  console.log('Input blurred:', e.detail.value);
-};
-</script>
+  private handleInput(e: CustomEvent) {
+    this.username = e.detail.value;
 
-<template>
-  <div>
-    <tc-input
-      label="사용자명"
-      placeholder="Enter your username"
-      :value="username"
-      :error="error"
-      required
-      @tc-input="handleInput"
-      @tc-blur="handleBlur"
-    />
+    if (this.username.length < 3) {
+      this.error = '최소 3자 이상 입력해주세요';
+    } else {
+      this.error = '';
+    }
+  }
 
-    <tc-input
-      label="이메일"
-      type="email"
-      placeholder="example@domain.com"
-    />
-
-    <tc-input
-      label="비밀번호"
-      type="password"
-      placeholder="••••••••"
-    />
-  </div>
-</template>
+  private handleBlur(e: CustomEvent) {
+    console.log('Input blurred:', e.detail.value);
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -410,47 +420,57 @@ export function OtpDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, state, query } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-otp-input.js';
+import type { TcOtpInput } from '@transcodes/ui-components/primitives';
 
-const otpRef = ref();
-const otp = ref('');
-const error = ref(false);
+@customElement('otp-demo')
+export class OtpDemo extends LitElement {
+  @query('tc-otp-input') private otpRef!: TcOtpInput;
+  @state() private otp = '';
+  @state() private error = false;
 
-const handleComplete = (e) => {
-  otp.value = e.detail.value;
-  console.log('OTP completed:', otp.value);
-
-  verifyOtp(otp.value);
-};
-
-const handleChange = (e) => {
-  console.log('OTP changed:', e.detail.value);
-};
-
-const verifyOtp = async (value) => {
-  const isValid = await checkOtp(value);
-  if (!isValid) {
-    error.value = true;
-    otpRef.value?.clear();
+  render() {
+    return html\`
+      <div>
+        <tc-otp-input
+          ?error=\${this.error}
+          @tc-change=\${this.handleChange}
+          @tc-complete=\${this.handleComplete}
+        ></tc-otp-input>
+        <p>입력된 OTP: \${this.otp}</p>
+      </div>
+    \`;
   }
-};
-</script>
 
-<template>
-  <div>
-    <tc-otp-input
-      ref="otpRef"
-      :error="error"
-      @tc-change="handleChange"
-      @tc-complete="handleComplete"
-    />
-    <p>입력된 OTP: {{ otp }}</p>
-  </div>
-</template>
+  private handleComplete(e: CustomEvent) {
+    this.otp = e.detail.value;
+    console.log('OTP completed:', this.otp);
+
+    this.verifyOtp(this.otp);
+  }
+
+  private handleChange(e: CustomEvent) {
+    console.log('OTP changed:', e.detail.value);
+  }
+
+  private async verifyOtp(value: string) {
+    const isValid = await this.checkOtp(value);
+    if (!isValid) {
+      this.error = true;
+      this.otpRef?.clear();
+    }
+  }
+
+  private async checkOtp(value: string): Promise<boolean> {
+    // API 호출 로직
+    return true;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -583,46 +603,51 @@ export function InputWithChipDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-input-with-chip.js';
 
-const email = ref('');
-const error = ref('');
+@customElement('input-chip-demo')
+export class InputChipDemo extends LitElement {
+  @state() private email = '';
+  @state() private error = '';
 
-const handleInput = (e) => {
-  email.value = e.detail.value;
+  render() {
+    return html\`
+      <div>
+        <tc-input-with-chip
+          label="이메일"
+          placeholder="your@email.com"
+          .value=\${this.email}
+          .error=\${this.error}
+          chip-label="이메일"
+          chip-icon="email"
+          chip-variant="info"
+          @tc-input=\${this.handleInput}
+        ></tc-input-with-chip>
 
-  const isValid = /^[^@]+@[^@]+\.[^@]+$/.test(email.value);
-  error.value = isValid ? '' : 'Invalid email';
-};
-</script>
+        <tc-input-with-chip
+          label="생체 인증 계정"
+          placeholder="username"
+          ?readonly=\${true}
+          chip-label="생체 인증"
+          chip-icon="biometric"
+          chip-variant="success"
+        ></tc-input-with-chip>
+      </div>
+    \`;
+  }
 
-<template>
-  <div>
-    <tc-input-with-chip
-      label="이메일"
-      placeholder="your@email.com"
-      :value="email"
-      :error="error"
-      chip-label="이메일"
-      chip-icon="email"
-      chip-variant="info"
-      @tc-input="handleInput"
-    />
+  private handleInput(e: CustomEvent) {
+    this.email = e.detail.value;
 
-    <tc-input-with-chip
-      label="생체 인증 계정"
-      placeholder="username"
-      readonly
-      chip-label="생체 인증"
-      chip-icon="biometric"
-      chip-variant="success"
-    />
-  </div>
-</template>
+    const isValid = /^[^@]+@[^@]+\.[^@]+$/.test(this.email);
+    this.error = isValid ? '' : 'Invalid email';
+  }
+}
 ```
 </Tab>
 </Tabs>

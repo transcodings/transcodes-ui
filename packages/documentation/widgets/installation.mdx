@@ -181,55 +181,68 @@ export function InstallationBannerDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref, onMounted } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/widgets/tc-installation-banner.js';
+import type { TcInstallationBanner } from '@transcodes/ui-components/widgets';
 
-const bannerRef = ref(null);
-const deferredPrompt = ref(null);
+@customElement('installation-banner-demo')
+export class InstallationBannerDemo extends LitElement {
+  @query('tc-installation-banner') private bannerRef!: TcInstallationBanner;
+  private deferredPrompt: any = null;
 
-const handleInstall = async () => {
-  console.log('설치 시작');
-
-  if (deferredPrompt.value) {
-    deferredPrompt.value.prompt();
-    const { outcome } = await deferredPrompt.value.userChoice;
-    console.log(`사용자 응답: ${outcome}`);
-    deferredPrompt.value = null;
+  render() {
+    return html\`
+      <tc-installation-banner
+        title="앱을 설치하세요"
+        description="홈 화면에 추가하여 빠르게 접근하세요"
+        install-label="설치"
+        .dismissDays=\${7}
+      ></tc-installation-banner>
+    \`;
   }
-};
 
-const handleDismiss = () => {
-  console.log('배너가 7일간 표시되지 않습니다');
-};
+  firstUpdated() {
+    const banner = this.bannerRef;
+    banner.addEventListener('tc-install', this.handleInstall);
+    banner.addEventListener('tc-dismiss', this.handleDismiss);
+    window.addEventListener('beforeinstallprompt', this.handleBeforeInstallPrompt);
 
-const handleBeforeInstallPrompt = (e) => {
-  e.preventDefault();
-  deferredPrompt.value = e;
-  bannerRef.value?.show();
-};
+    banner.show();
+  }
 
-onMounted(() => {
-  const banner = bannerRef.value;
-  banner.addEventListener('tc-install', handleInstall);
-  banner.addEventListener('tc-dismiss', handleDismiss);
-  window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  private handleInstall = async () => {
+    console.log('설치 시작');
 
-  banner.show();
-});
-</script>
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      const { outcome } = await this.deferredPrompt.userChoice;
+      console.log(\`사용자 응답: \${outcome}\`);
+      this.deferredPrompt = null;
+    }
+  };
 
-<template>
-  <tc-installation-banner
-    ref="bannerRef"
-    title="앱을 설치하세요"
-    description="홈 화면에 추가하여 빠르게 접근하세요"
-    install-label="설치"
-    dismiss-days="7"
-  />
-</template>
+  private handleDismiss = () => {
+    console.log('배너가 7일간 표시되지 않습니다');
+  };
+
+  private handleBeforeInstallPrompt = (e: Event) => {
+    e.preventDefault();
+    this.deferredPrompt = e;
+    this.bannerRef?.show();
+  };
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    const banner = this.bannerRef;
+    banner?.removeEventListener('tc-install', this.handleInstall);
+    banner?.removeEventListener('tc-dismiss', this.handleDismiss);
+    window.removeEventListener('beforeinstallprompt', this.handleBeforeInstallPrompt);
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -401,45 +414,50 @@ export function IosInstallationGuideDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref, onMounted } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/widgets/tc-ios-installation-guide.js';
+import type { TcIosInstallationGuide } from '@transcodes/ui-components/widgets';
 
-const guideRef = ref(null);
+@customElement('ios-guide-demo')
+export class IosGuideDemo extends LitElement {
+  @query('tc-ios-installation-guide') private guideRef!: TcIosInstallationGuide;
 
-const isIosSafari = () => {
-  const ua = navigator.userAgent.toLowerCase();
-  return /iphone|ipad|ipod/.test(ua) && /safari/.test(ua);
-};
+  render() {
+    return html\`
+      <div>
+        <button @click=\${this.openGuide}>설치 방법</button>
 
-const openGuide = () => {
-  guideRef.value?.show();
-};
-
-const handleClose = () => {
-  console.log('가이드가 닫혔습니다');
-};
-
-onMounted(() => {
-  if (isIosSafari() && !window.navigator.standalone) {
-    guideRef.value?.show();
+        <tc-ios-installation-guide
+          title="iOS에 설치하기"
+          @tc-close=\${this.handleClose}
+        ></tc-ios-installation-guide>
+      </div>
+    \`;
   }
-});
-</script>
 
-<template>
-  <div>
-    <button @click="openGuide">설치 방법</button>
+  firstUpdated() {
+    if (this.isIosSafari() && !window.navigator.standalone) {
+      this.guideRef?.show();
+    }
+  }
 
-    <tc-ios-installation-guide
-      ref="guideRef"
-      title="iOS에 설치하기"
-      @tc-close="handleClose"
-    />
-  </div>
-</template>
+  private isIosSafari(): boolean {
+    const ua = navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(ua) && /safari/.test(ua);
+  }
+
+  private openGuide() {
+    this.guideRef?.show();
+  }
+
+  private handleClose() {
+    console.log('가이드가 닫혔습니다');
+  }
+}
 ```
 </Tab>
 </Tabs>

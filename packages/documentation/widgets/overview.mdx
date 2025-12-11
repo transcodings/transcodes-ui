@@ -90,25 +90,30 @@ export function MyComponent() {
 }
 ```
 
-### Vue에서 사용
+### Lit에서 사용
 
-```vue
-<script setup>
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/widgets';
-</script>
+import '@transcodes/ui-components/primitives/tc-icon.js';
 
-<template>
-  <div>
-    <tc-floating-button position="bottom-right">
-      <tc-icon name="message"></tc-icon>
-    </tc-floating-button>
+@customElement('my-app')
+export class MyApp extends LitElement {
+  render() {
+    return html\`
+      <tc-floating-button position="bottom-right">
+        <tc-icon name="message"></tc-icon>
+      </tc-floating-button>
 
-    <tc-notification-modal
-      title="알림 활성화"
-      description="중요한 소식을 놓치지 마세요"
-    />
-  </div>
-</template>
+      <tc-notification-modal
+        title="알림 활성화"
+        description="중요한 소식을 놓치지 마세요"
+      ></tc-notification-modal>
+    \`;
+  }
+}
 ```
 
 ## 주요 특징

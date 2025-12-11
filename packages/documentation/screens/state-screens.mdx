@@ -53,21 +53,26 @@ export function LoadingPage() {
 }
 ```
   </Tab>
-  <Tab title="Vue">
-```vue
-<template>
-  <div :style="{ height: '100vh' }">
-    <tc-loading-screen
-      message="데이터를 불러오는 중..."
-      spinner-size="3rem"
-    ></tc-loading-screen>
-  </div>
-</template>
-
-<script setup>
+  <Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import '@transcodes/design-tokens';
 import '@transcodes/ui-components/screens';
-</script>
+
+@customElement('my-loading-page')
+export class MyLoadingPage extends LitElement {
+  render() {
+    return html\`
+      <div style="height: 100vh;">
+        <tc-loading-screen
+          message="데이터를 불러오는 중..."
+          spinner-size="3rem"
+        ></tc-loading-screen>
+      </div>
+    \`;
+  }
+}
 ```
   </Tab>
 </Tabs>
@@ -201,26 +206,31 @@ export function ErrorPage() {
 }
 ```
   </Tab>
-  <Tab title="Vue">
-```vue
-<template>
-  <tc-error-screen
-    title="연결 실패"
-    message="서버 연결에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해주세요."
-    retry-label="다시 시도"
-    @tc-retry="handleRetry"
-  ></tc-error-screen>
-</template>
-
-<script setup>
+  <Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import '@transcodes/design-tokens';
 import '@transcodes/ui-components/screens';
 
-const handleRetry = () => {
-  console.log('재시도 클릭됨');
-  // 재시도 로직
-};
-</script>
+@customElement('my-error-page')
+export class MyErrorPage extends LitElement {
+  render() {
+    return html\`
+      <tc-error-screen
+        title="연결 실패"
+        message="서버 연결에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해주세요."
+        retry-label="다시 시도"
+        @tc-retry=\${this.handleRetry}
+      ></tc-error-screen>
+    \`;
+  }
+
+  private handleRetry() {
+    console.log('재시도 클릭됨');
+    // 재시도 로직
+  }
+}
 ```
   </Tab>
 </Tabs>
@@ -406,28 +416,33 @@ export function SuccessPage() {
 }
 ```
   </Tab>
-  <Tab title="Vue">
-```vue
-<template>
-  <tc-success-screen
-    title="결제 완료!"
-    message="주문이 성공적으로 처리되었습니다."
-    action-label="계속 쇼핑하기"
-    :auto-animate="true"
-    @tc-action="handleAction"
-  ></tc-success-screen>
-</template>
-
-<script setup>
+  <Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import '@transcodes/design-tokens';
 import '@transcodes/ui-components/screens';
 
-const handleAction = () => {
-  console.log('행동 버튼 클릭됨');
-  // 다음 페이지로 이동
-  window.location.href = '/shop';
-};
-</script>
+@customElement('my-success-page')
+export class MySuccessPage extends LitElement {
+  render() {
+    return html\`
+      <tc-success-screen
+        title="결제 완료!"
+        message="주문이 성공적으로 처리되었습니다."
+        action-label="계속 쇼핑하기"
+        ?auto-animate=\${true}
+        @tc-action=\${this.handleAction}
+      ></tc-success-screen>
+    \`;
+  }
+
+  private handleAction() {
+    console.log('행동 버튼 클릭됨');
+    // 다음 페이지로 이동
+    window.location.href = '/shop';
+  }
+}
 ```
   </Tab>
 </Tabs>

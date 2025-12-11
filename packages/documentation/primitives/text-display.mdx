@@ -118,45 +118,51 @@ export function TextDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-text.js';
-</script>
 
-<template>
-  <div>
-    <tc-text>기본 텍스트</tc-text>
+@customElement('text-demo')
+export class TextDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-text>기본 텍스트</tc-text>
 
-    <tc-text tag="h1" size="2xl" weight="700">
-      페이지 제목
-    </tc-text>
+        <tc-text tag="h1" size="2xl" weight="700">
+          페이지 제목
+        </tc-text>
 
-    <tc-text tag="h2" size="lg" weight="600">
-      부제목
-    </tc-text>
+        <tc-text tag="h2" size="lg" weight="600">
+          부제목
+        </tc-text>
 
-    <tc-text size="sm" color="muted">
-      보조 텍스트
-    </tc-text>
+        <tc-text size="sm" color="muted">
+          보조 텍스트
+        </tc-text>
 
-    <tc-text color="accent" weight="600">
-      강조된 텍스트
-    </tc-text>
+        <tc-text color="accent" weight="600">
+          강조된 텍스트
+        </tc-text>
 
-    <tc-text color="error" size="sm">
-      오류가 발생했습니다
-    </tc-text>
+        <tc-text color="error" size="sm">
+          오류가 발생했습니다
+        </tc-text>
 
-    <tc-text color="success" weight="500">
-      작업이 완료되었습니다
-    </tc-text>
+        <tc-text color="success" weight="500">
+          작업이 완료되었습니다
+        </tc-text>
 
-    <tc-text tag="label" weight="500">
-      사용자명
-    </tc-text>
-  </div>
-</template>
+        <tc-text tag="label" weight="500">
+          사용자명
+        </tc-text>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -264,35 +270,41 @@ export function IconDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-icon.js';
-</script>
 
-<template>
-  <div>
-    <tc-icon name="info" />
+@customElement('icon-demo')
+export class IconDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-icon name="info"></tc-icon>
 
-    <tc-icon name="check" size="1rem" />
-    <tc-icon name="check" size="2rem" />
-    <tc-icon name="check" size="3rem" />
+        <tc-icon name="check" size="1rem"></tc-icon>
+        <tc-icon name="check" size="2rem"></tc-icon>
+        <tc-icon name="check" size="3rem"></tc-icon>
 
-    <tc-icon name="success" color="#00AA00" />
-    <tc-icon name="error" color="var(--error-base)" />
-    <tc-icon name="warning" color="rgb(255, 165, 0)" />
+        <tc-icon name="success" color="#00AA00"></tc-icon>
+        <tc-icon name="error" color="var(--error-base)"></tc-icon>
+        <tc-icon name="warning" color="rgb(255, 165, 0)"></tc-icon>
 
-    <tc-icon name="arrow-left" />
-    <tc-icon name="chevron-right" />
+        <tc-icon name="arrow-left"></tc-icon>
+        <tc-icon name="chevron-right"></tc-icon>
 
-    <tc-icon name="biometric" />
-    <tc-icon name="email" />
-    <tc-icon name="passkey" />
+        <tc-icon name="biometric"></tc-icon>
+        <tc-icon name="email"></tc-icon>
+        <tc-icon name="passkey"></tc-icon>
 
-    <tc-icon name="apple" />
-    <tc-icon name="google" />
-  </div>
-</template>
+        <tc-icon name="apple"></tc-icon>
+        <tc-icon name="google"></tc-icon>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -405,49 +417,55 @@ export function SymbolDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-symbol.js';
 import '@transcodes/ui-components/primitives/tc-icon.js';
-</script>
 
-<template>
-  <div>
-    <tc-symbol>AB</tc-symbol>
-    <tc-symbol>J</tc-symbol>
-    <tc-symbol>?</tc-symbol>
+@customElement('symbol-demo')
+export class SymbolDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-symbol>AB</tc-symbol>
+        <tc-symbol>J</tc-symbol>
+        <tc-symbol>?</tc-symbol>
 
-    <tc-symbol>
-      <tc-icon name="person" />
-    </tc-symbol>
+        <tc-symbol>
+          <tc-icon name="person"></tc-icon>
+        </tc-symbol>
 
-    <tc-symbol size="2rem">SM</tc-symbol>
-    <tc-symbol size="4rem">LG</tc-symbol>
+        <tc-symbol size="2rem">SM</tc-symbol>
+        <tc-symbol size="4rem">LG</tc-symbol>
 
-    <tc-symbol background="#FF6B6B" color="white">
-      E
-    </tc-symbol>
+        <tc-symbol background="#FF6B6B" color="white">
+          E
+        </tc-symbol>
 
-    <tc-symbol background="#4ECDC4" color="white">
-      S
-    </tc-symbol>
+        <tc-symbol background="#4ECDC4" color="white">
+          S
+        </tc-symbol>
 
-    <tc-symbol
-      background="var(--accent-success)"
-      color="white"
-    >
-      <tc-icon name="check" />
-    </tc-symbol>
+        <tc-symbol
+          background="var(--accent-success)"
+          color="white"
+        >
+          <tc-icon name="check"></tc-icon>
+        </tc-symbol>
 
-    <tc-symbol
-      background="var(--error-bg)"
-      color="var(--error-base)"
-    >
-      <tc-icon name="error" />
-    </tc-symbol>
-  </div>
-</template>
+        <tc-symbol
+          background="var(--error-bg)"
+          color="var(--error-base)"
+        >
+          <tc-icon name="error"></tc-icon>
+        </tc-symbol>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -522,29 +540,35 @@ export function DividerDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-divider.js';
-</script>
 
-<template>
-  <div>
-    <tc-divider />
+@customElement('divider-demo')
+export class DividerDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-divider></tc-divider>
 
-    <tc-divider text="또는" />
+        <tc-divider text="또는"></tc-divider>
 
-    <tc-divider color="var(--accent-primary)" />
+        <tc-divider color="var(--accent-primary)"></tc-divider>
 
-    <tc-divider spacing="3rem" />
+        <tc-divider spacing="3rem"></tc-divider>
 
-    <tc-divider
-      text="또는 계속하기"
-      color="var(--accent-secondary)"
-      spacing="2rem"
-    />
-  </div>
-</template>
+        <tc-divider
+          text="또는 계속하기"
+          color="var(--accent-secondary)"
+          spacing="2rem"
+        ></tc-divider>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>

@@ -71,30 +71,36 @@ export function CardDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-card.js';
-</script>
 
-<template>
-  <div>
-    <tc-card>
-      <h3>카드 제목</h3>
-      <p>카드 콘텐츠입니다.</p>
-    </tc-card>
+@customElement('card-demo')
+export class CardDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-card>
+          <h3>카드 제목</h3>
+          <p>카드 콘텐츠입니다.</p>
+        </tc-card>
 
-    <tc-card no-border>
-      <h3>보더 없는 카드</h3>
-      <p>내부 보더 효과가 없습니다.</p>
-    </tc-card>
+        <tc-card ?no-border=\${true}>
+          <h3>보더 없는 카드</h3>
+          <p>내부 보더 효과가 없습니다.</p>
+        </tc-card>
 
-    <tc-card :sx="{ padding: '2rem', background: '#f5f5f5' }">
-      <h3>커스텀 스타일 카드</h3>
-      <p>sx prop으로 스타일을 오버라이드했습니다.</p>
-    </tc-card>
-  </div>
-</template>
+        <tc-card .sx=\${{ padding: '2rem', background: '#f5f5f5' }}>
+          <h3>커스텀 스타일 카드</h3>
+          <p>sx prop으로 스타일을 오버라이드했습니다.</p>
+        </tc-card>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -164,26 +170,32 @@ export function BoxDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-box.js';
-</script>
 
-<template>
-  <div>
-    <tc-box :sx="{ display: 'flex', gap: '1rem' }">
-      <div>항목 1</div>
-      <div>항목 2</div>
-      <div>항목 3</div>
-    </tc-box>
+@customElement('box-demo')
+export class BoxDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-box .sx=\${{ display: 'flex', gap: '1rem' }}>
+          <div>항목 1</div>
+          <div>항목 2</div>
+          <div>항목 3</div>
+        </tc-box>
 
-    <tc-box :sx="{ padding: '1rem' }">
-      <h2>제목</h2>
-      <p>본문 내용</p>
-    </tc-box>
-  </div>
-</template>
+        <tc-box .sx=\${{ padding: '1rem' }}>
+          <h2>제목</h2>
+          <p>본문 내용</p>
+        </tc-box>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -269,30 +281,36 @@ export function ContainerDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-container.js';
-</script>
 
-<template>
-  <div>
-    <tc-container>
-      <h1>페이지 제목</h1>
-      <p>중앙 정렬된 콘텐츠</p>
-    </tc-container>
+@customElement('container-demo')
+export class ContainerDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-container>
+          <h1>페이지 제목</h1>
+          <p>중앙 정렬된 콘텐츠</p>
+        </tc-container>
 
-    <tc-container wide>
-      <h1>와이드 레이아웃</h1>
-      <p>더 넓은 콘텐츠</p>
-    </tc-container>
+        <tc-container ?wide=\${true}>
+          <h1>와이드 레이아웃</h1>
+          <p>더 넓은 콘텐츠</p>
+        </tc-container>
 
-    <tc-container :sx="{ alignItems: 'flex-start', gap: '2rem' }">
-      <aside>사이드바</aside>
-      <main>메인 콘텐츠</main>
-    </tc-container>
-  </div>
-</template>
+        <tc-container .sx=\${{ alignItems: 'flex-start', gap: '2rem' }}>
+          <aside>사이드바</aside>
+          <main>메인 콘텐츠</main>
+        </tc-container>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -395,38 +413,44 @@ export function SectionDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-section.js';
-</script>
 
-<template>
-  <div>
-    <tc-section>
-      <h2>섹션 제목</h2>
-      <p>섹션 설명</p>
-      <button>버튼</button>
-    </tc-section>
+@customElement('section-demo')
+export class SectionDemo extends LitElement {
+  render() {
+    return html\`
+      <div>
+        <tc-section>
+          <h2>섹션 제목</h2>
+          <p>섹션 설명</p>
+          <button>버튼</button>
+        </tc-section>
 
-    <tc-section gap="2rem">
-      <h2>제목</h2>
-      <p>본문</p>
-      <footer>푸터</footer>
-    </tc-section>
+        <tc-section gap="2rem">
+          <h2>제목</h2>
+          <p>본문</p>
+          <footer>푸터</footer>
+        </tc-section>
 
-    <tc-section gap="0.5rem">
-      <h3>항목 1</h3>
-      <h3>항목 2</h3>
-      <h3>항목 3</h3>
-    </tc-section>
+        <tc-section gap="0.5rem">
+          <h3>항목 1</h3>
+          <h3>항목 2</h3>
+          <h3>항목 3</h3>
+        </tc-section>
 
-    <tc-section :sx="{ padding: '2rem', background: '#f5f5f5' }">
-      <h2>커스텀 섹션</h2>
-      <p>배경색과 패딩이 적용된 섹션</p>
-    </tc-section>
-  </div>
-</template>
+        <tc-section .sx=\${{ padding: '2rem', background: '#f5f5f5' }}>
+          <h2>커스텀 섹션</h2>
+          <p>배경색과 패딩이 적용된 섹션</p>
+        </tc-section>
+      </div>
+    \`;
+  }
+}
 ```
 </Tab>
 </Tabs>
