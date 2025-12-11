@@ -1,8 +1,6 @@
 /**
- * Transform dark theme CSS to dual selector format
- * Converts :root selector to both:
- * 1. @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }
- * 2. [data-theme="dark"]
+ * Transform dark theme CSS for manual control
+ * Converts :root selector to [data-theme="dark"]
  */
 
 const buildDir = `${import.meta.dir}/../build`;
@@ -20,23 +18,15 @@ if (!match) {
 
 const variables = match[1];
 
-// Generate dual selector CSS
+// Generate dark theme CSS (manual control only)
 const darkCss = `/**
  * Do not edit directly, this file was auto-generated.
  */
 
 /**
  * Dark theme design tokens
- * Applies to both:
- * - System dark mode (prefers-color-scheme: dark) unless explicitly set to light
- * - Manual dark mode ([data-theme="dark"])
+ * Applies when [data-theme="dark"] is set on any parent element
  */
-
-@media (prefers-color-scheme: dark) {
-	:root:not([data-theme="light"]) {
-${variables}
-	}
-}
 
 [data-theme="dark"] {
 ${variables}
@@ -47,9 +37,8 @@ ${variables}
 await Bun.write(`${buildDir}/tokens-dark.css`, darkCss);
 
 // Remove temp file
-const fs = await import('fs/promises');
 try {
-  await fs.unlink(`${buildDir}/tokens-dark-temp.css`);
+  await Bun.$`rm ${buildDir}/tokens-dark-temp.css`;
 } catch {
   // Ignore if file doesn't exist
 }
