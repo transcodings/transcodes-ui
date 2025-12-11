@@ -141,45 +141,50 @@ export function NotificationModalDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref, onMounted } from 'vue';
-import '@transcodes/ui-components/widgets/tc-notification-modal.js';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
+import '@transcodes/ui-components/widgets';
+import type { TcNotificationModal } from '@transcodes/ui-components/widgets';
 
-const modalRef = ref(null);
+@customElement('notification-demo')
+export class NotificationDemo extends LitElement {
+  @query('tc-notification-modal')
+  private modal!: TcNotificationModal;
 
-const handleAllow = () => {
-  console.log('사용자가 알림을 허용했습니다');
-  Notification.requestPermission();
-};
+  render() {
+    return html`
+      <tc-notification-modal
+        title="알림을 활성화하세요"
+        description="새로운 메시지를 바로 받아보세요"
+        allow-label="네"
+        deny-label="나중에"
+        @tc-allow=${this.handleAllow}
+        @tc-deny=${this.handleDeny}
+        @tc-close=${this.handleClose}
+      ></tc-notification-modal>
+    `;
+  }
 
-const handleDeny = () => {
-  console.log('사용자가 알림을 거부했습니다');
-};
+  firstUpdated() {
+    this.modal.show();
+  }
 
-const handleClose = () => {
-  console.log('모달이 닫혔습니다');
-};
+  private handleAllow() {
+    console.log('사용자가 알림을 허용했습니다');
+    Notification.requestPermission();
+  }
 
-onMounted(() => {
-  const modal = modalRef.value;
-  modal.addEventListener('tc-allow', handleAllow);
-  modal.addEventListener('tc-deny', handleDeny);
-  modal.addEventListener('tc-close', handleClose);
-  modal.show();
-});
-</script>
+  private handleDeny() {
+    console.log('사용자가 알림을 거부했습니다');
+  }
 
-<template>
-  <tc-notification-modal
-    ref="modalRef"
-    title="알림을 활성화하세요"
-    description="새로운 메시지를 바로 받아보세요"
-    allow-label="네"
-    deny-label="나중에"
-  />
-</template>
+  private handleClose() {
+    console.log('모달이 닫혔습니다');
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -313,43 +318,45 @@ export function OfflineModalDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref, onMounted } from 'vue';
-import '@transcodes/ui-components/widgets/tc-offline-modal.js';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
+import '@transcodes/ui-components/widgets';
+import type { TcOfflineModal } from '@transcodes/ui-components/widgets';
 
-const modalRef = ref(null);
+@customElement('offline-demo')
+export class OfflineDemo extends LitElement {
+  @query('tc-offline-modal')
+  private modal!: TcOfflineModal;
 
-const handleRetry = () => {
-  console.log('사용자가 재시도를 요청했습니다');
-  location.reload();
-};
+  render() {
+    return html`
+      <tc-offline-modal
+        title="연결이 끊어졌습니다"
+        description="인터넷 연결을 확인해주세요"
+        retry-label="다시 시도"
+        @tc-retry=${this.handleRetry}
+        @tc-online=${this.handleOnline}
+        @tc-offline=${this.handleOffline}
+      ></tc-offline-modal>
+    `;
+  }
 
-const handleOnline = () => {
-  console.log('온라인 상태로 복구됨');
-};
+  private handleRetry() {
+    console.log('사용자가 재시도를 요청했습니다');
+    location.reload();
+  }
 
-const handleOffline = () => {
-  console.log('오프라인 상태 감지됨');
-};
+  private handleOnline() {
+    console.log('온라인 상태로 복구됨');
+  }
 
-onMounted(() => {
-  const modal = modalRef.value;
-  modal.addEventListener('tc-retry', handleRetry);
-  modal.addEventListener('tc-online', handleOnline);
-  modal.addEventListener('tc-offline', handleOffline);
-});
-</script>
-
-<template>
-  <tc-offline-modal
-    ref="modalRef"
-    title="연결이 끊어졌습니다"
-    description="인터넷 연결을 확인해주세요"
-    retry-label="다시 시도"
-  />
-</template>
+  private handleOffline() {
+    console.log('오프라인 상태 감지됨');
+  }
+}
 ```
 </Tab>
 </Tabs>
@@ -498,52 +505,59 @@ export function IframeModalDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref } from 'vue';
-import '@transcodes/ui-components/widgets/tc-iframe-modal.js';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
+import '@transcodes/ui-components/widgets';
+import '@transcodes/ui-components/primitives';
+import type { TcIframeModal } from '@transcodes/ui-components/widgets';
 
-const modalRef = ref(null);
+@customElement('iframe-modal-demo')
+export class IframeModalDemo extends LitElement {
+  @query('tc-iframe-modal')
+  private modal!: TcIframeModal;
 
-const openModal = () => {
-  modalRef.value?.open();
-};
+  render() {
+    return html`
+      <div>
+        <tc-button @tc-click=${this.openModal}>양식 열기</tc-button>
 
-const handleLoad = () => {
-  console.log('iframe 콘텐츠 로드됨');
-  modalRef.value?.sendMessage('init', { userId: '123' });
-};
-
-const handleMessage = (e) => {
-  const { type, payload } = e.detail;
-  console.log('메시지 수신:', type, payload);
-
-  if (type === 'submit') {
-    console.log('양식 제출됨:', payload);
-    modalRef.value?.close();
+        <tc-iframe-modal
+          src="https://example.com/form"
+          title="외부 양식"
+          @tc-load=${this.handleLoad}
+          @tc-message=${this.handleMessage}
+          @tc-close=${this.handleClose}
+        ></tc-iframe-modal>
+      </div>
+    `;
   }
-};
 
-const handleClose = () => {
-  console.log('모달이 닫혔습니다');
-};
-</script>
+  private openModal() {
+    this.modal?.open();
+  }
 
-<template>
-  <div>
-    <button @click="openModal">양식 열기</button>
+  private handleLoad() {
+    console.log('iframe 콘텐츠 로드됨');
+    this.modal?.sendMessage('init', { userId: '123' });
+  }
 
-    <tc-iframe-modal
-      ref="modalRef"
-      src="https://example.com/form"
-      title="외부 양식"
-      @tc-load="handleLoad"
-      @tc-message="handleMessage"
-      @tc-close="handleClose"
-    />
-  </div>
-</template>
+  private handleMessage(e: CustomEvent) {
+    const { type, payload } = e.detail;
+    console.log('메시지 수신:', type, payload);
+
+    if (type === 'submit') {
+      console.log('양식 제출됨:', payload);
+      this.modal?.close();
+    }
+  }
+
+  private handleClose() {
+    console.log('모달이 닫혔습니다');
+  }
+}
 ```
 </Tab>
 </Tabs>

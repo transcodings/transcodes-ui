@@ -131,54 +131,60 @@ export function FloatingButtonDemo() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import { ref } from 'vue';
-import '@transcodes/ui-components/widgets/tc-floating-button.js';
-import '@transcodes/ui-components/primitives/tc-icon.js';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
+import '@transcodes/ui-components/widgets';
+import '@transcodes/ui-components/primitives';
 
-const messageCount = ref(0);
+@customElement('fab-demo')
+export class FabDemo extends LitElement {
+  @state()
+  private messageCount = 0;
 
-const handleFabClick = () => {
-  console.log('FAB 클릭됨');
-  openMessagePanel();
-};
+  render() {
+    return html`
+      <div>
+        <!-- 기본 FAB -->
+        <tc-floating-button
+          position="bottom-right"
+          @tc-click=${this.handleFabClick}
+        >
+          <tc-icon name="message" size="1.5rem"></tc-icon>
+        </tc-floating-button>
 
-const openMessagePanel = () => {
-  console.log('메시지 패널 열기');
-};
-</script>
+        <!-- 다양한 위치 -->
+        <tc-floating-button position="bottom-left">
+          <tc-icon name="home"></tc-icon>
+        </tc-floating-button>
 
-<template>
-  <div>
-    <!-- 기본 FAB -->
-    <tc-floating-button
-      position="bottom-right"
-      @tc-click="handleFabClick"
-    >
-      <tc-icon name="message" size="1.5rem"></tc-icon>
-    </tc-floating-button>
+        <tc-floating-button position="top-right">
+          <tc-icon name="arrow-up"></tc-icon>
+        </tc-floating-button>
 
-    <!-- 다양한 위치 -->
-    <tc-floating-button position="bottom-left">
-      <tc-icon name="home"></tc-icon>
-    </tc-floating-button>
+        <tc-floating-button position="top-left" ?disabled=${true}>
+          <tc-icon name="settings"></tc-icon>
+        </tc-floating-button>
 
-    <tc-floating-button position="top-right">
-      <tc-icon name="arrow-up"></tc-icon>
-    </tc-floating-button>
+        <!-- 커스텀 크기 -->
+        <tc-floating-button size="4rem">
+          <tc-icon name="plus" size="2rem"></tc-icon>
+        </tc-floating-button>
+      </div>
+    `;
+  }
 
-    <tc-floating-button position="top-left" disabled>
-      <tc-icon name="settings"></tc-icon>
-    </tc-floating-button>
+  private handleFabClick() {
+    console.log('FAB 클릭됨');
+    this.openMessagePanel();
+  }
 
-    <!-- 커스텀 크기 -->
-    <tc-floating-button size="4rem">
-      <tc-icon name="plus" size="2rem"></tc-icon>
-    </tc-floating-button>
-  </div>
-</template>
+  private openMessagePanel() {
+    console.log('메시지 패널 열기');
+  }
+}
 ```
 </Tab>
 </Tabs>

@@ -93,33 +93,40 @@ export function App() {
 ```
 </Tab>
 
-<Tab title="Vue">
-```vue
-<script setup>
-import '@transcodes/ui-components/widgets/tc-page-decoration.js';
-import { ref } from 'vue';
+<Tab title="Lit">
+```typescript
+import { LitElement, html } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import '@transcodes/design-tokens';
+import '@transcodes/ui-components/widgets';
+import '@transcodes/ui-components/primitives';
 
-const pageVariant = ref('primary');
+@customElement('page-decoration-demo')
+export class PageDecorationDemo extends LitElement {
+  @state()
+  private pageVariant: 'primary' | 'success' | 'error' = 'primary';
 
-const setPageType = (type) => {
-  pageVariant.value = type;
-};
-</script>
+  render() {
+    return html`
+      <div>
+        <!-- 동적 변형 -->
+        <tc-page-decoration variant=${this.pageVariant}></tc-page-decoration>
 
-<template>
-  <div>
-    <!-- Primary 변형 -->
-    <tc-page-decoration :variant="pageVariant"></tc-page-decoration>
+        <!-- 페이지 콘텐츠 -->
+        <main style="position: relative; z-index: 10">
+          <h1>${this.pageVariant.toUpperCase()} 페이지</h1>
+          <tc-button @tc-click=${() => this.setPageType('primary')}>Primary</tc-button>
+          <tc-button @tc-click=${() => this.setPageType('success')}>Success</tc-button>
+          <tc-button @tc-click=${() => this.setPageType('error')}>Error</tc-button>
+        </main>
+      </div>
+    `;
+  }
 
-    <!-- 페이지 콘텐츠 -->
-    <main style="position: relative; z-index: 10">
-      <h1>{{ pageVariant.toUpperCase() }} 페이지</h1>
-      <button @click="setPageType('primary')">Primary</button>
-      <button @click="setPageType('success')">Success</button>
-      <button @click="setPageType('error')">Error</button>
-    </main>
-  </div>
-</template>
+  private setPageType(type: 'primary' | 'success' | 'error') {
+    this.pageVariant = type;
+  }
+}
 ```
 </Tab>
 </Tabs>
