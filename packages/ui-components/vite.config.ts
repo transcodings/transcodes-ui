@@ -13,6 +13,10 @@ export default defineConfig({
         rollupTypes: true,
       }),
   ].filter(Boolean),
+  esbuild: {
+    legalComments: 'none', // 라이선스 주석 제거
+    treeShaking: true,
+  },
   build: {
     lib: {
       entry: 'src/index.ts',
@@ -38,10 +42,5 @@ export default defineConfig({
     },
     minify: 'esbuild',
     target: 'es2020', // 최신 브라우저 타겟
-    // esbuild 추가 옵션
-    esbuild: {
-      legalComments: 'none', // 라이선스 주석 제거
-      treeShaking: true,
-    },
   },
 });
