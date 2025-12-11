@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.3] - 2025-12-11
+
+### Fixed
+
+- **CRITICAL**: `sideEffects: false` 설정으로 웹 컴포넌트가 등록되지 않는 문제 수정
+  - `sideEffects: ["dist/**/*.js"]`로 변경하여 `customElements.define()` 부작용 보존
+  - esbuild 경고 해결: "Ignoring this import because ... was marked as having no side effects"
+
 ## [0.3.2] - 2025-12-11
 
 ### Fixed

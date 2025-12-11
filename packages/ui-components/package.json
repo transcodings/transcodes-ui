@@ -1,6 +1,6 @@
 {
   "name": "@transcodes/ui-components",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "private": false,
   "description": "Lit 3.x component library with Reactive Controllers",
   "keywords": [
@@ -31,7 +31,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "dist/**/*.js"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -72,7 +74,7 @@
     "lit": "^3.0.0"
   },
   "dependencies": {
-    "@transcodes/design-tokens": "^0.3.2"
+    "@transcodes/design-tokens": "^0.3.3"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.1.5",
