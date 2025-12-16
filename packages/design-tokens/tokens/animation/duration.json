@@ -1,4 +1,18 @@
 {
+  "offset": {
+    "slide-up": {
+      "sm": {
+        "$value": "0.25rem",
+        "$type": "dimension",
+        "$description": "Small slide offset (4px) - error message animation"
+      },
+      "md": {
+        "$value": "0.625rem",
+        "$type": "dimension",
+        "$description": "Medium slide offset (10px) - screen enter animation"
+      }
+    }
+  },
   "duration": {
     "instant": {
       "$value": "150ms",

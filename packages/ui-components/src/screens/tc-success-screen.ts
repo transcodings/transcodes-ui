@@ -110,7 +110,7 @@ export class TcSuccessScreen extends LitElement {
 
     .text-content {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(var(--offset-slide-up-md));
       transition: opacity 0.4s ease, transform 0.4s ease;
       transition-delay: 0.4s;
     }
@@ -124,7 +124,7 @@ export class TcSuccessScreen extends LitElement {
       width: 100%;
       margin-top: var(--space-md);
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(var(--offset-slide-up-md));
       transition: opacity 0.4s ease, transform 0.4s ease;
       transition-delay: 0.6s;
     }

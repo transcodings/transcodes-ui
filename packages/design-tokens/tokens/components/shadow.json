@@ -27,6 +27,11 @@
     "otp-cell-focus": {
       "$value": "0 0 0 0.25rem rgba(124, 92, 255, 0.1)",
       "$type": "shadow"
+    },
+    "focus-ring-width": {
+      "$value": "0.1875rem",
+      "$type": "dimension",
+      "$description": "Focus ring spread width (3px)"
     }
   }
 }

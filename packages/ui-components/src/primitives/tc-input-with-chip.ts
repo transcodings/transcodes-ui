@@ -71,7 +71,7 @@ export class TcInputWithChip extends LitElement {
 
       .input-container:focus-within {
         border-color: var(--accent-primary);
-        box-shadow: 0 0 0 3px var(--alpha-primary10);
+        box-shadow: 0 0 0 var(--shadow-focus-ring-width) var(--alpha-primary10);
       }
 
       .input-container.has-error {
@@ -80,7 +80,7 @@ export class TcInputWithChip extends LitElement {
       }
 
       .input-container.has-error:focus-within {
-        box-shadow: 0 0 0 3px var(--error-border);
+        box-shadow: 0 0 0 var(--shadow-focus-ring-width) var(--error-border);
       }
 
       .input {
@@ -130,7 +130,7 @@ export class TcInputWithChip extends LitElement {
       @keyframes slideDown {
         from {
           opacity: 0;
-          transform: translateY(-0.25rem);
+          transform: translateY(calc(-1 * var(--offset-slide-up-sm)));
         }
         to {
           opacity: 1;

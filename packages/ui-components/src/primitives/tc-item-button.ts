@@ -88,8 +88,8 @@ export class TcItemButton extends LitElement {
 
     .arrow {
       flex-shrink: 0;
-      width: 1.25rem;
-      height: 1.25rem;
+      width: var(--size-icon-action);
+      height: var(--size-icon-action);
       color: var(--ink-light);
       transition: var(--transition-fast);
     }

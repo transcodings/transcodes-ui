@@ -30,6 +30,11 @@
         "$value": "3rem",
         "$type": "dimension",
         "$description": "2X large icon size (48px)"
+      },
+      "action": {
+        "$value": "1.25rem",
+        "$type": "dimension",
+        "$description": "Action icon size (20px) - arrows, callout icons"
       }
     },
     "spinner": {

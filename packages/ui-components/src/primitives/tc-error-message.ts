@@ -66,7 +66,7 @@ export class TcErrorMessage extends LitElement {
           slot="icon"
           part="icon"
           name=${this.getIconName()}
-          size="1.25rem"
+          size="var(--size-icon-action)"
           color=${this.getIconColor()}
         ></tc-icon>
         <tc-text part="message" class="message-text" size="sm">

@@ -32,7 +32,7 @@ export class TcPageDecoration extends LitElement {
 
     .blob {
       position: absolute;
-      border-radius: 50%;
+      border-radius: var(--radius-full);
       opacity: 0.35;
       filter: blur(0.0625rem);
     }

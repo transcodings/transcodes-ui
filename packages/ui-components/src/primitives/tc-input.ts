@@ -105,7 +105,7 @@ export class TcInput extends LitElement {
 
       .input.has-error:focus {
         border-color: var(--error-base);
-        box-shadow: 0 0 0 0.1875rem var(--error-border);
+        box-shadow: 0 0 0 var(--shadow-focus-ring-width) var(--error-border);
       }
 
       .input-wrapper.has-error .ink-line {
@@ -126,7 +126,7 @@ export class TcInput extends LitElement {
       @keyframes slideDown {
         from {
           opacity: 0;
-          transform: translateY(-0.25rem);
+          transform: translateY(calc(-1 * var(--offset-slide-up-sm)));
         }
         to {
           opacity: 1;

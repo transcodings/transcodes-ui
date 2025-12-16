@@ -27,7 +27,7 @@ export class TcSpinner extends LitElement {
 
       .spinner {
         display: block;
-        border-radius: 50%;
+        border-radius: var(--radius-full);
         border-style: solid;
         border-color: var(--paper-cream);
         border-top-color: var(--spinner-color);
