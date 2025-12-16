@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../.. && bun run build:storybook",
+  "buildCommand": "cd ../.. && turbo run build --filter=@transcodes/design-tokens && bun run build-storybook",
   "outputDirectory": "storybook-static",
   "installCommand": "cd ../.. && bun install",
   "framework": null
