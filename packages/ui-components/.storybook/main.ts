@@ -27,6 +27,7 @@ const config: StorybookConfig = {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...config.resolve.alias,
+      // CSS imports (preview.ts)
       '@transcodes/design-tokens/css': path.resolve(
         __dirname,
         '../../design-tokens/build/tokens.css',
@@ -38,6 +39,11 @@ const config: StorybookConfig = {
       '@transcodes/design-tokens/components.css': path.resolve(
         __dirname,
         '../../design-tokens/build/components.css',
+      ),
+      // JS module (shared.ts → componentStyles)
+      '@transcodes/design-tokens/components': path.resolve(
+        __dirname,
+        '../../design-tokens/build/components.js',
       ),
     };
     return config;
