@@ -6,8 +6,9 @@ Turborepo monorepo for Transcodes UI packages.
 
 | Package | Description | Status |
 |---------|-------------|--------|
-| [@transcodes/design-tokens](./packages/design-tokens) | Style Dictionary 기반 디자인 토큰 (다크 모드 지원) | npm publish 준비 완료 |
-| [@transcodes/ui-components](./packages/ui-components) | Lit 3.x 웹 컴포넌트 라이브러리 | 개발 중 |
+| [@transcodes/design-tokens](./packages/design-tokens) | Style Dictionary 기반 디자인 토큰 (다크 모드 지원) | [![npm](https://img.shields.io/npm/v/@transcodes/design-tokens.svg)](https://www.npmjs.com/package/@transcodes/design-tokens) |
+| [@transcodes/ui-components](./packages/ui-components) | Lit 3.x 웹 컴포넌트 라이브러리 | [![npm](https://img.shields.io/npm/v/@transcodes/ui-components.svg)](https://www.npmjs.com/package/@transcodes/ui-components) |
+| [documentation](./packages/documentation) | Mintlify 기반 공식 문서 | [docs.transcodes.io](https://docs.transcodes.io) |
 
 ## Getting Started
 
@@ -39,7 +40,8 @@ bun run dev
 transcodes-ui/
 ├── packages/
 │   ├── design-tokens/     # CSS 변수, 컴포넌트 CSS 클래스
-│   └── ui-components/     # tc-button, tc-input 등 웹 컴포넌트
+│   ├── ui-components/     # tc-button, tc-input 등 웹 컴포넌트
+│   └── documentation/     # Mintlify 공식 문서
 ```
 
 **의존 관계**:

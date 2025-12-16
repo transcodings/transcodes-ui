@@ -146,45 +146,6 @@ function MyComponent() {
 }
 ```
 
-## Vue 3 타입
-
-Vue 3에서 전역 컴포넌트 타입을 등록합니다:
-
-```typescript
-// types/transcodes.d.ts
-import type { TcButton } from '@transcodes/ui-components/primitives/tc-button.js';
-import type { TcInput } from '@transcodes/ui-components/primitives/tc-input.js';
-
-declare module '@vue/runtime-core' {
-  export interface GlobalComponents {
-    TcButton: typeof TcButton;
-    TcInput: typeof TcInput;
-    // ... 다른 컴포넌트들
-  }
-}
-
-export {};
-```
-
-### Vue 컴포넌트 예시
-
-```vue
-<template>
-  <tc-button variant="primary" @tc-click="handleClick">
-    Click me
-  </tc-button>
-</template>
-
-<script setup lang="ts">
-import '@transcodes/ui-components/primitives';
-import type { TcClickEventDetail } from '@transcodes/ui-components/primitives/tc-button.js';
-
-const handleClick = (e: CustomEvent<TcClickEventDetail>) => {
-  console.log('Clicked!', e.detail);
-};
-</script>
-```
-
 ## Design Token 타입
 
 ```typescript
@@ -276,7 +237,7 @@ npx tsc --noEmit
   <Card title="React 가이드" icon="react" href="/guides/getting-started">
     React에서 사용하기
   </Card>
-  <Card title="Vue 가이드" icon="vuejs" href="/guides/getting-started">
-    Vue에서 사용하기
+  <Card title="Lit 가이드" icon="code" href="/guides/getting-started">
+    Lit에서 사용하기
   </Card>
 </CardGroup>

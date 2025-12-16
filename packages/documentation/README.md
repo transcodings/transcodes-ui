@@ -70,7 +70,7 @@ packages/documentation/
 ## 주요 특징
 
 - ✅ Mintlify MDX 포맷
-- ✅ 다중 프레임워크 예시 (HTML, React, Vue)
+- ✅ 다중 프레임워크 예시 (HTML, React, Lit)
 - ✅ 완전한 API 레퍼런스
 - ✅ 실전 예제 및 튜토리얼
 - ✅ 한글 작성

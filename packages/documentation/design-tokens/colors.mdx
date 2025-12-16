@@ -60,9 +60,9 @@ Paper 색상은 **배경과 컨테이너**를 위한 중성 색상입니다. 전
     ```typescript
     import { tokens } from '@transcodes/design-tokens';
 
-    const bgColor = tokens.paper.white;      // "#faf9fc"
-    const secondaryBg = tokens.paper.cream;  // "#f5f4f8"
-    const activeBg = tokens.paper.warm;      // "#ebe9f0"
+    const bgColor = tokens.paperWhite;      // "#faf9fc"
+    const secondaryBg = tokens.paperCream;  // "#f5f4f8"
+    const activeBg = tokens.paperWarm;      // "#ebe9f0"
     ```
   </CodeBlock>
 </CodeGroup>
@@ -174,11 +174,11 @@ Ink 색상은 **텍스트 및 타이포그래피**를 위한 색상입니다. 5�
 
     // 모든 ink 토큰 접근
     const inkPalette = {
-      black: tokens.ink.black,    // "#1a1a1a"
-      dark: tokens.ink.dark,      // "#2d2d2d"
-      medium: tokens.ink.medium,  // "#5c5c5c"
-      light: tokens.ink.light,    // "#8a8a8a"
-      faint: tokens.ink.faint,    // "#c4c4c4"
+      black: tokens.inkBlack,    // "#1a1a1a"
+      dark: tokens.inkDark,      // "#2d2d2d"
+      medium: tokens.inkMedium,  // "#5c5c5c"
+      light: tokens.inkLight,    // "#8a8a8a"
+      faint: tokens.inkFaint,    // "#c4c4c4"
     };
     ```
   </CodeBlock>
@@ -292,16 +292,16 @@ Accent 색상은 **상호작용, 강조, CTA**를 위한 색상입니다. Primar
 
     // Primary 상호작용 색상
     const primaryStates = {
-      base: tokens.accent.primary,           // "#6b4fd9"
-      hover: tokens.accent['primary-hover'], // "#5a3fc8"
-      pressed: tokens.accent['primary-pressed'], // "#4a32b0"
+      base: tokens.accentPrimary,        // "#6b4fd9"
+      hover: tokens.accentPrimaryHover,  // "#5a3fc8"
+      pressed: tokens.accentPrimaryPressed, // "#4a32b0"
     };
 
     // Success 색상
     const successStates = {
-      base: tokens.accent.success,           // "#357a46"
-      hover: tokens.accent['success-hover'], // "#2d6a3c"
-      pressed: tokens.accent['success-pressed'], // "#255a32"
+      base: tokens.accentSuccess,        // "#357a46"
+      hover: tokens.accentSuccessHover,  // "#2d6a3c"
+      pressed: tokens.accentSuccessPressed, // "#255a32"
     };
     ```
   </CodeBlock>

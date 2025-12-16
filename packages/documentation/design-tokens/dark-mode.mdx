@@ -300,44 +300,6 @@ export function App() {
 }
 ```
 
-## Vue 3에서 사용
-
-```typescript
-import { ref, watch, onMounted } from 'vue';
-
-export const useTheme = () => {
-  const theme = ref<'light' | 'dark'>('light');
-
-  const applyTheme = (newTheme: 'light' | 'dark') => {
-    const html = document.documentElement;
-    if (newTheme === 'dark') {
-      html.setAttribute('data-theme', 'dark');
-    } else {
-      html.removeAttribute('data-theme');
-    }
-  };
-
-  const toggleTheme = () => {
-    const newTheme = theme.value === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  };
-
-  const setTheme = (newTheme: 'light' | 'dark') => {
-    theme.value = newTheme;
-    localStorage.setItem('theme', newTheme);
-    applyTheme(newTheme);
-  };
-
-  onMounted(() => {
-    const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-    theme.value = savedTheme;
-    applyTheme(savedTheme);
-  });
-
-  return { theme, toggleTheme, setTheme };
-};
-```
-
 ## 색상 토큰 비교
 
 ### 주요 색상 변화

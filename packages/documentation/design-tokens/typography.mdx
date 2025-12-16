@@ -94,11 +94,11 @@ font-size: clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
 
     // 폰트 크기 접근
     const sizes = {
-      sm: tokens['font-size'].sm,      // "clamp(...)"
-      base: tokens['font-size'].base,  // "clamp(...)"
-      lg: tokens['font-size'].lg,      // "clamp(...)"
-      xl: tokens['font-size'].xl,      // "clamp(...)"
-      '2xl': tokens['font-size']['2xl'], // "clamp(...)"
+      sm: tokens.fontSizeSm,      // "clamp(...)"
+      base: tokens.fontSizeBase,  // "clamp(...)"
+      lg: tokens.fontSizeLg,      // "clamp(...)"
+      xl: tokens.fontSizeXl,      // "clamp(...)"
+      '2xl': tokens.fontSize2xl,  // "clamp(...)"
     };
     ```
   </CodeBlock>
@@ -232,9 +232,9 @@ Transcodes UI는 **4개의 가중치**를 사용하여 시각적 계층을 구�
     import { tokens } from '@transcodes/design-tokens';
 
     const lineHeights = {
-      tight: tokens['line-height'].tight,     // "1.25"
-      normal: tokens['line-height'].normal,   // "1.5"
-      relaxed: tokens['line-height'].relaxed, // "1.75"
+      tight: tokens.lineHeightTight,     // "1.25"
+      normal: tokens.lineHeightNormal,   // "1.5"
+      relaxed: tokens.lineHeightRelaxed, // "1.75"
     };
     ```
   </CodeBlock>
@@ -383,14 +383,14 @@ Transcodes UI는 **4개의 가중치**를 사용하여 시각적 계층을 구�
     export function Article() {
       return (
         <article style={{
-          fontSize: tokens['font-size'].base,
-          lineHeight: tokens['line-height'].relaxed,
+          fontSize: tokens.fontSizeBase,
+          lineHeight: tokens.lineHeightRelaxed,
           maxWidth: '600px',
           margin: '0 auto'
         }}>
           <h1 style={{
-            fontSize: tokens['font-size']['2xl'],
-            fontWeight: tokens['font-weight'].bold,
+            fontSize: tokens.fontSize2xl,
+            fontWeight: 700,
           }}>
             긴 글 읽기
           </h1>
