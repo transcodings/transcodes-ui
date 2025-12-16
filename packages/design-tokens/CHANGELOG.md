@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.6] - 2025-12-17
+
+### Added
+
+- 다크모드 토큰 대폭 확장 (21→58개): alpha, accent, semantic, error 토큰 추가
+- Utopia 스타일 fluid 토큰: `space-xs-sm`, `space-sm-md`, `space-md-lg`, `space-lg-xl` pair 토큰
+- 새 사이즈 토큰: `size-icon-action`, `size-screen-icon-fluid`, `size-decoration-blob`
+- 애니메이션 오프셋 토큰: `offset-slide-up-sm`, `offset-slide-up-md`
+- 모달 토큰: `modal-max-width-sm/md/lg/fluid`, `modal-min-height`
+- Focus ring 토큰: `shadow-focus-ring-width`
+- Alpha 색상 확장: `alpha-onAccent`, `alpha-onAccentMuted`, `alpha-black15/30/90`
+
+### Fixed
+
+- 다크모드 대비 문제 수정: accent 배경 텍스트, showcase 페이지
+- shadow colors 다크모드 오버라이드 불필요 항목 제거
+
 ## [0.3.5] - 2025-12-11
 
 ### Changed

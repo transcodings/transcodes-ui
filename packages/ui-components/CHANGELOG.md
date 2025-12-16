@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.6] - 2025-12-17
+
+### Changed
+
+- CSS 토큰 활용 강화: 하드코딩된 값을 design-tokens CSS 변수로 교체
+  - tc-error-screen, tc-success-screen: 애니메이션 오프셋 토큰화
+  - tc-input, tc-input-with-chip: focus ring, slideDown 애니메이션 토큰화
+  - tc-item-button, tc-error-message: 아이콘 크기 토큰화
+  - tc-page-decoration, tc-spinner: `border-radius: 50%` → `var(--radius-full)`
+- `:host` 스타일 일관성 통일 및 reset.css 통합
+- Storybook 설정 역할 분리 및 중복 제거
+
+### Removed
+
+- **widgets 레이어 제거**: 미사용 복합 컴포넌트 삭제
+  - tc-authenticator-card, tc-floating-button, tc-iframe-modal
+  - tc-installation-banner, tc-ios-installation-guide
+  - tc-notification-modal, tc-offline-modal
+- FormValidationController 제거 (미사용)
+- 컨트롤러 Storybook 스토리 제거 (내부 구현 세부사항)
+
+### Fixed
+
+- Storybook: sideEffects, storybookAliases, isStorybook 감지 로직 수정
+
+**Note**: 이 버전은 `@transcodes/design-tokens@^0.3.6`과 함께 사용해야 합니다.
+
 ## [0.3.5] - 2025-12-11
 
 ### Fixed
