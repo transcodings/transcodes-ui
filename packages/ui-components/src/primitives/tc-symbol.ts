@@ -16,6 +16,8 @@ export class TcSymbol extends LitElement {
   static override styles = css`
     :host {
       display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .symbol {

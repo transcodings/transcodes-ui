@@ -26,6 +26,7 @@ export class TcLoadingScreen extends LitElement {
       align-items: center;
       justify-content: center;
       width: 100%;
+      height: 100%;
       min-height: inherit;
     }
 
@@ -34,6 +35,7 @@ export class TcLoadingScreen extends LitElement {
       align-items: center;
       justify-content: center;
       width: 100%;
+      height: 100%;
       min-height: inherit;
       padding: var(--space-lg);
       box-sizing: border-box;

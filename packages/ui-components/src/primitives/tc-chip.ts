@@ -22,6 +22,8 @@ export class TcChip extends LitElement {
     css`
       :host {
         display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .chip {

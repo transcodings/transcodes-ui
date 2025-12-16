@@ -39,6 +39,7 @@ export class TcAuthenticatorCard extends LitElement {
     :host {
       display: block;
       width: 100%;
+      min-width: 0;
     }
 
     .card {

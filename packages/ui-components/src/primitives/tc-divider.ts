@@ -19,6 +19,7 @@ export class TcDivider extends LitElement {
     :host {
       display: block;
       width: 100%;
+      min-width: 0;
     }
 
     /* Simple divider (no text) */

@@ -24,6 +24,7 @@ export class TcContainer extends LitElement {
     :host {
       display: block;
       width: 100%;
+      min-width: 0;
     }
 
     .container {
@@ -31,6 +32,7 @@ export class TcContainer extends LitElement {
       width: 100%;
       max-width: var(--container-max-width);
       margin: 0 auto;
+      box-sizing: border-box;
     }
 
     .container--wide {

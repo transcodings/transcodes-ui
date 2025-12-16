@@ -27,6 +27,7 @@ export class TcItemButton extends LitElement {
     :host {
       display: block;
       width: 100%;
+      min-width: 0;
     }
 
     .button {

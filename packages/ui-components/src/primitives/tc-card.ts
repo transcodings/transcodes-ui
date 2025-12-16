@@ -21,6 +21,7 @@ export class TcCard extends LitElement {
     css`
       :host {
         display: block;
+        min-width: 0;
       }
 
       /* Inner border effect using mask - extends design-tokens .card */

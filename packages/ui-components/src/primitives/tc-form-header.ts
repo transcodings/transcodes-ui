@@ -25,6 +25,8 @@ export class TcFormHeader extends LitElement {
     css`
       :host {
         display: block;
+        width: 100%;
+        min-width: 0;
         text-align: center;
       }
 

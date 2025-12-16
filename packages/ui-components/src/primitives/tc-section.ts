@@ -17,12 +17,14 @@ export class TcSection extends LitElement {
     :host {
       display: block;
       width: 100%;
+      min-width: 0;
     }
 
     .section {
       display: flex;
       flex-direction: column;
       width: 100%;
+      box-sizing: border-box;
     }
   `;
 

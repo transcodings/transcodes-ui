@@ -27,6 +27,7 @@ export class TcCallout extends LitElement {
       :host {
         display: block;
         width: 100%;
+        min-width: 0;
       }
 
       /* Override animation from design-tokens for immediate display */

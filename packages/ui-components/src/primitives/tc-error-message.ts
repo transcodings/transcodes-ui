@@ -21,6 +21,7 @@ export class TcErrorMessage extends LitElement {
     :host {
       display: block;
       width: 100%;
+      min-width: 0;
     }
 
     tc-callout::part(callout) {

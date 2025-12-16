@@ -26,6 +26,32 @@ StyleDictionary.registerFormat({
     const classes: string[] = [];
 
     // =====================
+    // Minimal Reset for Shadow DOM
+    // =====================
+    classes.push(`/* Minimal Reset for Shadow DOM */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}`);
+
+    // =====================
     // Keyframe Animations
     // =====================
     classes.push(`/* Animations */

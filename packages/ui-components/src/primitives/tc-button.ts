@@ -27,6 +27,7 @@ export class TcButton extends LitElement {
       :host {
         display: block;
         width: 100%;
+        min-width: 0;
       }
 
       /* Extend base .button from design-tokens */

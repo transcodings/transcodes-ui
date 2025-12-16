@@ -3,8 +3,6 @@ import type { Preview } from '@storybook/web-components-vite';
 import '@transcodes/design-tokens/css';
 import '@transcodes/design-tokens/tokens-dark.css';
 import '@transcodes/design-tokens/components.css';
-// Local styles
-import '../src/styles/reset.css';
 
 // 모든 컴포넌트 등록 (tree-shaking 방지)
 import '../src/primitives/index.js';

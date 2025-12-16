@@ -41,6 +41,8 @@ export class TcInput extends LitElement {
     css`
       :host {
         display: block;
+        width: 100%;
+        min-width: 0;
       }
 
       /* Extend design-tokens .field-group */

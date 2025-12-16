@@ -20,8 +20,8 @@ export class TcPageDecoration extends LitElement {
     :host {
       position: fixed;
       inset: 0;
-      pointer-events: none;
       z-index: 0;
+      pointer-events: none;
       overflow: hidden;
     }
 
