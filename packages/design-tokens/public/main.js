@@ -228,8 +228,8 @@ async function loadVersion() {
   } catch {
     const versionBadge = document.getElementById('version-badge');
     const footerVersion = document.getElementById('footer-version');
-    if (versionBadge) versionBadge.textContent = 'v0.2.0 - Dark Mode Enabled';
-    if (footerVersion) footerVersion.textContent = 'v0.2.0';
+    if (versionBadge) versionBadge.textContent = 'v0.3.5 - Dark Mode Enabled';
+    if (footerVersion) footerVersion.textContent = 'v0.3.5';
   }
 }
 

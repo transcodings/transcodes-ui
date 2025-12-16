@@ -1,12 +1,5 @@
 /* Design Token Showcase Styles */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Note: CSS reset is now provided by components.css */
 
 html {
   font-size: 16px;
