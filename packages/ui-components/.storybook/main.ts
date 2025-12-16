@@ -27,17 +27,11 @@ const config: StorybookConfig = {
     // design-tokens 빌드 결과물이 .storybook/design-tokens에 복사됨
     const designTokensPath = path.resolve(__dirname, './design-tokens');
 
-    // vite.config.ts의 external 설정 오버라이드
-    // Storybook 빌드 시 design-tokens를 번들에 포함
+    // vite.config.ts의 external 설정 완전히 비활성화
+    // Storybook 정적 빌드는 애플리케이션이므로 모든 의존성을 번들에 포함해야 함
     config.build = config.build || {};
     config.build.rollupOptions = config.build.rollupOptions || {};
-    config.build.rollupOptions.external = (id: string) => {
-      // design-tokens는 번들에 포함 (alias로 해석됨)
-      if (id.includes('@transcodes/design-tokens')) return false;
-      // lit은 Storybook이 자체적으로 제공하므로 external 유지
-      if (id === 'lit' || id.startsWith('lit/')) return true;
-      return false;
-    };
+    config.build.rollupOptions.external = [];
 
     config.resolve = config.resolve || {};
     config.resolve.alias = {
