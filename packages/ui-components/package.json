@@ -64,7 +64,9 @@
   ],
   "scripts": {
     "build": "tsc && vite build",
+    "prebuild-storybook": "cd ../design-tokens && bun run build && cd ../ui-components && cp -r ../design-tokens/build .storybook/design-tokens",
     "build-storybook": "storybook build",
+    "predev": "cd ../design-tokens && bun run build && cd ../ui-components && cp -r ../design-tokens/build .storybook/design-tokens",
     "clean": "rm -rf dist",
     "dev": "storybook dev -p 6006",
     "preview": "vite preview",
