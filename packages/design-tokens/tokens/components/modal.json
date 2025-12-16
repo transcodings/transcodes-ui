@@ -1,0 +1,31 @@
+{
+  "modal": {
+    "max-width": {
+      "sm": {
+        "$value": "320px",
+        "$type": "dimension",
+        "$description": "Small modal max-width (notification, offline)"
+      },
+      "md": {
+        "$value": "400px",
+        "$type": "dimension",
+        "$description": "Medium modal max-width"
+      },
+      "lg": {
+        "$value": "600px",
+        "$type": "dimension",
+        "$description": "Large modal max-width (iframe)"
+      },
+      "fluid": {
+        "$value": "clamp(280px, 85vw, 320px)",
+        "$type": "dimension",
+        "$description": "Fluid modal: 85% viewport, locked at 280-320px"
+      }
+    },
+    "min-height": {
+      "$value": "400px",
+      "$type": "dimension",
+      "$description": "Modal minimum height"
+    }
+  }
+}

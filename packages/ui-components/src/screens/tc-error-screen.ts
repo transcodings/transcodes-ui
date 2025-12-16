@@ -61,8 +61,8 @@ export class TcErrorScreen extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 4rem;
-      height: 4rem;
+      width: var(--size-screen-icon-sm);
+      height: var(--size-screen-icon-sm);
       background: var(--error-bg);
       border-radius: var(--radius-full);
       color: var(--error-base);
@@ -97,7 +97,7 @@ export class TcErrorScreen extends LitElement {
         <tc-container>
           <div part="content" class="content">
             <div part="icon" class="icon-container">
-              <tc-icon name="alert-circle" size="2rem"></tc-icon>
+              <tc-icon name="alert-circle" size="var(--size-icon-lg)"></tc-icon>
             </div>
             <tc-section gap="var(--space-sm)">
               <tc-text part="title" tag="h1" size="xl" weight="600" class="title">

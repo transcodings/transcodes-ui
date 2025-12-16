@@ -81,8 +81,8 @@ export class TcPageDecoration extends LitElement {
     }
 
     .blob-3 {
-      width: 20rem;
-      height: 20rem;
+      width: var(--size-decoration-blob);
+      height: var(--size-decoration-blob);
       bottom: -8rem;
       left: 20%;
       animation: decorFloat 14s ease-in-out infinite 2s;

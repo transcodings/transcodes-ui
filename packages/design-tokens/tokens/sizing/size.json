@@ -1,6 +1,11 @@
 {
   "size": {
     "icon": {
+      "xs": {
+        "$value": "0.75rem",
+        "$type": "dimension",
+        "$description": "Extra small icon size (12px)"
+      },
       "sm": {
         "$value": "1rem",
         "$type": "dimension",
@@ -20,6 +25,11 @@
         "$value": "2.5rem",
         "$type": "dimension",
         "$description": "Extra large icon size (40px)"
+      },
+      "2xl": {
+        "$value": "3rem",
+        "$type": "dimension",
+        "$description": "2X large icon size (48px)"
       }
     },
     "spinner": {
@@ -38,10 +48,44 @@
         "$type": "dimension",
         "$description": "Large spinner (64px)"
       },
+      "xl": {
+        "$value": "5rem",
+        "$type": "dimension",
+        "$description": "Extra large spinner (80px)"
+      },
       "button": {
         "$value": "1.125rem",
         "$type": "dimension",
         "$description": "Spinner size inside buttons (18px)"
+      }
+    },
+    "screen-icon": {
+      "sm": {
+        "$value": "4rem",
+        "$type": "dimension",
+        "$description": "Small screen icon (64px)"
+      },
+      "md": {
+        "$value": "5rem",
+        "$type": "dimension",
+        "$description": "Medium screen icon (80px)"
+      },
+      "fluid": {
+        "$value": "clamp(3rem, 2.43rem + 2.86vw, 5rem)",
+        "$type": "dimension",
+        "$description": "Fluid screen icon: 48px→80px (320px→1440px viewport)"
+      }
+    },
+    "decoration-blob": {
+      "$value": "clamp(12rem, 9.43rem + 12.86vw, 22rem)",
+      "$type": "dimension",
+      "$description": "Page decoration blob: 192px→352px fluid"
+    },
+    "progress-bar": {
+      "width": {
+        "$value": "12rem",
+        "$type": "dimension",
+        "$description": "Progress bar width (192px)"
       }
     },
     "border-width": {

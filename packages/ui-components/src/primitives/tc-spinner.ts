@@ -59,8 +59,8 @@ export class TcSpinner extends LitElement {
       }
 
       .spinner--auto-desktop {
-        width: 5rem;
-        height: 5rem;
+        width: var(--size-spinner-xl);
+        height: var(--size-spinner-xl);
         border-width: var(--size-border-width-bold);
       }
     `,

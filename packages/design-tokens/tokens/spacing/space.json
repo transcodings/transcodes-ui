@@ -23,6 +23,26 @@
     "2xl": {
       "$value": "clamp(2rem, 1.35rem + 3.26vw, 4.5rem)",
       "$type": "dimension"
+    },
+    "xs-sm": {
+      "$value": "clamp(0.25rem, 0.14rem + 0.54vw, 0.625rem)",
+      "$type": "dimension",
+      "$description": "Fluid pair: xs→sm for steeper scaling (4px→10px)"
+    },
+    "sm-md": {
+      "$value": "clamp(0.5rem, 0.28rem + 1.09vw, 1.25rem)",
+      "$type": "dimension",
+      "$description": "Fluid pair: sm→md (8px→20px)"
+    },
+    "md-lg": {
+      "$value": "clamp(0.875rem, 0.42rem + 2.28vw, 2rem)",
+      "$type": "dimension",
+      "$description": "Fluid pair: md→lg (14px→32px)"
+    },
+    "lg-xl": {
+      "$value": "clamp(1.25rem, 0.47rem + 3.91vw, 2.75rem)",
+      "$type": "dimension",
+      "$description": "Fluid pair: lg→xl (20px→44px)"
     }
   }
 }

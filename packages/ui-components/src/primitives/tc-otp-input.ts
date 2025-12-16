@@ -84,7 +84,7 @@ export class TcOtpInput extends LitElement {
       /* Progress bar */
       .progress {
         width: 100%;
-        max-width: 12rem;
+        max-width: var(--size-progress-bar-width);
         height: var(--size-border-width-heavy);
         background: var(--paper-warm);
         border-radius: var(--radius-full);

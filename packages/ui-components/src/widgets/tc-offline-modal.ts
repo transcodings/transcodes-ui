@@ -77,7 +77,7 @@ export class TcOfflineModal extends LitElement {
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 320px;
+      max-width: var(--modal-max-width-sm);
       padding: var(--space-xl);
       background: var(--paper-white);
       border-radius: var(--radius-lg);
@@ -100,8 +100,8 @@ export class TcOfflineModal extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 4rem;
-      height: 4rem;
+      width: var(--size-screen-icon-sm);
+      height: var(--size-screen-icon-sm);
       margin-bottom: var(--space-lg);
       background: var(--error-bg);
       border-radius: var(--radius-full);
@@ -207,7 +207,7 @@ export class TcOfflineModal extends LitElement {
           aria-describedby="offline-description"
         >
           <div part="icon" class="icon-container">
-            <tc-icon name="wifi-off" size="2rem"></tc-icon>
+            <tc-icon name="wifi-off" size="var(--size-icon-lg)"></tc-icon>
           </div>
           <tc-section part="content" class="content" gap="var(--space-sm)">
             <tc-text

@@ -79,7 +79,7 @@ export class TcIframeModal extends LitElement {
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 600px;
+      max-width: var(--modal-max-width-lg);
       max-height: 90vh;
       max-height: 90dvh;
       background: var(--paper-white);
@@ -149,7 +149,7 @@ export class TcIframeModal extends LitElement {
     .iframe {
       width: 100%;
       height: 100%;
-      min-height: 400px;
+      min-height: var(--modal-min-height);
       border: none;
     }
 

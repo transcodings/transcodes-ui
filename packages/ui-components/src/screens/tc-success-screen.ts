@@ -68,8 +68,8 @@ export class TcSuccessScreen extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 5rem;
-      height: 5rem;
+      width: var(--size-screen-icon-fluid);
+      height: var(--size-screen-icon-fluid);
       background: var(--alpha-success10);
       border-radius: var(--radius-full);
       color: var(--accent-success);
@@ -85,8 +85,8 @@ export class TcSuccessScreen extends LitElement {
     }
 
     .checkmark {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: var(--size-icon-xl);
+      height: var(--size-icon-xl);
       stroke-dasharray: 50;
       stroke-dashoffset: 50;
     }
