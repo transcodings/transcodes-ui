@@ -8,7 +8,7 @@ const meta: Meta = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'auto'],
     },
   },
 };
@@ -42,6 +42,17 @@ export const CustomSize: StoryObj = {
       <tc-spinner size="1.5rem"></tc-spinner>
       <tc-spinner size="2rem"></tc-spinner>
       <tc-spinner size="3rem"></tc-spinner>
+    </div>
+  `,
+};
+
+export const Auto: StoryObj = {
+  render: () => html`
+    <div style="padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
+      <p style="margin-bottom: 1rem; color: var(--ink-dark); font-size: 0.875rem;">
+        Auto size adapts to screen width: larger on desktop, smaller on mobile.
+      </p>
+      <tc-spinner size="auto"></tc-spinner>
     </div>
   `,
 };

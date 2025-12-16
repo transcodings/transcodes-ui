@@ -55,3 +55,11 @@ export const States: StoryObj = {
     </div>
   `,
 };
+
+export const Primary: StoryObj = {
+  render: () => html`
+    <div style="padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
+      <tc-button variant="primary">Primary Button</tc-button>
+    </div>
+  `,
+};

@@ -74,3 +74,11 @@ export const EmptyMessage: StoryObj = {
     </div>
   `,
 };
+
+export const ErrorVariant: StoryObj = {
+  render: () => html`
+    <div style="max-width: 400px; padding: 2rem;">
+      <tc-error-message variant="error" message="An error occurred. Please try again."></tc-error-message>
+    </div>
+  `,
+};

@@ -63,3 +63,13 @@ export const WithIcon: StoryObj = {
     </div>
   `,
 };
+
+export const Info: StoryObj = {
+  render: () => html`
+    <div style="max-width: 400px; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
+      <tc-callout variant="info">
+        This is an informational callout for tips and notices.
+      </tc-callout>
+    </div>
+  `,
+};

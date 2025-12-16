@@ -209,3 +209,24 @@ export const EventHandling: StoryObj = {
     </div>
   `,
 };
+
+export const Success: StoryObj = {
+  render: () => html`
+    <div style="padding: 2rem; min-height: 150px;">
+      <tc-button
+        variant="success"
+        @tc-click=${() => {
+          const toast = document.querySelector(
+            '#toast-success-single',
+          ) as TcToast;
+          toast?.show();
+        }}
+      >
+        Show Success Toast
+      </tc-button>
+      <tc-toast id="toast-success-single" variant="success" ?auto-dismiss=${false}>
+        Operation completed successfully!
+      </tc-toast>
+    </div>
+  `,
+};
