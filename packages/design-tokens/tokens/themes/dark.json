@@ -1,4 +1,90 @@
 {
+  "alpha": {
+    "primary04": { "$value": "rgba(167, 139, 250, 0.04)", "$type": "color" },
+    "primary08": { "$value": "rgba(167, 139, 250, 0.08)", "$type": "color" },
+    "primary10": { "$value": "rgba(167, 139, 250, 0.1)", "$type": "color" },
+    "primary12": { "$value": "rgba(167, 139, 250, 0.12)", "$type": "color" },
+    "primary15": { "$value": "rgba(167, 139, 250, 0.15)", "$type": "color" },
+    "primary20": { "$value": "rgba(167, 139, 250, 0.2)", "$type": "color" },
+    "primary30": { "$value": "rgba(167, 139, 250, 0.3)", "$type": "color" },
+    "primary40": { "$value": "rgba(167, 139, 250, 0.4)", "$type": "color" },
+    "primary50": { "$value": "rgba(167, 139, 250, 0.5)", "$type": "color" },
+    "success10": { "$value": "rgba(74, 222, 128, 0.1)", "$type": "color" },
+    "success15": { "$value": "rgba(74, 222, 128, 0.15)", "$type": "color" },
+    "success20": { "$value": "rgba(74, 222, 128, 0.2)", "$type": "color" },
+    "success30": { "$value": "rgba(74, 222, 128, 0.3)", "$type": "color" },
+    "warning08": { "$value": "rgba(251, 191, 36, 0.08)", "$type": "color" },
+    "warning15": { "$value": "rgba(251, 191, 36, 0.15)", "$type": "color" },
+    "warning20": { "$value": "rgba(251, 191, 36, 0.2)", "$type": "color" },
+    "info08": { "$value": "rgba(56, 189, 248, 0.08)", "$type": "color" },
+    "info15": { "$value": "rgba(56, 189, 248, 0.15)", "$type": "color" },
+    "info20": { "$value": "rgba(56, 189, 248, 0.2)", "$type": "color" },
+    "ink04": { "$value": "rgba(255, 255, 255, 0.04)", "$type": "color" },
+    "ink06": { "$value": "rgba(255, 255, 255, 0.06)", "$type": "color" },
+    "ink10": { "$value": "rgba(255, 255, 255, 0.1)", "$type": "color" }
+  },
+  "brand": {
+    "primary": {
+      "$value": "#a78bfa",
+      "$type": "color",
+      "$description": "Transcodes primary brand color (dark)"
+    },
+    "primary-hover": { "$value": "#c4b5fd", "$type": "color" },
+    "logo-text": { "$value": "#ffffff", "$type": "color" }
+  },
+  "overlay": {
+    "shadow-light": {
+      "$value": "rgba(0, 0, 0, 0.2)",
+      "$type": "color",
+      "$description": "Light shadow (dark) - stronger for visibility"
+    },
+    "shadow-subtle": {
+      "$value": "rgba(0, 0, 0, 0.25)",
+      "$type": "color"
+    },
+    "shadow-medium": {
+      "$value": "rgba(0, 0, 0, 0.35)",
+      "$type": "color"
+    },
+    "shadow-strong": {
+      "$value": "rgba(0, 0, 0, 0.5)",
+      "$type": "color"
+    },
+    "shadow-heavy": {
+      "$value": "rgba(0, 0, 0, 0.6)",
+      "$type": "color"
+    }
+  },
+  "shadow": {
+    "card": {
+      "$value": "0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1), 0 0.375rem 1rem rgba(0, 0, 0, 0.15), 0 1.5rem 3rem rgba(0, 0, 0, 0.2)",
+      "$type": "shadow"
+    },
+    "button-hover-primary": {
+      "$value": "0 0.25rem 0.75rem rgba(167, 139, 250, 0.4), 0 0.125rem 0.25rem rgba(167, 139, 250, 0.3)",
+      "$type": "shadow"
+    },
+    "button-hover-success": {
+      "$value": "0 0.25rem 0.75rem rgba(74, 222, 128, 0.4), 0 0.125rem 0.25rem rgba(74, 222, 128, 0.3)",
+      "$type": "shadow"
+    },
+    "input-focus": {
+      "$value": "0 0 0 0.1875rem rgba(167, 139, 250, 0.2), inset 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.1)",
+      "$type": "shadow"
+    },
+    "overlay": {
+      "$value": "0 0.25rem 0.5rem rgba(0, 0, 0, 0.2)",
+      "$type": "shadow"
+    },
+    "modal": {
+      "$value": "0 1.5rem 3rem rgba(0, 0, 0, 0.3)",
+      "$type": "shadow"
+    },
+    "otp-cell-focus": {
+      "$value": "0 0 0 0.25rem rgba(167, 139, 250, 0.2)",
+      "$type": "shadow"
+    }
+  },
   "ink": {
     "black": {
       "$value": "#ffffff",
