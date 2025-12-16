@@ -204,7 +204,7 @@ static styles = css`
 import '@transcodes/ui-components/primitives/tc-button.js';
 import '@transcodes/ui-components/primitives/tc-input.js';
 
-// 나쁨: 전체 import (약 80KB)
+// 나쁨: 전체 import (약 252KB)
 import '@transcodes/ui-components';
 ```
 
@@ -212,9 +212,9 @@ import '@transcodes/ui-components';
 
 | 방식 | 크기 (gzip) | 감소율 |
 |------|-----------|--------|
-| 전체 import | ~80KB | 0% |
-| 카테고리별 | ~30KB | 62.5% |
-| 개별 import | ~8KB | 90% |
+| 전체 import | ~252KB | 0% |
+| 카테고리별 | ~50KB | 80% |
+| 개별 import | ~4KB | 98% |
 
 ### 2. 코드 분할 (Code Splitting)
 

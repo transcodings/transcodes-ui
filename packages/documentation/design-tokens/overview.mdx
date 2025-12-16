@@ -119,6 +119,28 @@ Transcodes UI는 **DTCG(Design Token Community Group)** 형식을 따릅니다:
   /* ... */
 }`}
   </CodeBlock>
+  <CodeBlock title="components.css" language="css">
+    {`/* Minimal CSS Reset for Shadow DOM */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* 컴포넌트 CSS 클래스 */
+.button { /* ... */ }
+.card { /* ... */ }
+.input { /* ... */ }`}
+  </CodeBlock>
   <CodeBlock title="tokens.d.ts" language="typescript">
     {`export const tokens = {
   ink: {
