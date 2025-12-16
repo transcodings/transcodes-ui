@@ -27,11 +27,17 @@ const config: StorybookConfig = {
     // design-tokens 빌드 결과물이 .storybook/design-tokens에 복사됨
     const designTokensPath = path.resolve(__dirname, './design-tokens');
 
-    // vite.config.ts의 external 설정 완전히 비활성화
+    // vite.config.ts의 설정 오버라이드
     // Storybook 정적 빌드는 애플리케이션이므로 모든 의존성을 번들에 포함해야 함
     config.build = config.build || {};
     config.build.rollupOptions = config.build.rollupOptions || {};
     config.build.rollupOptions.external = [];
+
+    // Side-effect imports (컴포넌트 등록) 보존
+    // Tree-shaking으로 인한 컴포넌트 import 제거 방지
+    config.build.rollupOptions.treeshake = {
+      moduleSideEffects: true,
+    };
 
     config.resolve = config.resolve || {};
     config.resolve.alias = {

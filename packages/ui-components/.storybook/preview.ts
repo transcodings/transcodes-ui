@@ -6,6 +6,11 @@ import '@transcodes/design-tokens/components.css';
 // Local styles
 import '../src/styles/reset.css';
 
+// 모든 컴포넌트 등록 (tree-shaking 방지)
+import '../src/primitives/index.js';
+import '../src/widgets/index.js';
+import '../src/screens/index.js';
+
 const preview: Preview = {
   parameters: {
     controls: {
