@@ -1097,3 +1097,22 @@ body {
   color: var(--ink-light);
   font-size: var(--font-size-sm);
 }
+
+/* ========================================
+   Dark Mode Overrides
+   ======================================== */
+
+[data-theme="dark"] .color-swatch-preview::after {
+  background: rgba(0, 0, 0, 0.85);
+  color: #e5e5e5;
+}
+
+[data-theme="dark"] .overlay-item {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .overlay-item-shadow {
+  color: #1a1a1a;
+  background-color: rgba(255, 255, 255, 0.15);
+}
