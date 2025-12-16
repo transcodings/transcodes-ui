@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/web-components-vite';
-// Design tokens CSS는 preview-head.html에서 CDN으로 로드
+// Design tokens (alias로 .storybook/design-tokens/에서 로드)
+import '@transcodes/design-tokens/css';
+import '@transcodes/design-tokens/tokens-dark.css';
+import '@transcodes/design-tokens/components.css';
 // Local styles
 import '../src/styles/reset.css';
 
