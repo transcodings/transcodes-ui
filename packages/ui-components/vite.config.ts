@@ -1,13 +1,25 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import type { Alias } from 'vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Storybook vs Library 빌드 분기
+ *
+ * 이 분기는 필수입니다. viteFinal에서 오버라이드해도 lib 모드의
+ * entry points, output 형식 등이 Storybook 빌드를 방해하기 때문입니다.
+ *
+ * - Storybook: 애플리케이션 빌드 (모든 의존성 번들링)
+ * - Library: npm 배포용 빌드 (외부 의존성 external)
+ */
 const isStorybook = process.argv[1]?.includes('storybook');
 
-// Storybook은 애플리케이션 빌드이므로 lib 모드와 external 설정 불필요
-// 라이브러리 빌드 시에만 적용
+// ─────────────────────────────────────────────────────────────────────────────
+// Library Build Config (npm 배포용)
+// ─────────────────────────────────────────────────────────────────────────────
 const libBuildConfig = isStorybook
   ? {}
   : {
@@ -19,16 +31,14 @@ const libBuildConfig = isStorybook
           'screens/index': 'src/screens/index.ts',
           'controllers/index': 'src/controllers/index.ts',
         },
-        formats: ['es'] as const,
+        formats: ['es'] as ['es'],
       },
       rollupOptions: {
         output: {
           preserveModules: true,
           preserveModulesRoot: 'src',
           entryFileNames: '[name].js',
-          generatedCode: {
-            constBindings: true,
-          },
+          generatedCode: { constBindings: true },
           compact: true,
         },
         external: ['lit', /^lit\//, /@transcodes\/design-tokens/],
@@ -40,12 +50,12 @@ const libBuildConfig = isStorybook
       },
     };
 
-// Storybook 빌드 시 design-tokens alias 설정
-// npm 패키지보다 로컬 빌드 결과물을 우선 사용
+// ─────────────────────────────────────────────────────────────────────────────
+// Storybook Aliases (design-tokens 로컬 빌드 참조)
+// ─────────────────────────────────────────────────────────────────────────────
 const designTokensPath = path.resolve(__dirname, '.storybook/design-tokens');
-const storybookAliases: Record<string, string>[] = isStorybook
+const storybookAliases: Alias[] = isStorybook
   ? [
-      // 정확한 경로 매칭 (먼저 처리됨)
       {
         find: '@transcodes/design-tokens/components',
         replacement: path.join(designTokensPath, 'components.js'),
@@ -62,14 +72,15 @@ const storybookAliases: Record<string, string>[] = isStorybook
         find: '@transcodes/design-tokens/components.css',
         replacement: path.join(designTokensPath, 'components.css'),
       },
-      // 패키지 전체 매핑 (fallback)
       { find: '@transcodes/design-tokens', replacement: designTokensPath },
     ]
   : [];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Vite Config
+// ─────────────────────────────────────────────────────────────────────────────
 export default defineConfig({
   plugins: [
-    // Storybook 빌드 시에는 dts 플러그인 비활성화
     !isStorybook &&
       dts({
         include: ['src'],

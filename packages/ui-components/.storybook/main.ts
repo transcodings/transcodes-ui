@@ -1,8 +1,4 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/web-components-vite';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ['../src/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
@@ -24,11 +20,8 @@ const config: StorybookConfig = {
   },
 
   viteFinal: async (config) => {
-    // design-tokens 빌드 결과물이 .storybook/design-tokens에 복사됨
-    const designTokensPath = path.resolve(__dirname, './design-tokens');
-
-    // vite.config.ts의 설정 오버라이드
-    // Storybook 정적 빌드는 애플리케이션이므로 모든 의존성을 번들에 포함해야 함
+    // vite.config.ts의 lib 모드 설정을 Storybook용으로 오버라이드
+    // Storybook은 애플리케이션 빌드이므로 모든 의존성을 번들에 포함해야 함
     config.build = config.build || {};
     config.build.rollupOptions = config.build.rollupOptions || {};
     config.build.rollupOptions.external = [];
@@ -39,28 +32,7 @@ const config: StorybookConfig = {
       moduleSideEffects: true,
     };
 
-    config.resolve = config.resolve || {};
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      // CSS imports
-      '@transcodes/design-tokens/css': path.join(
-        designTokensPath,
-        'tokens.css',
-      ),
-      '@transcodes/design-tokens/tokens-dark.css': path.join(
-        designTokensPath,
-        'tokens-dark.css',
-      ),
-      '@transcodes/design-tokens/components.css': path.join(
-        designTokensPath,
-        'components.css',
-      ),
-      // JS module (shared.ts에서 사용)
-      '@transcodes/design-tokens/components': path.join(
-        designTokensPath,
-        'components.js',
-      ),
-    };
+    // alias 설정은 vite.config.ts에서 처리됨 (isStorybook 분기)
     return config;
   },
 };
