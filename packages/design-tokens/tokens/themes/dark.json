@@ -21,7 +21,17 @@
     "info20": { "$value": "rgba(56, 189, 248, 0.2)", "$type": "color" },
     "ink04": { "$value": "rgba(255, 255, 255, 0.04)", "$type": "color" },
     "ink06": { "$value": "rgba(255, 255, 255, 0.06)", "$type": "color" },
-    "ink10": { "$value": "rgba(255, 255, 255, 0.1)", "$type": "color" }
+    "ink10": { "$value": "rgba(255, 255, 255, 0.1)", "$type": "color" },
+    "onAccent": {
+      "$value": "rgba(0, 0, 0, 0.9)",
+      "$type": "color",
+      "$description": "Text on accent backgrounds (dark mode - black text on bright accent)"
+    },
+    "onAccentMuted": {
+      "$value": "rgba(0, 0, 0, 0.6)",
+      "$type": "color",
+      "$description": "Muted text on accent backgrounds (dark mode)"
+    }
   },
   "brand": {
     "primary": {

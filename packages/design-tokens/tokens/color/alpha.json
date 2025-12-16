@@ -24,6 +24,19 @@
     "ink10": { "$value": "rgba(26, 26, 26, 0.1)", "$type": "color" },
     "white15": { "$value": "rgba(255, 255, 255, 0.15)", "$type": "color" },
     "white30": { "$value": "rgba(255, 255, 255, 0.3)", "$type": "color" },
-    "white90": { "$value": "rgba(255, 255, 255, 0.9)", "$type": "color" }
+    "white90": { "$value": "rgba(255, 255, 255, 0.9)", "$type": "color" },
+    "black15": { "$value": "rgba(0, 0, 0, 0.15)", "$type": "color" },
+    "black30": { "$value": "rgba(0, 0, 0, 0.3)", "$type": "color" },
+    "black90": { "$value": "rgba(0, 0, 0, 0.9)", "$type": "color" },
+    "onAccent": {
+      "$value": "rgba(255, 255, 255, 0.95)",
+      "$type": "color",
+      "$description": "Text on accent backgrounds (primary, success). Light: white, Dark: black"
+    },
+    "onAccentMuted": {
+      "$value": "rgba(255, 255, 255, 0.6)",
+      "$type": "color",
+      "$description": "Muted text on accent backgrounds"
+    }
   }
 }
