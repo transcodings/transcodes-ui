@@ -11,8 +11,9 @@ const meta: Meta = {
       description: 'Loading message',
     },
     spinnerSize: {
-      control: 'text',
-      description: 'Spinner size (CSS value)',
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'auto'],
+      description: 'Spinner size',
     },
   },
 };
@@ -22,7 +23,7 @@ export default meta;
 export const Default: StoryObj = {
   args: {
     message: 'Loading your data...',
-    spinnerSize: '3rem',
+    spinnerSize: 'md',
   },
   render: (args) => html`
     <div style="height: calc(100dvh - 32px); position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm);">
@@ -42,13 +43,18 @@ export const NoMessage: StoryObj = {
   `,
 };
 
-export const CustomSize: StoryObj = {
+export const Sizes: StoryObj = {
   render: () => html`
-    <div style="height: calc(100dvh - 32px); position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm);">
-      <tc-loading-screen
-        message="Please wait..."
-        spinner-size="4rem"
-      ></tc-loading-screen>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div style="height: 200px; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); overflow: hidden;">
+        <tc-loading-screen message="Small spinner" spinner-size="sm"></tc-loading-screen>
+      </div>
+      <div style="height: 200px; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); overflow: hidden;">
+        <tc-loading-screen message="Medium spinner" spinner-size="md"></tc-loading-screen>
+      </div>
+      <div style="height: 200px; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); overflow: hidden;">
+        <tc-loading-screen message="Large spinner" spinner-size="lg"></tc-loading-screen>
+      </div>
     </div>
   `,
 };
@@ -64,7 +70,7 @@ export const FlexibleHeight: StoryObj = {
         <tc-loading-screen message="Loading in 300px container..."></tc-loading-screen>
       </div>
       <div style="height: 200px; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); overflow: hidden;">
-        <tc-loading-screen message="Loading in 200px container..." spinner-size="2rem"></tc-loading-screen>
+        <tc-loading-screen message="Loading in 200px container..." spinner-size="sm"></tc-loading-screen>
       </div>
     </div>
   `,

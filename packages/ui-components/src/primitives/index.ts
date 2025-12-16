@@ -13,6 +13,7 @@ export { TcInputWithChip } from './tc-input-with-chip.js';
 export { TcItem } from './tc-item.js';
 export { TcItemButton } from './tc-item-button.js';
 export { TcOtpInput } from './tc-otp-input.js';
+export { TcPageDecoration } from './tc-page-decoration.js';
 export { TcSection } from './tc-section.js';
 export { TcSpinner } from './tc-spinner.js';
 export { TcSymbol } from './tc-symbol.js';

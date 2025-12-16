@@ -18,7 +18,7 @@ export class TcPageDecoration extends LitElement {
     sharedStyles,
     css`
     :host {
-      position: fixed;
+      position: absolute;
       inset: 0;
       z-index: 0;
       pointer-events: none;

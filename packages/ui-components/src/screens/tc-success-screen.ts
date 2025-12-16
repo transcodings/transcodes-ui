@@ -68,8 +68,7 @@ export class TcSuccessScreen extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: var(--size-screen-icon-fluid);
-      height: var(--size-screen-icon-fluid);
+      padding: var(--space-md);
       background: var(--alpha-success10);
       border-radius: var(--radius-full);
       color: var(--accent-success);

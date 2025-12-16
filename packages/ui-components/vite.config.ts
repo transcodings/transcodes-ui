@@ -27,7 +27,6 @@ const libBuildConfig = isStorybook
         entry: {
           index: 'src/index.ts',
           'primitives/index': 'src/primitives/index.ts',
-          'widgets/index': 'src/widgets/index.ts',
           'screens/index': 'src/screens/index.ts',
           'controllers/index': 'src/controllers/index.ts',
         },

@@ -16,7 +16,11 @@ import '../primitives/tc-container.js';
 @customElement('tc-loading-screen')
 export class TcLoadingScreen extends LitElement {
   @property({ type: String }) message = '';
-  @property({ type: String, attribute: 'spinner-size' }) spinnerSize = '3rem';
+  @property({ type: String, attribute: 'spinner-size' }) spinnerSize:
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'auto' = 'md';
 
   private loading = new LoadingController(this);
 

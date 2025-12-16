@@ -45,10 +45,6 @@
       "types": "./dist/primitives/index.d.ts",
       "import": "./dist/primitives/index.js"
     },
-    "./widgets": {
-      "types": "./dist/widgets/index.d.ts",
-      "import": "./dist/widgets/index.js"
-    },
     "./screens": {
       "types": "./dist/screens/index.d.ts",
       "import": "./dist/screens/index.js"

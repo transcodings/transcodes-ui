@@ -22,6 +22,10 @@ const meta: Meta = {
       control: 'boolean',
       description: 'Show retry button',
     },
+    autoAnimate: {
+      control: 'boolean',
+      description: 'Auto-animate on mount',
+    },
   },
 };
 
@@ -34,6 +38,7 @@ export const Default: StoryObj = {
       "We couldn't connect to the server. Please check your connection and try again.",
     retryLabel: 'Retry Connection',
     showRetry: true,
+    autoAnimate: true,
   },
   render: (args) => html`
     <div style="height: calc(100dvh - 32px); position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm);">
@@ -42,6 +47,7 @@ export const Default: StoryObj = {
         message=${args.message}
         retry-label=${args.retryLabel}
         .showRetry=${args.showRetry}
+        .autoAnimate=${args.autoAnimate}
         @tc-retry=${() => console.log('Retry clicked')}
       ></tc-error-screen>
     </div>
