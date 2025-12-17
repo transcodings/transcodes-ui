@@ -55,14 +55,6 @@ const meta: Meta = {
       options: allIcons,
       description: 'Icon name',
     },
-    size: {
-      control: 'text',
-      description: 'Icon size (CSS value)',
-    },
-    color: {
-      control: 'color',
-      description: 'Icon color',
-    },
   },
 };
 
@@ -71,12 +63,10 @@ export default meta;
 export const Default: StoryObj = {
   args: {
     name: 'bell',
-    size: '1.5rem',
-    color: 'currentColor',
   },
   render: (args) => html`
     <div style="padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
-      <tc-icon name=${args.name} size=${args.size} color=${args.color}></tc-icon>
+      <tc-icon name=${args.name}></tc-icon>
     </div>
   `,
 };
@@ -89,7 +79,7 @@ export const AllIcons: StoryObj = {
           <div
             style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; background: var(--paper-white); border-radius: var(--radius-md);"
           >
-            <tc-icon name=${name} size="1.5rem"></tc-icon>
+            <tc-icon name=${name}></tc-icon>
             <tc-text size="xs" color="tertiary">${name}</tc-text>
           </div>
         `,
@@ -104,7 +94,7 @@ export const BrandIcons: StoryObj = {
       ${['apple', 'google', 'windows', 'samsung'].map(
         (name) => html`
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <tc-icon name=${name} size="2rem"></tc-icon>
+            <tc-icon name=${name} .sx=${{ '--icon-size': '2rem' }}></tc-icon>
             <tc-text size="sm">${name}</tc-text>
           </div>
         `,
@@ -119,7 +109,7 @@ export const AuthIcons: StoryObj = {
       ${['passkey', 'biometric', 'totp', 'email-otp', 'qrcode', 'key'].map(
         (name) => html`
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <tc-icon name=${name} size="2rem" color="var(--accent-primary)"></tc-icon>
+            <tc-icon name=${name} .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--accent-primary)' }}></tc-icon>
             <tc-text size="sm">${name}</tc-text>
           </div>
         `,
@@ -132,23 +122,23 @@ export const Sizes: StoryObj = {
   render: () => html`
     <div style="display: flex; gap: 1.5rem; align-items: center; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
       <div style="text-align: center;">
-        <tc-icon name="bell" size="1rem"></tc-icon>
+        <tc-icon name="bell" .sx=${{ '--icon-size': '1rem' }}></tc-icon>
         <tc-text size="xs" color="tertiary">1rem</tc-text>
       </div>
       <div style="text-align: center;">
-        <tc-icon name="bell" size="1.5rem"></tc-icon>
-        <tc-text size="xs" color="tertiary">1.5rem</tc-text>
+        <tc-icon name="bell"></tc-icon>
+        <tc-text size="xs" color="tertiary">1.5rem (default)</tc-text>
       </div>
       <div style="text-align: center;">
-        <tc-icon name="bell" size="2rem"></tc-icon>
+        <tc-icon name="bell" .sx=${{ '--icon-size': '2rem' }}></tc-icon>
         <tc-text size="xs" color="tertiary">2rem</tc-text>
       </div>
       <div style="text-align: center;">
-        <tc-icon name="bell" size="2.5rem"></tc-icon>
+        <tc-icon name="bell" .sx=${{ '--icon-size': '2.5rem' }}></tc-icon>
         <tc-text size="xs" color="tertiary">2.5rem</tc-text>
       </div>
       <div style="text-align: center;">
-        <tc-icon name="bell" size="3rem"></tc-icon>
+        <tc-icon name="bell" .sx=${{ '--icon-size': '3rem' }}></tc-icon>
         <tc-text size="xs" color="tertiary">3rem</tc-text>
       </div>
     </div>
@@ -158,12 +148,12 @@ export const Sizes: StoryObj = {
 export const Colors: StoryObj = {
   render: () => html`
     <div style="display: flex; gap: 1.5rem; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
-      <tc-icon name="info" size="2rem" color="var(--accent-primary)"></tc-icon>
-      <tc-icon name="success" size="2rem" color="var(--accent-success)"></tc-icon>
-      <tc-icon name="warning" size="2rem" color="var(--accent-warning)"></tc-icon>
-      <tc-icon name="error" size="2rem" color="var(--error-base)"></tc-icon>
-      <tc-icon name="bell" size="2rem" color="var(--ink-dark)"></tc-icon>
-      <tc-icon name="bell" size="2rem" color="var(--ink-light)"></tc-icon>
+      <tc-icon name="info" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--accent-primary)' }}></tc-icon>
+      <tc-icon name="success" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--accent-success)' }}></tc-icon>
+      <tc-icon name="warning" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--semantic-warning)' }}></tc-icon>
+      <tc-icon name="error" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--error-base)' }}></tc-icon>
+      <tc-icon name="bell" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--ink-dark)' }}></tc-icon>
+      <tc-icon name="bell" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--ink-light)' }}></tc-icon>
     </div>
   `,
 };

@@ -9,6 +9,7 @@ const meta: Meta = {
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg', 'auto'],
+      description: 'Spinner size preset',
     },
   },
 };
@@ -29,19 +30,18 @@ export const Default: StoryObj = {
 export const Sizes: StoryObj = {
   render: () => html`
     <div style="display: flex; gap: 2rem; align-items: center; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
-      <tc-spinner size="sm"></tc-spinner>
-      <tc-spinner size="md"></tc-spinner>
-      <tc-spinner size="lg"></tc-spinner>
-    </div>
-  `,
-};
-
-export const CustomSize: StoryObj = {
-  render: () => html`
-    <div style="display: flex; gap: 2rem; align-items: center; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
-      <tc-spinner size="1.5rem"></tc-spinner>
-      <tc-spinner size="2rem"></tc-spinner>
-      <tc-spinner size="3rem"></tc-spinner>
+      <div style="text-align: center;">
+        <tc-spinner size="sm"></tc-spinner>
+        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-light);">sm</div>
+      </div>
+      <div style="text-align: center;">
+        <tc-spinner size="md"></tc-spinner>
+        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-light);">md</div>
+      </div>
+      <div style="text-align: center;">
+        <tc-spinner size="lg"></tc-spinner>
+        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-light);">lg</div>
+      </div>
     </div>
   `,
 };
@@ -53,6 +53,17 @@ export const Auto: StoryObj = {
         Auto size adapts to screen width: larger on desktop, smaller on mobile.
       </p>
       <tc-spinner size="auto"></tc-spinner>
+    </div>
+  `,
+};
+
+export const CustomColor: StoryObj = {
+  render: () => html`
+    <div style="display: flex; gap: 2rem; align-items: center; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
+      <tc-spinner size="md"></tc-spinner>
+      <tc-spinner size="md" .sx=${{ '--spinner-color': 'var(--accent-success)' }}></tc-spinner>
+      <tc-spinner size="md" .sx=${{ '--spinner-color': 'var(--error-base)' }}></tc-spinner>
+      <tc-spinner size="md" .sx=${{ '--spinner-color': 'var(--semantic-warning)' }}></tc-spinner>
     </div>
   `,
 };

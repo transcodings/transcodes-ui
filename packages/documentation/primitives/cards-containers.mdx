@@ -5,518 +5,187 @@ description: "콘텐츠를 그룹화하고 구조화하는 컴포넌트"
 
 콘텐츠를 그룹화하고 레이아웃을 구성하는 4개의 컴포넌트입니다.
 
+<Note>
+모든 Props의 상세 정보는 [Primitives API Reference](/api-reference/primitives)를 참조하세요.
+</Note>
+
 ## tc-card
 
 그림자와 보더 효과가 있는 카드 컴포넌트입니다.
-
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `no-border` | `boolean` | `false` | 내부 보더 효과 제거 |
-| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
-
-### Slots
-
-| 슬롯명 | 설명 |
-|-------|------|
-| (default) | 카드 콘텐츠 |
-
-### Usage
 
 <Tabs>
 <Tab title="HTML">
 ```html
 <tc-card>
   <h3>카드 제목</h3>
-  <p>카드 콘텐츠입니다.</p>
+  <p>카드 콘텐츠</p>
 </tc-card>
 
 <tc-card no-border>
   <h3>보더 없는 카드</h3>
-  <p>내부 보더 효과가 없습니다.</p>
 </tc-card>
-
-<tc-card sx='{"padding": "2rem", "background": "#f5f5f5"}'>
-  <h3>커스텀 스타일 카드</h3>
-  <p>sx prop으로 스타일을 오버라이드했습니다.</p>
-</tc-card>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import { TcCard } from '@transcodes/ui-components/primitives';
-
-export function CardDemo() {
-  return (
-    <>
-      <TcCard>
-        <h3>카드 제목</h3>
-        <p>카드 콘텐츠입니다.</p>
-      </TcCard>
-
-      <TcCard noBorder>
-        <h3>보더 없는 카드</h3>
-        <p>내부 보더 효과가 없습니다.</p>
-      </TcCard>
-
-      <TcCard sx={{ padding: '2rem', background: '#f5f5f5' }}>
-        <h3>커스텀 스타일 카드</h3>
-        <p>sx prop으로 스타일을 오버라이드했습니다.</p>
-      </TcCard>
-    </>
-  );
-}
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-card.js';
 
-@customElement('card-demo')
-export class CardDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-card>
-          <h3>카드 제목</h3>
-          <p>카드 콘텐츠입니다.</p>
-        </tc-card>
-
-        <tc-card ?no-border=\${true}>
-          <h3>보더 없는 카드</h3>
-          <p>내부 보더 효과가 없습니다.</p>
-        </tc-card>
-
-        <tc-card .sx=\${{ padding: '2rem', background: '#f5f5f5' }}>
-          <h3>커스텀 스타일 카드</h3>
-          <p>sx prop으로 스타일을 오버라이드했습니다.</p>
-        </tc-card>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-card .sx=${{ padding: '2rem' }}>
+    <h3>카드 제목</h3>
+    <p>콘텐츠</p>
+  </tc-card>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-card--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-card--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
 
 ## tc-box
 
-기본 컨테이너 컴포넌트입니다. `display: contents`를 사용하여 DOM 계층 구조를 변경하지 않습니다.
+기본 컨테이너 컴포넌트입니다. `display: contents`를 사용합니다.
 
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
-
-### Slots
-
-| 슬롯명 | 설명 |
-|-------|------|
-| (default) | 박스 콘텐츠 |
-
-### Usage
+<Note>
+`display: contents`로 인해 box model 속성(margin, padding, border)이 직접 적용되지 않습니다.
+</Note>
 
 <Tabs>
 <Tab title="HTML">
 ```html
-<!-- 스타일링이 필요한 래퍼 -->
-<tc-box sx='{"display": "flex", "gap": "1rem"}'>
+<tc-box .sx=${{ display: 'flex', gap: '1rem' }}>
   <div>항목 1</div>
   <div>항목 2</div>
-  <div>항목 3</div>
 </tc-box>
-
-<!-- 조건부 래핑 -->
-<tc-box sx='{"padding": "1rem"}'>
-  <h2>제목</h2>
-  <p>본문 내용</p>
-</tc-box>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import { TcBox } from '@transcodes/ui-components/primitives';
-
-export function BoxDemo() {
-  return (
-    <>
-      <TcBox sx={{ display: 'flex', gap: '1rem' }}>
-        <div>항목 1</div>
-        <div>항목 2</div>
-        <div>항목 3</div>
-      </TcBox>
-
-      <TcBox sx={{ padding: '1rem' }}>
-        <h2>제목</h2>
-        <p>본문 내용</p>
-      </TcBox>
-    </>
-  );
-}
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-box.js';
 
-@customElement('box-demo')
-export class BoxDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-box .sx=\${{ display: 'flex', gap: '1rem' }}>
-          <div>항목 1</div>
-          <div>항목 2</div>
-          <div>항목 3</div>
-        </tc-box>
-
-        <tc-box .sx=\${{ padding: '1rem' }}>
-          <h2>제목</h2>
-          <p>본문 내용</p>
-        </tc-box>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-box .sx=${{ display: 'grid', gap: '2rem' }}>
+    ${items.map(item => html`<div>${item}</div>`)}
+  </tc-box>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-box--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-box--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
 
 ## tc-container
 
-최대 너비가 제한된 플렉스 컨테이너입니다. 반응형 레이아웃에 최적화되어 있습니다.
-
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `wide` | `boolean` | `false` | 넓은 최대 너비 적용 |
-| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
-
-### Features
-
-- 기본 레이아웃: `flex`, `flex-direction: column`, `align-items: center`
-- `--container-max-width` CSS 변수로 최대 너비 제어
-- `--container-max-width-wide` CSS 변수로 넓은 너비 제어
-
-### Slots
-
-| 슬롯명 | 설명 |
-|-------|------|
-| (default) | 컨테이너 콘텐츠 |
-
-### Usage
+최대 너비가 제한된 플렉스 컨테이너입니다.
 
 <Tabs>
 <Tab title="HTML">
 ```html
-<!-- 기본 컨테이너 -->
 <tc-container>
   <h1>페이지 제목</h1>
-  <p>중앙 정렬된 콘텐츠</p>
+  <p>중앙 정렬 콘텐츠</p>
 </tc-container>
 
-<!-- 넓은 컨테이너 -->
 <tc-container wide>
   <h1>와이드 레이아웃</h1>
-  <p>더 넓은 콘텐츠</p>
 </tc-container>
-
-<!-- 커스텀 레이아웃 -->
-<tc-container sx='{"alignItems": "flex-start", "gap": "2rem"}'>
-  <aside>사이드바</aside>
-  <main>메인 콘텐츠</main>
-</tc-container>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import { TcContainer } from '@transcodes/ui-components/primitives';
-
-export function ContainerDemo() {
-  return (
-    <>
-      <TcContainer>
-        <h1>페이지 제목</h1>
-        <p>중앙 정렬된 콘텐츠</p>
-      </TcContainer>
-
-      <TcContainer wide>
-        <h1>와이드 레이아웃</h1>
-        <p>더 넓은 콘텐츠</p>
-      </TcContainer>
-
-      <TcContainer sx={{ alignItems: 'flex-start', gap: '2rem' }}>
-        <aside>사이드바</aside>
-        <main>메인 콘텐츠</main>
-      </TcContainer>
-    </>
-  );
-}
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-container.js';
 
-@customElement('container-demo')
-export class ContainerDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-container>
-          <h1>페이지 제목</h1>
-          <p>중앙 정렬된 콘텐츠</p>
-        </tc-container>
-
-        <tc-container ?wide=\${true}>
-          <h1>와이드 레이아웃</h1>
-          <p>더 넓은 콘텐츠</p>
-        </tc-container>
-
-        <tc-container .sx=\${{ alignItems: 'flex-start', gap: '2rem' }}>
-          <aside>사이드바</aside>
-          <main>메인 콘텐츠</main>
-        </tc-container>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-container ?wide=${isWide}>
+    <slot></slot>
+  </tc-container>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-container--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-container--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
 
 ## tc-section
 
-세로 배열의 섹션 컨테이너입니다. 일반적으로 페이지의 주요 영역을 구분하는 데 사용됩니다.
-
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `gap` | `string` | `'var(--space-md)'` | 자식 요소 간 간격 |
-| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
-
-### Features
-
-- 기본 레이아웃: `flex`, `flex-direction: column`
-- 모든 너비: `width: 100%`
-- 기본 간격: `--space-md` (16px)
-
-### Slots
-
-| 슬롯명 | 설명 |
-|-------|------|
-| (default) | 섹션 콘텐츠 |
-
-### Usage
+세로 배열의 섹션 컨테이너입니다. 기본 `gap: var(--space-md)`입니다.
 
 <Tabs>
 <Tab title="HTML">
 ```html
-<!-- 기본 섹션 -->
 <tc-section>
   <h2>섹션 제목</h2>
   <p>섹션 설명</p>
-  <button>버튼</button>
 </tc-section>
 
-<!-- 간격이 큰 섹션 -->
-<tc-section gap="2rem">
-  <h2>제목</h2>
-  <p>본문</p>
-  <footer>푸터</footer>
+<tc-section .sx=${{ gap: 'var(--space-lg)' }}>
+  <tc-text>항목 1</tc-text>
+  <tc-text>항목 2</tc-text>
 </tc-section>
-
-<!-- 간격이 작은 섹션 -->
-<tc-section gap="0.5rem">
-  <h3>항목 1</h3>
-  <h3>항목 2</h3>
-  <h3>항목 3</h3>
-</tc-section>
-
-<!-- 커스텀 스타일 -->
-<tc-section sx='{"padding": "2rem", "background": "#f5f5f5"}'>
-  <h2>커스텀 섹션</h2>
-  <p>배경색과 패딩이 적용된 섹션</p>
-</tc-section>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import { TcSection } from '@transcodes/ui-components/primitives';
-
-export function SectionDemo() {
-  return (
-    <>
-      <TcSection>
-        <h2>섹션 제목</h2>
-        <p>섹션 설명</p>
-        <button>버튼</button>
-      </TcSection>
-
-      <TcSection gap="2rem">
-        <h2>제목</h2>
-        <p>본문</p>
-        <footer>푸터</footer>
-      </TcSection>
-
-      <TcSection gap="0.5rem">
-        <h3>항목 1</h3>
-        <h3>항목 2</h3>
-        <h3>항목 3</h3>
-      </TcSection>
-
-      <TcSection sx={{ padding: '2rem', background: '#f5f5f5' }}>
-        <h2>커스텀 섹션</h2>
-        <p>배경색과 패딩이 적용된 섹션</p>
-      </TcSection>
-    </>
-  );
-}
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-section.js';
 
-@customElement('section-demo')
-export class SectionDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-section>
-          <h2>섹션 제목</h2>
-          <p>섹션 설명</p>
-          <button>버튼</button>
-        </tc-section>
-
-        <tc-section gap="2rem">
-          <h2>제목</h2>
-          <p>본문</p>
-          <footer>푸터</footer>
-        </tc-section>
-
-        <tc-section gap="0.5rem">
-          <h3>항목 1</h3>
-          <h3>항목 2</h3>
-          <h3>항목 3</h3>
-        </tc-section>
-
-        <tc-section .sx=\${{ padding: '2rem', background: '#f5f5f5' }}>
-          <h2>커스텀 섹션</h2>
-          <p>배경색과 패딩이 적용된 섹션</p>
-        </tc-section>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-section .sx=${{ gap: '2rem' }}>
+    <tc-text>항목 1</tc-text>
+    <tc-text>항목 2</tc-text>
+  </tc-section>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-section--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-section--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
 
 ## 레이아웃 조합 예시
 
-### 페이지 레이아웃
+```typescript
+// 페이지 레이아웃
+html`
+  <tc-container>
+    <tc-section .sx=${{ gap: '3rem' }}>
+      <tc-text tag="h1" size="2xl">페이지 제목</tc-text>
+      <tc-card>섹션 1</tc-card>
+      <tc-card>섹션 2</tc-card>
+    </tc-section>
+  </tc-container>
+`;
 
-```jsx
-<TcContainer>
-  <TcSection gap="3rem">
-    <h1>페이지 제목</h1>
-
-    <TcSection gap="2rem">
-      <TcCard>
-        <h2>섹션 1</h2>
-        <p>콘텐츠</p>
-      </TcCard>
-
-      <TcCard>
-        <h2>섹션 2</h2>
-        <p>콘텐츠</p>
-      </TcCard>
-    </TcSection>
-  </TcSection>
-</TcContainer>
-```
-
-### 양 옆 레이아웃
-
-```jsx
-<TcContainer>
-  <TcBox sx={{ display: 'flex', gap: '2rem' }}>
-    <aside style={{ flex: '0 0 250px' }}>
-      <TcSection gap="1rem">
-        {/* 사이드바 콘텐츠 */}
-      </TcSection>
-    </aside>
-
-    <main style={{ flex: 1 }}>
-      <TcSection gap="2rem">
-        {/* 메인 콘텐츠 */}
-      </TcSection>
-    </main>
-  </TcBox>
-</TcContainer>
-```
-
-### 그리드 레이아웃
-
-```jsx
-<TcContainer>
-  <TcBox sx={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '2rem'
-  }}>
-    <TcCard>...</TcCard>
-    <TcCard>...</TcCard>
-    <TcCard>...</TcCard>
-  </TcBox>
-</TcContainer>
+// 그리드 레이아웃
+html`
+  <tc-container>
+    <tc-box .sx=${{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+      gap: '2rem'
+    }}>
+      <tc-card>카드 1</tc-card>
+      <tc-card>카드 2</tc-card>
+      <tc-card>카드 3</tc-card>
+    </tc-box>
+  </tc-container>
+`;
 ```

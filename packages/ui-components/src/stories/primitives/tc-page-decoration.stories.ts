@@ -56,11 +56,11 @@ export const Variants: StoryObj = {
 
 export const InCard: StoryObj = {
   render: () => html`
-    <div style="position: relative; width: 320px; height: 400px; border-radius: var(--radius-lg); overflow: hidden; background: var(--paper-white); box-shadow: var(--shadow-md);">
+    <div style="position: relative; width: 320px; height: 400px; border-radius: var(--radius-lg); overflow: hidden; background: var(--paper-white); box-shadow: var(--shadow-card);">
       <tc-page-decoration variant="success"></tc-page-decoration>
       <div style="position: relative; z-index: 1; padding: 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; box-sizing: border-box;">
         <p style="color: var(--ink-dark); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Success!</p>
-        <p style="color: var(--ink-base); font-size: 0.875rem;">Your action was completed.</p>
+        <p style="color: var(--ink-dark); font-size: 0.875rem;">Your action was completed.</p>
       </div>
     </div>
   `,

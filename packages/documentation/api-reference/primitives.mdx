@@ -1,0 +1,253 @@
+---
+title: 'Primitives API'
+description: '모든 Primitive 컴포넌트의 Props 레퍼런스'
+---
+
+모든 컴포넌트는 `sx` prop을 통해 스타일을 커스터마이징할 수 있습니다. 자세한 내용은 [공통 인터페이스](/guides/common-interface)를 참조하세요.
+
+---
+
+## Buttons & Inputs
+
+### tc-button
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'success'` | `'primary'` | 버튼 스타일 |
+| `disabled` | `boolean` | `false` | 비활성화 상태 |
+| `loading` | `boolean` | `false` | 로딩 상태 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+**Events**: `tc-click`
+
+### tc-input
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `''` | 입력 필드 라벨 |
+| `type` | `'text' \| 'email' \| 'password' \| 'number' \| 'tel' \| 'url'` | `'text'` | 입력 타입 |
+| `placeholder` | `string` | `''` | 플레이스홀더 |
+| `value` | `string` | `''` | 입력값 |
+| `error` | `string` | `''` | 에러 메시지 |
+| `disabled` | `boolean` | `false` | 비활성화 상태 |
+| `required` | `boolean` | `false` | 필수 입력 |
+| `name` | `string` | `''` | 폼 필드 이름 |
+| `autocomplete` | `string` | `''` | 자동완성 속성 |
+| `inputmode` | `string` | `''` | 가상 키보드 모드 |
+| `maxlength` | `number` | `undefined` | 최대 길이 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+**Events**: `tc-input`, `tc-change`, `tc-keydown`, `tc-paste`, `tc-blur`
+
+### tc-otp-input
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `length` | `number` | `6` | OTP 자릿수 |
+| `error` | `string` | `''` | 에러 메시지 |
+| `disabled` | `boolean` | `false` | 비활성화 상태 |
+| `show-progress` | `boolean` | `false` | 진행 표시 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+**Events**: `tc-otp-complete`, `tc-otp-change`
+
+### tc-input-with-chip
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `''` | 입력 필드 라벨 |
+| `placeholder` | `string` | `''` | 플레이스홀더 |
+| `value` | `string` | `''` | 입력값 |
+| `error` | `string` | `''` | 에러 메시지 |
+| `disabled` | `boolean` | `false` | 비활성화 상태 |
+| `readonly` | `boolean` | `false` | 읽기 전용 |
+| `chip-label` | `string` | `''` | 칩 라벨 |
+| `chip-icon` | `string` | `''` | 칩 아이콘 |
+| `chip-variant` | `'default' \| 'success' \| 'error' \| 'info'` | `'default'` | 칩 스타일 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+**Events**: `tc-input`, `tc-chip-click`
+
+---
+
+## Text & Display
+
+### tc-text
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `tag` | `'p' \| 'span' \| 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'label' \| 'div'` | `'p'` | HTML 태그 |
+| `size` | `'xs' \| 'sm' \| 'base' \| 'lg' \| 'xl' \| '2xl'` | `'base'` | 글자 크기 |
+| `weight` | `'400' \| '500' \| '600' \| '700'` | `'400'` | 글자 굵기 |
+| `color` | `'primary' \| 'secondary' \| 'tertiary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'primary'` | 글자 색상 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+<Note>tc-text는 `display: contents`를 사용하므로 margin, padding 등 box model 속성은 적용되지 않습니다. 간격은 tc-section을 사용하세요.</Note>
+
+### tc-icon
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `IconName` | required | 아이콘 이름 |
+| `sx` | `SxProps` | `{}` | `--icon-size`, `--icon-color` 지원 |
+
+**CSS Variables**:
+- `--icon-size`: 기본값 `1.5rem`
+- `--icon-color`: 기본값 `currentColor`
+
+### tc-symbol
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `sx` | `SxProps` | `{}` | `--symbol-size`, `--symbol-bg`, `--symbol-color` 지원 |
+
+**CSS Variables**:
+- `--symbol-size`: 기본값 `3rem`
+- `--symbol-bg`: 기본값 `var(--paper-cream)`
+- `--symbol-color`: 기본값 `var(--ink-dark)`
+
+### tc-divider
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `text` | `string` | `''` | 구분선 중앙 텍스트 |
+| `sx` | `SxProps` | `{}` | `--divider-color`, `--divider-spacing` 지원 |
+
+**CSS Variables**:
+- `--divider-color`: 기본값 `var(--ink-faint)`
+- `--divider-spacing`: 기본값 `var(--space-md)`
+
+---
+
+## Cards & Containers
+
+### tc-card
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `no-border` | `boolean` | `false` | 내부 테두리 효과 제거 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+### tc-box
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+<Note>tc-box는 `display: contents`를 사용합니다. sx prop으로 레이아웃 스타일을 적용하세요.</Note>
+
+### tc-container
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `wide` | `boolean` | `false` | 넓은 너비 (420px vs 400px) |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+### tc-section
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `sx` | `SxProps` | `{}` | `gap` 등 flex 속성 지원 |
+
+**기본 스타일**: `display: flex`, `flex-direction: column`, `gap: var(--space-md)`
+
+---
+
+## Feedback
+
+### tc-chip
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'success' \| 'error' \| 'info'` | `'default'` | 칩 스타일 |
+| `size` | `'sm' \| 'md'` | `'md'` | 칩 크기 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+### tc-spinner
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `'sm' \| 'md' \| 'lg' \| 'auto'` | `'auto'` | 스피너 크기 |
+| `sx` | `SxProps` | `{}` | `--spinner-color` 지원 |
+
+**CSS Variables**:
+- `--spinner-color`: 기본값 `var(--accent-primary)`
+
+### tc-toast
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | 토스트 스타일 |
+| `duration` | `number` | `3000` | 표시 시간 (ms) |
+| `autoDismiss` | `boolean` | `true` | 자동 닫힘 |
+| `dismissible` | `boolean` | `true` | 닫기 버튼 표시 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+**Events**: `tc-dismiss`
+
+### tc-callout
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | 콜아웃 스타일 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+### tc-error-message
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `message` | `string` | `''` | 에러 메시지 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+---
+
+## Forms
+
+### tc-form-header
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `''` | 폼 제목 |
+| `subtitle` | `string` | `''` | 폼 부제목 |
+| `notice` | `string` | `''` | 알림 메시지 |
+| `no-animation` | `boolean` | `false` | 애니메이션 비활성화 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |
+
+---
+
+## Items
+
+### tc-item
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `sx` | `SxProps` | `{}` | `--item-gap`, `--item-padding` 지원 |
+
+**Slots**: `prefix`, `default`, `suffix`
+
+**CSS Variables**:
+- `--item-gap`: 기본값 `var(--space-md)`
+- `--item-padding`: 기본값 `var(--space-md)`
+
+### tc-item-button
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `disabled` | `boolean` | `false` | 비활성화 상태 |
+| `show-arrow` | `boolean` | `false` | 화살표 아이콘 표시 |
+| `sx` | `SxProps` | `{}` | `--item-gap`, `--item-padding` 지원 |
+
+**Slots**: `prefix`, `default`, `suffix`
+
+**Events**: `tc-click`
+
+---
+
+## Page Decoration
+
+### tc-page-decoration
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'success' \| 'error'` | `'primary'` | 장식 색상 테마 |
+| `sx` | `SxProps` | `{}` | 스타일 오버라이드 |

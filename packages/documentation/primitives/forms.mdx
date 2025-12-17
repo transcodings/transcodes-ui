@@ -5,37 +5,15 @@ description: "폼 관련 보조 컴포넌트"
 
 폼 구성 및 항목 표시에 사용되는 4개의 컴포넌트입니다.
 
+<Note>
+모든 Props의 상세 정보는 [Primitives API Reference](/api-reference/primitives)를 참조하세요.
+</Note>
+
 ## tc-form-header
 
-폼의 제목, 부제, 공지를 표시하는 헤더 컴포넌트입니다. 애니메이션을 지원합니다.
+폼의 제목, 부제, 공지를 표시하는 헤더 컴포넌트입니다.
 
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `title` | `string` | `''` | 폼 제목 |
-| `subtitle` | `string` | `''` | 폼 부제 |
-| `notice` | `string` | `''` | 공지 메시지 |
-| `no-animation` | `boolean` | `false` | 애니메이션 비활성화 |
-| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
-
-### CSS Parts
-
-| Part | 설명 |
-|------|------|
-| `header` | 헤더 컨테이너 |
-| `title` | 제목 요소 |
-| `subtitle` | 부제 요소 |
-| `notice` | 공지 요소 |
-
-### Features
-
-- 제목: slideDown 애니메이션
-- 부제: slideUp 애니메이션 (100ms 딜레이)
-- 공지: scale 애니메이션 (200ms 딜레이)
-- 모션 감소 지원
-
-### Usage
+**특징**: slideDown/slideUp 애니메이션, 모션 감소 지원
 
 <Tabs>
 <Tab title="HTML">
@@ -47,102 +25,28 @@ description: "폼 관련 보조 컴포넌트"
 
 <tc-form-header
   title="로그인"
-  subtitle="계정에 로그인하세요"
-  notice="첫 로그인이신가요? 회원가입을 먼저 해주세요"
-></tc-form-header>
-
-<!-- 애니메이션 비활성화 -->
-<tc-form-header
-  title="비밀번호 재설정"
+  notice="첫 로그인이신가요?"
   no-animation
 ></tc-form-header>
-
-<!-- 커스텀 스타일 -->
-<tc-form-header
-  title="회원 정보"
-  subtitle="개인 정보를 수정하세요"
-  sx='{"paddingBottom": "2rem"}'
-></tc-form-header>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import { TcFormHeader } from '@transcodes/ui-components/primitives';
-
-export function FormHeaderDemo() {
-  return (
-    <>
-      <TcFormHeader
-        title="회원가입"
-        subtitle="새 계정을 만들어주세요"
-      />
-
-      <TcFormHeader
-        title="로그인"
-        subtitle="계정에 로그인하세요"
-        notice="첫 로그인이신가요? 회원가입을 먼저 해주세요"
-      />
-
-      <TcFormHeader
-        title="비밀번호 재설정"
-        noAnimation
-      />
-
-      <TcFormHeader
-        title="회원 정보"
-        subtitle="개인 정보를 수정하세요"
-        sx={{ paddingBottom: '2rem' }}
-      />
-    </>
-  );
-}
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-form-header.js';
 
-@customElement('form-header-demo')
-export class FormHeaderDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-form-header
-          title="회원가입"
-          subtitle="새 계정을 만들어주세요"
-        ></tc-form-header>
-
-        <tc-form-header
-          title="로그인"
-          subtitle="계정에 로그인하세요"
-          notice="첫 로그인이신가요? 회원가입을 먼저 해주세요"
-        ></tc-form-header>
-
-        <tc-form-header
-          title="비밀번호 재설정"
-          ?no-animation=\${true}
-        ></tc-form-header>
-
-        <tc-form-header
-          title="회원 정보"
-          subtitle="개인 정보를 수정하세요"
-          .sx=\${{ paddingBottom: '2rem' }}
-        ></tc-form-header>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-form-header
+    title="회원가입"
+    subtitle="새 계정을 만들어주세요"
+  ></tc-form-header>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-form-header--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-form-header--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
@@ -151,539 +55,147 @@ export class FormHeaderDemo extends LitElement {
 
 라벨, 배지, 태그를 표시하는 칩 컴포넌트입니다.
 
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `variant` | `'default' \| 'success' \| 'error' \| 'info'` | `'default'` | 칩 스타일 |
-| `size` | `'sm' \| 'md'` | `'md'` | 칩 크기 |
-
-### Slots
-
-| 슬롯명 | 설명 |
-|-------|------|
-| (default) | 칩 콘텐츠 |
-
-### Usage
-
 <Tabs>
 <Tab title="HTML">
 ```html
-<!-- 기본 칩 -->
 <tc-chip>레이블</tc-chip>
-
-<!-- 성공 칩 -->
 <tc-chip variant="success">완료</tc-chip>
-
-<!-- 에러 칩 -->
 <tc-chip variant="error">실패</tc-chip>
-
-<!-- 정보 칩 -->
 <tc-chip variant="info">새로움</tc-chip>
-
-<!-- 작은 칩 -->
-<tc-chip size="sm">sm</tc-chip>
-
-<!-- 큰 칩 -->
-<tc-chip size="md">md</tc-chip>
-
-<!-- 아이콘과 함께 -->
-<tc-chip variant="success">
-  <tc-icon name="check" size="0.875rem"></tc-icon>
-  완료됨
-</tc-chip>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import { TcChip, TcIcon } from '@transcodes/ui-components/primitives';
-
-export function ChipDemo() {
-  return (
-    <>
-      <TcChip>레이블</TcChip>
-
-      <TcChip variant="success">완료</TcChip>
-      <TcChip variant="error">실패</TcChip>
-      <TcChip variant="info">새로움</TcChip>
-
-      <TcChip size="sm">sm</TcChip>
-      <TcChip size="md">md</TcChip>
-
-      <TcChip variant="success">
-        <TcIcon name="check" size="0.875rem" />
-        완료됨
-      </TcChip>
-    </>
-  );
-}
+<tc-chip size="sm">작은 칩</tc-chip>
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-chip.js';
-import '@transcodes/ui-components/primitives/tc-icon.js';
 
-@customElement('chip-demo')
-export class ChipDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-chip>레이블</tc-chip>
-
-        <tc-chip variant="success">완료</tc-chip>
-        <tc-chip variant="error">실패</tc-chip>
-        <tc-chip variant="info">새로움</tc-chip>
-
-        <tc-chip size="sm">sm</tc-chip>
-        <tc-chip size="md">md</tc-chip>
-
-        <tc-chip variant="success">
-          <tc-icon name="check" size="0.875rem"></tc-icon>
-          완료됨
-        </tc-chip>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-chip variant="success">
+    <tc-icon name="check"></tc-icon>
+    완료됨
+  </tc-chip>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-chip--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-chip--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
 
 ## tc-item
 
-클릭할 수 없는 항목 컴포넌트입니다. 리스트, 메뉴, 프로필 등에 사용됩니다.
+클릭할 수 없는 항목 컴포넌트입니다.
 
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `gap` | `string` | `'var(--space-md)'` | 자식 요소 간 간격 |
-| `padding` | `string` | `'var(--space-md)'` | 항목 패딩 |
-| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
-
-### Slots
-
-| 슬롯명 | 설명 |
-|-------|------|
-| (default) | 항목 주요 콘텐츠 |
-| `prefix` | 왼쪽 콘텐츠 (아이콘, 이미지) |
-| `suffix` | 오른쪽 콘텐츠 (배지, 상태) |
-
-### Features
-
-- 수평 정렬 레이아웃
-- 빈 prefix/suffix 자동 숨김
-- CSS parts: `item`, `prefix`, `content`, `suffix`
-
-### Usage
+**슬롯**: `prefix` | `default` | `suffix`
 
 <Tabs>
 <Tab title="HTML">
 ```html
-<!-- 기본 항목 -->
-<tc-item>
-  <tc-text>항목 제목</tc-text>
-</tc-item>
-
-<!-- 아이콘과 함께 -->
 <tc-item>
   <tc-icon slot="prefix" name="user"></tc-icon>
   <tc-text>사용자 프로필</tc-text>
 </tc-item>
 
-<!-- 심볼과 함께 -->
 <tc-item>
-  <tc-symbol slot="prefix" size="2.5rem">
-    AB
-  </tc-symbol>
+  <tc-symbol slot="prefix">AB</tc-symbol>
   <div>
     <tc-text weight="600">Alice Brown</tc-text>
-    <tc-text size="sm" color="muted">
-      Premium Member
-    </tc-text>
+    <tc-text size="sm" color="secondary">Premium Member</tc-text>
   </div>
+  <tc-chip slot="suffix" variant="info">5</tc-chip>
 </tc-item>
-
-<!-- 배지와 함께 -->
-<tc-item>
-  <tc-text>알림</tc-text>
-  <tc-chip slot="suffix" variant="info">
-    5
-  </tc-chip>
-</tc-item>
-
-<!-- 커스텀 간격 -->
-<tc-item gap="1rem" padding="1rem">
-  <tc-icon slot="prefix" name="bell"></tc-icon>
-  <tc-text>공지사항</tc-text>
-</tc-item>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import {
-  TcItem,
-  TcText,
-  TcIcon,
-  TcSymbol,
-  TcChip
-} from '@transcodes/ui-components/primitives';
-
-export function ItemDemo() {
-  return (
-    <>
-      <TcItem>
-        <TcText>항목 제목</TcText>
-      </TcItem>
-
-      <TcItem>
-        <TcIcon slot="prefix" name="user" />
-        <TcText>사용자 프로필</TcText>
-      </TcItem>
-
-      <TcItem>
-        <TcSymbol slot="prefix" size="2.5rem">
-          AB
-        </TcSymbol>
-        <div>
-          <TcText weight="600">Alice Brown</TcText>
-          <TcText size="sm" color="muted">
-            Premium Member
-          </TcText>
-        </div>
-      </TcItem>
-
-      <TcItem>
-        <TcText>알림</TcText>
-        <TcChip slot="suffix" variant="info">
-          5
-        </TcChip>
-      </TcItem>
-
-      <TcItem gap="1rem" padding="1rem">
-        <TcIcon slot="prefix" name="bell" />
-        <TcText>공지사항</TcText>
-      </TcItem>
-    </>
-  );
-}
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-item.js';
-import '@transcodes/ui-components/primitives/tc-text.js';
-import '@transcodes/ui-components/primitives/tc-icon.js';
-import '@transcodes/ui-components/primitives/tc-symbol.js';
-import '@transcodes/ui-components/primitives/tc-chip.js';
 
-@customElement('item-demo')
-export class ItemDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-item>
-          <tc-text>항목 제목</tc-text>
-        </tc-item>
-
-        <tc-item>
-          <tc-icon slot="prefix" name="user"></tc-icon>
-          <tc-text>사용자 프로필</tc-text>
-        </tc-item>
-
-        <tc-item>
-          <tc-symbol slot="prefix" size="2.5rem">
-            AB
-          </tc-symbol>
-          <div>
-            <tc-text weight="600">Alice Brown</tc-text>
-            <tc-text size="sm" color="muted">
-              Premium Member
-            </tc-text>
-          </div>
-        </tc-item>
-
-        <tc-item>
-          <tc-text>알림</tc-text>
-          <tc-chip slot="suffix" variant="info">
-            5
-          </tc-chip>
-        </tc-item>
-
-        <tc-item gap="1rem" padding="1rem">
-          <tc-icon slot="prefix" name="bell"></tc-icon>
-          <tc-text>공지사항</tc-text>
-        </tc-item>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-item .sx=${{ '--item-gap': 'var(--space-sm)' }}>
+    <tc-icon slot="prefix" name="bell"></tc-icon>
+    <tc-text>알림</tc-text>
+  </tc-item>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-item--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-item--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
 
 ## tc-item-button
 
-클릭 가능한 항목 컴포넌트입니다. 네비게이션, 메뉴, 선택 가능한 리스트에 사용됩니다.
+클릭 가능한 항목 컴포넌트입니다.
 
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `gap` | `string` | `'var(--space-md)'` | 자식 요소 간 간격 |
-| `padding` | `string` | `'var(--space-md)'` | 항목 패딩 |
-| `disabled` | `boolean` | `false` | 항목 비활성화 |
-| `show-arrow` | `boolean` | `true` | 화살표 표시 |
-| `sx` | `Record<string, string \| number>` | `{}` | 인라인 스타일 오버라이드 |
-
-### Events
-
-| 이벤트명 | Detail | 설명 |
-|---------|--------|------|
-| `tc-click` | (없음) | 항목 클릭 시 발생 |
-
-### Slots
-
-| 슬롯명 | 설명 |
-|-------|------|
-| (default) | 항목 주요 콘텐츠 |
-| `prefix` | 왼쪽 콘텐츠 |
-| `suffix` | 오른쪽 콘텐츠 (화살표 대체) |
-
-### Features
-
-- 호버 효과: 배경색 변경
-- 활성 효과: 스케일 축소 (0.995)
-- suffix가 있으면 화살표 자동 숨김
-- 빈 prefix/suffix 자동 숨김
-
-### Usage
+**슬롯**: `prefix` | `default` | `suffix`
 
 <Tabs>
 <Tab title="HTML">
 ```html
-<!-- 기본 버튼 항목 -->
-<tc-item-button>
-  <tc-text>설정</tc-text>
-</tc-item-button>
-
-<!-- 아이콘과 함께 -->
 <tc-item-button>
   <tc-icon slot="prefix" name="person"></tc-icon>
   <tc-text>프로필</tc-text>
 </tc-item-button>
 
-<!-- 화살표 없음 -->
 <tc-item-button show-arrow="false">
-  <tc-text>체크박스 항목</tc-text>
+  <tc-text>토글 항목</tc-text>
   <input slot="suffix" type="checkbox" />
 </tc-item-button>
 
-<!-- 커스텀 suffix -->
-<tc-item-button>
-  <tc-text>구독</tc-text>
-  <tc-chip slot="suffix" variant="success">
-    Pro
-  </tc-chip>
-</tc-item-button>
-
-<!-- 비활성화 -->
 <tc-item-button disabled>
   <tc-icon slot="prefix" name="lock"></tc-icon>
-  <tc-text>비활성화된 항목</tc-text>
+  <tc-text>비활성화됨</tc-text>
 </tc-item-button>
-
-<!-- 복잡한 콘텐츠 -->
-<tc-item-button>
-  <tc-symbol slot="prefix" size="2.5rem">
-    AB
-  </tc-symbol>
-  <div style="flex: 1;">
-    <tc-text weight="600">Alice Brown</tc-text>
-    <tc-text size="sm" color="muted">
-      마지막 로그인: 2시간 전
-    </tc-text>
-  </div>
-</tc-item-button>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import {
-  TcItemButton,
-  TcText,
-  TcIcon,
-  TcSymbol,
-  TcChip
-} from '@transcodes/ui-components/primitives';
-
-export function ItemButtonDemo() {
-  const handleClick = () => {
-    console.log('Item clicked');
-  };
-
-  return (
-    <>
-      <TcItemButton onTcClick={handleClick}>
-        <TcText>설정</TcText>
-      </TcItemButton>
-
-      <TcItemButton>
-        <TcIcon slot="prefix" name="person" />
-        <TcText>프로필</TcText>
-      </TcItemButton>
-
-      <TcItemButton showArrow={false}>
-        <TcText>체크박스 항목</TcText>
-        <input slot="suffix" type="checkbox" />
-      </TcItemButton>
-
-      <TcItemButton>
-        <TcText>구독</TcText>
-        <TcChip slot="suffix" variant="success">
-          Pro
-        </TcChip>
-      </TcItemButton>
-
-      <TcItemButton disabled>
-        <TcIcon slot="prefix" name="lock" />
-        <TcText>비활성화된 항목</TcText>
-      </TcItemButton>
-
-      <TcItemButton>
-        <TcSymbol slot="prefix" size="2.5rem">
-          AB
-        </TcSymbol>
-        <div style={{ flex: 1 }}>
-          <TcText weight="600">Alice Brown</TcText>
-          <TcText size="sm" color="muted">
-            마지막 로그인: 2시간 전
-          </TcText>
-        </div>
-      </TcItemButton>
-    </>
-  );
-}
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/primitives/tc-item-button.js';
-import '@transcodes/ui-components/primitives/tc-text.js';
-import '@transcodes/ui-components/primitives/tc-icon.js';
-import '@transcodes/ui-components/primitives/tc-symbol.js';
-import '@transcodes/ui-components/primitives/tc-chip.js';
 
-@customElement('item-button-demo')
-export class ItemButtonDemo extends LitElement {
-  render() {
-    return html\`
-      <div>
-        <tc-item-button @tc-click=\${this.handleClick}>
-          <tc-text>설정</tc-text>
-        </tc-item-button>
-
-        <tc-item-button>
-          <tc-icon slot="prefix" name="person"></tc-icon>
-          <tc-text>프로필</tc-text>
-        </tc-item-button>
-
-        <tc-item-button ?show-arrow=\${false}>
-          <tc-text>체크박스 항목</tc-text>
-          <input slot="suffix" type="checkbox" />
-        </tc-item-button>
-
-        <tc-item-button>
-          <tc-text>구독</tc-text>
-          <tc-chip slot="suffix" variant="success">
-            Pro
-          </tc-chip>
-        </tc-item-button>
-
-        <tc-item-button ?disabled=\${true}>
-          <tc-icon slot="prefix" name="lock"></tc-icon>
-          <tc-text>비활성화된 항목</tc-text>
-        </tc-item-button>
-
-        <tc-item-button>
-          <tc-symbol slot="prefix" size="2.5rem">
-            AB
-          </tc-symbol>
-          <div style="flex: 1;">
-            <tc-text weight="600">Alice Brown</tc-text>
-            <tc-text size="sm" color="muted">
-              마지막 로그인: 2시간 전
-            </tc-text>
-          </div>
-        </tc-item-button>
-      </div>
-    \`;
-  }
-
-  private handleClick() {
-    console.log('Item clicked');
-  }
-}
+html`
+  <tc-item-button @tc-click=${handleClick}>
+    <tc-icon slot="prefix" name="person"></tc-icon>
+    <tc-text>프로필</tc-text>
+  </tc-item-button>
+`;
 ```
 </Tab>
 </Tabs>
 
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-item-button--default" icon="external-link">
-  Storybook에서 상세한 예제를 확인할 수 있습니다.
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-item-button--default" icon="external-link">
+  인터랙티브 예제
 </Card>
 
 ---
 
 ## 완전한 폼 예제
 
-```jsx
-<TcSection gap="2rem">
-  <TcFormHeader
-    title="회원가입"
-    subtitle="새 계정을 만들어주세요"
-  />
+```typescript
+html`
+  <tc-section .sx=${{ gap: '2rem' }}>
+    <tc-form-header
+      title="회원가입"
+      subtitle="새 계정을 만들어주세요"
+    ></tc-form-header>
 
-  <TcSection gap="1rem">
-    <TcInput label="사용자명" placeholder="username" required />
-    <TcInput label="이메일" type="email" placeholder="email@domain.com" required />
-    <TcInput label="비밀번호" type="password" placeholder="••••••••" required />
-  </TcSection>
+    <tc-section .sx=${{ gap: '1rem' }}>
+      <tc-input label="사용자명" placeholder="username" required></tc-input>
+      <tc-input label="이메일" type="email" required></tc-input>
+      <tc-input label="비밀번호" type="password" required></tc-input>
+    </tc-section>
 
-  <TcDivider text="또는" />
+    <tc-divider text="또는"></tc-divider>
 
-  <TcButton variant="primary">회원가입</TcButton>
-
-  <TcCallout variant="info">
-    <TcIcon slot="icon" name="info" />
-    이미 계정이 있으신가요? 로그인하세요.
-  </TcCallout>
-</TcSection>
+    <tc-button variant="primary">회원가입</tc-button>
+  </tc-section>
+`;
 ```

@@ -1,7 +1,9 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 import './tc-chip.js';
 import './tc-icon.js';
 import type { IconName } from './tc-icon.js';
@@ -32,6 +34,7 @@ export class TcInputWithChip extends LitElement {
     | 'success'
     | 'error'
     | 'info' = 'default';
+  @property({ type: Object }) sx: SxProps = {};
 
   @state() private inputId =
     `tc-input-chip-${Math.random().toString(36).slice(2)}`;
@@ -65,7 +68,7 @@ export class TcInputWithChip extends LitElement {
         width: 100%;
         background: var(--paper-white);
         border: 1px solid var(--ink-faint);
-        border-radius: var(--form-input-radius);
+        border-radius: var(--input-radius);
         transition: var(--transition-fast);
       }
 
@@ -86,9 +89,9 @@ export class TcInputWithChip extends LitElement {
       .input {
         flex: 1;
         min-width: 0;
-        padding: var(--form-input-padding-y) var(--form-input-padding-x);
+        padding: var(--input-padding-y) var(--input-padding-x);
         font-family: var(--font-body);
-        font-size: var(--form-input-font-size);
+        font-size: var(--input-font-size);
         color: var(--ink-black);
         background: transparent;
         border: none;
@@ -163,7 +166,7 @@ export class TcInputWithChip extends LitElement {
     };
 
     return html`
-      <div class=${classMap(fieldGroupClasses)}>
+      <div class=${classMap(fieldGroupClasses)} style=${styleMap(this.sx)}>
         ${
           this.label
             ? html`<label part="label" class="field-label" for=${this.inputId}>${this.label}</label>`
@@ -194,7 +197,7 @@ export class TcInputWithChip extends LitElement {
                     <span class="chip-content">
                       ${
                         this.chipIcon
-                          ? html`<tc-icon name=${this.chipIcon as IconName} size="0.875rem"></tc-icon>`
+                          ? html`<tc-icon name=${this.chipIcon as IconName} .sx=${{ '--icon-size': '0.875rem' }}></tc-icon>`
                           : ''
                       }
                       ${this.chipLabel}

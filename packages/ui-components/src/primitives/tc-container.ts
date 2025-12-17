@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A flex container component with column layout by default.
@@ -11,7 +12,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 @customElement('tc-container')
 export class TcContainer extends LitElement {
   @property({ type: Boolean }) wide = false;
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   private defaultStyles: Record<string, string> = {
     display: 'flex',

@@ -16,7 +16,7 @@ export const Default: StoryObj = {
   render: () => html`
     <div style="padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
       <tc-card>
-        <tc-section gap="var(--space-md)">
+        <tc-section .sx=${{ gap: 'var(--space-md)' }}>
           <tc-text size="xl" weight="600">Card Title</tc-text>
           <tc-text color="tertiary">
             This is a card component with layered shadows and an optional inner border effect.

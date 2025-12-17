@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { AnimationController } from '../controllers/animation.controller.js';
+import type { SxProps } from '../types.js';
 import '../primitives/tc-icon.js';
 import '../primitives/tc-text.js';
 import '../primitives/tc-button.js';
@@ -25,6 +27,7 @@ export class TcSuccessScreen extends LitElement {
     'Your action was completed successfully.';
   @property({ type: String, attribute: 'action-label' }) actionLabel = '';
   @property({ type: Boolean, attribute: 'auto-animate' }) autoAnimate = true;
+  @property({ type: Object }) sx: SxProps = {};
 
   @state() private isAnimated = false;
 
@@ -162,7 +165,7 @@ export class TcSuccessScreen extends LitElement {
     const animatedClass = this.isAnimated ? 'animated' : '';
 
     return html`
-      <div part="screen" class="screen">
+      <div part="screen" class="screen" style=${styleMap(this.sx)}>
         <tc-container>
           <div part="content" class="content">
             <div part="icon" class="icon-container ${animatedClass}">
@@ -178,7 +181,7 @@ export class TcSuccessScreen extends LitElement {
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             </div>
-            <tc-section gap="var(--space-sm)" class="text-content ${animatedClass}">
+            <tc-section .sx=${{ gap: 'var(--space-sm)' }} class="text-content ${animatedClass}">
               <tc-text part="title" tag="h1" size="xl" weight="600" class="title">
                 ${this.title}
               </tc-text>

@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * Primary button component with loading states.
@@ -19,7 +20,7 @@ export class TcButton extends LitElement {
   @property({ type: Boolean }) loading = false;
   @property({ type: String }) variant: 'primary' | 'secondary' | 'success' =
     'primary';
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,

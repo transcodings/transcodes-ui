@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 type TextTag =
   | 'p'
@@ -43,7 +44,7 @@ export class TcText extends LitElement {
   @property({ type: String }) size?: TextSize;
   @property({ type: String }) weight?: TextWeight;
   @property({ type: String }) color?: TextColor | string;
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,

@@ -11,14 +11,6 @@ const meta: Meta = {
       control: 'text',
       description: 'Optional text to display in the center of the divider',
     },
-    color: {
-      control: 'color',
-      description: 'Divider line color',
-    },
-    spacing: {
-      control: 'text',
-      description: 'Vertical margin (CSS value)',
-    },
   },
 };
 
@@ -27,17 +19,11 @@ export default meta;
 export const Default: StoryObj = {
   args: {
     text: '',
-    color: 'var(--ink-faint)',
-    spacing: 'var(--space-md)',
   },
   render: (args) => html`
     <div style="max-width: 400px; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
       <tc-text>Content above the divider</tc-text>
-      <tc-divider
-        text=${args.text}
-        color=${args.color}
-        spacing=${args.spacing}
-      ></tc-divider>
+      <tc-divider text=${args.text}></tc-divider>
       <tc-text>Content below the divider</tc-text>
     </div>
   `,
@@ -84,9 +70,9 @@ export const TextVariations: StoryObj = {
 export const CustomColors: StoryObj = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
-      <tc-divider color="var(--accent-primary)"></tc-divider>
-      <tc-divider color="var(--error-base)" text="Error"></tc-divider>
-      <tc-divider color="var(--accent-success)" text="Success"></tc-divider>
+      <tc-divider .sx=${{ '--divider-color': 'var(--accent-primary)' }}></tc-divider>
+      <tc-divider .sx=${{ '--divider-color': 'var(--error-base)' }} text="Error"></tc-divider>
+      <tc-divider .sx=${{ '--divider-color': 'var(--accent-success)' }} text="Success"></tc-divider>
     </div>
   `,
 };

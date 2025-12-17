@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * OTP (One-Time Password) input component with individual cells and progress indicator.
@@ -19,6 +21,7 @@ export class TcOtpInput extends LitElement {
   @property({ type: Boolean }) error = false;
   @property({ type: Boolean }) disabled = false;
   @property({ type: Boolean, attribute: 'show-progress' }) showProgress = true;
+  @property({ type: Object }) sx: SxProps = {};
 
   @state() private values: string[] = [];
 
@@ -125,7 +128,7 @@ export class TcOtpInput extends LitElement {
     const progress = (filledCount / this.length) * 100;
 
     return html`
-      <div class="container">
+      <div class="container" style=${styleMap(this.sx)}>
         <div part="cells" class="cells" role="group" aria-label="OTP input">
           ${this.values.map((value, index) => {
             const isFilled = value.length > 0;

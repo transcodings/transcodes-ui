@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * Decorative floating blob background for pages.
@@ -13,6 +15,7 @@ import { sharedStyles } from '../styles/shared.js';
 export class TcPageDecoration extends LitElement {
   @property({ type: String }) variant: 'primary' | 'success' | 'error' =
     'primary';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,
@@ -112,7 +115,7 @@ export class TcPageDecoration extends LitElement {
 
   override render() {
     return html`
-      <div part="decoration" class="decoration">
+      <div part="decoration" class="decoration" style=${styleMap(this.sx)}>
         <div part="blob" class="blob blob-1"></div>
         <div part="blob" class="blob blob-2"></div>
         <div part="blob" class="blob blob-3"></div>

@@ -45,19 +45,19 @@ export const WithIcon: StoryObj = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px; padding: 2rem; background: var(--paper-cream); border-radius: var(--radius-lg);">
       <tc-callout variant="info">
-        <tc-icon slot="icon" name="info" size="1.25rem"></tc-icon>
+        <tc-icon slot="icon" name="info" .sx=${{ '--icon-size': '1.25rem' }}></tc-icon>
         This is an info callout with an icon.
       </tc-callout>
       <tc-callout variant="success">
-        <tc-icon slot="icon" name="success" size="1.25rem"></tc-icon>
+        <tc-icon slot="icon" name="success" .sx=${{ '--icon-size': '1.25rem' }}></tc-icon>
         Your changes have been saved successfully.
       </tc-callout>
       <tc-callout variant="warning">
-        <tc-icon slot="icon" name="warning" size="1.25rem"></tc-icon>
+        <tc-icon slot="icon" name="warning" .sx=${{ '--icon-size': '1.25rem' }}></tc-icon>
         This action cannot be undone.
       </tc-callout>
       <tc-callout variant="error">
-        <tc-icon slot="icon" name="error" size="1.25rem"></tc-icon>
+        <tc-icon slot="icon" name="error" .sx=${{ '--icon-size': '1.25rem' }}></tc-icon>
         Failed to connect to the server.
       </tc-callout>
     </div>

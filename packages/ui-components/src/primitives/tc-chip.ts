@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A chip/tag component for labels and badges.
@@ -16,6 +18,7 @@ export class TcChip extends LitElement {
     | 'error'
     | 'info' = 'default';
   @property({ type: String }) size: 'sm' | 'md' = 'md';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,
@@ -69,7 +72,11 @@ export class TcChip extends LitElement {
 
   override render() {
     return html`
-      <span part="chip" class="chip chip--${this.variant} chip--${this.size}">
+      <span
+        part="chip"
+        class="chip chip--${this.variant} chip--${this.size}"
+        style=${styleMap(this.sx)}
+      >
         <slot></slot>
       </span>
     `;
