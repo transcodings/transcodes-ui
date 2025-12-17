@@ -1,0 +1,541 @@
+---
+title: 'Sizing'
+description: '아이콘, 스피너, 화면 아이콘, 보더 두께 등 크기 토큰'
+---
+
+## 크기 시스템
+
+Transcodes UI의 크기 시스템은 **아이콘**, **스피너**, **화면 장식**, **보더 두께** 등 다양한 크기 토큰을 제공합니다. 일관된 시각적 비율과 반응형 크기 조정을 지원합니다.
+
+## Icon Sizes
+
+아이콘 크기는 **7개 레벨**로 제공됩니다. `action` 사이즈는 버튼 내 아이콘에 최적화되어 있습니다.
+
+### 토큰 목록
+
+| 토큰 | 값 | 픽셀 | 용도 |
+|------|-----|------|------|
+| `size-icon-xs` | `0.75rem` | 12px | 인라인 아이콘, 배지 |
+| `size-icon-sm` | `1rem` | 16px | 작은 버튼, 목록 아이콘 |
+| `size-icon-action` | `1.25rem` | 20px | 버튼 내 아이콘, 화살표 |
+| `size-icon-md` | `1.5rem` | 24px | 기본 아이콘 크기 |
+| `size-icon-lg` | `2rem` | 32px | 강조 아이콘, 네비게이션 |
+| `size-icon-xl` | `2.5rem` | 40px | 큰 아이콘, 빈 상태 |
+| `size-icon-2xl` | `3rem` | 48px | 히어로 아이콘, 로고 |
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 버튼 내 아이콘 */
+    .button-icon {
+      width: var(--size-icon-action);
+      height: var(--size-icon-action);
+    }
+
+    /* 네비게이션 아이콘 */
+    .nav-icon {
+      width: var(--size-icon-lg);
+      height: var(--size-icon-lg);
+    }
+
+    /* 빈 상태 일러스트 */
+    .empty-state-icon {
+      width: var(--size-icon-2xl);
+      height: var(--size-icon-2xl);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    const iconSizes = {
+      xs: tokens.sizeIconXs,       // "0.75rem"
+      sm: tokens.sizeIconSm,       // "1rem"
+      action: tokens.sizeIconAction, // "1.25rem"
+      md: tokens.sizeIconMd,       // "1.5rem"
+      lg: tokens.sizeIconLg,       // "2rem"
+      xl: tokens.sizeIconXl,       // "2.5rem"
+      '2xl': tokens.sizeIcon2xl,   // "3rem"
+    };
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 시각화
+
+<div style={{ display: 'flex', alignItems: 'flex-end', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '12px',
+      height: '12px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '2px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>xs</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>12px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '16px',
+      height: '16px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '2px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>sm</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>16px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '2px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>action</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>20px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '24px',
+      height: '24px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '2px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>md</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>24px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '32px',
+      height: '32px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '2px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>lg</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>32px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '40px',
+      height: '40px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '2px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>xl</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>40px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '48px',
+      height: '48px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '2px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>2xl</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>48px</p>
+  </div>
+</div>
+
+## Spinner Sizes
+
+로딩 스피너 크기 토큰입니다. `button` 사이즈는 버튼 내 로딩 표시에 최적화되어 있습니다.
+
+### 토큰 목록
+
+| 토큰 | 값 | 픽셀 | 용도 |
+|------|-----|------|------|
+| `size-spinner-sm` | `1rem` | 16px | 인라인 로딩 |
+| `size-spinner-button` | `1.125rem` | 18px | 버튼 내 스피너 |
+| `size-spinner-md` | `2rem` | 32px | 카드/섹션 로딩 |
+| `size-spinner-lg` | `4rem` | 64px | 페이지 로딩 |
+| `size-spinner-xl` | `5rem` | 80px | 전체 화면 로딩 |
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 기본 스피너 */
+    .spinner {
+      width: var(--size-spinner-md);
+      height: var(--size-spinner-md);
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    /* 버튼 내 스피너 */
+    .button-spinner {
+      width: var(--size-spinner-button);
+      height: var(--size-spinner-button);
+    }
+
+    /* 페이지 로딩 */
+    .page-spinner {
+      width: var(--size-spinner-lg);
+      height: var(--size-spinner-lg);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    const spinnerSizes = {
+      sm: tokens.sizeSpinnerSm,       // "1rem"
+      button: tokens.sizeSpinnerButton, // "1.125rem"
+      md: tokens.sizeSpinnerMd,       // "2rem"
+      lg: tokens.sizeSpinnerLg,       // "4rem"
+      xl: tokens.sizeSpinnerXl,       // "5rem"
+    };
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 시각화
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '16px',
+      height: '16px',
+      border: '2px solid #6b4fd9',
+      borderTopColor: 'transparent',
+      borderRadius: '50%',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>sm</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>16px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '18px',
+      height: '18px',
+      border: '2px solid #6b4fd9',
+      borderTopColor: 'transparent',
+      borderRadius: '50%',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>button</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>18px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '32px',
+      height: '32px',
+      border: '3px solid #6b4fd9',
+      borderTopColor: 'transparent',
+      borderRadius: '50%',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>md</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>32px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '64px',
+      height: '64px',
+      border: '4px solid #6b4fd9',
+      borderTopColor: 'transparent',
+      borderRadius: '50%',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>lg</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>64px</p>
+  </div>
+</div>
+
+## Screen Icon Sizes
+
+화면 상태 아이콘 크기입니다. 에러/성공/빈 상태 화면에서 사용됩니다. `fluid` 사이즈는 반응형으로 뷰포트에 따라 조정됩니다.
+
+### 토큰 목록
+
+| 토큰 | 값 | 설명 |
+|------|-----|------|
+| `size-screen-icon-sm` | `4rem` (64px) | 작은 화면 아이콘 |
+| `size-screen-icon-md` | `5rem` (80px) | 기본 화면 아이콘 |
+| `size-screen-icon-fluid` | `clamp(3rem, 2.43rem + 2.86vw, 5rem)` | 48px → 80px 반응형 |
+
+### 사용 예시
+
+```css
+/* 에러/성공 화면 아이콘 */
+.screen-icon {
+  width: var(--size-screen-icon-fluid);
+  height: var(--size-screen-icon-fluid);
+}
+
+/* 고정 크기 */
+.screen-icon--fixed {
+  width: var(--size-screen-icon-md);
+  height: var(--size-screen-icon-md);
+}
+```
+
+### 시각화
+
+<div style={{ display: 'flex', alignItems: 'flex-end', gap: '2rem', marginTop: '1rem' }}>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '64px',
+      height: '64px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '50%',
+      margin: '0 auto 0.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontSize: '1.5rem'
+    }}>
+      !
+    </div>
+    <code style={{ fontSize: '0.75rem' }}>screen-icon-sm</code>
+    <p style={{ fontSize: '0.7rem', color: '#666', margin: '0.25rem 0' }}>64px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '80px',
+      height: '80px',
+      backgroundColor: '#6b4fd9',
+      borderRadius: '50%',
+      margin: '0 auto 0.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontSize: '2rem'
+    }}>
+      !
+    </div>
+    <code style={{ fontSize: '0.75rem' }}>screen-icon-md</code>
+    <p style={{ fontSize: '0.7rem', color: '#666', margin: '0.25rem 0' }}>80px</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '80px',
+      height: '80px',
+      backgroundColor: '#357a46',
+      borderRadius: '50%',
+      margin: '0 auto 0.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontSize: '2rem'
+    }}>
+      !
+    </div>
+    <code style={{ fontSize: '0.75rem' }}>screen-icon-fluid</code>
+    <p style={{ fontSize: '0.7rem', color: '#666', margin: '0.25rem 0' }}>48px → 80px</p>
+  </div>
+</div>
+
+## Border Widths
+
+테두리 두께 토큰입니다. 5개 레벨로 시각적 강조 정도를 표현합니다.
+
+### 토큰 목록
+
+| 토큰 | 값 | 픽셀 | 용도 |
+|------|-----|------|------|
+| `size-border-width-thin` | `0.0625rem` | 1px | 기본 구분선 |
+| `size-border-width-base` | `0.09375rem` | 1.5px | 버튼/입력 필드 |
+| `size-border-width-thick` | `0.125rem` | 2px | 강조 보더 |
+| `size-border-width-heavy` | `0.1875rem` | 3px | 포커스 링 |
+| `size-border-width-bold` | `0.25rem` | 4px | 진행 바, 구분자 |
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 기본 구분선 */
+    .divider {
+      border-top: var(--size-border-width-thin) solid var(--ink-faint);
+    }
+
+    /* 버튼 보더 */
+    .button-secondary {
+      border: var(--size-border-width-base) solid var(--ink-faint);
+    }
+
+    /* 포커스 링 */
+    .input:focus {
+      outline: var(--size-border-width-heavy) solid var(--accent-primary);
+      outline-offset: 2px;
+    }
+
+    /* 진행 바 */
+    .progress-track {
+      height: var(--size-border-width-bold);
+      background: var(--paper-warm);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    const borderWidths = {
+      thin: tokens.sizeBorderWidthThin,   // "0.0625rem"
+      base: tokens.sizeBorderWidthBase,   // "0.09375rem"
+      thick: tokens.sizeBorderWidthThick, // "0.125rem"
+      heavy: tokens.sizeBorderWidthHeavy, // "0.1875rem"
+      bold: tokens.sizeBorderWidthBold,   // "0.25rem"
+    };
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 시각화
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+    <div style={{ width: '100px', height: '1px', backgroundColor: '#6b4fd9' }} />
+    <code style={{ fontSize: '0.75rem' }}>thin (1px)</code>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+    <div style={{ width: '100px', height: '1.5px', backgroundColor: '#6b4fd9' }} />
+    <code style={{ fontSize: '0.75rem' }}>base (1.5px)</code>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+    <div style={{ width: '100px', height: '2px', backgroundColor: '#6b4fd9' }} />
+    <code style={{ fontSize: '0.75rem' }}>thick (2px)</code>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+    <div style={{ width: '100px', height: '3px', backgroundColor: '#6b4fd9' }} />
+    <code style={{ fontSize: '0.75rem' }}>heavy (3px)</code>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+    <div style={{ width: '100px', height: '4px', backgroundColor: '#6b4fd9' }} />
+    <code style={{ fontSize: '0.75rem' }}>bold (4px)</code>
+  </div>
+</div>
+
+## 기타 크기 토큰
+
+### Decoration Blob
+
+페이지 장식 배경 블롭 크기입니다. 반응형으로 뷰포트에 따라 조정됩니다.
+
+| 토큰 | 값 | 설명 |
+|------|-----|------|
+| `size-decoration-blob` | `clamp(12rem, 9.43rem + 12.86vw, 22rem)` | 192px → 352px 반응형 |
+
+```css
+.page-decoration {
+  width: var(--size-decoration-blob);
+  height: var(--size-decoration-blob);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+```
+
+### Close Button
+
+닫기 버튼 크기:
+
+| 토큰 | 값 | 설명 |
+|------|-----|------|
+| `size-close-button` | `2rem` (32px) | 모달/패널 닫기 버튼 |
+
+```css
+.close-button {
+  width: var(--size-close-button);
+  height: var(--size-close-button);
+}
+```
+
+### Progress Bar
+
+진행 바 너비:
+
+| 토큰 | 값 | 설명 |
+|------|-----|------|
+| `size-progress-bar-width` | `12rem` (192px) | 기본 진행 바 너비 |
+
+```css
+.progress-bar {
+  width: var(--size-progress-bar-width);
+}
+```
+
+### Chip Padding
+
+칩/태그 패딩:
+
+| 토큰 | 값 | 설명 |
+|------|-----|------|
+| `size-chip-padding-sm` | `0.125rem 0.5rem` | 작은 칩 패딩 |
+| `size-chip-padding-md` | `0.25rem 0.75rem` | 기본 칩 패딩 |
+
+```css
+.chip {
+  padding: var(--size-chip-padding-md);
+  border-radius: var(--radius-full);
+}
+
+.chip--sm {
+  padding: var(--size-chip-padding-sm);
+}
+```
+
+## 크기 선택 가이드
+
+<Tip>
+**크기 토큰 선택 기준:**
+
+1. **아이콘**: 주변 텍스트 크기와 비례하게 선택
+2. **스피너**: 로딩 영역 크기에 맞게 선택
+3. **보더**: 시각적 강조 정도에 따라 선택
+4. **반응형**: `fluid` 토큰으로 자동 조정
+</Tip>
+
+### 아이콘 크기 가이드
+
+| 텍스트 크기 | 권장 아이콘 |
+|------------|-----------|
+| `font-size-sm` | `size-icon-xs`, `size-icon-sm` |
+| `font-size-base` | `size-icon-sm`, `size-icon-action` |
+| `font-size-lg` | `size-icon-action`, `size-icon-md` |
+| `font-size-xl` | `size-icon-md`, `size-icon-lg` |
+
+### 보더 두께 가이드
+
+| 용도 | 권장 두께 |
+|------|----------|
+| 구분선, 테이블 | `thin` (1px) |
+| 버튼, 입력 필드 | `base` (1.5px) |
+| 활성 상태 | `thick` (2px) |
+| 포커스 링 | `heavy` (3px) |
+| 진행 바, 강조 | `bold` (4px) |
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Layout" icon="layout-grid" href="/design-tokens/layout">
+    Breakpoints, Z-Index, Opacity, Overlay
+  </Card>
+  <Card title="Effects" icon="sparkles" href="/design-tokens/effects">
+    Border Radius, Shadows, Transitions
+  </Card>
+  <Card title="Spacing" icon="indent" href="/design-tokens/spacing">
+    간격 토큰 및 Fluid 스페이싱
+  </Card>
+  <Card title="Typography" icon="type" href="/design-tokens/typography">
+    폰트 크기 및 가중치
+  </Card>
+</CardGroup>

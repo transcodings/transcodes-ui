@@ -1,0 +1,534 @@
+---
+title: 'Layout'
+description: 'Breakpoints, Z-Index, Opacity, Overlay 토큰'
+---
+
+## 레이아웃 시스템
+
+Transcodes UI의 레이아웃 시스템은 **Breakpoints**, **Z-Index 계층**, **Opacity**, **Overlay 색상**으로 구성됩니다. 반응형 디자인과 시각적 계층 구조를 관리합니다.
+
+## Breakpoints
+
+반응형 디자인을 위한 **4개 브레이크포인트**를 제공합니다. 모바일 퍼스트 접근법을 따릅니다.
+
+### 토큰 목록
+
+| 토큰 | 값 | 기기 |
+|------|-----|------|
+| `breakpoint-sm` | `640px` | 모바일 (가로) |
+| `breakpoint-md` | `768px` | 태블릿 |
+| `breakpoint-lg` | `1024px` | 노트북 |
+| `breakpoint-xl` | `1280px` | 데스크톱 |
+
+### 시각화
+
+<div style={{ marginTop: '1rem' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+    <div style={{ width: '40px', height: '20px', backgroundColor: '#6b4fd9', borderRadius: '2px' }} />
+    <code style={{ fontSize: '0.8rem' }}>sm</code>
+    <span style={{ fontSize: '0.8rem', color: '#666' }}>640px</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+    <div style={{ width: '48px', height: '20px', backgroundColor: '#6b4fd9', borderRadius: '2px' }} />
+    <code style={{ fontSize: '0.8rem' }}>md</code>
+    <span style={{ fontSize: '0.8rem', color: '#666' }}>768px</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+    <div style={{ width: '64px', height: '20px', backgroundColor: '#6b4fd9', borderRadius: '2px' }} />
+    <code style={{ fontSize: '0.8rem' }}>lg</code>
+    <span style={{ fontSize: '0.8rem', color: '#666' }}>1024px</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <div style={{ width: '80px', height: '20px', backgroundColor: '#6b4fd9', borderRadius: '2px' }} />
+    <code style={{ fontSize: '0.8rem' }}>xl</code>
+    <span style={{ fontSize: '0.8rem', color: '#666' }}>1280px</span>
+  </div>
+</div>
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="CSS Media Queries">
+    ```css
+    /* 모바일 퍼스트: 기본 스타일 */
+    .container {
+      padding: var(--space-md);
+    }
+
+    /* 태블릿 이상 */
+    @media (min-width: 768px) {
+      .container {
+        padding: var(--space-lg);
+      }
+    }
+
+    /* 데스크톱 */
+    @media (min-width: 1024px) {
+      .container {
+        padding: var(--space-xl);
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="CSS 변수 사용">
+    ```css
+    /* 브레이크포인트 변수 참조 */
+    @media (min-width: var(--breakpoint-sm)) {
+      /* 640px 이상 */
+    }
+
+    @media (min-width: var(--breakpoint-md)) {
+      /* 768px 이상 */
+    }
+
+    @media (min-width: var(--breakpoint-lg)) {
+      /* 1024px 이상 */
+    }
+
+    @media (min-width: var(--breakpoint-xl)) {
+      /* 1280px 이상 */
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    const breakpoints = {
+      sm: tokens.breakpointSm,  // "640px"
+      md: tokens.breakpointMd,  // "768px"
+      lg: tokens.breakpointLg,  // "1024px"
+      xl: tokens.breakpointXl,  // "1280px"
+    };
+
+    // 미디어 쿼리 헬퍼
+    const mediaQuery = (bp: keyof typeof breakpoints) =>
+      `@media (min-width: ${breakpoints[bp]})`;
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 브레이크포인트 선택 가이드
+
+| 브레이크포인트 | 용도 |
+|--------------|------|
+| `sm` (640px) | 모바일 가로 모드, 2열 레이아웃 시작 |
+| `md` (768px) | 태블릿, 사이드바 표시 |
+| `lg` (1024px) | 노트북, 데스크톱 네비게이션 |
+| `xl` (1280px) | 대형 데스크톱, 최대 너비 컨테이너 |
+
+## Z-Index
+
+시각적 **스택 순서**를 관리하는 Z-Index 토큰입니다. 7개 레벨로 일관된 계층 구조를 유지합니다.
+
+### 토큰 목록
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `z-dropdown` | `1000` | 드롭다운 메뉴 |
+| `z-sticky` | `1020` | 고정 헤더 |
+| `z-fixed` | `1030` | 고정 요소 |
+| `z-modal-backdrop` | `1040` | 모달 배경 |
+| `z-modal` | `1050` | 모달 다이얼로그 |
+| `z-popover` | `1060` | 팝오버 |
+| `z-tooltip` | `1070` | 툴팁 (최상위) |
+
+### 시각화
+
+<div style={{ position: 'relative', height: '280px', marginTop: '1rem', backgroundColor: '#f5f4f8', borderRadius: '8px', overflow: 'hidden' }}>
+  <div style={{ position: 'absolute', bottom: '0', left: '20px', right: '20px', height: '40px', backgroundColor: '#e8e6f0', display: 'flex', alignItems: 'center', paddingLeft: '1rem', fontSize: '0.8rem' }}>
+    Base Layer (auto)
+  </div>
+  <div style={{ position: 'absolute', bottom: '50px', left: '30px', right: '30px', height: '35px', backgroundColor: '#d4d1e3', display: 'flex', alignItems: 'center', paddingLeft: '1rem', fontSize: '0.8rem' }}>
+    z-dropdown (1000)
+  </div>
+  <div style={{ position: 'absolute', bottom: '95px', left: '40px', right: '40px', height: '35px', backgroundColor: '#c0bcd6', display: 'flex', alignItems: 'center', paddingLeft: '1rem', fontSize: '0.8rem' }}>
+    z-sticky (1020)
+  </div>
+  <div style={{ position: 'absolute', bottom: '140px', left: '50px', right: '50px', height: '35px', backgroundColor: '#aca7c9', display: 'flex', alignItems: 'center', paddingLeft: '1rem', fontSize: '0.8rem' }}>
+    z-modal-backdrop (1040)
+  </div>
+  <div style={{ position: 'absolute', bottom: '185px', left: '60px', right: '60px', height: '35px', backgroundColor: '#9892bc', display: 'flex', alignItems: 'center', paddingLeft: '1rem', fontSize: '0.8rem', color: 'white' }}>
+    z-modal (1050)
+  </div>
+  <div style={{ position: 'absolute', bottom: '230px', left: '70px', right: '70px', height: '35px', backgroundColor: '#6b4fd9', display: 'flex', alignItems: 'center', paddingLeft: '1rem', fontSize: '0.8rem', color: 'white' }}>
+    z-tooltip (1070)
+  </div>
+</div>
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 드롭다운 메뉴 */
+    .dropdown-menu {
+      position: absolute;
+      z-index: var(--z-dropdown);
+    }
+
+    /* 고정 헤더 */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-sticky);
+    }
+
+    /* 모달 */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-modal-backdrop);
+      background: var(--overlay-dim);
+    }
+
+    .modal {
+      position: fixed;
+      z-index: var(--z-modal);
+    }
+
+    /* 툴팁 */
+    .tooltip {
+      position: absolute;
+      z-index: var(--z-tooltip);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    const zIndex = {
+      dropdown: tokens.zDropdown,       // "1000"
+      sticky: tokens.zSticky,           // "1020"
+      fixed: tokens.zFixed,             // "1030"
+      modalBackdrop: tokens.zModalBackdrop, // "1040"
+      modal: tokens.zModal,             // "1050"
+      popover: tokens.zPopover,         // "1060"
+      tooltip: tokens.zTooltip,         // "1070"
+    };
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### Z-Index 사용 규칙
+
+<Warning>
+**Z-Index 충돌 방지:**
+
+1. 항상 토큰 사용 (임의의 숫자 금지)
+2. 같은 레벨 내에서는 DOM 순서로 관리
+3. 모달 내부 요소는 `z-modal` 이하 사용
+4. 새로운 레벨이 필요하면 토큰 추가
+</Warning>
+
+## Opacity
+
+**투명도 상태**를 관리하는 토큰입니다. WCAG 접근성 기준을 준수합니다.
+
+### 토큰 목록
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `opacity-hidden` | `0` | 완전 투명 (숨김) |
+| `opacity-disabled` | `0.6` | 비활성 상태 |
+| `opacity-loading` | `0.6` | 로딩 상태 |
+| `opacity-hover` | `0.7` | 호버 상태 |
+| `opacity-visible` | `1` | 완전 불투명 |
+
+### 시각화
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1rem', marginTop: '1rem' }}>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '60px',
+      height: '60px',
+      backgroundColor: '#6b4fd9',
+      opacity: 0,
+      border: '2px dashed #ccc',
+      borderRadius: '4px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>hidden</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>0%</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '60px',
+      height: '60px',
+      backgroundColor: '#6b4fd9',
+      opacity: 0.6,
+      borderRadius: '4px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>disabled</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>60%</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '60px',
+      height: '60px',
+      backgroundColor: '#6b4fd9',
+      opacity: 0.6,
+      borderRadius: '4px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>loading</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>60%</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '60px',
+      height: '60px',
+      backgroundColor: '#6b4fd9',
+      opacity: 0.7,
+      borderRadius: '4px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>hover</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>70%</p>
+  </div>
+  <div style={{ textAlign: 'center' }}>
+    <div style={{
+      width: '60px',
+      height: '60px',
+      backgroundColor: '#6b4fd9',
+      opacity: 1,
+      borderRadius: '4px',
+      margin: '0 auto 0.5rem'
+    }} />
+    <code style={{ fontSize: '0.7rem' }}>visible</code>
+    <p style={{ fontSize: '0.65rem', color: '#666', margin: '0.2rem 0' }}>100%</p>
+  </div>
+</div>
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="CSS">
+    ```css
+    /* 비활성 상태 */
+    .button:disabled {
+      opacity: var(--opacity-disabled);
+      cursor: not-allowed;
+    }
+
+    /* 로딩 상태 */
+    .card.loading {
+      opacity: var(--opacity-loading);
+      pointer-events: none;
+    }
+
+    /* 호버 효과 */
+    .image:hover {
+      opacity: var(--opacity-hover);
+    }
+
+    /* 숨김/표시 전환 */
+    .tooltip {
+      opacity: var(--opacity-hidden);
+      transition: opacity var(--transition-fast);
+    }
+
+    .tooltip.visible {
+      opacity: var(--opacity-visible);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="TypeScript">
+    ```typescript
+    import { tokens } from '@transcodes/design-tokens';
+
+    const opacity = {
+      hidden: tokens.opacityHidden,     // "0"
+      disabled: tokens.opacityDisabled, // "0.6"
+      loading: tokens.opacityLoading,   // "0.6"
+      hover: tokens.opacityHover,       // "0.7"
+      visible: tokens.opacityVisible,   // "1"
+    };
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+### 접근성
+
+<Tip>
+`opacity-disabled`는 **WCAG 1.4.3** 기준을 충족합니다. 비활성 상태에서도 텍스트가 읽을 수 있어야 합니다. 0.6 (60%)은 대비율을 유지하면서 비활성을 표현하는 최적값입니다.
+</Tip>
+
+## Overlay Colors
+
+**오버레이, 그림자, 특수 효과**를 위한 색상 토큰입니다. 모두 반투명 색상입니다.
+
+### Modal Overlays
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `overlay-dim` | `rgba(0, 0, 0, 0.5)` | 일반 모달 배경 |
+| `overlay-dark` | `rgba(0, 0, 0, 0.7)` | 중요 모달, 에러 상태 |
+
+### Shadow Colors
+
+그림자에 사용되는 반투명 검정색입니다:
+
+| 토큰 | 값 | 투명도 | 용도 |
+|------|-----|--------|------|
+| `overlay-shadow-light` | `rgba(0, 0, 0, 0.1)` | 10% | 미묘한 그림자 |
+| `overlay-shadow-subtle` | `rgba(0, 0, 0, 0.15)` | 15% | 토스트, 배너 |
+| `overlay-shadow-medium` | `rgba(0, 0, 0, 0.2)` | 20% | 카드, 드롭다운 |
+| `overlay-shadow-strong` | `rgba(0, 0, 0, 0.3)` | 30% | 모달, 팝업 |
+| `overlay-shadow-heavy` | `rgba(0, 0, 0, 0.4)` | 40% | 강조 요소 |
+
+### Special Effects
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `overlay-glow-white` | `rgba(255, 255, 255, 0.15)` | 버튼 호버 글로우 |
+| `overlay-spinner-track` | `rgba(255, 255, 255, 0.3)` | 어두운 배경 스피너 |
+
+### 시각화
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginTop: '1rem' }}>
+  <div>
+    <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem' }}>Modal Overlays</h4>
+    <div style={{ display: 'flex', gap: '0.5rem' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{
+          width: '80px',
+          height: '60px',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          borderRadius: '4px',
+          marginBottom: '0.25rem'
+        }} />
+        <code style={{ fontSize: '0.7rem' }}>dim</code>
+        <p style={{ fontSize: '0.6rem', color: '#666', margin: 0 }}>50%</p>
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{
+          width: '80px',
+          height: '60px',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          borderRadius: '4px',
+          marginBottom: '0.25rem'
+        }} />
+        <code style={{ fontSize: '0.7rem' }}>dark</code>
+        <p style={{ fontSize: '0.6rem', color: '#666', margin: 0 }}>70%</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem' }}>Shadow Colors</h4>
+    <div style={{ display: 'flex', gap: '0.25rem' }}>
+      <div style={{ width: '30px', height: '60px', backgroundColor: 'rgba(0, 0, 0, 0.1)', borderRadius: '2px' }} />
+      <div style={{ width: '30px', height: '60px', backgroundColor: 'rgba(0, 0, 0, 0.15)', borderRadius: '2px' }} />
+      <div style={{ width: '30px', height: '60px', backgroundColor: 'rgba(0, 0, 0, 0.2)', borderRadius: '2px' }} />
+      <div style={{ width: '30px', height: '60px', backgroundColor: 'rgba(0, 0, 0, 0.3)', borderRadius: '2px' }} />
+      <div style={{ width: '30px', height: '60px', backgroundColor: 'rgba(0, 0, 0, 0.4)', borderRadius: '2px' }} />
+    </div>
+    <div style={{ display: 'flex', gap: '0.25rem', marginTop: '0.25rem' }}>
+      <code style={{ fontSize: '0.55rem', width: '30px', textAlign: 'center' }}>10%</code>
+      <code style={{ fontSize: '0.55rem', width: '30px', textAlign: 'center' }}>15%</code>
+      <code style={{ fontSize: '0.55rem', width: '30px', textAlign: 'center' }}>20%</code>
+      <code style={{ fontSize: '0.55rem', width: '30px', textAlign: 'center' }}>30%</code>
+      <code style={{ fontSize: '0.55rem', width: '30px', textAlign: 'center' }}>40%</code>
+    </div>
+  </div>
+</div>
+
+### 사용 예시
+
+<CodeGroup>
+  <CodeBlock title="Modal Overlay">
+    ```css
+    /* 모달 배경 */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: var(--overlay-dim);
+      z-index: var(--z-modal-backdrop);
+    }
+
+    /* 중요/에러 모달 */
+    .modal-backdrop--critical {
+      background: var(--overlay-dark);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="커스텀 그림자">
+    ```css
+    /* 커스텀 box-shadow */
+    .custom-shadow {
+      box-shadow:
+        0 4px 6px var(--overlay-shadow-light),
+        0 10px 20px var(--overlay-shadow-medium);
+    }
+
+    /* 강한 그림자 */
+    .floating-element {
+      box-shadow: 0 20px 40px var(--overlay-shadow-strong);
+    }
+    ```
+  </CodeBlock>
+  <CodeBlock title="Special Effects">
+    ```css
+    /* 버튼 글로우 */
+    .button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at center,
+        var(--overlay-glow-white),
+        transparent
+      );
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .button:hover::before {
+      opacity: 1;
+    }
+
+    /* 어두운 배경 스피너 */
+    .dark-bg .spinner {
+      border-color: var(--overlay-spinner-track);
+      border-top-color: white;
+    }
+    ```
+  </CodeBlock>
+</CodeGroup>
+
+## 다크 모드 지원
+
+Overlay 토큰들은 다크 모드에서 자동으로 조정됩니다:
+
+```css
+/* 라이트 모드 */
+:root {
+  --overlay-shadow-medium: rgba(0, 0, 0, 0.2);
+}
+
+/* 다크 모드 - 더 강한 그림자 */
+[data-theme="dark"] {
+  --overlay-shadow-medium: rgba(0, 0, 0, 0.4);
+}
+```
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Effects" icon="sparkles" href="/design-tokens/effects">
+    Border Radius, Shadows, Transitions
+  </Card>
+  <Card title="Sizing" icon="arrows-maximize" href="/design-tokens/sizing">
+    아이콘, 스피너, 보더 크기
+  </Card>
+  <Card title="Spacing" icon="indent" href="/design-tokens/spacing">
+    간격 토큰 및 Fluid 스페이싱
+  </Card>
+  <Card title="Dark Mode" icon="moon" href="/design-tokens/dark-mode">
+    다크 모드 구현
+  </Card>
+</CardGroup>

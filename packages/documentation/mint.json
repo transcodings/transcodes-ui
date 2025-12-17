@@ -65,6 +65,9 @@
         "design-tokens/colors",
         "design-tokens/typography",
         "design-tokens/spacing",
+        "design-tokens/effects",
+        "design-tokens/sizing",
+        "design-tokens/layout",
         "design-tokens/dark-mode"
       ]
     },

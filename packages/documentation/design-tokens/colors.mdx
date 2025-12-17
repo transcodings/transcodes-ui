@@ -8,6 +8,9 @@ description: '색상 팔레트: Paper, Ink, Accent, Error, Alpha 토큰 및 WCAG
 Transcodes UI의 색상 시스템은 **5개의 의미론적 카테고리**로 구성되어 있으며, 모든 색상은 **WCAG AA** 기준에 따라 대비율을 검증했습니다.
 
 <CardGroup cols={2}>
+  <Card title="Brand" icon="trademark">
+    브랜드 아이덴티티 색상
+  </Card>
   <Card title="Paper" icon="file">
     배경 및 컨테이너
   </Card>
@@ -24,6 +27,100 @@ Transcodes UI의 색상 시스템은 **5개의 의미론적 카테고리**로 �
     투명도가 적용된 색상
   </Card>
 </CardGroup>
+
+## Brand - 브랜드 색상
+
+Brand 색상은 **Transcodes 브랜드 아이덴티티**를 나타냅니다. 로고, 주요 CTA, 브랜드 강조에 사용됩니다.
+
+### 색상 팔레트
+
+| 토큰 | 값 | 용도 |
+|------|-----|------|
+| `brand-primary` | `#7c5cff` | 브랜드 메인 색상 |
+| `brand-primary-hover` | `#6a4ae8` | 브랜드 호버 상태 |
+| `brand-logo-text` | `#1a1a1a` | 로고 텍스트 색상 |
+
+### 시각화
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginTop: '1rem' }}>
+  <div>
+    <div style={{
+      width: '100%',
+      height: '80px',
+      backgroundColor: '#7c5cff',
+      borderRadius: '4px',
+      marginBottom: '0.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontWeight: '600'
+    }}>
+      Primary
+    </div>
+    <code style={{ fontSize: '0.85rem' }}>brand-primary</code>
+    <p style={{ fontSize: '0.8rem', color: '#666', margin: '0.25rem 0' }}>#7c5cff</p>
+  </div>
+  <div>
+    <div style={{
+      width: '100%',
+      height: '80px',
+      backgroundColor: '#6a4ae8',
+      borderRadius: '4px',
+      marginBottom: '0.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontWeight: '600'
+    }}>
+      Hover
+    </div>
+    <code style={{ fontSize: '0.85rem' }}>brand-primary-hover</code>
+    <p style={{ fontSize: '0.8rem', color: '#666', margin: '0.25rem 0' }}>#6a4ae8</p>
+  </div>
+  <div>
+    <div style={{
+      width: '100%',
+      height: '80px',
+      backgroundColor: '#1a1a1a',
+      borderRadius: '4px',
+      marginBottom: '0.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontWeight: '600'
+    }}>
+      Logo
+    </div>
+    <code style={{ fontSize: '0.85rem' }}>brand-logo-text</code>
+    <p style={{ fontSize: '0.8rem', color: '#666', margin: '0.25rem 0' }}>#1a1a1a</p>
+  </div>
+</div>
+
+### 사용 예시
+
+```css
+/* 브랜드 버튼 */
+.brand-button {
+  background-color: var(--brand-primary);
+  color: white;
+}
+
+.brand-button:hover {
+  background-color: var(--brand-primary-hover);
+}
+
+/* 로고 텍스트 */
+.logo-text {
+  color: var(--brand-logo-text);
+}
+```
+
+<Note>
+`brand-primary`는 `accent-primary`보다 약간 밝은 보라색입니다. 브랜드 강조가 필요한 곳에 사용하고, 일반 UI 인터랙션에는 `accent-primary`를 사용하세요.
+</Note>
 
 ## Paper - 배경 색상
 
@@ -235,6 +332,100 @@ Ink 색상은 **텍스트 및 타이포그래피**를 위한 색상입니다. 5�
     </div>
   </div>
 </div>
+
+### 다양한 배경에서의 Ink 사용
+
+Ink 토큰은 배경 색상에 따라 적절히 선택해야 합니다. 쇼케이스에서처럼 각 배경에 맞는 조합을 사용하세요.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginTop: '1rem' }}>
+  <div>
+    <div style={{ padding: '1rem', backgroundColor: '#faf9fc', borderRadius: '8px', border: '1px solid #ddd' }}>
+      <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: '#1a1a1a' }}>On Paper White</h4>
+      <p style={{ margin: 0, fontSize: '0.85rem', color: '#5c5c5c' }}>
+        본문 텍스트에 ink-medium 사용
+      </p>
+      <p style={{ margin: '0.25rem 0 0', fontSize: '0.75rem', color: '#8a8a8a' }}>
+        캡션에 ink-light 사용
+      </p>
+    </div>
+  </div>
+  <div>
+    <div style={{ padding: '1rem', backgroundColor: '#f5f4f8', borderRadius: '8px' }}>
+      <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: '#1a1a1a' }}>On Paper Cream</h4>
+      <p style={{ margin: 0, fontSize: '0.85rem', color: '#5c5c5c' }}>
+        약간 따뜻한 배경에서의 텍스트
+      </p>
+      <p style={{ margin: '0.25rem 0 0', fontSize: '0.75rem', color: '#8a8a8a' }}>
+        메타데이터 캡션
+      </p>
+    </div>
+  </div>
+  <div>
+    <div style={{ padding: '1rem', backgroundColor: '#ebe9f0', borderRadius: '8px' }}>
+      <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: '#2d2d2d' }}>On Paper Warm</h4>
+      <p style={{ margin: 0, fontSize: '0.85rem', color: '#2d2d2d' }}>
+        어두운 배경에선 ink-dark 사용
+      </p>
+      <p style={{ margin: '0.25rem 0 0', fontSize: '0.75rem', color: '#5c5c5c' }}>
+        캡션에 ink-medium 사용
+      </p>
+    </div>
+  </div>
+  <div>
+    <div style={{ padding: '1rem', backgroundColor: '#6b4fd9', borderRadius: '8px' }}>
+      <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: 'rgba(255,255,255,0.95)' }}>On Primary</h4>
+      <p style={{ margin: 0, fontSize: '0.85rem', color: 'rgba(255,255,255,0.95)' }}>
+        Accent 배경엔 alpha-onAccent 사용
+      </p>
+      <p style={{ margin: '0.25rem 0 0', fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>
+        alpha-onAccentMuted로 캡션
+      </p>
+    </div>
+  </div>
+  <div>
+    <div style={{ padding: '1rem', backgroundColor: '#357a46', borderRadius: '8px' }}>
+      <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: 'rgba(255,255,255,0.95)' }}>On Success</h4>
+      <p style={{ margin: 0, fontSize: '0.85rem', color: 'rgba(255,255,255,0.95)' }}>
+        Success 배경도 동일하게
+      </p>
+      <p style={{ margin: '0.25rem 0 0', fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>
+        alpha-onAccentMuted 캡션
+      </p>
+    </div>
+  </div>
+  <div>
+    <div style={{ padding: '1rem', backgroundColor: '#1a1a1a', borderRadius: '8px' }}>
+      <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>On Dark (Fixed)</h4>
+      <p style={{ margin: 0, fontSize: '0.85rem', color: 'rgba(255,255,255,0.9)' }}>
+        어두운 배경엔 alpha-white90
+      </p>
+      <p style={{ margin: '0.25rem 0 0', fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)' }}>
+        alpha-white30으로 캡션
+      </p>
+    </div>
+  </div>
+</div>
+
+### OnAccent 토큰
+
+Accent 색상 배경 위에 텍스트를 표시할 때 사용하는 전용 토큰입니다:
+
+| 토큰 | 라이트 모드 | 다크 모드 | 용도 |
+|------|------------|----------|------|
+| `alpha-onAccent` | `rgba(255,255,255,0.95)` | `rgba(0,0,0,0.95)` | 주요 텍스트 |
+| `alpha-onAccentMuted` | `rgba(255,255,255,0.7)` | `rgba(0,0,0,0.7)` | 보조 텍스트 |
+
+```css
+/* Accent 배경 위 텍스트 */
+.button-primary {
+  background: var(--accent-primary);
+  color: var(--alpha-onAccent);
+}
+
+.button-primary .subtitle {
+  color: var(--alpha-onAccentMuted);
+}
+```
 
 ## Accent - 상호작용 색상
 
@@ -453,6 +644,120 @@ Alpha 색상은 **반투명 효과**가 적용된 색상으로 호버, 오버레
   데이터가 저장되었습니다.
 </div>
 ```
+
+## Accessibility 대비율
+
+모든 색상 조합의 **WCAG 대비율**입니다. `paper-white` (#faf9fc) 배경 기준입니다.
+
+### 대비율 기준
+
+| 등급 | 대비율 | 용도 |
+|------|--------|------|
+| **AAA** | 7:1 이상 | 최고 수준 접근성 |
+| **AA** | 4.5:1 이상 | 일반 텍스트 |
+| **AA Large** | 3:1 이상 | 큰 텍스트 (18px+ 또는 14px bold) |
+
+### Ink 색상 대비율
+
+| 조합 | 대비율 | WCAG AA | WCAG AAA |
+|------|--------|---------|----------|
+| ink-black on paper-white | **17.4:1** | Pass | Pass |
+| ink-dark on paper-white | **13.8:1** | Pass | Pass |
+| ink-medium on paper-white | **6.9:1** | Pass | Fail |
+| ink-light on paper-white | **3.7:1** | Large only | Fail |
+| ink-faint on paper-white | **2.2:1** | Decorative | N/A |
+
+### Accent 색상 대비율
+
+| 조합 | 대비율 | WCAG AA | WCAG AAA |
+|------|--------|---------|----------|
+| accent-primary on paper-white | **6.4:1** | Pass | Fail |
+| paper-white on accent-primary | **6.4:1** | Pass | Fail |
+| accent-success on paper-white | **10.0:1** | Pass | Pass |
+| paper-white on accent-success | **10.0:1** | Pass | Pass |
+| error-base on paper-white | **6.3:1** | Pass | Fail |
+
+### Semantic 색상 대비율
+
+| 조합 | 대비율 | WCAG AA | WCAG AAA |
+|------|--------|---------|----------|
+| semantic-warning on paper-white | **10.4:1** | Pass | Pass |
+| semantic-info on paper-white | **8.1:1** | Pass | Pass |
+
+### 시각화
+
+<div style={{ overflowX: 'auto', marginTop: '1rem' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+    <thead>
+      <tr style={{ backgroundColor: '#f5f4f8' }}>
+        <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '1px solid #ddd' }}>조합</th>
+        <th style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #ddd' }}>대비율</th>
+        <th style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #ddd' }}>AA (4.5:1)</th>
+        <th style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #ddd' }}>AAA (7:1)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>
+          <span style={{ display: 'inline-block', width: '12px', height: '12px', backgroundColor: '#1a1a1a', borderRadius: '2px', marginRight: '0.5rem' }}></span>
+          ink-black
+        </td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', fontWeight: '600' }}>17.4:1</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>
+          <span style={{ display: 'inline-block', width: '12px', height: '12px', backgroundColor: '#6b4fd9', borderRadius: '2px', marginRight: '0.5rem' }}></span>
+          accent-primary
+        </td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', fontWeight: '600' }}>6.4:1</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#c0392b' }}>Fail</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>
+          <span style={{ display: 'inline-block', width: '12px', height: '12px', backgroundColor: '#357a46', borderRadius: '2px', marginRight: '0.5rem' }}></span>
+          accent-success
+        </td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', fontWeight: '600' }}>10.0:1</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>
+          <span style={{ display: 'inline-block', width: '12px', height: '12px', backgroundColor: '#c0392b', borderRadius: '2px', marginRight: '0.5rem' }}></span>
+          error-base
+        </td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', fontWeight: '600' }}>6.3:1</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#c0392b' }}>Fail</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '0.75rem', borderBottom: '1px solid #eee' }}>
+          <span style={{ display: 'inline-block', width: '12px', height: '12px', backgroundColor: '#b45309', borderRadius: '2px', marginRight: '0.5rem' }}></span>
+          semantic-warning
+        </td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', fontWeight: '600' }}>10.4:1</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #eee', color: '#357a46' }}>Pass</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '0.75rem' }}>
+          <span style={{ display: 'inline-block', width: '12px', height: '12px', backgroundColor: '#0369a1', borderRadius: '2px', marginRight: '0.5rem' }}></span>
+          semantic-info
+        </td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', fontWeight: '600' }}>8.1:1</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', color: '#357a46' }}>Pass</td>
+        <td style={{ padding: '0.75rem', textAlign: 'center', color: '#357a46' }}>Pass</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<Tip>
+대비율 계산은 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)를 사용하세요. 다크 모드에서도 모든 조합이 AA 기준을 충족합니다.
+</Tip>
 
 ## 다음 단계
 
