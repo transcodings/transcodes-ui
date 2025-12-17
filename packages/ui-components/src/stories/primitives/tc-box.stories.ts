@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../primitives/tc-box.js';
 import '../../primitives/tc-text.js';
+import '../../primitives/tc-section.js';
 
 const meta: Meta = {
   title: 'Primitives/tc-box',
@@ -47,16 +48,18 @@ export const NestedBoxes: StoryObj = {
           borderRadius: 'var(--radius-md)',
         }}
       >
-        <tc-text weight="600" style="margin-bottom: var(--space-md);">Outer Box</tc-text>
-        <tc-box
-          .sx=${{
-            padding: 'var(--space-md)',
-            background: 'var(--paper-cream)',
-            borderRadius: 'var(--radius-sm)',
-          }}
-        >
-          <tc-text>Inner Box</tc-text>
-        </tc-box>
+        <tc-section>
+          <tc-text weight="600">Outer Box</tc-text>
+          <tc-box
+            .sx=${{
+              padding: 'var(--space-md)',
+              background: 'var(--paper-cream)',
+              borderRadius: 'var(--radius-sm)',
+            }}
+          >
+            <tc-text>Inner Box</tc-text>
+          </tc-box>
+        </tc-section>
       </tc-box>
     </div>
   `,

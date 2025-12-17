@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../primitives/tc-input.js';
 import '../../primitives/tc-text.js';
+import '../../primitives/tc-section.js';
 
 const meta: Meta = {
   title: 'Primitives/tc-input',
@@ -108,17 +109,19 @@ export const Events: StoryObj = {
   name: 'Events (tc-keydown, tc-paste)',
   render: () => html`
     <div style="max-width: 300px; padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
-      <tc-text size="sm" color="tertiary" style="display: block; margin-bottom: 1rem;">
-        Open the console to see events. Try typing or pasting text.
-      </tc-text>
-      <tc-input
-        label="Test Input"
-        placeholder="Type or paste here"
-        @tc-input=${(e: CustomEvent) => console.log('tc-input:', e.detail)}
-        @tc-keydown=${(e: CustomEvent) => console.log('tc-keydown:', e.detail.key)}
-        @tc-paste=${(e: CustomEvent) => console.log('tc-paste:', e.detail.data)}
-        @tc-blur=${(e: CustomEvent) => console.log('tc-blur:', e.detail)}
-      ></tc-input>
+      <tc-section .sx=${{ gap: 'var(--space-md)' }}>
+        <tc-text size="sm" color="tertiary">
+          Open the console to see events. Try typing or pasting text.
+        </tc-text>
+        <tc-input
+          label="Test Input"
+          placeholder="Type or paste here"
+          @tc-input=${(e: CustomEvent) => console.log('tc-input:', e.detail)}
+          @tc-keydown=${(e: CustomEvent) => console.log('tc-keydown:', e.detail.key)}
+          @tc-paste=${(e: CustomEvent) => console.log('tc-paste:', e.detail.data)}
+          @tc-blur=${(e: CustomEvent) => console.log('tc-blur:', e.detail)}
+        ></tc-input>
+      </tc-section>
     </div>
   `,
 };
