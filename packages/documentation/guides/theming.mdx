@@ -93,7 +93,7 @@ export class MyComponent extends LitElement {
   render() {
     return html`
       <tc-button
-        sx=${{
+        .sx=${{
           color: 'red',
           padding: '2rem',
           '--accent-primary': '#ff0000',
@@ -110,7 +110,7 @@ export class MyComponent extends LitElement {
 
 ```typescript
 <tc-card
-  sx=${{
+  .sx=${{
     '--space-md': '2rem',
     '--accent-primary': '#00cc99',
     backgroundColor: 'var(--color-paper)',
@@ -363,7 +363,7 @@ CSS 변수는 **캐스케이딩 규칙**을 따릅니다:
   --accent-primary: #ff0000; /* 2순위 */
 }
 
-<tc-button sx=${{ '--accent-primary': '#ffff00' }}>
+<tc-button .sx=${{ '--accent-primary': '#ffff00' }}>
   <!-- sx prop이 우선됩니다 (1순위) -->
 </tc-button>
 ```
