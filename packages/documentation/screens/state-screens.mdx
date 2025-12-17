@@ -3,700 +3,140 @@ title: 'State Screens'
 description: '로딩, 에러, 성공 상태별 전체 화면 컴포넌트'
 ---
 
+전체 화면을 차지하는 상태 표시 컴포넌트입니다.
+
+<Note>
+모든 Props의 상세 정보는 [Screens API Reference](/api-reference/screens)를 참조하세요.
+</Note>
+
 ## tc-loading-screen
 
-로딩 중인 상태를 표시하는 전체 화면 컴포넌트입니다. 스피너와 선택적 메시지를 제공하며, 사용자에게 작업이 진행 중임을 알립니다.
-
-### Properties
-
-| 속성 | 타입 | 기본값 | 설명 |
-|-----|------|--------|------|
-| `message` | `string` | `''` | 로딩 중 표시할 메시지. 빈 문자열이면 메시지 미표시 |
-| `spinner-size` | `string` | `'3rem'` | 스피너 크기 (CSS 값) |
-
-### CSS Parts
-
-| Part | 설명 |
-|-----|------|
-| `screen` | 전체 화면 컨테이너 |
-| `content` | 콘텐츠 래퍼 |
-| `spinner` | 스피너 요소 |
-| `message` | 메시지 텍스트 |
-
-### Usage
+로딩 중인 상태를 표시하는 전체 화면 컴포넌트입니다.
 
 <Tabs>
-  <Tab title="HTML">
+<Tab title="HTML">
 ```html
-<div style="height: 100vh;">
-  <tc-loading-screen
-    message="데이터를 불러오는 중..."
-    spinner-size="3rem"
-  ></tc-loading-screen>
-</div>
+<tc-loading-screen message="데이터를 불러오는 중..."></tc-loading-screen>
 ```
-  </Tab>
-  <Tab title="React">
-```tsx
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/screens';
+</Tab>
 
-export function LoadingPage() {
-  return (
-    <div style={{ height: '100vh' }}>
-      <tc-loading-screen
-        message="데이터를 불러오는 중..."
-        spinnerSize="3rem"
-      />
-    </div>
-  );
-}
-```
-  </Tab>
-  <Tab title="Lit">
+<Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/screens';
 
-@customElement('my-loading-page')
-export class MyLoadingPage extends LitElement {
-  render() {
-    return html\`
-      <div style="height: 100vh;">
-        <tc-loading-screen
-          message="데이터를 불러오는 중..."
-          spinner-size="3rem"
-        ></tc-loading-screen>
-      </div>
-    \`;
-  }
-}
+html`
+  <tc-loading-screen
+    message="사용자 정보를 불러오는 중..."
+    spinner-size="lg"
+  ></tc-loading-screen>
+`;
 ```
-  </Tab>
+</Tab>
 </Tabs>
-
-### 실전 시나리오: 데이터 페칭
-
-데이터 로딩 중에 로딩 스크린을 표시합니다:
-
-```typescript
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/screens';
-import type { TcLoadingScreen } from '@transcodes/ui-components/screens';
-
-async function loadData() {
-  const loadingScreen = document.querySelector<TcLoadingScreen>('tc-loading-screen');
-  const contentDiv = document.querySelector('#content');
-
-  if (loadingScreen) {
-    loadingScreen.message = '사용자 정보를 불러오는 중...';
-  }
-
-  try {
-    const response = await fetch('/api/users/me');
-    const data = await response.json();
-
-    // 로딩 완료 - 콘텐츠 표시
-    if (contentDiv) {
-      contentDiv.style.display = 'block';
-      contentDiv.innerHTML = renderUserInfo(data);
-    }
-    loadingScreen?.remove();
-  } catch (error) {
-    // 에러 처리는 tc-error-screen으로
-  }
-}
-
-loadData();
-```
-
-HTML:
-```html
-<tc-loading-screen message="사용자 정보를 불러오는 중..."></tc-loading-screen>
-<div id="content" style="display: none;"></div>
-```
-
-### 무한 스크롤 로딩
-
-리스트 끝에 작은 로딩 스피너 표시:
-
-```typescript
-// 컨테이너 높이가 200px일 때
-<div style="height: 200px; border: 1px solid var(--paper-warm);">
-  <tc-loading-screen
-    message="더 불러오는 중..."
-    spinner-size="2rem"
-  ></tc-loading-screen>
-</div>
-```
 
 ---
 
 ## tc-error-screen
 
-에러 상태를 표시하는 전체 화면 컴포넌트입니다. 에러 아이콘, 제목, 메시지, 그리고 재시도 버튼을 제공합니다.
+에러 상태를 표시하는 전체 화면 컴포넌트입니다.
 
-### Properties
-
-| 속성 | 타입 | 기본값 | 설명 |
-|-----|------|--------|------|
-| `title` | `string` | `'Something went wrong'` | 에러 제목 |
-| `message` | `string` | `'An unexpected error occurred. Please try again.'` | 에러 상세 메시지 |
-| `retry-label` | `string` | `'Try Again'` | 재시도 버튼 텍스트 |
-| `show-retry` | `boolean` | `true` | 재시도 버튼 표시 여부 |
-
-### Events
-
-| 이벤트 | 설명 | Detail |
-|------|------|--------|
-| `tc-retry` | 재시도 버튼을 클릭했을 때 발생 | `undefined` |
-
-### CSS Parts
-
-| Part | 설명 |
-|-----|------|
-| `screen` | 전체 화면 컨테이너 |
-| `content` | 콘텐츠 래퍼 |
-| `icon` | 에러 아이콘 컨테이너 |
-| `title` | 에러 제목 |
-| `message` | 에러 메시지 |
-| `action` | 버튼 컨테이너 |
-
-### Usage
+**이벤트**: `tc-retry`
 
 <Tabs>
-  <Tab title="HTML">
+<Tab title="HTML">
 ```html
 <tc-error-screen
   title="연결 실패"
-  message="서버 연결에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해주세요."
+  message="서버 연결에 실패했습니다."
   retry-label="다시 시도"
 ></tc-error-screen>
-
-<script>
-  const screen = document.querySelector('tc-error-screen');
-  screen.addEventListener('tc-retry', () => {
-    console.log('사용자가 재시도를 클릭했습니다');
-  });
-</script>
 ```
-  </Tab>
-  <Tab title="React">
-```tsx
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/screens';
-import { useRef } from 'react';
+</Tab>
 
-export function ErrorPage() {
-  const handleRetry = () => {
-    console.log('재시도 클릭됨');
-    // 재시도 로직
-  };
-
-  return (
-    <tc-error-screen
-      title="연결 실패"
-      message="서버 연결에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해주세요."
-      retryLabel="다시 시도"
-      onTcRetry={handleRetry}
-    />
-  );
-}
-```
-  </Tab>
-  <Tab title="Lit">
+<Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/screens';
 
-@customElement('my-error-page')
-export class MyErrorPage extends LitElement {
-  render() {
-    return html\`
-      <tc-error-screen
-        title="연결 실패"
-        message="서버 연결에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해주세요."
-        retry-label="다시 시도"
-        @tc-retry=\${this.handleRetry}
-      ></tc-error-screen>
-    \`;
-  }
-
-  private handleRetry() {
-    console.log('재시도 클릭됨');
-    // 재시도 로직
-  }
-}
-```
-  </Tab>
-</Tabs>
-
-### 실전 시나리오: 에러 처리
-
-API 요청 실패 시 에러 스크린을 표시합니다:
-
-```typescript
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/screens';
-import type { TcErrorScreen } from '@transcodes/ui-components/screens';
-
-async function fetchUserData() {
-  const contentDiv = document.querySelector('#content');
-  const errorDiv = document.querySelector('#error');
-
-  try {
-    const response = await fetch('/api/users/me');
-    if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    // 성공 - 콘텐츠 표시
-    if (contentDiv) {
-      contentDiv.style.display = 'block';
-      contentDiv.innerHTML = renderUserInfo(data);
-    }
-    errorDiv?.style.setProperty('display', 'none');
-  } catch (error) {
-    // 에러 - 에러 스크린 표시
-    if (errorDiv) {
-      errorDiv.style.display = 'block';
-      const errorScreen = errorDiv.querySelector('tc-error-screen');
-      if (errorScreen) {
-        (errorScreen as TcErrorScreen).title = '데이터 로드 실패';
-        (errorScreen as TcErrorScreen).message = error.message;
-      }
-    }
-    contentDiv?.style.setProperty('display', 'none');
-  }
-}
-
-// HTML 초기화
-document.addEventListener('DOMContentLoaded', () => {
-  const errorScreen = document.querySelector<TcErrorScreen>('tc-error-screen');
-  if (errorScreen) {
-    errorScreen.addEventListener('tc-retry', fetchUserData);
-  }
-
-  fetchUserData();
-});
-```
-
-HTML:
-```html
-<div id="content" style="display: none;"></div>
-
-<div id="error">
+html`
   <tc-error-screen
-    title="데이터 로드 실패"
-    message="데이터를 가져올 수 없습니다. 다시 시도해주세요."
+    title="연결 실패"
+    message="서버 연결에 실패했습니다."
     retry-label="다시 시도"
+    @tc-retry=${handleRetry}
   ></tc-error-screen>
-</div>
+`;
 ```
-
-### 에러 종류별 메시지
-
-```typescript
-const errorMessages: Record<string, { title: string; message: string }> = {
-  network: {
-    title: '인터넷 연결 끊김',
-    message: '네트워크 연결을 확인하고 다시 시도해주세요.',
-  },
-  notFound: {
-    title: '페이지를 찾을 수 없습니다',
-    message: '요청하신 페이지가 존재하지 않습니다.',
-  },
-  unauthorized: {
-    title: '접근 권한 없음',
-    message: '이 페이지에 접근할 권한이 없습니다.',
-  },
-  server: {
-    title: '서버 오류',
-    message: '일시적인 오류가 발생했습니다. 나중에 다시 시도해주세요.',
-  },
-};
-
-function showError(errorType: string) {
-  const errorScreen = document.querySelector<TcErrorScreen>('tc-error-screen');
-  if (errorScreen && errorMessages[errorType]) {
-    const { title, message } = errorMessages[errorType];
-    errorScreen.title = title;
-    errorScreen.message = message;
-  }
-}
-```
+</Tab>
+</Tabs>
 
 ---
 
 ## tc-success-screen
 
-성공 상태를 표시하는 전체 화면 컴포넌트입니다. 애니메이션 체크마크, 제목, 메시지, 그리고 선택적 행동 버튼을 제공합니다.
+성공 상태를 표시하는 전체 화면 컴포넌트입니다.
 
-### Properties
-
-| 속성 | 타입 | 기본값 | 설명 |
-|-----|------|--------|------|
-| `title` | `string` | `'Success!'` | 성공 제목 |
-| `message` | `string` | `'Your action was completed successfully.'` | 성공 메시지 |
-| `action-label` | `string` | `''` | 행동 버튼 텍스트. 빈 문자열이면 버튼 미표시 |
-| `auto-animate` | `boolean` | `true` | 마운트 시 자동 애니메이션 실행 여부 |
-
-### Events
-
-| 이벤트 | 설명 | Detail |
-|------|------|--------|
-| `tc-action` | 행동 버튼을 클릭했을 때 발생 | `undefined` |
-
-### Methods
-
-| 메서드 | 반환 | 설명 |
-|------|------|------|
-| `playAnimation()` | `Promise<void>` | 애니메이션 재생 (체크마크, 텍스트, 버튼 순서대로) |
-
-### CSS Parts
-
-| Part | 설명 |
-|-----|------|
-| `screen` | 전체 화면 컨테이너 |
-| `content` | 콘텐츠 래퍼 |
-| `icon` | 체크마크 아이콘 컨테이너 |
-| `title` | 성공 제목 |
-| `message` | 성공 메시지 |
-| `action` | 버튼 컨테이너 |
-
-### Usage
+**이벤트**: `tc-action`
+**메서드**: `playAnimation()`
 
 <Tabs>
-  <Tab title="HTML">
+<Tab title="HTML">
 ```html
 <tc-success-screen
   title="결제 완료!"
   message="주문이 성공적으로 처리되었습니다."
   action-label="계속 쇼핑하기"
 ></tc-success-screen>
-
-<script>
-  const screen = document.querySelector('tc-success-screen');
-  screen.addEventListener('tc-action', () => {
-    console.log('행동 버튼 클릭됨');
-    // 다음 페이지로 이동
-    window.location.href = '/shop';
-  });
-</script>
 ```
-  </Tab>
-  <Tab title="React">
-```tsx
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/screens';
-import { useRef } from 'react';
+</Tab>
 
-export function SuccessPage() {
-  const handleAction = () => {
-    console.log('행동 버튼 클릭됨');
-    // 다음 페이지로 이동
-    window.location.href = '/shop';
-  };
-
-  return (
-    <tc-success-screen
-      title="결제 완료!"
-      message="주문이 성공적으로 처리되었습니다."
-      actionLabel="계속 쇼핑하기"
-      onTcAction={handleAction}
-      autoAnimate={true}
-    />
-  );
-}
-```
-  </Tab>
-  <Tab title="Lit">
+<Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
 import '@transcodes/ui-components/screens';
 
-@customElement('my-success-page')
-export class MySuccessPage extends LitElement {
-  render() {
-    return html\`
-      <tc-success-screen
-        title="결제 완료!"
-        message="주문이 성공적으로 처리되었습니다."
-        action-label="계속 쇼핑하기"
-        ?auto-animate=\${true}
-        @tc-action=\${this.handleAction}
-      ></tc-success-screen>
-    \`;
-  }
-
-  private handleAction() {
-    console.log('행동 버튼 클릭됨');
-    // 다음 페이지로 이동
-    window.location.href = '/shop';
-  }
-}
+html`
+  <tc-success-screen
+    title="결제 완료!"
+    message="주문이 성공적으로 처리되었습니다."
+    action-label="계속 쇼핑하기"
+    @tc-action=${handleAction}
+  ></tc-success-screen>
+`;
 ```
-  </Tab>
+</Tab>
 </Tabs>
-
-### 실전 시나리오: 성공 확인
-
-사용자 작업 완료 후 성공 스크린을 표시합니다:
-
-```typescript
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/screens';
-import type { TcSuccessScreen } from '@transcodes/ui-components/screens';
-
-async function handleCheckout(orderId: string) {
-  const successScreen = document.querySelector<TcSuccessScreen>('tc-success-screen');
-
-  // 결제 처리
-  const response = await fetch('/api/checkout', {
-    method: 'POST',
-    body: JSON.stringify({ orderId }),
-  });
-
-  if (response.ok) {
-    const order = await response.json();
-
-    // 성공 스크린 표시
-    if (successScreen) {
-      successScreen.title = '결제 완료!';
-      successScreen.message = `주문번호: ${order.id}\n며칠 이내에 배송됩니다.`;
-      successScreen.actionLabel = '주문 확인';
-
-      successScreen.addEventListener('tc-action', () => {
-        window.location.href = `/orders/${order.id}`;
-      });
-
-      // 애니메이션 수동 재생 (기본값: autoAnimate=true)
-      await successScreen.playAnimation();
-    }
-  }
-}
-```
-
-### 애니메이션 제어
-
-```typescript
-const successScreen = document.querySelector<TcSuccessScreen>('tc-success-screen');
-
-// 자동 애니메이션 비활성화
-successScreen.autoAnimate = false;
-
-// 나중에 수동으로 재생
-setTimeout(async () => {
-  await successScreen.playAnimation();
-}, 1000);
-```
-
-### 성공 케이스별 예시
-
-```html
-<!-- 이메일 인증 완료 -->
-<tc-success-screen
-  title="이메일 인증 완료"
-  message="이메일 주소가 성공적으로 인증되었습니다."
-></tc-success-screen>
-
-<!-- 회원가입 완료 -->
-<tc-success-screen
-  title="환영합니다!"
-  message="계정이 성공적으로 생성되었습니다."
-  action-label="시작하기"
-></tc-success-screen>
-
-<!-- 파일 업로드 완료 -->
-<tc-success-screen
-  title="업로드 완료"
-  message="파일이 성공적으로 업로드되었습니다."
-  action-label="계속"
-></tc-success-screen>
-```
 
 ---
 
 ## 통합 예제: 데이터 로딩 플로우
 
-다음은 로딩, 에러, 성공 상태를 모두 사용하는 실전 예제입니다:
-
 ```typescript
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/screens';
-import type { TcLoadingScreen, TcErrorScreen, TcSuccessScreen } from '@transcodes/ui-components/screens';
+type ScreenState = 'loading' | 'error' | 'success' | 'content';
 
-interface DataState {
-  loading: TcLoadingScreen | null;
-  error: TcErrorScreen | null;
-  success: TcSuccessScreen | null;
-  content: HTMLElement | null;
-}
-
-const state: DataState = {
-  loading: document.querySelector('tc-loading-screen'),
-  error: document.querySelector('tc-error-screen'),
-  success: document.querySelector('tc-success-screen'),
-  content: document.querySelector('#content'),
-};
-
-function showState(type: 'loading' | 'error' | 'success' | 'content') {
-  const elements = [
-    state.loading?.parentElement,
-    state.error?.parentElement,
-    state.success?.parentElement,
-    state.content,
-  ];
-
-  elements.forEach((el) => {
-    if (el) el.style.display = 'none';
-  });
-
-  switch (type) {
+function renderScreen(state: ScreenState) {
+  switch (state) {
     case 'loading':
-      if (state.loading?.parentElement) state.loading.parentElement.style.display = 'block';
-      break;
+      return html`<tc-loading-screen message="처리 중..."></tc-loading-screen>`;
     case 'error':
-      if (state.error?.parentElement) state.error.parentElement.style.display = 'block';
-      break;
+      return html`<tc-error-screen @tc-retry=${retry}></tc-error-screen>`;
     case 'success':
-      if (state.success?.parentElement) state.success.parentElement.style.display = 'block';
-      break;
-    case 'content':
-      if (state.content) state.content.style.display = 'block';
-      break;
+      return html`<tc-success-screen title="완료" @tc-action=${next}></tc-success-screen>`;
+    default:
+      return html`<!-- 메인 콘텐츠 -->`;
   }
 }
-
-async function loadData() {
-  showState('loading');
-
-  try {
-    const response = await fetch('/api/data');
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const data = await response.json();
-
-    // 성공
-    showState('success');
-    if (state.success) {
-      state.success.title = '데이터 로드 완료!';
-      state.success.message = '모든 정보가 준비되었습니다.';
-      state.success.actionLabel = '계속';
-
-      state.success.addEventListener('tc-action', () => {
-        showState('content');
-        renderContent(data);
-      }, { once: true });
-    }
-  } catch (error) {
-    // 에러
-    showState('error');
-    if (state.error) {
-      state.error.title = '데이터 로드 실패';
-      state.error.message = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.';
-      state.error.retryLabel = '재시도';
-    }
-  }
-}
-
-// 재시도 이벤트 처리
-if (state.error) {
-  state.error.addEventListener('tc-retry', loadData);
-}
-
-// 초기 로드
-loadData();
-
-function renderContent(data: any) {
-  if (state.content) {
-    state.content.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-  }
-}
-```
-
-HTML:
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>Data Loading Flow</title>
-</head>
-<body>
-  <div id="loading" style="height: 100vh;">
-    <tc-loading-screen message="데이터를 불러오는 중..."></tc-loading-screen>
-  </div>
-
-  <div id="error" style="display: none; height: 100vh;">
-    <tc-error-screen
-      title="데이터 로드 실패"
-      message="데이터를 가져올 수 없습니다."
-      retry-label="재시도"
-    ></tc-error-screen>
-  </div>
-
-  <div id="success" style="display: none; height: 100vh;">
-    <tc-success-screen
-      title="데이터 로드 완료!"
-      message="모든 정보가 준비되었습니다."
-      action-label="계속"
-    ></tc-success-screen>
-  </div>
-
-  <div id="content" style="display: none; padding: 2rem;">
-    <!-- 실제 콘텐츠 렌더링 -->
-  </div>
-
-  <script type="module" src="./app.ts"></script>
-</body>
-</html>
 ```
 
 ## CSS 커스터마이징
 
-CSS Parts를 사용하여 각 부분을 개별 스타일링할 수 있습니다:
+CSS Parts를 사용하여 개별 스타일링 가능:
 
 ```css
-/* 에러 아이콘 배경색 변경 */
 tc-error-screen::part(icon) {
   background: var(--error-bg);
-  border-radius: 50%;
 }
 
-/* 성공 제목 스타일 */
 tc-success-screen::part(title) {
   font-size: 1.5rem;
   font-weight: 700;
 }
-
-/* 로딩 메시지 색상 */
-tc-loading-screen::part(message) {
-  color: var(--ink-medium);
-}
 ```
-
-## 다음 단계
-
-<CardGroup cols={2}>
-  <Card title="Overview" icon="layers" href="/screens/overview">
-    Screens 컴포넌트 소개 및 특징
-  </Card>
-  <Card title="Primitives" icon="cube" href="/primitives/overview">
-    기본 UI 요소 (Button, Input, Text 등)
-  </Card>
-  <Card title="Design Tokens" icon="palette" href="/design-tokens/overview">
-    색상, 타이포그래피, 간격 시스템
-  </Card>
-  <Card title="Quick Start" icon="rocket" href="/quickstart">
-    5분 안에 시작하기
-  </Card>
-</CardGroup>

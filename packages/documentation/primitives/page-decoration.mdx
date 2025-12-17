@@ -3,233 +3,70 @@ title: "페이지 장식 (Page Decoration)"
 description: "배경 장식용 floating blob 컴포넌트"
 ---
 
-화면 배경에 장식용 floating blob을 렌더링하는 컴포넌트입니다. 페이지의 시각적 생동감을 더하면서 콘텐츠 위에 나타나지 않도록 설계되었습니다.
+화면 배경에 장식용 floating blob을 렌더링하는 컴포넌트입니다.
+
+<Note>
+모든 Props의 상세 정보는 [Primitives API Reference](/api-reference/primitives)를 참조하세요.
+</Note>
 
 ## tc-page-decoration
 
-### Properties
-
-| 속성명 | 타입 | 기본값 | 설명 |
-|-------|------|-------|------|
-| `variant` | `'primary' \| 'success' \| 'error'` | `'primary'` | 색상 변형 |
-
-### CSS Parts
-
-| Part 이름 | 설명 |
-|----------|------|
-| `decoration` | 장식 컨테이너 |
-| `blob` | 개별 blob 요소 |
-
-### Variants
-
-#### Primary (기본)
-자주색 그래디언트의 3개 floating blob입니다.
-
-```html
-<tc-page-decoration variant="primary"></tc-page-decoration>
-```
-
-#### Success
-초록색 그래디언트의 3개 floating blob입니다.
-
-```html
-<tc-page-decoration variant="success"></tc-page-decoration>
-```
-
-#### Error
-빨간색 그래디언트의 3개 floating blob입니다.
-
-```html
-<tc-page-decoration variant="error"></tc-page-decoration>
-```
-
-### Usage
+**Variants**: `primary` (자주색) | `success` (초록색) | `error` (빨간색)
 
 <Tabs>
 <Tab title="HTML">
 ```html
-<script type="module">
-  import '@transcodes/ui-components/primitives/tc-page-decoration.js';
-</script>
-
-<!-- Primary (자주색) -->
-<html>
-  <body>
-    <tc-page-decoration variant="primary"></tc-page-decoration>
-
-    <!-- 페이지 콘텐츠 -->
-    <main style="position: relative; z-index: 10;">
-      <h1>메인 콘텐츠</h1>
-      <p>장식이 배경에 표시됩니다</p>
-    </main>
-  </body>
-</html>
-```
-</Tab>
-
-<Tab title="React">
-```jsx
-import '@transcodes/ui-components/primitives/tc-page-decoration.js';
-
-export function App() {
-  return (
-    <>
-      {/* Primary 변형 */}
-      <tc-page-decoration variant="primary"></tc-page-decoration>
-
-      {/* 성공 페이지 - Success 변형 */}
-      <tc-page-decoration variant="success"></tc-page-decoration>
-
-      {/* 에러 페이지 - Error 변형 */}
-      <tc-page-decoration variant="error"></tc-page-decoration>
-
-      <main style={{ position: 'relative', zIndex: 10 }}>
-        <h1>메인 콘텐츠</h1>
-        <p>장식이 배경에 표시됩니다</p>
-      </main>
-    </>
-  );
-}
+<tc-page-decoration variant="primary"></tc-page-decoration>
+<tc-page-decoration variant="success"></tc-page-decoration>
+<tc-page-decoration variant="error"></tc-page-decoration>
 ```
 </Tab>
 
 <Tab title="Lit">
 ```typescript
-import { LitElement, html } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import '@transcodes/design-tokens';
-import '@transcodes/ui-components/primitives';
+import '@transcodes/ui-components/primitives/tc-page-decoration.js';
 
-@customElement('page-decoration-demo')
-export class PageDecorationDemo extends LitElement {
-  @state()
-  private pageVariant: 'primary' | 'success' | 'error' = 'primary';
-
-  render() {
-    return html`
-      <div>
-        <!-- 동적 변형 -->
-        <tc-page-decoration variant=${this.pageVariant}></tc-page-decoration>
-
-        <!-- 페이지 콘텐츠 -->
-        <main style="position: relative; z-index: 10">
-          <h1>${this.pageVariant.toUpperCase()} 페이지</h1>
-          <tc-button @tc-click=${() => this.setPageType('primary')}>Primary</tc-button>
-          <tc-button @tc-click=${() => this.setPageType('success')}>Success</tc-button>
-          <tc-button @tc-click=${() => this.setPageType('error')}>Error</tc-button>
-        </main>
-      </div>
-    `;
-  }
-
-  private setPageType(type: 'primary' | 'success' | 'error') {
-    this.pageVariant = type;
-  }
-}
+html`
+  <tc-page-decoration variant=${pageVariant}></tc-page-decoration>
+`;
 ```
 </Tab>
 </Tabs>
 
 ### 레이아웃 구조
 
-Page Decoration은 절대 위치(`position: absolute`)로 부모 컨테이너 내에 배치됩니다:
+Page Decoration은 `position: absolute`로 배치됩니다. 콘텐츠 위에 나타나지 않도록 메인 콘텐츠에 `z-index`를 설정하세요.
 
 ```html
 <div style="position: relative; min-height: 100vh;">
-  <!-- 장식 (z-index: 0) -->
   <tc-page-decoration></tc-page-decoration>
 
-  <!-- 메인 콘텐츠 (z-index: 10 이상) -->
   <main style="position: relative; z-index: 10;">
-    <header>...</header>
-    <section>...</section>
-    <footer>...</footer>
+    <h1>메인 콘텐츠</h1>
   </main>
 </div>
 ```
 
-<Note>
-장식이 콘텐츠 위에 나타나는 것을 방지하려면 메인 콘텐츠에 `position: relative`와 `z-index: 10` 이상을 설정하세요.
-</Note>
-
-### 다양한 사용 사례
-
-#### 1. 로딩 페이지
+### 사용 사례
 
 ```html
+<!-- 로딩 페이지 -->
 <tc-page-decoration variant="primary"></tc-page-decoration>
 
-<main style="display: flex; align-items: center; justify-content: center; height: 100vh;">
-  <tc-spinner size="md"></tc-spinner>
-  <p>로딩 중...</p>
-</main>
-```
-
-#### 2. 성공 페이지
-
-```html
+<!-- 성공 페이지 -->
 <tc-page-decoration variant="success"></tc-page-decoration>
 
-<main style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-  <tc-icon name="check-circle" size="4rem" color="var(--accent-success)"></tc-icon>
-  <h1>완료되었습니다!</h1>
-  <p>요청이 성공적으로 처리되었습니다</p>
-</main>
-```
-
-#### 3. 에러 페이지
-
-```html
+<!-- 에러 페이지 -->
 <tc-page-decoration variant="error"></tc-page-decoration>
-
-<main style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-  <tc-icon name="alert-circle" size="4rem" color="var(--error-base)"></tc-icon>
-  <h1>오류가 발생했습니다</h1>
-  <p>요청을 처리할 수 없습니다</p>
-</main>
 ```
 
-### 커스텀 스타일
+### 주요 특징
 
-```css
-/* blob 투명도 조정 */
-tc-page-decoration::part(blob) {
-  opacity: 0.5; /* 더 투명하게 */
-  filter: blur(10px); /* 더 부드럽게 */
-}
-```
-
-### 반응형 크기
-
-tc-page-decoration은 Utopia fluid 토큰(`--size-decoration-blob`)을 사용하여 뷰포트 크기에 따라 blob 크기가 자동으로 조절됩니다:
-- 모바일 (320px): 192px
-- 데스크톱 (1240px): 352px
-
-### 모션 줄이기
-
-사용자가 `prefers-reduced-motion`을 활성화한 경우 자동으로 애니메이션이 비활성화됩니다.
-
-### 다크 모드
-
-Design Tokens를 통해 blob 색상이 결정되며, 다크 모드에서도 자동으로 적절한 색상이 적용됩니다.
-
-```html
-<html data-theme="dark">
-  <tc-page-decoration variant="primary"></tc-page-decoration>
-</html>
-```
-
-<Card title="Storybook에서 보기" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-page-decoration" icon="external-link">
-  Storybook에서 모든 변형을 상호작용적으로 확인할 수 있습니다.
-</Card>
-
-## 주요 특징
-
-- **절대 위치**: `position: absolute`로 설정되어 부모 컨테이너 내에서 배치
-- **비상호작용**: `pointer-events: none`으로 설정되어 콘텐츠 접근성 영향 없음
-- **흐림 효과**: 장식의 경계를 부드럽게 처리하여 시각적 부드러움
-- **동적 blob**: 3개의 blob이 다양한 속도로 움직임
-- **색상 변형**: Primary, Success, Error 3가지 변형 제공
-- **다크 모드 지원**: 자동으로 다크 모드 색상 적용
+- **비상호작용**: `pointer-events: none`
+- **Fluid 크기**: Utopia 토큰 사용 (모바일 192px → 데스크톱 352px)
 - **모션 감지**: `prefers-reduced-motion` 존중
-- **Fluid 크기**: 반응형 blob 크기 (Utopia 토큰 사용)
+- **다크 모드**: 자동 색상 적용
+
+<Card title="Storybook" href="https://transcodes-ui-ui-components.vercel.app/?path=/story/primitives-tc-page-decoration" icon="external-link">
+  인터랙티브 예제
+</Card>

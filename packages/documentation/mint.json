@@ -50,13 +50,7 @@
   "navigation": [
     {
       "group": "시작하기",
-      "pages": [
-        "index",
-        "quickstart",
-        "introduction/overview",
-        "introduction/installation",
-        "introduction/architecture"
-      ]
+      "pages": ["introduction/installation", "introduction/architecture"]
     },
     {
       "group": "Design Tokens",
@@ -65,10 +59,9 @@
         "design-tokens/colors",
         "design-tokens/typography",
         "design-tokens/spacing",
-        "design-tokens/effects",
         "design-tokens/sizing",
-        "design-tokens/layout",
-        "design-tokens/dark-mode"
+        "design-tokens/effects",
+        "design-tokens/layout"
       ]
     },
     {
@@ -91,15 +84,19 @@
       "group": "Guides",
       "pages": [
         "guides/getting-started",
+        "guides/common-interface",
         "guides/theming",
         "guides/forms",
-        "guides/best-practices",
-        "guides/migration-v0.3"
+        "guides/best-practices"
       ]
     },
     {
       "group": "API Reference",
-      "pages": ["api-reference/typescript-types"]
+      "pages": [
+        "api-reference/overview",
+        "api-reference/primitives",
+        "api-reference/screens"
+      ]
     }
   ],
   "footerSocials": {

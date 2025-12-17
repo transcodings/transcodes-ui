@@ -1,0 +1,198 @@
+---
+title: '공통 인터페이스'
+description: '모든 컴포넌트에서 사용하는 공통 Props와 패턴'
+---
+
+## sx Prop
+
+모든 tc-* 컴포넌트는 `sx` prop을 지원합니다. 이를 통해 인라인 스타일이나 CSS 변수를 오버라이드할 수 있습니다.
+
+### 타입 정의
+
+```typescript
+type SxProps = Record<string, string | number>;
+```
+
+### 기본 사용법
+
+```html
+<!-- 인라인 스타일 적용 -->
+<tc-card .sx=${{ padding: '2rem', borderRadius: '16px' }}>
+  카드 내용
+</tc-card>
+
+<!-- CSS 변수 오버라이드 -->
+<tc-icon name="check" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--accent-success)' }}></tc-icon>
+```
+
+---
+
+## 컴포넌트별 CSS 변수
+
+각 컴포넌트는 고유한 CSS 변수를 통해 스타일을 커스터마이징할 수 있습니다.
+
+### tc-icon
+
+| CSS 변수 | 기본값 | 설명 |
+|----------|--------|------|
+| `--icon-size` | `1.5rem` | 아이콘 크기 |
+| `--icon-color` | `currentColor` | 아이콘 색상 |
+
+```html
+<tc-icon name="check" .sx=${{ '--icon-size': '2rem', '--icon-color': 'var(--accent-success)' }}></tc-icon>
+```
+
+### tc-symbol
+
+| CSS 변수 | 기본값 | 설명 |
+|----------|--------|------|
+| `--symbol-size` | `3rem` | 심볼 크기 |
+| `--symbol-bg` | `var(--paper-cream)` | 배경색 |
+| `--symbol-color` | `var(--ink-dark)` | 텍스트 색상 |
+
+```html
+<tc-symbol .sx=${{ '--symbol-size': '4rem', '--symbol-bg': 'var(--accent-primary)', '--symbol-color': 'white' }}>
+  AB
+</tc-symbol>
+```
+
+### tc-spinner
+
+| CSS 변수 | 기본값 | 설명 |
+|----------|--------|------|
+| `--spinner-color` | `var(--accent-primary)` | 스피너 색상 |
+
+```html
+<tc-spinner size="md" .sx=${{ '--spinner-color': 'var(--accent-success)' }}></tc-spinner>
+```
+
+### tc-divider
+
+| CSS 변수 | 기본값 | 설명 |
+|----------|--------|------|
+| `--divider-color` | `var(--ink-faint)` | 구분선 색상 |
+| `--divider-spacing` | `var(--space-md)` | 상하 여백 |
+
+```html
+<tc-divider .sx=${{ '--divider-color': 'var(--ink-light)', '--divider-spacing': 'var(--space-lg)' }}></tc-divider>
+```
+
+### tc-item / tc-item-button
+
+| CSS 변수 | 기본값 | 설명 |
+|----------|--------|------|
+| `--item-gap` | `var(--space-md)` | 내부 요소 간격 |
+| `--item-padding` | `var(--space-md)` | 내부 패딩 |
+
+```html
+<tc-item .sx=${{ '--item-gap': 'var(--space-sm)', '--item-padding': 'var(--space-lg)' }}>
+  아이템 내용
+</tc-item>
+```
+
+### tc-section
+
+tc-section은 CSS 변수 대신 일반 CSS 속성을 sx로 전달합니다.
+
+| CSS 속성 | 기본값 | 설명 |
+|----------|--------|------|
+| `gap` | `var(--space-md)` | 자식 요소 간격 |
+
+```html
+<tc-section .sx=${{ gap: 'var(--space-lg)' }}>
+  <tc-text>첫 번째</tc-text>
+  <tc-text>두 번째</tc-text>
+</tc-section>
+```
+
+---
+
+## display: contents 컴포넌트
+
+일부 컴포넌트는 `display: contents`를 사용합니다. 이 경우 컴포넌트 자체에 box model 속성(margin, padding, border)이 적용되지 않습니다.
+
+### 해당 컴포넌트
+- `tc-text`
+- `tc-box`
+
+### 간격 처리 방법
+
+`tc-text`에 직접 margin을 적용하는 대신, `tc-section`으로 감싸서 gap으로 간격을 처리합니다.
+
+```html
+<!-- 잘못된 방법 (작동하지 않음) -->
+<tc-text style="margin-bottom: 1rem;">제목</tc-text>
+<tc-text>내용</tc-text>
+
+<!-- 올바른 방법 -->
+<tc-section .sx=${{ gap: 'var(--space-md)' }}>
+  <tc-text>제목</tc-text>
+  <tc-text>내용</tc-text>
+</tc-section>
+```
+
+---
+
+## Slots
+
+일부 컴포넌트는 슬롯을 통해 콘텐츠를 구성합니다.
+
+### tc-item / tc-item-button
+
+| Slot | 설명 |
+|------|------|
+| `prefix` | 왼쪽 아이콘/이미지 |
+| `default` | 메인 콘텐츠 |
+| `suffix` | 오른쪽 아이콘/액션 |
+
+```html
+<tc-item>
+  <tc-icon slot="prefix" name="user"></tc-icon>
+  <span>사용자 프로필</span>
+  <tc-icon slot="suffix" name="chevron-right"></tc-icon>
+</tc-item>
+```
+
+---
+
+## Events
+
+모든 커스텀 이벤트는 `tc-` 접두사를 사용합니다.
+
+| 이벤트 | 컴포넌트 | 설명 |
+|--------|----------|------|
+| `tc-click` | tc-button, tc-item-button | 클릭 이벤트 |
+| `tc-input` | tc-input | 입력 변경 이벤트 |
+| `tc-change` | tc-input | 값 확정 이벤트 |
+| `tc-blur` | tc-input | 포커스 해제 이벤트 |
+| `tc-otp-complete` | tc-otp-input | OTP 입력 완료 |
+| `tc-retry` | tc-error-screen | 재시도 버튼 클릭 |
+| `tc-action` | tc-success-screen | 액션 버튼 클릭 |
+| `tc-dismiss` | tc-toast | 토스트 닫힘 |
+
+### 이벤트 리스닝
+
+```html
+<!-- Lit -->
+<tc-button @tc-click=${handleClick}>클릭</tc-button>
+
+<!-- Vanilla JS -->
+<script>
+  document.querySelector('tc-button').addEventListener('tc-click', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+---
+
+## 다음 단계
+
+<CardGroup cols={2}>
+  <Card title="Primitives API" icon="puzzle-piece" href="/api-reference/primitives">
+    모든 Primitive 컴포넌트 Props
+  </Card>
+  <Card title="Screens API" icon="desktop" href="/api-reference/screens">
+    Screen 컴포넌트 Props
+  </Card>
+</CardGroup>
