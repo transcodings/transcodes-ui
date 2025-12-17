@@ -29,6 +29,21 @@
       "$value": "#255a32",
       "$type": "color",
       "$description": "Success accent pressed. WCAG AA: 6.8:1 on paper-white"
+    },
+    "warning": {
+      "$value": "#d97706",
+      "$type": "color",
+      "$description": "Warning accent. WCAG AA: 4.5:1 on paper-white"
+    },
+    "warning-hover": {
+      "$value": "#b45309",
+      "$type": "color",
+      "$description": "Warning accent hover. WCAG AA: 5.8:1 on paper-white"
+    },
+    "warning-pressed": {
+      "$value": "#92400e",
+      "$type": "color",
+      "$description": "Warning accent pressed. WCAG AA: 7.2:1 on paper-white"
     }
   }
 }

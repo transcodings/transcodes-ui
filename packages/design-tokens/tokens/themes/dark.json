@@ -169,6 +169,21 @@
       "$value": "#22c55e",
       "$type": "color",
       "$description": "Success accent pressed (dark). WCAG AA: 7.2:1 on paper-white"
+    },
+    "warning": {
+      "$value": "#fbbf24",
+      "$type": "color",
+      "$description": "Warning accent (dark). WCAG AA: 11.3:1 on paper-white"
+    },
+    "warning-hover": {
+      "$value": "#fcd34d",
+      "$type": "color",
+      "$description": "Warning accent hover (dark). WCAG AA: 12.8:1 on paper-white"
+    },
+    "warning-pressed": {
+      "$value": "#f59e0b",
+      "$type": "color",
+      "$description": "Warning accent pressed (dark). WCAG AA: 9.8:1 on paper-white"
     }
   },
   "semantic": {

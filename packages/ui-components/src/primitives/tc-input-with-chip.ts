@@ -65,7 +65,7 @@ export class TcInputWithChip extends LitElement {
         width: 100%;
         background: var(--paper-white);
         border: 1px solid var(--ink-faint);
-        border-radius: var(--form-input-radius);
+        border-radius: var(--input-radius);
         transition: var(--transition-fast);
       }
 
@@ -86,9 +86,9 @@ export class TcInputWithChip extends LitElement {
       .input {
         flex: 1;
         min-width: 0;
-        padding: var(--form-input-padding-y) var(--form-input-padding-x);
+        padding: var(--input-padding-y) var(--input-padding-x);
         font-family: var(--font-body);
-        font-size: var(--form-input-font-size);
+        font-size: var(--input-font-size);
         color: var(--ink-black);
         background: transparent;
         border: none;

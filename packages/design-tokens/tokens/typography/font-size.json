@@ -1,5 +1,10 @@
 {
   "font-size": {
+    "xs": {
+      "$value": "clamp(0.6875rem, 0.66rem + 0.14vw, 0.8125rem)",
+      "$type": "dimension",
+      "$description": "Extra small text (11-13px fluid)"
+    },
     "sm": {
       "$value": "clamp(0.8125rem, 0.78rem + 0.16vw, 0.9375rem)",
       "$type": "dimension"
