@@ -1,5 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A circular symbol/avatar component.
@@ -9,9 +11,7 @@ import { customElement, property } from 'lit/decorators.js';
  */
 @customElement('tc-symbol')
 export class TcSymbol extends LitElement {
-  @property({ type: String }) size = '3rem';
-  @property({ type: String }) background = 'var(--paper-cream)';
-  @property({ type: String }) color = 'var(--ink-dark)';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = css`
     :host {
@@ -35,12 +35,15 @@ export class TcSymbol extends LitElement {
   `;
 
   override render() {
+    const baseStyles = {
+      '--symbol-size': '3rem',
+      '--symbol-bg': 'var(--paper-cream)',
+      '--symbol-color': 'var(--ink-dark)',
+    };
+    const mergedStyles = { ...baseStyles, ...this.sx };
+
     return html`
-      <div
-        part="symbol"
-        class="symbol"
-        style="--symbol-size: ${this.size}; --symbol-bg: ${this.background}; --symbol-color: ${this.color};"
-      >
+      <div part="symbol" class="symbol" style=${styleMap(mergedStyles)}>
         <slot></slot>
       </div>
     `;

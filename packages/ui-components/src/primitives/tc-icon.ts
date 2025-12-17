@@ -1,5 +1,7 @@
 import { css, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import type { SxProps } from '../types.js';
 
 export type IconName =
   | 'arrow-left'
@@ -84,8 +86,7 @@ const icons: Record<IconName, TemplateResult> = {
 @customElement('tc-icon')
 export class TcIcon extends LitElement {
   @property({ type: String }) name: IconName = 'info';
-  @property({ type: String }) size = '1.5rem';
-  @property({ type: String }) color = 'currentColor';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = css`
     :host {
@@ -115,12 +116,14 @@ export class TcIcon extends LitElement {
       return html``;
     }
 
+    const baseStyles = {
+      '--icon-size': '1.5rem',
+      '--icon-color': 'currentColor',
+    };
+    const mergedStyles = { ...baseStyles, ...this.sx };
+
     return html`
-      <span
-        part="icon"
-        class="icon"
-        style="--icon-size: ${this.size}; --icon-color: ${this.color};"
-      >
+      <span part="icon" class="icon" style=${styleMap(mergedStyles)}>
         ${icon}
       </span>
     `;

@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * Card component with layered shadows and optional inner border effect.
@@ -14,7 +15,7 @@ import { sharedStyles } from '../styles/shared.js';
 @customElement('tc-card')
 export class TcCard extends LitElement {
   @property({ type: Boolean, attribute: 'no-border' }) noBorder = false;
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,

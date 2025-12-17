@@ -8,9 +8,6 @@ import '../../primitives/tc-divider.js';
 const meta: Meta = {
   title: 'Primitives/tc-section',
   component: 'tc-section',
-  argTypes: {
-    gap: { control: 'text' },
-  },
 };
 
 export default meta;
@@ -32,7 +29,7 @@ export const Default: StoryObj = {
 export const CustomGap: StoryObj = {
   render: () => html`
     <div style="padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
-      <tc-section gap="var(--space-xl)">
+      <tc-section .sx=${{ gap: 'var(--space-xl)' }}>
         <tc-text size="xl" weight="600">Large Gap Section</tc-text>
         <tc-text color="tertiary">
           This section uses a larger gap (space-xl) between elements.
@@ -46,7 +43,7 @@ export const CustomGap: StoryObj = {
 export const SmallGap: StoryObj = {
   render: () => html`
     <div style="padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
-      <tc-section gap="var(--space-sm)">
+      <tc-section .sx=${{ gap: 'var(--space-sm)' }}>
         <tc-text size="xl" weight="600">Compact Section</tc-text>
         <tc-text color="tertiary">Tight spacing for compact layouts.</tc-text>
         <tc-button variant="secondary">Action</tc-button>
@@ -58,12 +55,12 @@ export const SmallGap: StoryObj = {
 export const MultipleSections: StoryObj = {
   render: () => html`
     <div style="padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
-      <tc-section gap="var(--space-lg)">
+      <tc-section .sx=${{ gap: 'var(--space-lg)' }}>
         <tc-text size="xl" weight="600">First Section</tc-text>
         <tc-text color="tertiary">Content for the first section.</tc-text>
       </tc-section>
       <tc-divider></tc-divider>
-      <tc-section gap="var(--space-lg)">
+      <tc-section .sx=${{ gap: 'var(--space-lg)' }}>
         <tc-text size="xl" weight="600">Second Section</tc-text>
         <tc-text color="tertiary">Content for the second section.</tc-text>
       </tc-section>

@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { AnimationController } from '../controllers/animation.controller.js';
+import type { SxProps } from '../types.js';
 import '../primitives/tc-icon.js';
 import '../primitives/tc-text.js';
 import '../primitives/tc-button.js';
@@ -27,6 +29,7 @@ export class TcErrorScreen extends LitElement {
     'Try Again';
   @property({ type: Boolean, attribute: 'show-retry' }) showRetry = true;
   @property({ type: Boolean, attribute: 'auto-animate' }) autoAnimate = true;
+  @property({ type: Object }) sx: SxProps = {};
 
   @state() private isAnimated = false;
 
@@ -147,13 +150,13 @@ export class TcErrorScreen extends LitElement {
     const animatedClass = this.isAnimated ? 'animated' : '';
 
     return html`
-      <div part="screen" class="screen">
+      <div part="screen" class="screen" style=${styleMap(this.sx)}>
         <tc-container>
           <div part="content" class="content">
             <div part="icon" class="icon-container ${animatedClass}">
-              <tc-icon name="alert-circle" size="var(--size-icon-xl)"></tc-icon>
+              <tc-icon name="alert-circle" .sx=${{ '--icon-size': 'var(--size-icon-xl)' }}></tc-icon>
             </div>
-            <tc-section gap="var(--space-sm)" class="text-content ${animatedClass}">
+            <tc-section .sx=${{ gap: 'var(--space-sm)' }} class="text-content ${animatedClass}">
               <tc-text part="title" tag="h1" size="xl" weight="600" class="title">
                 ${this.title}
               </tc-text>

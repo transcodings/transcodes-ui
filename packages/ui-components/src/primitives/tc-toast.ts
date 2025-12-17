@@ -1,7 +1,9 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { AnimationController } from '../controllers/animation.controller.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A toast notification component with auto-dismiss and animation.
@@ -22,6 +24,7 @@ export class TcToast extends LitElement {
   @property({ type: Number }) duration = 5000;
   @property({ type: Boolean, attribute: 'auto-dismiss' }) autoDismiss = true;
   @property({ type: Boolean }) dismissible = true;
+  @property({ type: Object }) sx: SxProps = {};
 
   private animation = new AnimationController(this, {
     showDuration: 300,
@@ -181,7 +184,13 @@ export class TcToast extends LitElement {
 
   override render() {
     return html`
-      <div part="toast" class="toast toast--${this.variant}" role="alert" aria-live="polite">
+      <div
+        part="toast"
+        class="toast toast--${this.variant}"
+        role="alert"
+        aria-live="polite"
+        style=${styleMap(this.sx)}
+      >
         <div part="content" class="content">
           <slot></slot>
         </div>

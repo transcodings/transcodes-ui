@@ -1,5 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A horizontal divider line with optional text.
@@ -11,9 +13,8 @@ import { customElement, property } from 'lit/decorators.js';
  */
 @customElement('tc-divider')
 export class TcDivider extends LitElement {
-  @property({ type: String }) color = 'var(--ink-faint)';
-  @property({ type: String }) spacing = 'var(--space-md)';
   @property({ type: String }) text = '';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = css`
     :host {
@@ -55,11 +56,15 @@ export class TcDivider extends LitElement {
   `;
 
   override render() {
-    const styleVars = `--divider-color: ${this.color}; --divider-spacing: ${this.spacing};`;
+    const baseStyles = {
+      '--divider-color': 'var(--ink-faint)',
+      '--divider-spacing': 'var(--space-md)',
+    };
+    const mergedStyles = { ...baseStyles, ...this.sx };
 
     if (this.text) {
       return html`
-        <div part="container" class="divider-container" style=${styleVars}>
+        <div part="container" class="divider-container" style=${styleMap(mergedStyles)}>
           <hr part="line" class="divider-line" />
           <span part="text" class="divider-text">${this.text}</span>
           <hr part="line" class="divider-line" />
@@ -68,7 +73,7 @@ export class TcDivider extends LitElement {
     }
 
     return html`
-      <hr part="divider" class="divider" style=${styleVars} />
+      <hr part="divider" class="divider" style=${styleMap(mergedStyles)} />
     `;
   }
 }

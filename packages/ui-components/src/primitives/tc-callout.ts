@@ -1,7 +1,9 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A callout/alert component for messages and notices.
@@ -20,6 +22,7 @@ export class TcCallout extends LitElement {
     | 'success'
     | 'warning'
     | 'error' = 'info';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,
@@ -78,7 +81,7 @@ export class TcCallout extends LitElement {
     };
 
     return html`
-      <div part="callout" class=${classMap(classes)} role="alert">
+      <div part="callout" class=${classMap(classes)} style=${styleMap(this.sx)} role="alert">
         <div class="callout-inner">
           <div part="icon" class="callout-icon">
             <slot name="icon"></slot>

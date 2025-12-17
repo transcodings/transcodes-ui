@@ -1,7 +1,9 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { MatchMediaController } from '../controllers/match-media.controller.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A loading spinner with responsive sizing.
@@ -14,7 +16,7 @@ export class TcSpinner extends LitElement {
   private mobile = new MatchMediaController(this, '(max-width: 768px)');
 
   @property({ type: String }) size: 'sm' | 'md' | 'lg' | 'auto' = 'auto';
-  @property({ type: String }) color = 'var(--accent-primary)';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,
@@ -77,11 +79,14 @@ export class TcSpinner extends LitElement {
       sizeClass = `spinner--${this.size}`;
     }
 
+    const baseStyles = { '--spinner-color': 'var(--accent-primary)' };
+    const mergedStyles = { ...baseStyles, ...this.sx };
+
     return html`
       <div
         part="spinner"
         class="spinner ${sizeClass}"
-        style="--spinner-color: ${this.color};"
+        style=${styleMap(mergedStyles)}
         role="progressbar"
         aria-label="Loading"
       ></div>

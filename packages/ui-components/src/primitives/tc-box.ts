@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A simple container component without default flex layout.
@@ -11,7 +12,7 @@ import { styleMap } from 'lit/directives/style-map.js';
  */
 @customElement('tc-box')
 export class TcBox extends LitElement {
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = css`
     :host {

@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A clickable item button with hover states and optional arrow indicator.
@@ -17,11 +18,9 @@ import { styleMap } from 'lit/directives/style-map.js';
  */
 @customElement('tc-item-button')
 export class TcItemButton extends LitElement {
-  @property({ type: String }) gap = 'var(--space-md)';
-  @property({ type: String }) padding = 'var(--space-md)';
   @property({ type: Boolean }) disabled = false;
   @property({ type: Boolean, attribute: 'show-arrow' }) showArrow = true;
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = css`
     :host {
@@ -124,8 +123,8 @@ export class TcItemButton extends LitElement {
 
   override render() {
     const buttonStyles = {
-      '--item-padding': this.padding,
-      '--item-gap': this.gap,
+      '--item-padding': 'var(--space-md)',
+      '--item-gap': 'var(--space-md)',
       ...this.sx,
     };
 

@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * Form input component with label and error states.
@@ -31,7 +32,7 @@ export class TcInput extends LitElement {
   @property({ type: String }) autocomplete = '';
   @property({ type: String }) inputmode = '';
   @property({ type: Number }) maxlength = 0;
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   @state() private inputId = `tc-input-${Math.random().toString(36).slice(2)}`;
   @state() private isFocused = false;

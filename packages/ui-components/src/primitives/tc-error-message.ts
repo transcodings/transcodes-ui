@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import type { SxProps } from '../types.js';
 import './tc-callout.js';
 import './tc-icon.js';
 import './tc-text.js';
@@ -16,6 +17,7 @@ import './tc-text.js';
 export class TcErrorMessage extends LitElement {
   @property({ type: String }) variant: 'warning' | 'info' | 'error' = 'error';
   @property({ type: String }) message = '';
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = css`
     :host {
@@ -61,7 +63,7 @@ export class TcErrorMessage extends LitElement {
     }
 
     return html`
-      <tc-callout part="callout" variant=${this.variant}>
+      <tc-callout part="callout" variant=${this.variant} .sx=${this.sx}>
         <tc-icon
           slot="icon"
           part="icon"

@@ -21,7 +21,7 @@ export const Container: StoryObj = {
   render: () => html`
     <div style="padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
       <tc-container>
-        <tc-section gap="var(--space-lg)">
+        <tc-section .sx=${{ gap: 'var(--space-lg)' }}>
           <tc-text size="xl" weight="600">Welcome</tc-text>
           <tc-text color="tertiary">
             This is a container with a section inside. The container centers content with a max-width,
@@ -63,11 +63,11 @@ export const Divider: StoryObj = {
 export const SymbolVariants: StoryObj = {
   render: () => html`
     <div style="display: flex; gap: 1rem; align-items: center; padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
-      <tc-symbol size="2rem" background="var(--accent-primary)" color="white">A</tc-symbol>
-      <tc-symbol size="2.5rem" background="var(--accent-success)" color="white">
-        <tc-icon name="check" size="1.25rem"></tc-icon>
+      <tc-symbol .sx=${{ '--symbol-size': '2rem', '--symbol-bg': 'var(--accent-primary)', '--symbol-color': 'white' }}>A</tc-symbol>
+      <tc-symbol .sx=${{ '--symbol-size': '2.5rem', '--symbol-bg': 'var(--accent-success)', '--symbol-color': 'white' }}>
+        <tc-icon name="check" .sx=${{ '--icon-size': '1.25rem' }}></tc-icon>
       </tc-symbol>
-      <tc-symbol size="3rem" background="var(--paper-cream)" color="var(--ink-dark)">JD</tc-symbol>
+      <tc-symbol>JD</tc-symbol>
     </div>
   `,
 };
@@ -76,8 +76,8 @@ export const Items: StoryObj = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 400px; padding: 2rem; background: var(--paper-warm); border-radius: var(--radius-lg);">
       <tc-item>
-        <tc-symbol slot="prefix" size="2.5rem" background="var(--accent-primary)" color="white">
-          <tc-icon name="bell" size="1.25rem"></tc-icon>
+        <tc-symbol slot="prefix" .sx=${{ '--symbol-size': '2.5rem', '--symbol-bg': 'var(--accent-primary)', '--symbol-color': 'white' }}>
+          <tc-icon name="bell" .sx=${{ '--icon-size': '1.25rem' }}></tc-icon>
         </tc-symbol>
         <div>
           <tc-text weight="500">Notifications</tc-text>
@@ -86,8 +86,8 @@ export const Items: StoryObj = {
       </tc-item>
 
       <tc-item-button @tc-click=${() => console.log('clicked')}>
-        <tc-symbol slot="prefix" size="2.5rem" background="var(--accent-success)" color="white">
-          <tc-icon name="passkey" size="1.25rem"></tc-icon>
+        <tc-symbol slot="prefix" .sx=${{ '--symbol-size': '2.5rem', '--symbol-bg': 'var(--accent-success)', '--symbol-color': 'white' }}>
+          <tc-icon name="passkey" .sx=${{ '--icon-size': '1.25rem' }}></tc-icon>
         </tc-symbol>
         <div>
           <tc-text weight="500">Security</tc-text>

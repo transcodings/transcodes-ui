@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { LoadingController } from '../controllers/loading.controller.js';
+import type { SxProps } from '../types.js';
 import '../primitives/tc-spinner.js';
 import '../primitives/tc-text.js';
 import '../primitives/tc-container.js';
@@ -21,6 +23,7 @@ export class TcLoadingScreen extends LitElement {
     | 'md'
     | 'lg'
     | 'auto' = 'md';
+  @property({ type: Object }) sx: SxProps = {};
 
   private loading = new LoadingController(this);
 
@@ -67,7 +70,7 @@ export class TcLoadingScreen extends LitElement {
 
   override render() {
     return html`
-      <div part="screen" class="screen">
+      <div part="screen" class="screen" style=${styleMap(this.sx)}>
         <tc-container>
           <div part="content" class="content">
             <tc-spinner part="spinner" size=${this.spinnerSize}></tc-spinner>

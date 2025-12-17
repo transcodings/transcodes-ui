@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import type { SxProps } from '../types.js';
 
 /**
  * A section container with flex column layout.
@@ -10,8 +11,7 @@ import { styleMap } from 'lit/directives/style-map.js';
  */
 @customElement('tc-section')
 export class TcSection extends LitElement {
-  @property({ type: String }) gap = 'var(--space-md)';
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = css`
     :host {
@@ -30,7 +30,7 @@ export class TcSection extends LitElement {
 
   override render() {
     const mergedStyles = {
-      gap: this.gap,
+      gap: 'var(--space-md)',
       ...this.sx,
     };
 

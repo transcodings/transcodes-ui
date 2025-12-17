@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { sharedStyles } from '../styles/shared.js';
+import type { SxProps } from '../types.js';
 
 /**
  * Form header component with animated title, subtitle, and optional notice.
@@ -18,7 +19,7 @@ export class TcFormHeader extends LitElement {
   @property({ type: String }) subtitle = '';
   @property({ type: String }) notice = '';
   @property({ type: Boolean, attribute: 'no-animation' }) noAnimation = false;
-  @property({ type: Object }) sx: Record<string, string | number> = {};
+  @property({ type: Object }) sx: SxProps = {};
 
   static override styles = [
     sharedStyles,
