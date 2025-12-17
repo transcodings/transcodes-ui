@@ -12,7 +12,7 @@ v0.3은 **패키지 구조 개선**과 **새로운 컴포넌트 추가**에 중�
 ### 주요 변경사항
 
 - **Breaking Changes**: `design-tokens` import 경로 변경
-- **신규 컴포넌트**: `tc-error-message`, `tc-input-with-chip`, `tc-authenticator-card`
+- **신규 컴포넌트**: `tc-error-message`, `tc-input-with-chip`
 - **개선**: 스크린 컴포넌트 `min-height` 동작 개선
 - **수정**: TypeScript 타입 정의 파일 포함
 
@@ -185,52 +185,6 @@ export class TagInput extends LitElement {
 }
 ```
 
-### 3. tc-authenticator-card
-
-인증기 정보를 표시하는 카드 컴포넌트입니다. TOTP, 패스키, USB 등 다양한 인증 방식을 지원합니다.
-
-**Properties:**
-
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `type` | `'totp' \| 'passkey' \| 'sms' \| 'email' \| 'usb'` | `'totp'` | 인증 방식 |
-| `name` | `string` | `''` | 인증기 이름 |
-| `lastUsed` | `string` | `''` | 마지막 사용 시간 |
-| `isDefault` | `boolean` | `false` | 기본 인증기 여부 |
-
-**사용 예시:**
-
-```typescript
-import '@transcodes/ui-components/widgets/tc-authenticator-card.js';
-
-// TOTP (Google Authenticator, Authy 등)
-<tc-authenticator-card
-  type="totp"
-  name="Google Authenticator"
-  last-used="2025-12-11 14:30"
-></tc-authenticator-card>
-
-// Passkey
-<tc-authenticator-card
-  type="passkey"
-  name="My MacBook Pro"
-  is-default
-></tc-authenticator-card>
-
-// SMS
-<tc-authenticator-card
-  type="sms"
-  name="+82 10-XXXX-XXXX"
-  last-used="2025-12-10"
-></tc-authenticator-card>
-
-// USB 보안키
-<tc-authenticator-card
-  type="usb"
-  name="YubiKey 5"
-></tc-authenticator-card>
-```
-
 ## 업그레이드 체크리스트
 
 <Steps>
@@ -395,7 +349,7 @@ webpack-bundle-analyzer dist/stats.json
 
 - **design-tokens import 경로**: `@transcodes/design-tokens` → `@transcodes/design-tokens/css`
 - **스크린 컴포넌트 min-height**: `100vh/100dvh` → `inherit`
-- **Stories 폴더 구조**: primitives, widgets, screens, controllers로 분리
+- **Stories 폴더 구조**: primitives, screens, controllers로 분리
 
 ### Fixed (수정)
 

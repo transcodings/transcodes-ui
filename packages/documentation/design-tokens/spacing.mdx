@@ -41,6 +41,35 @@ margin: var(--space-md);
 이는 미디어 쿼리 없이 모든 브레이크포인트에서 자동으로 작동합니다.
 </Tip>
 
+## Fluid Pair 토큰 (Utopia 스타일)
+
+v0.3.6부터 **Utopia 스타일의 Fluid pair 토큰**이 추가되었습니다. 두 간격 단계 사이를 부드럽게 전환합니다:
+
+| 토큰 | 모바일 | 데스크톱 | 사용 사례 |
+|------|--------|----------|-----------|
+| `space-xs-sm` | xs (4px) | sm (10px) | 작은 요소에서 점진적 확대 |
+| `space-sm-md` | sm (8px) | md (20px) | 일반 컨테이너 패딩 |
+| `space-md-lg` | md (14px) | lg (32px) | 섹션 간격 |
+| `space-lg-xl` | lg (20px) | xl (44px) | 주요 레이아웃 간격 |
+
+### 사용 예시
+
+```css
+/* 모바일에서는 sm, 데스크톱에서는 md로 자연스럽게 전환 */
+.card {
+  padding: var(--space-sm-md);
+}
+
+/* 반응형 섹션 간격 */
+.section {
+  margin-bottom: var(--space-md-lg);
+}
+```
+
+<Note>
+Pair 토큰은 두 단계의 간격을 하나의 토큰으로 합쳐, 더 극적인 반응형 변화를 제공합니다. 기존 단일 토큰보다 모바일-데스크톱 간 차이가 큽니다.
+</Note>
+
 ## 간격 사용 패턴
 
 ### 패딩 (Padding)

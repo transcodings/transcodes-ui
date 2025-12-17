@@ -1,9 +1,9 @@
 ---
 title: 'Architecture'
-description: 'Transcodes UI의 4계층 구조'
+description: 'Transcodes UI의 3계층 구조'
 ---
 
-## 4계층 아키텍처
+## 3계층 아키텍처
 
 Transcodes UI는 명확한 계층 구조로 설계되어 있습니다:
 
@@ -12,11 +12,8 @@ Transcodes UI는 명확한 계층 구조로 설계되어 있습니다:
 │                   Screens                       │  전체 화면 레이아웃
 │  Loading, Error, Success                        │  (3개 컴포넌트)
 ├─────────────────────────────────────────────────┤
-│                   Widgets                       │  복합 컴포넌트
-│  Modal, Banner, FloatingButton                  │  (8개 컴포넌트)
-├─────────────────────────────────────────────────┤
 │                  Primitives                     │  기본 UI 요소
-│  Button, Input, Card, Icon, Text                │  (21개 컴포넌트)
+│  Button, Input, Card, Icon, Text, Spinner       │  (22개 컴포넌트)
 ├─────────────────────────────────────────────────┤
 │                Design Tokens                    │  디자인 시스템
 │  Colors, Typography, Spacing, Components        │  (CSS Variables)
@@ -36,6 +33,7 @@ Transcodes UI는 명확한 계층 구조로 설계되어 있습니다:
 | **Spacing** | 간격, 패딩, 마진 | `--space-xs`, `--space-md`, `--space-lg` |
 | **Border Radius** | 모서리 둥글기 | `--radius-sm`, `--radius-md`, `--radius-lg` |
 | **Components** | 컴포넌트 클래스 | `.button`, `.input`, `.card` |
+| **Fluid** | 반응형 토큰 | `--space-xs-sm`, `--size-decoration-blob` |
 
 ### 사용 예시
 
@@ -81,11 +79,12 @@ Transcodes UI는 명확한 계층 구조로 설계되어 있습니다:
     - **tc-divider**: 구분선
   </Accordion>
 
-  <Accordion title="Feedback (4개)">
+  <Accordion title="Feedback (5개)">
     - **tc-toast**: 토스트 알림
     - **tc-callout**: 콜아웃
     - **tc-spinner**: 로딩 스피너
     - **tc-error-message**: 에러 메시지
+    - **tc-page-decoration**: 배경 장식
   </Accordion>
 
   <Accordion title="Forms (4개)">
@@ -105,34 +104,7 @@ Transcodes UI는 명확한 계층 구조로 설계되어 있습니다:
   모든 Primitives 컴포넌트 문서
 </Card>
 
-## Layer 3: Widgets
-
-여러 Primitives를 조합한 복합 컴포넌트들입니다.
-
-### Widget 목록
-
-| Widget | 구성 요소 | 용도 |
-|--------|----------|-----|
-| **tc-notification-modal** | tc-card, tc-button, tc-text | 알림 모달 |
-| **tc-offline-modal** | tc-card, tc-icon, tc-text | 오프라인 안내 모달 |
-| **tc-iframe-modal** | tc-card, iframe | iframe 모달 |
-| **tc-floating-button** | tc-button, tc-icon | 플로팅 버튼 |
-| **tc-installation-banner** | tc-card, tc-button | 설치 배너 |
-| **tc-ios-installation-guide** | tc-card, tc-text, tc-divider | iOS 설치 가이드 |
-| **tc-page-decoration** | tc-box, tc-divider | 페이지 장식 |
-| **tc-authenticator-card** | tc-card, tc-input, tc-button | 인증 카드 |
-
-### 특징
-
-- **높은 재사용성**: 자주 사용되는 UI 패턴을 캡슐화
-- **일관된 UX**: 표준화된 상호작용 패턴
-- **커스터마이징 가능**: Slot과 Props로 유연한 커스터마이징
-
-<Card title="Widgets API 레퍼런스" icon="layer-group" href="/widgets/overview">
-  모든 Widgets 컴포넌트 문서
-</Card>
-
-## Layer 4: Screens
+## Layer 3: Screens
 
 전체 화면 레이아웃 컴포넌트들입니다.
 
@@ -174,16 +146,15 @@ Transcodes UI는 명확한 계층 구조로 설계되어 있습니다:
 계층 간 의존성은 단방향입니다:
 
 ```
-Screens → Widgets → Primitives → Design Tokens
-  ↑         ↑          ↑              ↑
-  └─────────┴──────────┴──────────────┘
+Screens → Primitives → Design Tokens
+  ↑           ↑              ↑
+  └───────────┴──────────────┘
        (순환 의존성 없음)
 ```
 
 - **Design Tokens**: 의존성 없음
 - **Primitives**: Design Tokens에만 의존
-- **Widgets**: Primitives + Design Tokens에 의존
-- **Screens**: Widgets + Primitives + Design Tokens에 의존
+- **Screens**: Primitives + Design Tokens에 의존
 
 이 구조는 다음을 보장합니다:
 
@@ -200,10 +171,10 @@ Screens → Widgets → Primitives → Design Tokens
   <Card title="Primitives" icon="puzzle-piece" href="/primitives/overview">
     기본 컴포넌트 둘러보기
   </Card>
-  <Card title="Widgets" icon="layer-group" href="/widgets/overview">
-    복합 컴포넌트 사용하기
-  </Card>
   <Card title="Screens" icon="display" href="/screens/overview">
     전체 화면 레이아웃
+  </Card>
+  <Card title="Getting Started" icon="rocket" href="/guides/getting-started">
+    시작 가이드
   </Card>
 </CardGroup>

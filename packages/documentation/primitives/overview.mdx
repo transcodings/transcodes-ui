@@ -7,7 +7,7 @@ Primitives는 Transcodes UI의 기본 UI 컴포넌트 모음입니다. Lit 3.x�
 
 ## 컴포넌트 카테고리
 
-Primitives는 5개의 카테고리로 구분된 **21개의 컴포넌트**로 구성되어 있습니다.
+Primitives는 5개의 카테고리로 구분된 **22개의 컴포넌트**로 구성되어 있습니다.
 
 ### 1. 버튼 & 입력 (Buttons & Inputs) - 4개
 기본적인 상호작용 요소들입니다.
@@ -33,13 +33,14 @@ Primitives는 5개의 카테고리로 구분된 **21개의 컴포넌트**로 구
 - **tc-symbol**: 원형 심볼/아바타
 - **tc-divider**: 구분선 (텍스트 포함 옵션)
 
-### 4. 피드백 (Feedback) - 4개
+### 4. 피드백 (Feedback) - 5개
 사용자 반응 및 상태를 전달하는 컴포넌트들입니다.
 
 - **tc-toast**: 자동 소멸되는 알림 메시지
 - **tc-callout**: 알림/공지 박스
 - **tc-spinner**: 로딩 스피너
 - **tc-error-message**: 에러/경고/정보 메시지
+- **tc-page-decoration**: 배경 장식용 floating blob
 
 ### 5. 폼 (Forms) - 5개
 폼 관련 보조 컴포넌트들입니다.
@@ -69,6 +70,7 @@ Primitives는 5개의 카테고리로 구분된 **21개의 컴포넌트**로 구
 | `tc-callout` | Feedback | 알림 박스 |
 | `tc-spinner` | Feedback | 로딩 스피너 |
 | `tc-error-message` | Feedback | 에러/경고/정보 메시지 |
+| `tc-page-decoration` | Feedback | 배경 장식용 floating blob |
 | `tc-form-header` | Forms | 폼 제목 헤더 |
 | `tc-chip` | Forms | 라벨/배지 |
 | `tc-item` | Forms | 비활성 아이템 |
@@ -217,8 +219,8 @@ import '@transcodes/ui-components/primitives/tc-text.js';
 
 ```javascript
 button.addEventListener('click', async () => {
-  const { TcModal } = await import('@transcodes/ui-components/widgets');
-  // 모달 사용
+  const { TcSpinner } = await import('@transcodes/ui-components/primitives/tc-spinner.js');
+  // 스피너 사용
 });
 ```
 
@@ -235,3 +237,4 @@ button.addEventListener('click', async () => {
 - [텍스트 & 디스플레이](/primitives/text-display)
 - [피드백](/primitives/feedback)
 - [폼](/primitives/forms)
+- [페이지 장식](/primitives/page-decoration)

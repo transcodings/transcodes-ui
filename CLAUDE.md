@@ -43,10 +43,9 @@ Style Dictionary로 JSON 토큰을 CSS 변수와 TypeScript 타입으로 변환:
 
 ### ui-components (@transcodes/ui-components)
 
-Lit 3.x 웹 컴포넌트 라이브러리. 4계층 구조:
+Lit 3.x 웹 컴포넌트 라이브러리. 3계층 구조:
 - **Controllers** (`src/controllers/`): Reactive Controllers. `BaseController` 상속
-- **Primitives** (`src/primitives/`): 기본 UI 요소 (`tc-button`, `tc-input` 등)
-- **Widgets** (`src/widgets/`): 복합 컴포넌트 (모달, 플로팅 버튼 등)
+- **Primitives** (`src/primitives/`): 기본 UI 요소 (`tc-button`, `tc-input`, `tc-page-decoration` 등)
 - **Screens** (`src/screens/`): 전체 화면 컴포넌트
 
 ## Code Style

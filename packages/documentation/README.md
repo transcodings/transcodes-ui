@@ -51,8 +51,7 @@ Mintlify Dashboard → Custom Domain:
 
 ## 문서 구조
 
-- **총 30개 페이지** (80페이지 제한의 37.5%)
-- 11,935줄, 380KB
+- **총 25개 페이지** (80페이지 제한의 31.25%)
 
 ```
 packages/documentation/
@@ -60,8 +59,7 @@ packages/documentation/
 ├── quickstart.mdx         # Quick Start
 ├── introduction/          # 소개 (3)
 ├── design-tokens/         # 디자인 토큰 (5)
-├── primitives/            # Primitives (6)
-├── widgets/               # Widgets (6)
+├── primitives/            # Primitives (7)
 ├── screens/               # Screens (2)
 ├── guides/                # 가이드 (5)
 └── api-reference/         # API (1)

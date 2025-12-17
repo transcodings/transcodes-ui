@@ -1,6 +1,6 @@
 # @transcodes/ui-components
 
-A modern web component library built with [Lit 3.x](https://lit.dev/). Features a comprehensive set of UI primitives, complex widgets, full-screen components, and reusable Reactive Controllers.
+A modern web component library built with [Lit 3.x](https://lit.dev/). Features a comprehensive set of UI primitives, full-screen components, and reusable Reactive Controllers.
 
 [![npm version](https://img.shields.io/npm/v/@transcodes/ui-components.svg)](https://www.npmjs.com/package/@transcodes/ui-components)
 [![license](https://img.shields.io/npm/l/@transcodes/ui-components.svg)](https://github.com/transcodings/transcodes-ui/blob/main/packages/ui-components/LICENSE)
@@ -57,7 +57,7 @@ import '@transcodes/design-tokens';
 
 // Import specific component categories
 import { TcButton, TcInput } from '@transcodes/ui-components/primitives';
-import { TcModal } from '@transcodes/ui-components/widgets';
+import { TcLoadingScreen } from '@transcodes/ui-components/screens';
 import { LoadingController } from '@transcodes/ui-components/controllers';
 ```
 
@@ -69,7 +69,7 @@ import { LoadingController } from '@transcodes/ui-components/controllers';
 
 ## Components
 
-### Primitives (19)
+### Primitives (22)
 
 Core UI building blocks with consistent styling and behavior.
 
@@ -85,31 +85,18 @@ Core UI building blocks with consistent styling and behavior.
 | `<tc-spinner>` | Loading indicator |
 | `<tc-toast>` | Toast notification |
 | `<tc-callout>` | Alert/info box with icon slot |
+| `<tc-error-message>` | Error/warning/info message (callout wrapper) |
 | `<tc-divider>` | Visual separator with optional text |
 | `<tc-card>` | Card container |
 | `<tc-box>` | Flexible box wrapper |
 | `<tc-container>` | Layout container |
 | `<tc-section>` | Page section |
+| `<tc-layout>` | Flex/grid layout wrapper |
 | `<tc-item>` | List item |
 | `<tc-item-button>` | Clickable list item |
 | `<tc-symbol>` | Symbol/logo display |
 | `<tc-form-header>` | Form header with title and description |
-| `<tc-error-message>` | Error/warning/info message (callout wrapper) |
-
-### Widgets (8)
-
-Complex components composed of primitives.
-
-| Component | Description |
-|-----------|-------------|
-| `<tc-notification-modal>` | Modal dialog for notifications |
-| `<tc-offline-modal>` | Offline state indicator modal |
-| `<tc-iframe-modal>` | Modal with embedded iframe |
-| `<tc-floating-button>` | Floating action button |
-| `<tc-installation-banner>` | PWA installation prompt |
-| `<tc-ios-installation-guide>` | iOS PWA installation guide |
-| `<tc-page-decoration>` | Page background decoration |
-| `<tc-authenticator-card>` | Authenticator info card (passkey, TOTP, USB) |
+| `<tc-page-decoration>` | Page background decoration (gradient, dots, grid) |
 
 ### Screens (3)
 
@@ -198,9 +185,8 @@ All components accept an `sx` prop for inline style overrides:
 
 | Path | Description | Bundle Impact |
 |------|-------------|---------------|
-| `@transcodes/ui-components` | All components | ~252 KB |
-| `@transcodes/ui-components/primitives` | Primitive components only | ~120 KB |
-| `@transcodes/ui-components/widgets` | Widget components only | ~50 KB |
+| `@transcodes/ui-components` | All components | ~80 KB |
+| `@transcodes/ui-components/primitives` | Primitive components only | ~65 KB |
 | `@transcodes/ui-components/screens` | Screen components only | ~10 KB |
 | `@transcodes/ui-components/controllers` | Reactive Controllers | ~7 KB |
 

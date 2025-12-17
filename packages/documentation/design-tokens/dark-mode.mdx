@@ -5,7 +5,7 @@ description: '다크 모드 구현 및 테마 전환 방법'
 
 ## 다크 모드 시스템
 
-Transcodes UI는 **`data-theme="dark"` 속성**을 사용하여 다크 모드를 제어합니다. 모든 디자인 토큰이 자동으로 다크 모드에 대응하도록 설계되었습니다.
+Transcodes UI는 **`data-theme="dark"` 속성**을 사용하여 다크 모드를 제어합니다. v0.3.6에서 다크모드 토큰이 **21개에서 58개로 대폭 확장**되었습니다.
 
 ### 작동 원리
 
@@ -297,6 +297,55 @@ export function App() {
       <ThemeToggleButton />
     </div>
   );
+}
+```
+
+## v0.3.6 다크모드 토큰 확장
+
+다크모드에서 58개의 토큰이 자동으로 오버라이드됩니다:
+
+### 추가된 토큰 카테고리
+
+| 카테고리 | 토큰 수 | 설명 |
+|---------|--------|------|
+| **Alpha Primary** | 6개 | `alpha-primary06/12/15/20/30/90` |
+| **Alpha Success** | 6개 | `alpha-success06/12/15/20/30/90` |
+| **Alpha Warning** | 6개 | `alpha-warning06/12/15/20/30/90` |
+| **Alpha Info** | 6개 | `alpha-info06/12/15/20/30/90` |
+| **Alpha Ink** | 6개 | `alpha-ink06/12/15/20/30/90` |
+| **Alpha onAccent** | 2개 | `alpha-onAccent`, `alpha-onAccentMuted` |
+| **Alpha Black** | 3개 | `alpha-black15/30/90` |
+| **Brand** | 3개 | `brand-primary`, `brand-primary-hover`, `brand-logo-text` |
+| **Overlay** | 5개 | `overlay-shadow-light/subtle/medium/strong/heavy` |
+| **Shadow** | 7개 | `shadow-card`, `shadow-button-hover-*`, `shadow-input-focus`, `shadow-modal` 등 |
+
+### Alpha 토큰 다크모드 동작
+
+```css
+/* 라이트 모드: accent 색상 기반 반투명 */
+:root {
+  --alpha-primary12: rgba(107, 79, 217, 0.12);
+}
+
+/* 다크 모드: 밝은 색상으로 자동 전환 */
+[data-theme="dark"] {
+  --alpha-primary12: rgba(139, 111, 217, 0.12);
+}
+```
+
+### onAccent 토큰
+
+Accent 색상 배경 위에 표시되는 텍스트 색상입니다:
+
+```css
+/* 라이트 모드: 흰색 텍스트 */
+:root {
+  --alpha-onAccent: rgba(255, 255, 255, 0.95);
+}
+
+/* 다크 모드: 검정 텍스트 (밝은 accent 배경에서 대비 확보) */
+[data-theme="dark"] {
+  --alpha-onAccent: rgba(0, 0, 0, 0.95);
 }
 ```
 

@@ -7,9 +7,10 @@ A comprehensive design token system built with [Style Dictionary](https://amzn.g
 
 ## Features
 
-- **Dark Mode Support** - Automatic system detection + manual override with `data-theme`
+- **Dark Mode Support** - Automatic system detection + manual override with `data-theme` (58 dark tokens)
 - **WCAG AA Compliant** - All color combinations meet accessibility contrast requirements
-- **Responsive Values** - Fluid typography and spacing using CSS `clamp()`
+- **Utopia Fluid Tokens** - Responsive typography and spacing using CSS `clamp()` (v0.3.6+)
+- **Size Tokens** - Comprehensive sizing system for icons, spinners, borders (v0.3.6+)
 - **TypeScript Support** - Full type definitions included
 - **CSS Auto-import** - Zero-config CSS loading (v0.3.1+)
 - **Tree-shakable** - Optimized for modern bundlers
@@ -132,16 +133,27 @@ function resetTheme() {
 
 ### Spacing
 
-Responsive values that scale with viewport width.
+Responsive values that scale with viewport width using Utopia-style fluid scaling.
 
-| Token | Value Range |
-|-------|-------------|
-| `--space-xs` | 4px - 5px |
-| `--space-sm` | 8px - 10px |
-| `--space-md` | 14px - 20px |
-| `--space-lg` | 20px - 32px |
-| `--space-xl` | 24px - 44px |
-| `--space-2xl` | 32px - 72px |
+| Token | Value Range | Description |
+|-------|-------------|-------------|
+| `--space-xs` | 4px → 5px | Extra small |
+| `--space-sm` | 8px → 10px | Small |
+| `--space-md` | 14px → 20px | Medium |
+| `--space-lg` | 20px → 32px | Large |
+| `--space-xl` | 24px → 44px | Extra large |
+| `--space-2xl` | 32px → 72px | 2X large |
+
+**Fluid Pair Tokens (v0.3.6+)**
+
+Steeper scaling for more dramatic responsive changes:
+
+| Token | Value Range | Use Case |
+|-------|-------------|----------|
+| `--space-xs-sm` | 4px → 10px | Progressive scaling for small elements |
+| `--space-sm-md` | 8px → 20px | Container padding |
+| `--space-md-lg` | 14px → 32px | Section spacing |
+| `--space-lg-xl` | 20px → 44px | Major layout spacing |
 
 ### Typography
 
@@ -185,6 +197,30 @@ Responsive values that scale with viewport width.
 --transition-fast: 150ms ease;
 --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+```
+
+### Size Tokens (v0.3.6+)
+
+Comprehensive sizing system for consistent UI elements.
+
+```css
+/* Icon sizes */
+--size-icon-xs: 0.75rem;   /* 12px */
+--size-icon-sm: 1rem;      /* 16px */
+--size-icon-md: 1.5rem;    /* 24px */
+--size-icon-lg: 2rem;      /* 32px */
+--size-icon-action: 1.25rem; /* 20px - for arrows, callout icons */
+
+/* Spinner sizes */
+--size-spinner-sm: 1rem;   /* 16px */
+--size-spinner-md: 2rem;   /* 32px */
+--size-spinner-lg: 4rem;   /* 64px */
+--size-spinner-button: 1.125rem; /* 18px - inside buttons */
+
+/* Border widths */
+--size-border-width-thin: 0.0625rem;  /* 1px */
+--size-border-width-base: 0.09375rem; /* 1.5px */
+--size-border-width-thick: 0.125rem;  /* 2px */
 ```
 
 ## Exports

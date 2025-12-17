@@ -76,18 +76,8 @@
         "primitives/cards-containers",
         "primitives/text-display",
         "primitives/feedback",
-        "primitives/forms"
-      ]
-    },
-    {
-      "group": "Widgets",
-      "pages": [
-        "widgets/overview",
-        "widgets/modals",
-        "widgets/installation",
-        "widgets/floating-button",
-        "widgets/page-decoration",
-        "widgets/authenticator-card"
+        "primitives/forms",
+        "primitives/page-decoration"
       ]
     },
     {

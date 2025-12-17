@@ -18,12 +18,15 @@ bun run clean      # 빌드 결과물 삭제
 
 ```
 tokens/              # 소스 디자인 토큰 (JSON, DTCG 형식)
-├── color/           # 색상 토큰 (ink, paper, accent, alpha, error)
+├── color/           # 색상 토큰 (ink, paper, accent, alpha, error, semantic, overlay)
 ├── typography/      # 폰트 관련 토큰
-├── spacing/         # 간격 토큰
-├── animation/       # 트랜지션, ink-effect 토큰
-├── components/      # 컴포넌트별 토큰 (button, card, input 등)
-├── themes/          # 다크 테마 오버라이드
+├── spacing/         # 간격 토큰 (fixed-space, space - Utopia fluid 포함)
+├── sizing/          # 사이즈 토큰 (icon, spinner, border-width 등)
+├── layout/          # 레이아웃 토큰 (z-index, breakpoint)
+├── animation/       # 트랜지션, ink-effect, duration 토큰
+├── appearance/      # opacity 토큰
+├── components/      # 컴포넌트별 토큰 (button, card, modal, shadow 등)
+├── themes/          # 다크 테마 오버라이드 (58개 토큰)
 └── brand/           # 브랜드 토큰
 
 config/              # Style Dictionary 설정 모듈
