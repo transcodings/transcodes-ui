@@ -1,81 +1,37 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Why
 
-## 프로젝트 개요
+일관된 디자인 시스템을 위한 토큰 관리. JSON으로 정의된 디자인 토큰을 CSS 변수와 TypeScript 타입으로 변환합니다.
 
-Style Dictionary v4 기반의 디자인 토큰 빌드 시스템입니다. JSON으로 정의된 디자인 토큰을 CSS 변수와 TypeScript 타입으로 변환합니다.
-
-## 명령어
+## Commands
 
 ```bash
-bun install        # 의존성 설치
-bun run build      # 토큰 빌드 (CSS + TypeScript 타입 생성)
-bun run clean      # 빌드 결과물 삭제
+bun run build   # 토큰 빌드 (CSS + TypeScript 타입 생성)
+bun run clean   # 빌드 결과물 삭제
 ```
 
-## 프로젝트 구조
+## Architecture
 
 ```
-tokens/              # 소스 디자인 토큰 (JSON, DTCG 형식)
-├── color/           # 색상 토큰 (ink, paper, accent, alpha, error, semantic, overlay)
-├── typography/      # 폰트 관련 토큰
-├── spacing/         # 간격 토큰 (fixed-space, space - Utopia fluid 포함)
-├── sizing/          # 사이즈 토큰 (icon, spinner, border-width 등)
-├── layout/          # 레이아웃 토큰 (z-index, breakpoint)
-├── animation/       # 트랜지션, ink-effect, duration 토큰
-├── appearance/      # opacity 토큰
-├── components/      # 컴포넌트별 토큰 (button, card, modal, shadow 등)
-├── themes/          # 다크 테마 오버라이드 (58개 토큰)
-└── brand/           # 브랜드 토큰
-
-config/              # Style Dictionary 설정 모듈
-├── transforms/      # 커스텀 이름 변환
-└── formats/         # 커스텀 출력 포맷
-
-build/               # 빌드 결과물 (gitignore)
-├── tokens.css       # CSS 변수 (:root, [data-theme="light"])
-├── tokens-dark.css  # 다크 테마 CSS ([data-theme="dark"])
-├── components.css   # 컴포넌트 CSS 클래스
-├── components.js    # 컴포넌트 스타일 JS export
-├── tokens.d.ts      # TypeScript 타입 선언
-└── tokens.json      # JSON 형식 토큰
+tokens/     # 소스 디자인 토큰 (JSON, DTCG 형식)
+config/     # Style Dictionary 설정 모듈
+build/      # 빌드 결과물 (gitignore)
 ```
 
-## Style Dictionary 설정
+### 토큰 카테고리
+`color/`, `typography/`, `spacing/`, `sizing/`, `layout/`, `animation/`, `appearance/`, `components/`, `themes/`, `brand/`
 
-- **sd.config.ts**: 라이트 테마 빌드 설정
-- **sd.config.dark.ts**: 다크 테마 빌드 설정
+### 빌드 결과물
+- `tokens.css`: CSS 변수 (라이트 테마)
+- `tokens-dark.css`: 다크 테마 CSS
+- `components.css`: 컴포넌트 CSS 클래스
+- `tokens.d.ts`: TypeScript 타입 선언
 
-커스텀 트랜스폼:
-- `name/kebab-flat`: 토큰 경로 → kebab-case (`ink.black` → `ink-black`)
-- `name/camel-flat`: 토큰 경로 → camelCase (`ink.black` → `inkBlack`)
+## Dark Mode
 
-커스텀 포맷:
-- `css/components`: 컴포넌트 토큰 → CSS 클래스
+`[data-theme="dark"]` 선택자로 적용. 오버라이드는 `tokens/themes/dark.json`에 정의.
 
-## 토큰 정의 형식
+## 추가 문서
 
-DTCG(Design Token Community Group) 형식 사용:
-
-```json
-{
-  "ink": {
-    "black": {
-      "$value": "#1a1a1a",
-      "$type": "color",
-      "$description": "Primary text. WCAG AA: 15.8:1 on paper-white"
-    }
-  }
-}
-```
-
-## 다크 모드
-
-`[data-theme="dark"]` 선택자로 다크 테마 적용:
-
-```html
-<html data-theme="dark">
-```
-
-다크 테마 오버라이드는 `tokens/themes/dark.json`에 정의.
+- Style Dictionary 커스텀 설정: `../../.claude/rules/style-dictionary-guide.md`
