@@ -453,6 +453,14 @@ body {
   transform: scaleX(1.02);
 }
 
+.space-bar-fluid {
+  background: linear-gradient(
+    135deg,
+    var(--accent-success),
+    var(--accent-success-hover)
+  );
+}
+
 /* Shadows */
 .shadow-grid {
   display: grid;

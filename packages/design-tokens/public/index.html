@@ -384,6 +384,29 @@
         </div>
       </div>
 
+      <h3 class="section-subtitle">Fluid Pair Tokens (Utopia-style)</h3>
+      <p style="color: var(--ink-medium); margin-bottom: var(--space-md); font-size: var(--font-size-sm);">
+        Steeper scaling for more dramatic responsive changes between viewport sizes.
+      </p>
+      <div class="space-demo">
+        <div class="space-row">
+          <div class="space-label">space-xs-sm</div>
+          <div class="space-bar space-bar-fluid" style="width: var(--space-xs-sm);" data-value="4px → 10px"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-label">space-sm-md</div>
+          <div class="space-bar space-bar-fluid" style="width: var(--space-sm-md);" data-value="8px → 20px"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-label">space-md-lg</div>
+          <div class="space-bar space-bar-fluid" style="width: var(--space-md-lg);" data-value="14px → 32px"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-label">space-lg-xl</div>
+          <div class="space-bar space-bar-fluid" style="width: var(--space-lg-xl);" data-value="20px → 44px"></div>
+        </div>
+      </div>
+
       <h3 class="section-subtitle">Fixed Spacing (Precise)</h3>
       <div class="space-demo">
         <div class="space-row">
@@ -523,10 +546,26 @@
       <h3 class="section-subtitle">Icon Sizes</h3>
       <div class="sizing-demo">
         <div class="sizing-row">
+          <div class="sizing-label">size-icon-xs</div>
+          <div class="sizing-preview">
+            <div class="sizing-box" style="width: var(--size-icon-xs); height: var(--size-icon-xs);">
+              <span>12px</span>
+            </div>
+          </div>
+        </div>
+        <div class="sizing-row">
           <div class="sizing-label">size-icon-sm</div>
           <div class="sizing-preview">
             <div class="sizing-box" style="width: var(--size-icon-sm); height: var(--size-icon-sm);">
               <span>16px</span>
+            </div>
+          </div>
+        </div>
+        <div class="sizing-row">
+          <div class="sizing-label">size-icon-action</div>
+          <div class="sizing-preview">
+            <div class="sizing-box" style="width: var(--size-icon-action); height: var(--size-icon-action); background: var(--alpha-primary10);">
+              <span>20px</span>
             </div>
           </div>
         </div>
@@ -554,6 +593,14 @@
             </div>
           </div>
         </div>
+        <div class="sizing-row">
+          <div class="sizing-label">size-icon-2xl</div>
+          <div class="sizing-preview">
+            <div class="sizing-box" style="width: var(--size-icon-2xl); height: var(--size-icon-2xl);">
+              <span>48px</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <h3 class="section-subtitle">Spinner Sizes</h3>
@@ -573,6 +620,26 @@
         <div class="sizing-item">
           <div class="sizing-box sizing-spinner" style="width: var(--size-spinner-button); height: var(--size-spinner-button);"></div>
           <span class="sizing-label">spinner-button</span>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Screen Icon & Decoration Sizes</h3>
+      <div class="sizing-demo" style="flex-direction: row; gap: var(--space-xl); flex-wrap: wrap;">
+        <div class="sizing-item">
+          <div class="sizing-box" style="width: var(--size-screen-icon-sm); height: var(--size-screen-icon-sm); background: var(--alpha-primary10);"></div>
+          <span class="sizing-label">screen-icon-sm<br><small>64px</small></span>
+        </div>
+        <div class="sizing-item">
+          <div class="sizing-box" style="width: var(--size-screen-icon-md); height: var(--size-screen-icon-md); background: var(--alpha-primary10);"></div>
+          <span class="sizing-label">screen-icon-md<br><small>80px</small></span>
+        </div>
+        <div class="sizing-item">
+          <div class="sizing-box" style="width: var(--size-screen-icon-fluid); height: var(--size-screen-icon-fluid); background: var(--alpha-success10);"></div>
+          <span class="sizing-label">screen-icon-fluid<br><small>48px→80px</small></span>
+        </div>
+        <div class="sizing-item">
+          <div class="sizing-box" style="width: var(--size-close-button); height: var(--size-close-button); background: var(--alpha-ink10); border-radius: var(--radius-full);"></div>
+          <span class="sizing-label">close-button<br><small>32px</small></span>
         </div>
       </div>
 
@@ -960,8 +1027,8 @@
     </section>
 
     <footer class="showcase-footer">
-      <p>Design Token Showcase | @transcodes/design-tokens <span id="footer-version">v0.3.5</span></p>
-      <p style="margin-top: var(--space-xs); color: var(--ink-faint);">Built with Style Dictionary v4 | Dark Mode Enabled</p>
+      <p>Design Token Showcase | @transcodes/design-tokens <span id="footer-version">v0.3.6</span></p>
+      <p style="margin-top: var(--space-xs); color: var(--ink-faint);">Built with Style Dictionary v4 | Dark Mode (58 tokens) | Utopia Fluid Scaling</p>
     </footer>
   </div>
 
