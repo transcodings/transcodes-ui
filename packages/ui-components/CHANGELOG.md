@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2025-12-17
+
+### Changed
+
+- **인터페이스 통합**: 모든 컴포넌트의 스타일 커스터마이징을 `sx` prop으로 일원화
+  - Raw CSS props 제거 (tc-box, tc-container, tc-icon 등)
+  - SxProps 타입의 일관된 적용
+- 문서 간소화 및 API Reference 강화
+
+### Removed
+
+- **Raw CSS props 제거** (Breaking Change):
+  - tc-box: `width`, `height`, `padding`, `margin`, `background`, `border-radius`, `box-shadow`, `display`, `flex-direction`, `align-items`, `justify-content`, `gap`
+  - tc-container: `padding`
+  - tc-icon: `size`, `color`
+  - tc-section: `gap`
+  - tc-divider: `color`, `thickness`, `margin`
+
+**Migration**: Raw CSS props를 사용하던 코드는 `.sx` prop으로 변경하세요.
+```typescript
+// Before
+<tc-box padding="2rem" background="var(--paper-warm)">
+
+// After
+<tc-box .sx=${{ padding: '2rem', background: 'var(--paper-warm)' }}>
+```
+
 ## [0.3.6] - 2025-12-17
 
 ### Changed
