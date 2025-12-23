@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2025-12-23
+
+### Changed
+
+- **tc-chip**: 텍스트에 `text-transform: uppercase` 적용
+- **tc-success-screen**: 아이콘 색상을 `--accent-primary` 기반으로 변경
+  - 외부에서 `--accent-primary` 커스텀 시 아이콘 배경/색상 변경 가능
+  - `--alpha-success10` → `--alpha-primary10`
+  - `--accent-success` → `--accent-primary`
+
+### Removed
+
+- **tc-success-screen**: `.icon-container` 배경색 제거 (tc-loading-screen과 일관성 유지)
+
 ## [0.4.0] - 2025-12-17
 
 ### Changed
