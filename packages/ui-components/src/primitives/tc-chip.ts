@@ -36,6 +36,7 @@ export class TcChip extends LitElement {
         border-radius: var(--radius-full);
         font-family: var(--font-body);
         font-weight: 500;
+        text-transform: uppercase;
       }
 
       .chip--sm {
