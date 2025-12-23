@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2025-12-23
+
+### Removed
+
+- **Screen 컴포넌트**: 모든 스크린 컴포넌트에서 `background: var(--paper-white)` 제거
+  - tc-error-screen, tc-loading-screen, tc-success-screen
+  - 부모 컨테이너의 배경색을 따르도록 변경
+
 ## [0.4.1] - 2025-12-23
 
 ### Changed
