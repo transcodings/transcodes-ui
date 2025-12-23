@@ -1,6 +1,6 @@
 {
   "name": "@transcodes/ui-components",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "private": false,
   "description": "Lit 3.x component library with Reactive Controllers",
   "keywords": [
@@ -67,6 +67,7 @@
     "predev": "cd ../design-tokens && bun run build && cd ../ui-components && cp -r ../design-tokens/build .storybook/design-tokens",
     "clean": "rm -rf dist",
     "dev": "storybook dev -p 6006",
+    "prepublishOnly": "bun run clean && bun run build",
     "preview": "vite preview",
     "type-check": "tsc --noEmit"
   },
@@ -74,7 +75,7 @@
     "lit": "^3.0.0"
   },
   "dependencies": {
-    "@transcodes/design-tokens": "^0.4.3"
+    "@transcodes/design-tokens": "^0.4.4"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.1.9",
