@@ -55,7 +55,6 @@ export class TcSuccessScreen extends LitElement {
       min-height: inherit;
       padding: var(--space-lg);
       box-sizing: border-box;
-      background: var(--paper-white);
     }
 
     .content {
@@ -192,7 +191,7 @@ export class TcSuccessScreen extends LitElement {
               this.actionLabel
                 ? html`
                   <div part="action" class="action ${animatedClass}">
-                    <tc-button variant="success" @tc-click=${this.handleAction}>
+                    <tc-button variant="primary" @tc-click=${this.handleAction}>
                       ${this.actionLabel}
                     </tc-button>
                   </div>

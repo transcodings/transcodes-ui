@@ -57,7 +57,6 @@ export class TcErrorScreen extends LitElement {
       min-height: inherit;
       padding: var(--space-lg);
       box-sizing: border-box;
-      background: var(--paper-white);
     }
 
     .content {
